@@ -1,7 +1,7 @@
 "use client"
 
-import { motion, useInView } from "framer-motion"
-import { useRef, useState } from "react"
+import { motion, useInView, type PanInfo } from "framer-motion"
+import { useRef, useState, useCallback } from "react"
 import { ChevronLeft, ChevronRight, Quote } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
@@ -54,6 +54,15 @@ export function Testimonials() {
     setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length)
   }
 
+  const handleDragEnd = useCallback((_event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
+    const swipeThreshold = 50
+    if (info.offset.x < -swipeThreshold || info.velocity.x < -50) {
+      nextTestimonial()
+    } else if (info.offset.x > swipeThreshold || info.velocity.x > 50) {
+      prevTestimonial()
+    }
+  }, [])
+
   return (
     <section id="depoimentos" className="py-12 sm:py-16 lg:py-24 bg-card" ref={ref}>
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -98,6 +107,11 @@ export function Testimonials() {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -20 }}
                 transition={{ duration: 0.3 }}
+                drag="x"
+                dragConstraints={{ left: 0, right: 0 }}
+                dragElastic={0.15}
+                onDragEnd={handleDragEnd}
+                className="cursor-grab active:cursor-grabbing select-none"
               >
                 <p className="text-lg sm:text-xl lg:text-2xl text-foreground leading-relaxed mb-6 sm:mb-8 font-serif italic">
                   "{testimonials[currentIndex].content}"

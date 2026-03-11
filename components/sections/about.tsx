@@ -73,9 +73,9 @@ export function About() {
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: 0.1 * index + 0.3 }}
-              className="group"
+              className="group will-change-transform"
             >
-              <div className="relative p-4 sm:p-6 lg:p-8 rounded-xl sm:rounded-2xl bg-white/5 border border-white/10 hover:border-primary/30 transition-all duration-300 h-full">
+              <div className="relative p-4 sm:p-6 lg:p-8 rounded-xl sm:rounded-2xl bg-[#1e2d2a] border border-[#2a3d38] hover:border-primary/30 transition-colors duration-300 h-full">
                 <div className="w-9 h-9 sm:w-11 sm:h-11 lg:w-12 lg:h-12 rounded-lg sm:rounded-xl bg-primary/20 flex items-center justify-center mb-3 sm:mb-5 lg:mb-6 group-hover:bg-primary/30 transition-colors">
                   <value.icon className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 text-primary" />
                 </div>

@@ -34,32 +34,34 @@ export function NeuralTree() {
   const initNeurons = useCallback((width: number, height: number) => {
     const neurons: Neuron[] = []
     const isMobile = width < 500
-    const count = isMobile ? 45 : 90
-    const padding = 25
+    const count = isMobile ? 55 : 110
+    const padding = 20
 
     // Full-background distribution:
     // Sparse on left (where text is), dense on right + center
     const clusters = isMobile
       ? [
-        // Mobile: spread across entire area, moderate density
-        { cx: width * 0.5, cy: height * 0.25, rx: width * 0.4, ry: height * 0.18, count: 15, weight: 1 },
-        { cx: width * 0.5, cy: height * 0.5, rx: width * 0.45, ry: height * 0.2, count: 15, weight: 1 },
-        { cx: width * 0.5, cy: height * 0.75, rx: width * 0.4, ry: height * 0.18, count: 15, weight: 1 },
+        // Mobile: denser coverage for visibility
+        { cx: width * 0.5, cy: height * 0.2, rx: width * 0.42, ry: height * 0.15, count: 14, weight: 1 },
+        { cx: width * 0.3, cy: height * 0.4, rx: width * 0.25, ry: height * 0.18, count: 10, weight: 1 },
+        { cx: width * 0.7, cy: height * 0.4, rx: width * 0.25, ry: height * 0.18, count: 10, weight: 1 },
+        { cx: width * 0.5, cy: height * 0.6, rx: width * 0.4, ry: height * 0.18, count: 12, weight: 1 },
+        { cx: width * 0.5, cy: height * 0.8, rx: width * 0.35, ry: height * 0.15, count: 9, weight: 1 },
       ]
       : [
         // Desktop: intentionally sparse left, DENSE right
         // Sparse left (text area)
-        { cx: width * 0.15, cy: height * 0.3, rx: width * 0.12, ry: height * 0.2, count: 5, weight: 0.7 },
-        { cx: width * 0.12, cy: height * 0.65, rx: width * 0.1, ry: height * 0.2, count: 4, weight: 0.7 },
+        { cx: width * 0.15, cy: height * 0.3, rx: width * 0.12, ry: height * 0.2, count: 7, weight: 0.8 },
+        { cx: width * 0.12, cy: height * 0.65, rx: width * 0.1, ry: height * 0.2, count: 6, weight: 0.8 },
         // Center bridge
-        { cx: width * 0.4, cy: height * 0.4, rx: width * 0.1, ry: height * 0.25, count: 8, weight: 1 },
-        { cx: width * 0.38, cy: height * 0.7, rx: width * 0.1, ry: height * 0.15, count: 5, weight: 1 },
+        { cx: width * 0.4, cy: height * 0.4, rx: width * 0.12, ry: height * 0.25, count: 10, weight: 1 },
+        { cx: width * 0.38, cy: height * 0.7, rx: width * 0.12, ry: height * 0.15, count: 8, weight: 1 },
         // Dense right — main visual area
-        { cx: width * 0.62, cy: height * 0.3, rx: width * 0.14, ry: height * 0.2, count: 14, weight: 1 },
-        { cx: width * 0.58, cy: height * 0.55, rx: width * 0.15, ry: height * 0.2, count: 14, weight: 1 },
-        { cx: width * 0.7, cy: height * 0.75, rx: width * 0.14, ry: height * 0.15, count: 12, weight: 1 },
-        { cx: width * 0.82, cy: height * 0.4, rx: width * 0.12, ry: height * 0.22, count: 14, weight: 1 },
-        { cx: width * 0.85, cy: height * 0.7, rx: width * 0.1, ry: height * 0.18, count: 10, weight: 1 },
+        { cx: width * 0.62, cy: height * 0.3, rx: width * 0.14, ry: height * 0.2, count: 16, weight: 1 },
+        { cx: width * 0.58, cy: height * 0.55, rx: width * 0.16, ry: height * 0.2, count: 16, weight: 1 },
+        { cx: width * 0.7, cy: height * 0.75, rx: width * 0.14, ry: height * 0.15, count: 14, weight: 1 },
+        { cx: width * 0.82, cy: height * 0.4, rx: width * 0.13, ry: height * 0.22, count: 15, weight: 1 },
+        { cx: width * 0.85, cy: height * 0.7, rx: width * 0.11, ry: height * 0.18, count: 12, weight: 1 },
         // Top right corner accent
         { cx: width * 0.9, cy: height * 0.15, rx: width * 0.08, ry: height * 0.1, count: 4, weight: 0.8 },
       ]
@@ -90,7 +92,7 @@ export function NeuralTree() {
 
         neurons.push({
           x, y,
-          radius: 2.5 + Math.random() * 3 * cluster.weight,
+          radius: 3 + Math.random() * 3.5 * cluster.weight,
           activation: 0,
           activationDecay: 0.012 + Math.random() * 0.008,
           connections: [],
@@ -186,9 +188,9 @@ export function NeuralTree() {
     canvas.addEventListener("touchend", handleLeave)
     canvas.addEventListener("mouseleave", handleLeave)
 
-    const inactive = { r: 47, g: 143, b: 120 }
-    const active = { r: 93, g: 185, b: 158 }
-    const bright = { r: 150, g: 225, b: 195 }
+    const inactive = { r: 55, g: 155, b: 130 }
+    const active = { r: 100, g: 200, b: 168 }
+    const bright = { r: 160, g: 235, b: 205 }
 
     let frameCount = 0
 
@@ -253,7 +255,7 @@ export function NeuralTree() {
           if (j <= i) continue
           const m = neurons[j]
           const maxAct = Math.max(n.activation, m.activation)
-          const alpha = 0.05 + maxAct * 0.3
+          const alpha = 0.09 + maxAct * 0.35
 
           const midX = (n.x + m.x) / 2 + (n.y - m.y) * 0.07
           const midY = (n.y + m.y) / 2 + (m.x - n.x) * 0.07
@@ -266,7 +268,7 @@ export function NeuralTree() {
           const g = inactive.g + (active.g - inactive.g) * maxAct
           const b = inactive.b + (active.b - inactive.b) * maxAct
           ctx.strokeStyle = `rgba(${r}, ${g}, ${b}, ${alpha})`
-          ctx.lineWidth = 0.8 + maxAct * 2
+          ctx.lineWidth = 1 + maxAct * 2.5
           ctx.stroke()
         }
       }
@@ -298,7 +300,7 @@ export function NeuralTree() {
         if (n.activation > 0) n.activation = Math.max(0, n.activation - n.activationDecay)
 
         const idlePulse = Math.sin(time * 0.0015 + n.pulsePhase) * 0.5 + 0.5
-        const baseAlpha = 0.12 + idlePulse * 0.08
+        const baseAlpha = 0.22 + idlePulse * 0.1
         const act = n.activation
 
         const r = inactive.r + (bright.r - inactive.r) * act

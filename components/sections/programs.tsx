@@ -3,16 +3,17 @@
 import { motion, useInView } from "framer-motion"
 import { useRef, useState } from "react"
 import { Button } from "@/components/ui/button"
-import { ArrowRight, Baby, GraduationCap, Briefcase, Heart } from "lucide-react"
+import { ArrowRight } from "lucide-react"
 import Link from "next/link"
+import Image from "next/image"
 import { cn } from "@/lib/utils"
 
 const programs = [
   {
     id: "infantil",
-    icon: Baby,
     title: "Infantil",
     ageRange: "5 a 10 anos",
+    image: "/images/program-infantil.png",
     description: "Construindo as bases do pensamento e da inteligência emocional através da descoberta e do brincar.",
     focuses: [
       "Desenvolvimento da criatividade e imaginação",
@@ -24,9 +25,9 @@ const programs = [
   },
   {
     id: "adolescente",
-    icon: GraduationCap,
     title: "Adolescente",
     ageRange: "11 a 17 anos",
+    image: "/images/program-adolescente.png",
     description: "Desenvolvendo autonomia intelectual e emocional em uma fase de descobertas e transformações.",
     focuses: [
       "Pensamento crítico e raciocínio lógico",
@@ -38,9 +39,9 @@ const programs = [
   },
   {
     id: "adulto",
-    icon: Briefcase,
     title: "Adulto",
     ageRange: "18 a 59 anos",
+    image: "/images/program-adulto.png",
     description: "Potencializando capacidades para os desafios da vida profissional e pessoal contemporânea.",
     focuses: [
       "Produtividade e tomada de decisão",
@@ -52,9 +53,9 @@ const programs = [
   },
   {
     id: "senior",
-    icon: Heart,
     title: "Sênior",
     ageRange: "60+ anos",
+    image: "/images/program-senior.png",
     description: "Mantendo a vitalidade mental e fortalecendo conexões para uma vida plena e significativa.",
     focuses: [
       "Preservação e estimulação cognitiva",
@@ -105,27 +106,25 @@ export function Programs() {
           </motion.p>
         </div>
 
-        {/* Program selector */}
+        {/* Program selector — full labels on all sizes */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5, delay: 0.3 }}
-          className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-10 lg:mb-12"
+          className="grid grid-cols-4 gap-2 sm:flex sm:flex-wrap sm:justify-center sm:gap-3 mb-10 lg:mb-12"
         >
           {programs.map((program) => (
             <button
               key={program.id}
               onClick={() => setActiveProgram(program.id)}
               className={cn(
-                "flex items-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 rounded-full text-xs sm:text-sm font-medium transition-all duration-300",
+                "flex items-center justify-center gap-1.5 sm:gap-2 px-2 sm:px-6 py-2.5 sm:py-3 rounded-full text-[11px] sm:text-sm font-medium transition-all duration-300 whitespace-nowrap",
                 activeProgram === program.id
                   ? "bg-primary text-primary-foreground shadow-lg shadow-primary/25"
                   : "bg-muted text-muted-foreground hover:bg-muted/80"
               )}
             >
-              <program.icon className="w-4 h-4" />
-              <span className="hidden sm:inline">{program.title}</span>
-              <span className="sm:hidden">{program.title.slice(0, 3)}</span>
+              {program.title}
             </button>
           ))}
         </motion.div>
@@ -136,14 +135,11 @@ export function Programs() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
-          className="grid lg:grid-cols-2 gap-10 lg:gap-12 items-center"
+          className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center"
         >
           {/* Content */}
           <div className="order-2 lg:order-1">
             <div className="flex items-center gap-4 mb-5 sm:mb-6">
-              <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-primary/10 flex items-center justify-center">
-                <currentProgram.icon className="w-7 h-7 sm:w-8 sm:h-8 text-primary" />
-              </div>
               <div>
                 <h3 className="font-serif text-xl sm:text-2xl font-semibold text-foreground">
                   {currentProgram.title}
@@ -176,7 +172,7 @@ export function Programs() {
 
             <div className="p-5 sm:p-6 rounded-2xl bg-primary/5 border border-primary/10 mb-6 sm:mb-8">
               <p className="font-serif text-base sm:text-lg text-foreground italic">
-                "{currentProgram.highlight}"
+                &quot;{currentProgram.highlight}&quot;
               </p>
             </div>
 
@@ -188,27 +184,24 @@ export function Programs() {
             </Button>
           </div>
 
-          {/* Visual */}
+          {/* Image visual — replaces emoji/icon */}
           <div className="order-1 lg:order-2">
-            <div className="relative aspect-square max-w-xs sm:max-w-sm md:max-w-md mx-auto">
-              {/* Decorative circles */}
-              <div className="absolute inset-0 rounded-full border-2 border-dashed border-primary/20 animate-spin-slow" />
-              <div className="absolute inset-6 sm:inset-8 rounded-full border-2 border-dashed border-secondary/30" />
-              <div className="absolute inset-12 sm:inset-16 rounded-full bg-gradient-to-br from-primary/10 to-secondary/10" />
-
-              {/* Center icon */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-3xl bg-card shadow-2xl flex items-center justify-center border border-border">
-                  <currentProgram.icon className="w-12 h-12 sm:w-16 sm:h-16 text-primary" />
-                </div>
-              </div>
-
-              {/* Floating elements */}
-              <div className="absolute top-8 sm:top-12 right-8 sm:right-12 w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-primary/20 flex items-center justify-center">
-                <span className="text-primary font-semibold text-lg">+</span>
-              </div>
-              <div className="absolute bottom-12 sm:bottom-16 left-6 sm:left-8 w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-secondary/20 flex items-center justify-center">
-                <span className="text-secondary-foreground font-serif text-xl sm:text-2xl">&#8734;</span>
+            <div className="relative aspect-[4/3] rounded-2xl sm:rounded-3xl overflow-hidden shadow-xl">
+              <Image
+                src={currentProgram.image}
+                alt={`Programa ${currentProgram.title} — ${currentProgram.ageRange}`}
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 50vw"
+                priority
+              />
+              {/* Overlay gradient */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
+              {/* Age badge */}
+              <div className="absolute bottom-4 left-4 px-4 py-2 rounded-full bg-white/90 backdrop-blur-sm">
+                <span className="text-sm font-semibold text-foreground">
+                  {currentProgram.ageRange}
+                </span>
               </div>
             </div>
           </div>
