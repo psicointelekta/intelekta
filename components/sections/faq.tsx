@@ -2,6 +2,9 @@
 
 import { motion, useInView } from "framer-motion"
 import { useRef } from "react"
+import { Button } from "@/components/ui/button"
+import { ArrowRight, Calendar, MessageCircle } from "lucide-react"
+import Link from "next/link"
 import {
   Accordion,
   AccordionContent,
@@ -42,69 +45,121 @@ const faqs = [
 
 export function Faq() {
   const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: "-100px" })
+  const isInView = useInView(ref, { once: true, margin: "-80px" })
 
   return (
-    <section id="faq" className="py-12 sm:py-16 lg:py-24 bg-dark-section" ref={ref}>
-      <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+    <section id="faq" className="py-16 sm:py-20 lg:py-28 relative overflow-hidden" ref={ref}>
+      {/* Dynamic background */}
+      <div className="absolute inset-0 bg-background" />
+      <div className="absolute top-0 -left-20 w-[400px] h-[400px] rounded-full bg-primary/[0.03] blur-[100px] pointer-events-none" />
+      <div className="absolute bottom-20 -right-32 w-[500px] h-[500px] rounded-full bg-secondary/[0.04] blur-[120px] pointer-events-none" />
+
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Section header */}
-        <div className="text-center mb-8 lg:mb-12">
-          <motion.span
+        <div className="max-w-3xl mb-10 lg:mb-14">
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5 }}
-            className="inline-block text-sm font-medium text-secondary uppercase tracking-wider mb-4"
+            className="flex items-center gap-3 mb-5"
           >
-            Perguntas Frequentes
-          </motion.span>
+            <div className="decorative-line" />
+            <span className="text-sm font-medium text-primary uppercase tracking-wider">
+              Perguntas Frequentes
+            </span>
+          </motion.div>
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="font-serif text-2xl sm:text-3xl lg:text-5xl font-semibold text-dark-section-foreground leading-tight text-balance"
+            transition={{ duration: 0.5, delay: 0.08 }}
+            className="font-serif text-editorial-lg text-foreground text-balance"
           >
-            Tire suas dúvidas
+            Tire suas <span className="text-primary">dúvidas</span>
           </motion.h2>
         </div>
 
-        {/* FAQ Accordion */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5, delay: 0.2 }}
-        >
-          <Accordion type="single" collapsible className="space-y-3 sm:space-y-4">
-            {faqs.map((faq, index) => (
-              <AccordionItem
-                key={index}
-                value={`item-${index}`}
-                className="border border-white/10 rounded-2xl px-5 sm:px-6 bg-white/5 data-[state=open]:border-primary/30 transition-colors"
-              >
-                <AccordionTrigger className="text-left font-semibold text-dark-section-foreground hover:text-primary py-5 sm:py-6 text-sm sm:text-base [&[data-state=open]>svg]:rotate-180">
-                  {faq.question}
-                </AccordionTrigger>
-                <AccordionContent className="text-dark-section-foreground/70 leading-relaxed pb-5 sm:pb-6 text-sm sm:text-base">
-                  {faq.answer}
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
-        </motion.div>
+        {/* Two column layout: FAQ + Sticky CTA */}
+        <div className="grid lg:grid-cols-3 gap-8 lg:gap-12">
+          {/* FAQ Accordion */}
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.5, delay: 0.16 }}
+            className="lg:col-span-2"
+          >
+            <Accordion type="single" collapsible className="space-y-3">
+              {faqs.map((faq, index) => (
+                <AccordionItem
+                  key={index}
+                  value={`item-${index}`}
+                  className="border border-border rounded-xl sm:rounded-2xl px-5 sm:px-6 bg-card data-[state=open]:border-primary/20 data-[state=open]:shadow-sm transition-all duration-200"
+                >
+                  <AccordionTrigger className="text-left font-semibold text-foreground hover:text-primary py-5 sm:py-6 text-sm sm:text-base [&[data-state=open]>svg]:rotate-180">
+                    {faq.question}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground leading-relaxed pb-5 sm:pb-6 text-sm sm:text-base">
+                    {faq.answer}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </motion.div>
 
-        {/* Additional help */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5, delay: 0.4 }}
-          className="mt-10 lg:mt-12 text-center"
-        >
-          <p className="text-dark-section-foreground/70">
-            Ainda tem dúvidas?{" "}
-            <a href="#contato" className="text-primary font-medium hover:underline">
-              Entre em contato conosco
-            </a>
-          </p>
-        </motion.div>
+          {/* Sticky CTA sidebar */}
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.5, delay: 0.24 }}
+            className="lg:col-span-1"
+          >
+            <div className="lg:sticky lg:top-28 space-y-5">
+              {/* Primary CTA card */}
+              <div className="rounded-2xl sm:rounded-3xl bg-gradient-to-br from-primary to-accent p-6 sm:p-8 text-primary-foreground relative overflow-hidden">
+                {/* Background decoration */}
+                <div className="absolute top-0 right-0 w-32 h-32 rounded-full bg-white/10 blur-2xl" />
+
+                <div className="relative z-10">
+                  <Calendar className="w-8 h-8 mb-4 opacity-80" />
+                  <h3 className="font-serif text-xl sm:text-2xl font-semibold mb-2">
+                    Primeira aula gratuita
+                  </h3>
+                  <p className="text-primary-foreground/80 text-sm leading-relaxed mb-6">
+                    Conheça nosso espaço, metodologia e equipe sem compromisso.
+                    Agende agora e comece a jornada de desenvolvimento.
+                  </p>
+                  <Button
+                    size="lg"
+                    variant="secondary"
+                    className="w-full bg-white text-primary hover:bg-white/90 font-semibold"
+                    asChild
+                  >
+                    <Link href="#agendar">
+                      Agendar agora
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Link>
+                  </Button>
+                </div>
+              </div>
+
+              {/* WhatsApp quick action */}
+              <div className="rounded-2xl border border-border p-5 sm:p-6 bg-card">
+                <p className="text-sm text-muted-foreground mb-4">
+                  Prefere tirar dúvidas rapidamente?
+                </p>
+                <Button
+                  variant="outline"
+                  className="w-full"
+                  asChild
+                >
+                  <Link href="https://wa.me/5527999999999" target="_blank" rel="noopener noreferrer">
+                    <MessageCircle className="mr-2 h-4 w-4" />
+                    Falar pelo WhatsApp
+                  </Link>
+                </Button>
+              </div>
+            </div>
+          </motion.div>
+        </div>
       </div>
     </section>
   )

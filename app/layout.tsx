@@ -16,9 +16,22 @@ const playfair = Playfair_Display({
 })
 
 export const metadata: Metadata = {
-  title: 'Intelekta | Desenvolvimento Cognitivo e Socioemocional',
-  description: 'Centro de desenvolvimento cognitivo e socioemocional baseado em neurociência. Programas personalizados para crianças, adolescentes, adultos e seniores em Vila Velha, ES.',
-  keywords: ['desenvolvimento cognitivo', 'inteligência emocional', 'neurociência', 'psicopedagogia', 'Vila Velha', 'ES', 'crianças', 'adolescentes', 'adultos', 'seniores'],
+  title: 'Intelekta | Centro de Desenvolvimento Cognitivo e Socioemocional em Vila Velha, ES',
+  description: 'Centro de desenvolvimento cognitivo e socioemocional fundamentado em neurociência em Vila Velha, ES. Programas personalizados para crianças a partir de 5 anos, adolescentes, adultos e seniores. Primeira aula gratuita.',
+  keywords: [
+    'desenvolvimento cognitivo Vila Velha',
+    'inteligência emocional crianças',
+    'neurociência educação',
+    'psicopedagogia Vila Velha',
+    'estimulação cognitiva sênior',
+    'xadrez educativo',
+    'autonomia nos estudos',
+    'desenvolvimento socioemocional',
+    'centro educação complementar ES',
+    'avaliação neuropsicológica Vila Velha',
+    'aula experimental cognitiva',
+    'programa infantil desenvolvimento',
+  ],
   authors: [{ name: 'Intelekta' }],
   creator: 'Intelekta',
   publisher: 'Intelekta',
@@ -32,20 +45,20 @@ export const metadata: Metadata = {
     url: 'https://intelektamente.com',
     siteName: 'Intelekta',
     title: 'Intelekta | Fortalecendo Mentes e Emoções',
-    description: 'Centro de desenvolvimento cognitivo e socioemocional baseado em neurociência. Programas personalizados para todas as idades.',
+    description: 'Centro de desenvolvimento cognitivo e socioemocional fundamentado em neurociência. Programas personalizados para todas as idades. Primeira aula gratuita em Vila Velha, ES.',
     images: [
       {
         url: '/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'Intelekta - Desenvolvimento Cognitivo e Socioemocional',
+        alt: 'Intelekta - Centro de Desenvolvimento Cognitivo e Socioemocional em Vila Velha, ES',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Intelekta | Fortalecendo Mentes e Emoções',
-    description: 'Centro de desenvolvimento cognitivo e socioemocional baseado em neurociência.',
+    description: 'Centro de desenvolvimento cognitivo e socioemocional fundamentado em neurociência. Primeira aula gratuita.',
     images: ['/og-image.jpg'],
   },
   robots: {
@@ -75,6 +88,197 @@ export const viewport: Viewport = {
   maximumScale: 5,
 }
 
+// Comprehensive structured data for SEO and LLM optimization
+const structuredData = [
+  // Organization
+  {
+    '@context': 'https://schema.org',
+    '@type': 'EducationalOrganization',
+    '@id': 'https://intelektamente.com/#organization',
+    name: 'Intelekta',
+    alternateName: 'Intelekta - Centro de Desenvolvimento Cognitivo e Socioemocional',
+    description: 'Centro de desenvolvimento cognitivo e socioemocional fundamentado em neurociência. Oferecemos programas personalizados para crianças, adolescentes, adultos e seniores em Vila Velha, ES. Nossa metodologia integra neurociência, psicologia cognitiva e inteligência emocional.',
+    url: 'https://intelektamente.com',
+    logo: 'https://intelektamente.com/icon.svg',
+    foundingDate: '2021',
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: 'Rua Afonso Pena, 403',
+      addressLocality: 'Vila Velha',
+      addressRegion: 'ES',
+      postalCode: '29101-010',
+      addressCountry: 'BR',
+    },
+    geo: {
+      '@type': 'GeoCoordinates',
+      latitude: -20.3467,
+      longitude: -40.2925,
+    },
+    areaServed: {
+      '@type': 'City',
+      name: 'Vila Velha',
+      containedInPlace: {
+        '@type': 'State',
+        name: 'Espírito Santo',
+      },
+    },
+    sameAs: [
+      'https://instagram.com/intelektamente',
+    ],
+    contactPoint: {
+      '@type': 'ContactPoint',
+      telephone: '+55-27-99999-9999',
+      contactType: 'customer service',
+      availableLanguage: 'Portuguese',
+    },
+    openingHoursSpecification: [
+      {
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+        opens: '08:00',
+        closes: '20:00',
+      },
+      {
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: 'Saturday',
+        opens: '08:00',
+        closes: '12:00',
+      },
+    ],
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: '4.9',
+      ratingCount: '200',
+      bestRating: '5',
+    },
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: 'Programas de Desenvolvimento',
+      itemListElement: [
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'Neuroeducação',
+            description: 'Programa multidisciplinar 100% lúdico que estimula, desenvolve e fortalece a mente em todas as idades. Jogos, oficinas criativas e atividades planejadas com base na neuroeducação.',
+          },
+        },
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'Musicoterapia',
+            description: 'Programa lúdico e presencial que utiliza instrumentos, canto, ritmo, escuta guiada e movimento corporal para desenvolver capacidades cognitivas e socioemocionais em todas as idades.',
+          },
+        },
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'Reforço Escolar',
+            description: 'Programa lúdico e presencial voltado da Educação Infantil ao Ensino Médio, com foco no desenvolvimento acadêmico e socioemocional através de jogos educativos e estratégias pedagógicas.',
+          },
+        },
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'Xadrez',
+            description: 'Programa lúdico e pedagógico que utiliza o xadrez para desenvolver atenção, memória, raciocínio lógico, planejamento e autorregulação emocional em todas as idades.',
+          },
+        },
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'Cubo Mágico',
+            description: 'Programa lúdico e presencial que trabalha atenção, foco, raciocínio lógico e espacial, planejamento, memória e persistência através da resolução do cubo mágico.',
+          },
+        },
+      ],
+    },
+    employee: [
+      {
+        '@type': 'Person',
+        name: 'Suzidarle Pereira',
+        jobTitle: 'Psicóloga e Neuropsicóloga',
+        description: 'Especializada no atendimento de crianças a partir de 6 anos e adolescentes com expertise em avaliação neuropsicológica.',
+      },
+      {
+        '@type': 'Person',
+        name: 'Fabiana Lima',
+        jobTitle: 'Psicopedagoga',
+        description: 'Professora há 12 anos dedicada ao desenvolvimento integral de crianças e adolescentes, unindo aprendizagem e ludicidade.',
+      },
+      {
+        '@type': 'Person',
+        name: 'Flávia Luz',
+        jobTitle: 'Consultora Técnica',
+        description: 'Psicóloga clínica há 24 anos, Mestre em Desenvolvimento Humano e coordenadora do Projeto Guardiões da Infância.',
+      },
+    ],
+  },
+  // FAQ Page
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: 'Para qual faixa etária a Intelekta atende?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Atendemos pessoas a partir dos 5 anos de idade, com programas específicos para crianças (5-10 anos), adolescentes (11-17 anos), adultos (18-59 anos) e seniores (60+ anos).',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Como funciona a metodologia da Intelekta?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Nossa metodologia é fundamentada em três pilares: neurociência, psicologia cognitiva e inteligência emocional. Utilizamos atividades práticas e personalizadas baseadas em evidências científicas sobre neuroplasticidade.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Qual a diferença entre a Intelekta e uma escola ou terapia?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'A Intelekta é um centro de educação complementar. Não substituímos a escola nem a terapia. Nosso foco é o desenvolvimento de habilidades cognitivas e socioemocionais que potencializam o desempenho em todas as áreas da vida.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Posso fazer uma aula experimental gratuita?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Sim! Oferecemos uma aula experimental gratuita para que você ou seu filho conheça nosso espaço, metodologia e equipe. Entre em contato pelo WhatsApp para agendar.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Onde fica a Intelekta?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Estamos localizados na Rua Afonso Pena, 403, no bairro Praia da Costa, em Vila Velha, ES.',
+        },
+      },
+    ],
+  },
+  // Website
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': 'https://intelektamente.com/#website',
+    url: 'https://intelektamente.com',
+    name: 'Intelekta',
+    description: 'Centro de desenvolvimento cognitivo e socioemocional em Vila Velha, ES',
+    publisher: {
+      '@id': 'https://intelektamente.com/#organization',
+    },
+  },
+]
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -86,28 +290,7 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              '@context': 'https://schema.org',
-              '@type': 'EducationalOrganization',
-              name: 'Intelekta',
-              description: 'Centro de desenvolvimento cognitivo e socioemocional baseado em neurociência',
-              url: 'https://intelektamente.com',
-              address: {
-                '@type': 'PostalAddress',
-                streetAddress: 'Rua Afonso Pena, 403',
-                addressLocality: 'Vila Velha',
-                addressRegion: 'ES',
-                postalCode: '29101-010',
-                addressCountry: 'BR',
-              },
-              areaServed: {
-                '@type': 'City',
-                name: 'Vila Velha',
-              },
-              sameAs: [
-                'https://instagram.com/intelektamente',
-              ],
-            }),
+            __html: JSON.stringify(structuredData),
           }}
         />
       </head>

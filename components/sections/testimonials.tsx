@@ -2,7 +2,7 @@
 
 import { motion, useInView, type PanInfo } from "framer-motion"
 import { useRef, useState, useCallback } from "react"
-import { ChevronLeft, ChevronRight, Quote } from "lucide-react"
+import { ChevronLeft, ChevronRight, Star } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
@@ -13,7 +13,7 @@ const testimonials = [
     author: "Maria Silva",
     role: "Mãe de aluno",
     program: "Programa Infantil",
-    initials: "MS",
+    stars: 5,
   },
   {
     id: 2,
@@ -21,7 +21,7 @@ const testimonials = [
     author: "Lucas Oliveira",
     role: "Aluno, 16 anos",
     program: "Programa Adolescente",
-    initials: "LO",
+    stars: 5,
   },
   {
     id: 3,
@@ -29,7 +29,7 @@ const testimonials = [
     author: "Carolina Santos",
     role: "Executiva",
     program: "Programa Adulto",
-    initials: "CS",
+    stars: 5,
   },
   {
     id: 4,
@@ -37,13 +37,20 @@ const testimonials = [
     author: "Roberto Mendes",
     role: "Aposentado",
     program: "Programa Sênior",
-    initials: "RM",
+    stars: 5,
   },
+]
+
+const stats = [
+  { value: "200+", label: "Famílias atendidas" },
+  { value: "4.9", label: "Avaliação média" },
+  { value: "95%", label: "Taxa de satisfação" },
+  { value: "5+", label: "Anos de experiência" },
 ]
 
 export function Testimonials() {
   const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: "-100px" })
+  const isInView = useInView(ref, { once: true, margin: "-80px" })
   const [currentIndex, setCurrentIndex] = useState(0)
 
   const nextTestimonial = () => {
@@ -64,43 +71,67 @@ export function Testimonials() {
   }, [])
 
   return (
-    <section id="depoimentos" className="py-12 sm:py-16 lg:py-24 bg-card" ref={ref}>
+    <section id="depoimentos" className="py-16 sm:py-20 lg:py-28 bg-dark-section relative overflow-hidden" ref={ref}>
+      {/* Decorative */}
+      <div className="absolute bottom-0 right-0 w-[500px] h-[500px] rounded-full bg-primary/[0.03] blur-[120px] pointer-events-none" />
+
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* Section header */}
-        <div className="max-w-3xl mx-auto text-center mb-8 lg:mb-12">
-          <motion.span
+        {/* Header with stats inline */}
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-end mb-12 lg:mb-16">
+          <div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5 }}
+              className="flex items-center gap-3 mb-5"
+            >
+              <div className="decorative-line" />
+              <span className="text-sm font-medium text-secondary uppercase tracking-wider">
+                Depoimentos
+              </span>
+            </motion.div>
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5, delay: 0.08 }}
+              className="font-serif text-editorial-lg text-dark-section-foreground text-balance"
+            >
+              Histórias de{" "}
+              <span className="text-secondary">transformação</span>
+            </motion.h2>
+          </div>
+
+          {/* Stats — inline with header */}
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5 }}
-            className="inline-block text-sm font-medium text-primary uppercase tracking-wider mb-4"
+            transition={{ duration: 0.5, delay: 0.16 }}
+            className="grid grid-cols-4 gap-4 lg:gap-6"
           >
-            Depoimentos
-          </motion.span>
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="font-serif text-2xl sm:text-3xl lg:text-5xl font-semibold text-foreground leading-tight text-balance"
-          >
-            Histórias de transformação
-          </motion.h2>
+            {stats.map((stat) => (
+              <div key={stat.label} className="text-center lg:text-right">
+                <div className="font-serif text-xl sm:text-2xl lg:text-3xl font-bold text-primary mb-0.5">
+                  {stat.value}
+                </div>
+                <div className="text-[11px] sm:text-xs text-dark-section-foreground/50">{stat.label}</div>
+              </div>
+            ))}
+          </motion.div>
         </div>
 
-        {/* Testimonial carousel */}
+        {/* Testimonial display */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="relative max-w-4xl mx-auto"
+          transition={{ duration: 0.5, delay: 0.24 }}
+          className="relative max-w-4xl"
         >
-          <div className="relative overflow-hidden rounded-3xl bg-background border border-border p-6 sm:p-8 lg:p-12">
-            {/* Quote icon */}
-            <div className="absolute top-6 sm:top-8 left-6 sm:left-8 w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-primary/10 flex items-center justify-center">
-              <Quote className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
-            </div>
+          <div className="relative rounded-2xl sm:rounded-3xl bg-white/[0.04] border border-white/[0.08] p-6 sm:p-8 lg:p-12">
+            {/* Large decorative quote */}
+            <span className="absolute top-4 sm:top-6 left-6 sm:left-8 font-serif text-6xl sm:text-8xl text-primary/15 leading-none select-none pointer-events-none">"</span>
 
             {/* Content */}
-            <div className="pt-10 sm:pt-8">
+            <div className="pt-8 sm:pt-6">
               <motion.div
                 key={currentIndex}
                 initial={{ opacity: 0, x: 20 }}
@@ -113,92 +144,69 @@ export function Testimonials() {
                 onDragEnd={handleDragEnd}
                 className="cursor-grab active:cursor-grabbing select-none"
               >
-                <p className="text-lg sm:text-xl lg:text-2xl text-foreground leading-relaxed mb-6 sm:mb-8 font-serif italic">
-                  "{testimonials[currentIndex].content}"
-                </p>
+                {/* Stars */}
+                <div className="flex gap-1 mb-4 sm:mb-6">
+                  {Array.from({ length: testimonials[currentIndex].stars }).map((_, i) => (
+                    <Star key={i} className="w-4 h-4 text-amber-400 fill-amber-400" />
+                  ))}
+                </div>
 
-                <div className="flex items-center gap-3 sm:gap-4">
-                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center">
-                    <span className="text-base sm:text-lg font-semibold text-primary-foreground">
-                      {testimonials[currentIndex].initials}
-                    </span>
-                  </div>
+                <blockquote className="font-serif text-lg sm:text-xl lg:text-2xl text-dark-section-foreground leading-relaxed italic mb-8 sm:mb-10 text-pretty">
+                  {testimonials[currentIndex].content}
+                </blockquote>
+
+                <div className="flex items-center justify-between">
                   <div>
-                    <h4 className="font-semibold text-foreground text-sm sm:text-base">
+                    <h4 className="font-semibold text-dark-section-foreground text-sm sm:text-base">
                       {testimonials[currentIndex].author}
                     </h4>
-                    <p className="text-xs sm:text-sm text-muted-foreground">
-                      {testimonials[currentIndex].role}
+                    <p className="text-xs sm:text-sm text-dark-section-foreground/50">
+                      {testimonials[currentIndex].role} · {testimonials[currentIndex].program}
                     </p>
-                    <span className="text-xs text-primary font-medium">
-                      {testimonials[currentIndex].program}
-                    </span>
+                  </div>
+
+                  {/* Navigation */}
+                  <div className="flex items-center gap-2">
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      onClick={prevTestimonial}
+                      className="rounded-full w-9 h-9 sm:w-10 sm:h-10 border-white/10 text-dark-section-foreground hover:bg-white/10 bg-transparent"
+                      aria-label="Depoimento anterior"
+                    >
+                      <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      onClick={nextTestimonial}
+                      className="rounded-full w-9 h-9 sm:w-10 sm:h-10 border-white/10 text-dark-section-foreground hover:bg-white/10 bg-transparent"
+                      aria-label="Próximo depoimento"
+                    >
+                      <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
+                    </Button>
                   </div>
                 </div>
               </motion.div>
             </div>
-
-            {/* Navigation */}
-            <div className="absolute bottom-6 sm:bottom-8 right-6 sm:right-8 flex items-center gap-2 sm:gap-3">
-              <Button
-                variant="outline"
-                size="icon"
-                onClick={prevTestimonial}
-                className="rounded-full w-9 h-9 sm:w-10 sm:h-10"
-                aria-label="Depoimento anterior"
-              >
-                <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
-              </Button>
-              <Button
-                variant="outline"
-                size="icon"
-                onClick={nextTestimonial}
-                className="rounded-full w-9 h-9 sm:w-10 sm:h-10"
-                aria-label="Próximo depoimento"
-              >
-                <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
-              </Button>
-            </div>
           </div>
 
           {/* Dots */}
-          <div className="flex justify-center gap-2 mt-6 sm:mt-8">
+          <div className="flex justify-center gap-2 mt-6">
             {testimonials.map((_, index) => (
               <button
                 key={index}
                 onClick={() => setCurrentIndex(index)}
                 className={cn(
-                  "w-2 h-2 rounded-full transition-all duration-300",
+                  "h-1.5 rounded-full transition-all duration-300",
                   index === currentIndex
-                    ? "w-6 sm:w-8 bg-primary"
-                    : "bg-muted-foreground/30 hover:bg-muted-foreground/50"
+                    ? "w-8 bg-primary"
+                    : "w-1.5 bg-white/20 hover:bg-white/30"
                 )}
                 aria-label={`Ir para depoimento ${index + 1}`}
               />
             ))}
           </div>
-        </motion.div>
-
-        {/* Stats */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5, delay: 0.4 }}
-          className="mt-16 lg:mt-20 grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8"
-        >
-          {[
-            { value: "200+", label: "Famílias atendidas" },
-            { value: "4.9", label: "Avaliação média" },
-            { value: "95%", label: "Taxa de satisfação" },
-            { value: "5+", label: "Anos de experiência" },
-          ].map((stat) => (
-            <div key={stat.label} className="text-center">
-              <div className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-primary mb-1 sm:mb-2">
-                {stat.value}
-              </div>
-              <div className="text-sm sm:text-base text-muted-foreground">{stat.label}</div>
-            </div>
-          ))}
         </motion.div>
       </div>
     </section>

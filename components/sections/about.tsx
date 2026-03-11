@@ -3,142 +3,169 @@
 import { motion, useInView } from "framer-motion"
 import { useRef } from "react"
 import Image from "next/image"
-import { Brain, Heart, Sparkles, Target } from "lucide-react"
 
 const values = [
   {
-    icon: Brain,
+    accent: "bg-emerald-500/15 text-emerald-600",
+    dot: "bg-emerald-500",
     title: "Ciência como base",
-    description: "Cada programa é construído sobre evidências sólidas da neurociência e psicologia cognitiva.",
+    text: "Cada programa é construído sobre evidências sólidas da neurociência e psicologia cognitiva.",
   },
   {
-    icon: Heart,
+    accent: "bg-teal-500/15 text-teal-600",
+    dot: "bg-teal-500",
     title: "Acolhimento genuíno",
-    description: "Um ambiente seguro onde cada pessoa se sente valorizada e respeitada em sua individualidade.",
+    text: "Um ambiente seguro onde cada pessoa se sente valorizada e respeitada em sua individualidade.",
   },
   {
-    icon: Sparkles,
+    accent: "bg-cyan-500/15 text-cyan-600",
+    dot: "bg-cyan-500",
     title: "Potencial ilimitado",
-    description: "Acreditamos que todas as pessoas podem aprender, evoluir e fortalecer suas capacidades.",
+    text: "Acreditamos que todas as pessoas podem aprender, evoluir e fortalecer suas capacidades.",
   },
   {
-    icon: Target,
+    accent: "bg-green-500/15 text-green-600",
+    dot: "bg-green-500",
     title: "Personalização real",
-    description: "Programas adaptados às necessidades, ritmo e objetivos únicos de cada pessoa.",
+    text: "Programas adaptados às necessidades, ritmo e objetivos únicos de cada pessoa.",
   },
 ]
 
 export function About() {
   const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: "-100px" })
+  const isInView = useInView(ref, { once: true, margin: "-80px" })
 
   return (
-    <section id="sobre" className="py-12 sm:py-16 lg:py-24 bg-dark-section" ref={ref}>
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* Section header */}
-        <div className="max-w-3xl mx-auto text-center mb-10 lg:mb-16">
-          <motion.span
+    <section id="sobre" className="relative py-16 sm:py-20 lg:py-28 overflow-hidden" ref={ref}>
+      {/* Dynamic background decorations */}
+      <div className="absolute inset-0 bg-background" />
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full bg-primary/[0.035] blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-20 -left-20 w-[400px] h-[400px] rounded-full bg-secondary/[0.04] blur-[100px] pointer-events-none" />
+      {/* Subtle diagonal lines */}
+      <div className="absolute inset-0 bg-[repeating-linear-gradient(135deg,transparent,transparent_60px,var(--primary)_60px,var(--primary)_60.5px)] opacity-[0.018]" />
+
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        {/* Section intro — editorial, not centered */}
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-start mb-16 lg:mb-20">
+          <div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5 }}
+              className="flex items-center gap-3 mb-5"
+            >
+              <div className="decorative-line" />
+              <span className="text-sm font-medium text-primary uppercase tracking-wider">
+                Sobre nós
+              </span>
+            </motion.div>
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5, delay: 0.08 }}
+              className="font-serif text-editorial-lg text-foreground text-balance"
+            >
+              Um espaço onde mente e emoções{" "}
+              <span className="text-primary">evoluem lado a lado</span>
+            </motion.h2>
+          </div>
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5 }}
-            className="inline-block text-sm font-medium text-secondary uppercase tracking-wider mb-3"
+            transition={{ duration: 0.5, delay: 0.16 }}
+            className="lg:pt-14"
           >
-            Sobre nós
-          </motion.span>
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="font-serif text-2xl sm:text-3xl lg:text-5xl font-semibold text-dark-section-foreground leading-tight text-balance"
-          >
-            Um espaço onde mente e emoções evoluem lado a lado
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="mt-4 text-sm sm:text-base lg:text-lg text-dark-section-foreground/70 leading-relaxed text-pretty"
-          >
-            A Intelekta nasceu da convicção de que o desenvolvimento humano vai muito além
-            do conteúdo escolar. Somos um centro de educação complementar dedicado a
-            estimular o potencial cognitivo e emocional de pessoas em todas as fases da vida.
-          </motion.p>
+            <p className="text-base sm:text-lg text-muted-foreground leading-relaxed text-pretty">
+              A Intelekta nasceu da convicção de que o desenvolvimento humano vai muito além
+              do conteúdo escolar. Somos um centro de educação complementar dedicado a
+              estimular o <strong className="text-foreground">potencial cognitivo e emocional</strong> de
+              pessoas em todas as fases da vida — do infantil ao sênior.
+            </p>
+          </motion.div>
         </div>
 
-        {/* Values grid */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
+        {/* Values — with colored dot indicators instead of emojis */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5, delay: 0.24 }}
+          className="grid sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-8 lg:gap-x-8 lg:gap-y-0 mb-16 lg:mb-24"
+        >
           {values.map((value, index) => (
             <motion.div
               key={value.title}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.1 * index + 0.3 }}
-              className="group will-change-transform"
+              transition={{ duration: 0.4, delay: 0.3 + index * 0.08 }}
+              className="relative"
             >
-              <div className="relative p-4 sm:p-6 lg:p-8 rounded-xl sm:rounded-2xl bg-[#1e2d2a] border border-[#2a3d38] hover:border-primary/30 transition-colors duration-300 h-full">
-                <div className="w-9 h-9 sm:w-11 sm:h-11 lg:w-12 lg:h-12 rounded-lg sm:rounded-xl bg-primary/20 flex items-center justify-center mb-3 sm:mb-5 lg:mb-6 group-hover:bg-primary/30 transition-colors">
-                  <value.icon className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 text-primary" />
-                </div>
-                <h3 className="font-serif text-sm sm:text-base lg:text-xl font-semibold text-dark-section-foreground mb-1 sm:mb-2 lg:mb-3">
-                  {value.title}
-                </h3>
-                <p className="text-xs sm:text-sm lg:text-base text-dark-section-foreground/70 leading-relaxed hidden sm:block">
-                  {value.description}
-                </p>
+              {/* Custom colored indicator — replaces generic emoji */}
+              <div className={`w-10 h-10 rounded-xl ${value.accent} flex items-center justify-center mb-4`}>
+                <div className={`w-2.5 h-2.5 rounded-full ${value.dot}`} />
               </div>
+              <h3 className="font-serif text-lg sm:text-xl font-semibold text-foreground mb-2">
+                {value.title}
+              </h3>
+              <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
+                {value.text}
+              </p>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
 
-        {/* Nino + Mission combined */}
+        {/* Nino + Mission — hero-level presence */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5, delay: 0.6 }}
-          className="mt-10 lg:mt-16"
+          transition={{ duration: 0.6, delay: 0.4 }}
         >
-          <div className="relative rounded-2xl sm:rounded-3xl bg-gradient-to-br from-primary/10 via-white/5 to-secondary/5 border border-primary/15 overflow-hidden">
-            <div className="grid lg:grid-cols-2 items-center">
-              {/* Nino image - large, left side */}
-              <div className="relative flex items-center justify-center py-8 px-6 lg:py-12 lg:px-10">
-                <div className="relative w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 xl:w-72 xl:h-72">
+          <div className="relative rounded-3xl sm:rounded-[2rem] bg-gradient-to-br from-primary/[0.06] via-background to-secondary/[0.04] border border-primary/10 overflow-hidden">
+            {/* Decorative blur inside the card */}
+            <div className="absolute top-0 right-0 w-40 h-40 rounded-full bg-primary/[0.06] blur-[60px] pointer-events-none" />
+
+            <div className="relative grid lg:grid-cols-5 items-center">
+              {/* Nino — large, hero presence */}
+              <div className="relative lg:col-span-2 flex items-center justify-center py-10 px-8 lg:py-16 lg:px-12">
+                <div className="relative w-52 h-52 sm:w-60 sm:h-60 lg:w-72 lg:h-72">
                   <Image
                     src="/images/nino-mascote.webp"
-                    alt="Nino - Mascote da Intelekta"
+                    alt="Nino — Mascote da Intelekta, um esquilo que representa a curiosidade, inteligência e equilíbrio entre razão e emoção"
                     fill
                     className="object-contain drop-shadow-2xl"
-                    sizes="(max-width: 640px) 192px, (max-width: 1024px) 224px, 288px"
+                    sizes="(max-width: 640px) 208px, (max-width: 1024px) 240px, 288px"
                     loading="lazy"
                   />
                 </div>
-                {/* Decorative glow behind Nino */}
                 <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                  <div className="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 rounded-full bg-primary/8 blur-3xl" />
+                  <div className="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 rounded-full bg-primary/[0.06] blur-3xl" />
                 </div>
               </div>
 
-              {/* Text content - right side */}
-              <div className="px-6 pb-8 lg:py-12 lg:px-10 lg:pl-4">
-                <div className="flex items-center gap-2 mb-3">
-                  <h3 className="font-serif text-xl sm:text-2xl lg:text-3xl font-semibold text-dark-section-foreground">
-                    Conheça o Nino 🐿️
-                  </h3>
-                </div>
-                <p className="text-sm sm:text-base text-dark-section-foreground/70 leading-relaxed mb-6">
+              {/* Quote + context */}
+              <div className="lg:col-span-3 px-6 pb-10 lg:py-16 lg:px-12 lg:pl-4">
+                <h3 className="font-serif text-xl sm:text-2xl lg:text-3xl font-semibold text-foreground mb-4">
+                  Conheça o Nino
+                </h3>
+                <p className="text-sm sm:text-base text-muted-foreground leading-relaxed mb-8">
                   Nosso mascote representa a curiosidade incansável, a inteligência ágil
                   e o equilíbrio perfeito entre razão e emoção — qualidades que cultivamos
                   em cada pessoa que passa pela Intelekta.
                 </p>
-                <blockquote className="font-serif text-base sm:text-lg lg:text-xl text-dark-section-foreground leading-relaxed italic border-l-4 border-primary/30 pl-4 sm:pl-6">
-                  &quot;Nosso propósito é despertar em cada pessoa a confiança de que pode
-                  desenvolver novas habilidades, superar desafios e construir uma vida
-                  mais equilibrada e significativa.&quot;
-                </blockquote>
-                <div className="mt-4 flex items-center gap-3">
-                  <div className="w-8 h-px bg-primary/30" />
-                  <span className="text-xs sm:text-sm text-dark-section-foreground/60 font-medium">
-                    Fundadoras da Intelekta
-                  </span>
+
+                {/* Mission quote — editorial style */}
+                <div className="relative pl-6 sm:pl-8 border-l-[3px] border-primary/40">
+                  <span className="absolute -left-3 -top-1 font-serif text-5xl text-primary/20 leading-none select-none">&ldquo;</span>
+                  <blockquote className="font-serif text-editorial-quote text-foreground italic text-pretty">
+                    Nosso propósito é despertar em cada pessoa a confiança de que pode
+                    desenvolver novas habilidades, superar desafios e construir uma vida
+                    mais equilibrada e significativa.
+                  </blockquote>
+                  <div className="mt-4 flex items-center gap-3">
+                    <div className="decorative-line" />
+                    <span className="text-xs sm:text-sm text-muted-foreground font-medium">
+                      Fundadoras da Intelekta
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>

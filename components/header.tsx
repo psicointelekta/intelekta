@@ -10,20 +10,20 @@ import { cn } from "@/lib/utils"
 
 const navigation = [
   { name: "Sobre", href: "#sobre" },
-  { name: "Atividades", href: "#atividades" },
-  { name: "Programas", href: "#programas" },
   { name: "Metodologia", href: "#metodologia" },
+  { name: "Programas", href: "#programas" },
+  { name: "Atividades", href: "#atividades" },
   { name: "Equipe", href: "#equipe" },
 ]
 
 const mobileNavigation = [
   { name: "Sobre", href: "#sobre" },
-  { name: "Atividades", href: "#atividades" },
-  { name: "Programas", href: "#programas" },
   { name: "Metodologia", href: "#metodologia" },
+  { name: "Programas", href: "#programas" },
+  { name: "Atividades", href: "#atividades" },
   { name: "Equipe", href: "#equipe" },
   { name: "Depoimentos", href: "#depoimentos" },
-  { name: "Perguntas Frequentes", href: "#faq" },
+  { name: "FAQ", href: "#faq" },
   { name: "Contato", href: "#contato" },
 ]
 
@@ -59,8 +59,8 @@ export function Header() {
         className={cn(
           "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
           isScrolled
-            ? "bg-card/75 backdrop-blur-xl shadow-sm border-b border-border/50"
-            : "bg-card/40 backdrop-blur-lg"
+            ? "bg-card/80 backdrop-blur-xl shadow-sm border-b border-border/50"
+            : "bg-transparent backdrop-blur-sm"
         )}
       >
         <nav className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -69,7 +69,7 @@ export function Header() {
             <Link href="/" className="flex items-center">
               <Image
                 src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-ZSJk5sIbSAfyxDabr8XqSSOBVuPbiN.png"
-                alt="Intelekta - Fortalecendo mentes e emoções"
+                alt="Intelekta - Centro de desenvolvimento cognitivo e socioemocional"
                 width={140}
                 height={48}
                 style={{ height: 'auto', width: 'auto' }}
@@ -79,12 +79,12 @@ export function Header() {
             </Link>
 
             {/* Desktop Navigation */}
-            <div className="hidden lg:flex lg:items-center lg:gap-8">
+            <div className="hidden lg:flex lg:items-center lg:gap-7">
               {navigation.map((item) => (
                 <Link
                   key={item.name}
                   href={item.href}
-                  className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200"
+                  className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200 relative py-1"
                 >
                   {item.name}
                 </Link>
@@ -92,12 +92,12 @@ export function Header() {
             </div>
 
             {/* Desktop CTA */}
-            <div className="hidden lg:flex lg:items-center lg:gap-4">
+            <div className="hidden lg:flex lg:items-center lg:gap-3">
               <Button variant="ghost" size="sm" asChild>
                 <Link href="#contato">Contato</Link>
               </Button>
-              <Button size="sm" asChild>
-                <Link href="#agendar">Agendar Conversa</Link>
+              <Button size="sm" className="animate-cta-pulse" asChild>
+                <Link href="#agendar">Aula Grátis</Link>
               </Button>
             </div>
 
@@ -189,13 +189,11 @@ export function Header() {
                   </div>
                 </div>
                 <div className="px-6 py-6 border-t border-border">
-                  <div className="flex flex-col gap-3">
-                    <Button className="w-full" asChild>
-                      <Link href="#agendar" onClick={() => setIsMobileMenuOpen(false)}>
-                        Agendar Conversa
-                      </Link>
-                    </Button>
-                  </div>
+                  <Button className="w-full" asChild>
+                    <Link href="#agendar" onClick={() => setIsMobileMenuOpen(false)}>
+                      Agende uma Aula Grátis
+                    </Link>
+                  </Button>
                 </div>
               </div>
             </motion.div>

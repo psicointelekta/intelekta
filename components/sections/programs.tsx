@@ -1,212 +1,185 @@
 "use client"
 
 import { motion, useInView } from "framer-motion"
-import { useRef, useState } from "react"
+import { useRef } from "react"
 import { Button } from "@/components/ui/button"
 import { ArrowRight } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
-import { cn } from "@/lib/utils"
 
 const programs = [
   {
-    id: "infantil",
-    title: "Infantil",
-    ageRange: "5 a 10 anos",
+    id: "neuroeducacao",
+    title: "Neuroeducação",
+    subtitle: "O programa central da Intelekta",
     image: "/images/program-infantil.png",
-    description: "Construindo as bases do pensamento e da inteligência emocional através da descoberta e do brincar.",
-    focuses: [
-      "Desenvolvimento da criatividade e imaginação",
-      "Atenção e concentração através de jogos lúdicos",
-      "Primeiras habilidades sociais e emocionais",
-      "Expressão e reconhecimento de emoções",
-    ],
-    highlight: "Aprender brincando, crescer descobrindo.",
+    description: "Um programa multidisciplinar 100% lúdico que estimula, desenvolve e fortalece a mente em todas as idades. Trabalhamos com jogos, oficinas criativas e atividades planejadas com base na neuroeducação, unindo cognição e habilidades socioemocionais.",
+    highlight: "Brincar é estratégia. Aprender é experiência. Desenvolver é para a vida toda.",
+    details: ["Personalizado por faixa etária", "Resultados observáveis", "Crianças a idosos"],
+    badge: "Principal",
   },
   {
-    id: "adolescente",
-    title: "Adolescente",
-    ageRange: "11 a 17 anos",
+    id: "musicoterapia",
+    title: "Musicoterapia",
+    subtitle: "A música como ferramenta terapêutica",
     image: "/images/program-adolescente.png",
-    description: "Desenvolvendo autonomia intelectual e emocional em uma fase de descobertas e transformações.",
-    focuses: [
-      "Pensamento crítico e raciocínio lógico",
-      "Autoconhecimento e gestão emocional",
-      "Organização e planejamento de estudos",
-      "Comunicação assertiva e habilidades sociais",
-    ],
-    highlight: "Preparando-se para as escolhas que moldarão seu futuro.",
+    description: "Programa lúdico e presencial que utiliza instrumentos, canto, ritmo, escuta guiada e movimento corporal para desenvolver capacidades cognitivas e socioemocionais. Promove atenção, memória, linguagem, autorregulação emocional e interação social.",
+    highlight: "A música transforma, conecta e cura — em qualquer idade.",
+    details: ["1 encontro semanal de 1h30", "Individual e em grupo", "Turmas por faixa etária"],
   },
   {
-    id: "adulto",
-    title: "Adulto",
-    ageRange: "18 a 59 anos",
+    id: "reforco-escolar",
+    title: "Reforço Escolar",
+    subtitle: "Da Educação Infantil ao Ensino Médio",
     image: "/images/program-adulto.png",
-    description: "Potencializando capacidades para os desafios da vida profissional e pessoal contemporânea.",
-    focuses: [
-      "Produtividade e tomada de decisão",
-      "Flexibilidade cognitiva e adaptação",
-      "Gerenciamento do estresse e equilíbrio",
-      "Liderança e comunicação eficaz",
-    ],
-    highlight: "Evoluir continuamente, impactar positivamente.",
+    description: "Programa lúdico e presencial voltado ao desenvolvimento acadêmico e socioemocional. Utilizamos jogos educativos, atividades práticas e estratégias pedagógicas que facilitam a compreensão e fortalecem a aprendizagem, em parceria com a família e alinhamento com a escola.",
+    highlight: "Cada criança aprende de um jeito — e nós respeitamos isso.",
+    details: ["1 encontro semanal de 1h30", "Individual e em grupo", "Infantil ao Ensino Médio"],
   },
   {
-    id: "senior",
-    title: "Sênior",
-    ageRange: "60+ anos",
-    image: "/images/program-senior.png",
-    description: "Mantendo a vitalidade mental e fortalecendo conexões para uma vida plena e significativa.",
-    focuses: [
-      "Preservação e estimulação cognitiva",
-      "Bem-estar emocional e qualidade de vida",
-      "Fortalecimento de vínculos sociais",
-      "Autonomia e independência",
-    ],
-    highlight: "Envelhecer com sabedoria, viver com propósito.",
+    id: "xadrez",
+    title: "Xadrez",
+    subtitle: "Pensamento estratégico em cada jogada",
+    image: "/images/activity-children-chess.png",
+    description: "Programa lúdico e pedagógico que utiliza o xadrez para desenvolver atenção, memória, raciocínio lógico, planejamento, tomada de decisão e autorregulação emocional. Inclui partidas, puzzles, jogos adaptados e desafios progressivos.",
+    highlight: "Cada jogada ensina a pensar melhor — dentro e fora do tabuleiro.",
+    details: ["Metas individuais", "Avaliação + acompanhamento", "Todas as idades"],
+  },
+  {
+    id: "cubo-magico",
+    title: "Cubo Mágico",
+    subtitle: "Desafios que transformam a mente",
+    image: "/images/activity-children-rubiks.png",
+    description: "Programa lúdico e presencial que trabalha atenção, foco, raciocínio lógico e espacial, planejamento, memória, persistência e controle emocional através da resolução do cubo mágico e seus desafios progressivos.",
+    highlight: "A persistência de resolver um cubo mágico transforma a forma de encarar qualquer desafio.",
+    details: ["Encontros semanais de 1h30", "Quintas-feiras", "Crianças a idosos"],
   },
 ]
 
 export function Programs() {
   const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: "-100px" })
-  const [activeProgram, setActiveProgram] = useState(programs[0].id)
-
-  const currentProgram = programs.find((p) => p.id === activeProgram) || programs[0]
+  const isInView = useInView(ref, { once: true, margin: "-80px" })
 
   return (
-    <section id="programas" className="py-12 sm:py-16 lg:py-24 bg-background" ref={ref}>
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <section id="programas" className="relative py-16 sm:py-20 lg:py-28 overflow-hidden" ref={ref}>
+      {/* Dynamic background — blurs and decorative elements */}
+      <div className="absolute inset-0 bg-muted/30" />
+      <div className="absolute top-20 -left-32 w-72 h-72 rounded-full bg-primary/[0.04] blur-[100px]" />
+      <div className="absolute bottom-40 -right-20 w-80 h-80 rounded-full bg-secondary/[0.05] blur-[120px]" />
+      {/* Subtle dot pattern */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle,var(--primary)_0.5px,transparent_0.5px)] bg-[length:32px_32px] opacity-[0.025]" />
+
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Section header */}
-        <div className="max-w-3xl mx-auto text-center mb-8 lg:mb-12">
-          <motion.span
+        <div className="max-w-3xl mb-12 lg:mb-16">
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5 }}
-            className="inline-block text-sm font-medium text-primary uppercase tracking-wider mb-4"
+            className="flex items-center gap-3 mb-5"
           >
-            Nossos Programas
-          </motion.span>
+            <div className="decorative-line" />
+            <span className="text-sm font-medium text-primary uppercase tracking-wider">
+              Nossos Programas
+            </span>
+          </motion.div>
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="font-serif text-2xl sm:text-3xl lg:text-5xl font-semibold text-foreground leading-tight text-balance"
+            transition={{ duration: 0.5, delay: 0.08 }}
+            className="font-serif text-editorial-lg text-foreground text-balance mb-5"
           >
-            Desenvolvimento para cada fase da vida
+            Cinco caminhos para{" "}
+            <span className="text-primary">desenvolver sua mente</span>
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="mt-6 text-base sm:text-lg text-muted-foreground leading-relaxed"
+            transition={{ duration: 0.5, delay: 0.16 }}
+            className="text-base sm:text-lg text-muted-foreground leading-relaxed"
           >
-            Programas personalizados que respeitam as necessidades e potenciais únicos
-            de cada faixa etária, fundamentados em neurociência e psicologia.
+            Programas presenciais, lúdicos e personalizados — cada um com uma abordagem
+            única, todos fundamentados em neurociência e desenvolvimento humano.
           </motion.p>
         </div>
 
-        {/* Program selector — full labels on all sizes */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          className="grid grid-cols-4 gap-2 sm:flex sm:flex-wrap sm:justify-center sm:gap-3 mb-10 lg:mb-12"
-        >
-          {programs.map((program) => (
-            <button
-              key={program.id}
-              onClick={() => setActiveProgram(program.id)}
-              className={cn(
-                "flex items-center justify-center gap-1.5 sm:gap-2 px-2 sm:px-6 py-2.5 sm:py-3 rounded-full text-[11px] sm:text-sm font-medium transition-all duration-300 whitespace-nowrap",
-                activeProgram === program.id
-                  ? "bg-primary text-primary-foreground shadow-lg shadow-primary/25"
-                  : "bg-muted text-muted-foreground hover:bg-muted/80"
-              )}
-            >
-              {program.title}
-            </button>
-          ))}
-        </motion.div>
+        {/* Programs — alternating cards */}
+        <div className="space-y-6 lg:space-y-8">
+          {programs.map((program, index) => {
+            const isEven = index % 2 === 0
 
-        {/* Program details */}
-        <motion.div
-          key={activeProgram}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
-          className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center"
-        >
-          {/* Content */}
-          <div className="order-2 lg:order-1">
-            <div className="flex items-center gap-4 mb-5 sm:mb-6">
-              <div>
-                <h3 className="font-serif text-xl sm:text-2xl font-semibold text-foreground">
-                  {currentProgram.title}
-                </h3>
-                <span className="text-sm text-muted-foreground">
-                  {currentProgram.ageRange}
-                </span>
-              </div>
-            </div>
+            return (
+              <motion.div
+                key={program.id}
+                initial={{ opacity: 0, y: 30 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}
+                className="group"
+              >
+                <div className="grid lg:grid-cols-2 gap-0 rounded-2xl sm:rounded-3xl overflow-hidden bg-card border border-border hover:border-primary/20 transition-all duration-300 hover:shadow-lg hover:shadow-primary/[0.04]">
+                  {/* Image */}
+                  <div className={`relative aspect-[16/10] lg:aspect-auto lg:min-h-[320px] overflow-hidden ${isEven ? 'lg:order-1' : 'lg:order-2'}`}>
+                    <Image
+                      src={program.image}
+                      alt={`Programa ${program.title} da Intelekta — ${program.subtitle}`}
+                      fill
+                      className="object-cover transition-transform duration-700 group-hover:scale-105 img-warm-treatment"
+                      sizes="(max-width: 1024px) 100vw, 50vw"
+                      loading={index === 0 ? "eager" : "lazy"}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent lg:bg-gradient-to-r lg:from-transparent lg:to-transparent" />
 
-            <p className="text-base sm:text-lg text-muted-foreground mb-6 sm:mb-8 leading-relaxed">
-              {currentProgram.description}
-            </p>
-
-            <div className="space-y-4 mb-6 sm:mb-8">
-              <h4 className="text-xs sm:text-sm font-medium text-foreground uppercase tracking-wider">
-                Áreas de foco
-              </h4>
-              <ul className="grid gap-3">
-                {currentProgram.focuses.map((focus, index) => (
-                  <li key={index} className="flex items-start gap-3">
-                    <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <div className="w-2 h-2 rounded-full bg-primary" />
+                    {/* Badges */}
+                    <div className="absolute top-4 left-4 flex gap-2">
+                      {program.badge && (
+                        <span className="px-3 py-1.5 rounded-full bg-primary text-primary-foreground text-xs sm:text-sm font-semibold">
+                          {program.badge}
+                        </span>
+                      )}
                     </div>
-                    <span className="text-sm sm:text-base text-muted-foreground">{focus}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+                  </div>
 
-            <div className="p-5 sm:p-6 rounded-2xl bg-primary/5 border border-primary/10 mb-6 sm:mb-8">
-              <p className="font-serif text-base sm:text-lg text-foreground italic">
-                &quot;{currentProgram.highlight}&quot;
-              </p>
-            </div>
+                  {/* Content */}
+                  <div className={`p-6 sm:p-8 lg:p-10 xl:p-12 flex flex-col justify-center ${isEven ? 'lg:order-2' : 'lg:order-1'}`}>
+                    <span className="text-xs sm:text-sm text-primary font-medium mb-2 block">
+                      {program.subtitle}
+                    </span>
+                    <h3 className="font-serif text-2xl sm:text-3xl font-semibold text-foreground mb-3 sm:mb-4">
+                      {program.title}
+                    </h3>
+                    <p className="text-sm sm:text-base text-muted-foreground leading-relaxed mb-5 sm:mb-6">
+                      {program.description}
+                    </p>
 
-            <Button size="lg" className="w-full sm:w-auto" asChild>
-              <Link href="#agendar">
-                Agendar aula experimental
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Link>
-            </Button>
-          </div>
+                    {/* Details */}
+                    <div className="flex flex-wrap gap-2 mb-5 sm:mb-6">
+                      {program.details.map((detail) => (
+                        <span key={detail} className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/[0.06] text-xs sm:text-sm text-foreground/80">
+                          <span className="w-1 h-1 rounded-full bg-primary flex-shrink-0" />
+                          {detail}
+                        </span>
+                      ))}
+                    </div>
 
-          {/* Image visual — replaces emoji/icon */}
-          <div className="order-1 lg:order-2">
-            <div className="relative aspect-[4/3] rounded-2xl sm:rounded-3xl overflow-hidden shadow-xl">
-              <Image
-                src={currentProgram.image}
-                alt={`Programa ${currentProgram.title} — ${currentProgram.ageRange}`}
-                fill
-                className="object-cover"
-                sizes="(max-width: 768px) 100vw, 50vw"
-                priority
-              />
-              {/* Overlay gradient */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
-              {/* Age badge */}
-              <div className="absolute bottom-4 left-4 px-4 py-2 rounded-full bg-white/90 backdrop-blur-sm">
-                <span className="text-sm font-semibold text-foreground">
-                  {currentProgram.ageRange}
-                </span>
-              </div>
-            </div>
-          </div>
-        </motion.div>
+                    {/* Highlight quote */}
+                    <div className="p-4 rounded-xl bg-primary/[0.04] border border-primary/[0.08] mb-6 sm:mb-8">
+                      <p className="font-serif text-sm sm:text-base text-foreground italic">
+                        &quot;{program.highlight}&quot;
+                      </p>
+                    </div>
 
+                    <Button size="lg" variant="outline" className="w-full sm:w-auto self-start" asChild>
+                      <Link href="#agendar">
+                        Agendar aula experimental
+                        <ArrowRight className="ml-2 h-4 w-4" />
+                      </Link>
+                    </Button>
+                  </div>
+                </div>
+              </motion.div>
+            )
+          })}
+        </div>
       </div>
     </section>
   )
