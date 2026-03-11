@@ -3,146 +3,167 @@
 import { useEffect, useRef, useCallback } from "react"
 import { motion } from "framer-motion"
 
-interface Particle {
+interface Neuron {
   x: number
   y: number
-  vx: number
-  vy: number
-  size: number
-  opacity: number
-  layer: number
+  radius: number
+  activation: number
+  activationDecay: number
+  connections: number[]
+  pulsePhase: number
+  lastFired: number
 }
 
-interface Branch {
-  startX: number
-  startY: number
-  endX: number
-  endY: number
-  controlX: number
-  controlY: number
-  width: number
+interface Impulse {
+  fromIdx: number
+  toIdx: number
+  progress: number
+  speed: number
 }
 
 export function NeuralTree() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
-  const particlesRef = useRef<Particle[]>([])
-  const branchesRef = useRef<Branch[]>([])
+  const neuronsRef = useRef<Neuron[]>([])
+  const impulsesRef = useRef<Impulse[]>([])
   const animationRef = useRef<number | undefined>(undefined)
-  const mouseRef = useRef({ x: 0, y: 0 })
+  const mouseRef = useRef({ x: -1000, y: -1000 })
+  const timeRef = useRef(0)
+  const lastAutoFireRef = useRef(0)
+  const initialCascadeDone = useRef(false)
 
-  const initBranches = useCallback((width: number, height: number) => {
-    const centerX = width / 2
-    const baseY = height * 0.95
-    const branches: Branch[] = []
+  const initNeurons = useCallback((width: number, height: number) => {
+    const neurons: Neuron[] = []
+    const isMobile = width < 500
+    const count = isMobile ? 45 : 90
+    const padding = 25
 
-    // Main trunk - thicker
-    branches.push({
-      startX: centerX,
-      startY: baseY,
-      endX: centerX,
-      endY: height * 0.30,
-      controlX: centerX - 20,
-      controlY: height * 0.60,
-      width: 5,
-    })
+    // Full-background distribution:
+    // Sparse on left (where text is), dense on right + center
+    const clusters = isMobile
+      ? [
+        // Mobile: spread across entire area, moderate density
+        { cx: width * 0.5, cy: height * 0.25, rx: width * 0.4, ry: height * 0.18, count: 15, weight: 1 },
+        { cx: width * 0.5, cy: height * 0.5, rx: width * 0.45, ry: height * 0.2, count: 15, weight: 1 },
+        { cx: width * 0.5, cy: height * 0.75, rx: width * 0.4, ry: height * 0.18, count: 15, weight: 1 },
+      ]
+      : [
+        // Desktop: intentionally sparse left, DENSE right
+        // Sparse left (text area)
+        { cx: width * 0.15, cy: height * 0.3, rx: width * 0.12, ry: height * 0.2, count: 5, weight: 0.7 },
+        { cx: width * 0.12, cy: height * 0.65, rx: width * 0.1, ry: height * 0.2, count: 4, weight: 0.7 },
+        // Center bridge
+        { cx: width * 0.4, cy: height * 0.4, rx: width * 0.1, ry: height * 0.25, count: 8, weight: 1 },
+        { cx: width * 0.38, cy: height * 0.7, rx: width * 0.1, ry: height * 0.15, count: 5, weight: 1 },
+        // Dense right — main visual area
+        { cx: width * 0.62, cy: height * 0.3, rx: width * 0.14, ry: height * 0.2, count: 14, weight: 1 },
+        { cx: width * 0.58, cy: height * 0.55, rx: width * 0.15, ry: height * 0.2, count: 14, weight: 1 },
+        { cx: width * 0.7, cy: height * 0.75, rx: width * 0.14, ry: height * 0.15, count: 12, weight: 1 },
+        { cx: width * 0.82, cy: height * 0.4, rx: width * 0.12, ry: height * 0.22, count: 14, weight: 1 },
+        { cx: width * 0.85, cy: height * 0.7, rx: width * 0.1, ry: height * 0.18, count: 10, weight: 1 },
+        // Top right corner accent
+        { cx: width * 0.9, cy: height * 0.15, rx: width * 0.08, ry: height * 0.1, count: 4, weight: 0.8 },
+      ]
 
-    // Primary branches - wider spread
-    const primaryBranches = [
-      { start: 0.55, offset: -120, control: -70, end: 0.28 },
-      { start: 0.55, offset: 110, control: 65, end: 0.30 },
-      { start: 0.65, offset: -90, control: -50, end: 0.42 },
-      { start: 0.65, offset: 85, control: 45, end: 0.44 },
-      { start: 0.48, offset: -70, control: -45, end: 0.24 },
-      { start: 0.48, offset: 75, control: 50, end: 0.22 },
-      { start: 0.38, offset: -55, control: -35, end: 0.18 },
-      { start: 0.38, offset: 60, control: 40, end: 0.16 },
-      { start: 0.75, offset: -65, control: -35, end: 0.55 },
-      { start: 0.75, offset: 70, control: 40, end: 0.52 },
-      { start: 0.32, offset: -40, control: -25, end: 0.14 },
-      { start: 0.32, offset: 45, control: 30, end: 0.12 },
-    ]
+    let placed = 0
+    for (const cluster of clusters) {
+      let attempts = 0
+      let clusterPlaced = 0
+      while (clusterPlaced < cluster.count && placed < count && attempts < cluster.count * 8) {
+        attempts++
+        const angle = Math.random() * Math.PI * 2
+        const dist = Math.pow(Math.random(), 0.6) * 0.9
+        const x = cluster.cx + Math.cos(angle) * cluster.rx * dist
+        const y = cluster.cy + Math.sin(angle) * cluster.ry * dist
 
-    primaryBranches.forEach((b) => {
-      branches.push({
-        startX: centerX,
-        startY: height * b.start,
-        endX: centerX + b.offset,
-        endY: height * b.end,
-        controlX: centerX + b.control,
-        controlY: height * ((b.start + b.end) / 2),
-        width: 3,
-      })
-    })
+        if (x < padding || x > width - padding || y < padding || y > height - padding) continue
 
-    // Secondary branches
-    const secondaryBranches = [
-      { parentEnd: { x: -120, y: 0.28 }, offset: -40, end: 0.18 },
-      { parentEnd: { x: 110, y: 0.30 }, offset: 35, end: 0.20 },
-      { parentEnd: { x: -90, y: 0.42 }, offset: -35, end: 0.34 },
-      { parentEnd: { x: 85, y: 0.44 }, offset: 30, end: 0.36 },
-      { parentEnd: { x: -70, y: 0.24 }, offset: -30, end: 0.16 },
-      { parentEnd: { x: 75, y: 0.22 }, offset: 25, end: 0.14 },
-      { parentEnd: { x: -55, y: 0.18 }, offset: -20, end: 0.10 },
-      { parentEnd: { x: 60, y: 0.16 }, offset: 18, end: 0.08 },
-    ]
+        let tooClose = false
+        for (const n of neurons) {
+          const dx = n.x - x
+          const dy = n.y - y
+          if (dx * dx + dy * dy < 1200) { // ~35px min distance
+            tooClose = true
+            break
+          }
+        }
+        if (tooClose) continue
 
-    secondaryBranches.forEach((b) => {
-      branches.push({
-        startX: centerX + b.parentEnd.x,
-        startY: height * b.parentEnd.y,
-        endX: centerX + b.parentEnd.x + b.offset,
-        endY: height * b.end,
-        controlX: centerX + b.parentEnd.x + b.offset * 0.6,
-        controlY: height * ((b.parentEnd.y + b.end) / 2),
-        width: 1.8,
-      })
-    })
-
-    return branches
-  }, [])
-
-  const initParticles = useCallback((width: number, height: number) => {
-    const particles: Particle[] = []
-    const centerX = width / 2
-    const numParticles = 150
-
-    for (let i = 0; i < numParticles; i++) {
-      const layer = Math.floor(i / 25)
-      const layerHeight = height * (0.10 + layer * 0.13)
-      const spreadX = 160 - layer * 12
-      const spreadY = 50
-
-      particles.push({
-        x: centerX + (Math.random() - 0.5) * spreadX * 2,
-        y: layerHeight + (Math.random() - 0.5) * spreadY,
-        vx: (Math.random() - 0.5) * 0.12,
-        vy: (Math.random() - 0.5) * 0.12,
-        size: Math.random() * 4.5 + 2.5,
-        opacity: Math.random() * 0.5 + 0.45,
-        layer,
-      })
+        neurons.push({
+          x, y,
+          radius: 2.5 + Math.random() * 3 * cluster.weight,
+          activation: 0,
+          activationDecay: 0.012 + Math.random() * 0.008,
+          connections: [],
+          pulsePhase: Math.random() * Math.PI * 2,
+          lastFired: -10000,
+        })
+        placed++
+        clusterPlaced++
+      }
     }
 
-    return particles
+    // Build connections
+    const maxDist = isMobile ? 100 : 120
+    const maxConn = 5
+
+    for (let i = 0; i < neurons.length; i++) {
+      const dists: { idx: number; dist: number }[] = []
+      for (let j = 0; j < neurons.length; j++) {
+        if (i === j) continue
+        const dx = neurons[i].x - neurons[j].x
+        const dy = neurons[i].y - neurons[j].y
+        const d = Math.sqrt(dx * dx + dy * dy)
+        if (d < maxDist) dists.push({ idx: j, dist: d })
+      }
+      dists.sort((a, b) => a.dist - b.dist)
+
+      const toConnect = Math.min(dists.length, maxConn)
+      for (let k = 0; k < toConnect; k++) {
+        const j = dists[k].idx
+        if (!neurons[i].connections.includes(j)) neurons[i].connections.push(j)
+        if (!neurons[j].connections.includes(i)) neurons[j].connections.push(i)
+      }
+    }
+
+    return neurons
+  }, [])
+
+  const fireNeuron = useCallback((idx: number, time: number) => {
+    const neurons = neuronsRef.current
+    const impulses = impulsesRef.current
+    const neuron = neurons[idx]
+    if (!neuron || neuron.activation > 0.5 || time - neuron.lastFired < 350) return
+
+    neuron.activation = 1.0
+    neuron.lastFired = time
+
+    for (const connIdx of neuron.connections) {
+      impulses.push({
+        fromIdx: idx,
+        toIdx: connIdx,
+        progress: 0,
+        speed: 0.016 + Math.random() * 0.01,
+      })
+    }
   }, [])
 
   useEffect(() => {
     const canvas = canvasRef.current
     if (!canvas) return
-
     const ctx = canvas.getContext("2d")
     if (!ctx) return
 
     const resizeCanvas = () => {
-      const dpr = window.devicePixelRatio || 1
+      const dpr = Math.min(window.devicePixelRatio || 1, 2)
       const rect = canvas.getBoundingClientRect()
       canvas.width = rect.width * dpr
       canvas.height = rect.height * dpr
       ctx.scale(dpr, dpr)
       canvas.style.width = `${rect.width}px`
       canvas.style.height = `${rect.height}px`
-      particlesRef.current = initParticles(rect.width, rect.height)
-      branchesRef.current = initBranches(rect.width, rect.height)
+      neuronsRef.current = initNeurons(rect.width, rect.height)
+      impulsesRef.current = []
+      initialCascadeDone.current = false
     }
 
     resizeCanvas()
@@ -150,139 +171,162 @@ export function NeuralTree() {
 
     const handleMouseMove = (e: MouseEvent) => {
       const rect = canvas.getBoundingClientRect()
-      mouseRef.current = {
-        x: e.clientX - rect.left,
-        y: e.clientY - rect.top,
-      }
+      mouseRef.current = { x: e.clientX - rect.left, y: e.clientY - rect.top }
     }
-
     const handleTouchMove = (e: TouchEvent) => {
       const rect = canvas.getBoundingClientRect()
       if (e.touches.length > 0) {
-        mouseRef.current = {
-          x: e.touches[0].clientX - rect.left,
-          y: e.touches[0].clientY - rect.top,
-        }
+        mouseRef.current = { x: e.touches[0].clientX - rect.left, y: e.touches[0].clientY - rect.top }
       }
     }
+    const handleLeave = () => { mouseRef.current = { x: -1000, y: -1000 } }
 
     canvas.addEventListener("mousemove", handleMouseMove)
     canvas.addEventListener("touchmove", handleTouchMove, { passive: true })
+    canvas.addEventListener("touchend", handleLeave)
+    canvas.addEventListener("mouseleave", handleLeave)
 
-    // Brand colors
-    const primaryRGB = { r: 47, g: 143, b: 120 }
-    const secondaryRGB = { r: 93, g: 185, b: 158 }
-    const accentRGB = { r: 31, g: 111, b: 99 }
+    const inactive = { r: 47, g: 143, b: 120 }
+    const active = { r: 93, g: 185, b: 158 }
+    const bright = { r: 150, g: 225, b: 195 }
 
     let frameCount = 0
 
     const animate = () => {
       frameCount++
-      // Throttle to ~30fps for performance
-      if (frameCount % 2 !== 0) {
-        animationRef.current = requestAnimationFrame(animate)
-        return
-      }
+      if (frameCount % 2 !== 0) { animationRef.current = requestAnimationFrame(animate); return }
 
+      timeRef.current += 33
+      const time = timeRef.current
       const rect = canvas.getBoundingClientRect()
-      ctx.clearRect(0, 0, rect.width, rect.height)
+      const w = rect.width; const h = rect.height
+      ctx.clearRect(0, 0, w, h)
 
-      const particles = particlesRef.current
-      const branches = branchesRef.current
+      const neurons = neuronsRef.current
+      const impulses = impulsesRef.current
+      const mx = mouseRef.current.x
+      const my = mouseRef.current.y
 
-      // Draw branches
-      for (let i = 0; i < branches.length; i++) {
-        const branch = branches[i]
-        const gradient = ctx.createLinearGradient(
-          branch.startX, branch.startY, branch.endX, branch.endY
-        )
-        gradient.addColorStop(0, `rgba(${accentRGB.r}, ${accentRGB.g}, ${accentRGB.b}, 0.8)`)
-        gradient.addColorStop(1, `rgba(${primaryRGB.r}, ${primaryRGB.g}, ${primaryRGB.b}, 0.45)`)
-
-        ctx.strokeStyle = gradient
-        ctx.lineWidth = branch.width
-        ctx.lineCap = "round"
-        ctx.beginPath()
-        ctx.moveTo(branch.startX, branch.startY)
-        ctx.quadraticCurveTo(branch.controlX, branch.controlY, branch.endX, branch.endY)
-        ctx.stroke()
+      // --- Initial cascade: fire a center-right neuron after 800ms ---
+      if (!initialCascadeDone.current && time > 800) {
+        initialCascadeDone.current = true
+        // Find neuron closest to center-right
+        let bestIdx = 0; let bestDist = Infinity
+        const targetX = w * 0.65; const targetY = h * 0.45
+        for (let i = 0; i < neurons.length; i++) {
+          const dx = neurons[i].x - targetX; const dy = neurons[i].y - targetY
+          const d = dx * dx + dy * dy
+          if (d < bestDist) { bestDist = d; bestIdx = i }
+        }
+        fireNeuron(bestIdx, time)
+        lastAutoFireRef.current = time
       }
 
-      // Draw connections (limit to nearby only for performance)
-      ctx.lineWidth = 1
-      for (let i = 0; i < particles.length; i++) {
-        for (let j = i + 1; j < particles.length; j++) {
-          const dx = particles[i].x - particles[j].x
-          const dy = particles[i].y - particles[j].y
-          // Skip expensive sqrt for far particles
-          const distSq = dx * dx + dy * dy
-          if (distSq > 4900) continue // 70^2
+      // --- Auto-fire: random neuron every 2-4 seconds ---
+      if (time - lastAutoFireRef.current > 2000 + Math.random() * 2000) {
+        const randomIdx = Math.floor(Math.random() * neurons.length)
+        fireNeuron(randomIdx, time)
+        lastAutoFireRef.current = time
+      }
 
-          const distance = Math.sqrt(distSq)
-          const alpha = (1 - distance / 70) * 0.3
-          ctx.strokeStyle = `rgba(${primaryRGB.r}, ${primaryRGB.g}, ${primaryRGB.b}, ${alpha})`
+      // --- Mouse interaction ---
+      for (let i = 0; i < neurons.length; i++) {
+        const n = neurons[i]
+        const dx = mx - n.x; const dy = my - n.y
+        if (dx * dx + dy * dy < 22500) fireNeuron(i, time) // 150px
+      }
+
+      // --- Process impulses ---
+      for (let i = impulses.length - 1; i >= 0; i--) {
+        const imp = impulses[i]
+        imp.progress += imp.speed
+        if (imp.progress >= 1) {
+          fireNeuron(imp.toIdx, time)
+          impulses.splice(i, 1)
+        }
+      }
+
+      // --- Draw connections ---
+      for (let i = 0; i < neurons.length; i++) {
+        const n = neurons[i]
+        for (const j of n.connections) {
+          if (j <= i) continue
+          const m = neurons[j]
+          const maxAct = Math.max(n.activation, m.activation)
+          const alpha = 0.05 + maxAct * 0.3
+
+          const midX = (n.x + m.x) / 2 + (n.y - m.y) * 0.07
+          const midY = (n.y + m.y) / 2 + (m.x - n.x) * 0.07
+
           ctx.beginPath()
-          ctx.moveTo(particles[i].x, particles[i].y)
-          ctx.lineTo(particles[j].x, particles[j].y)
+          ctx.moveTo(n.x, n.y)
+          ctx.quadraticCurveTo(midX, midY, m.x, m.y)
+
+          const r = inactive.r + (active.r - inactive.r) * maxAct
+          const g = inactive.g + (active.g - inactive.g) * maxAct
+          const b = inactive.b + (active.b - inactive.b) * maxAct
+          ctx.strokeStyle = `rgba(${r}, ${g}, ${b}, ${alpha})`
+          ctx.lineWidth = 0.8 + maxAct * 2
           ctx.stroke()
         }
       }
 
-      // Update and draw particles
-      const centerX = rect.width / 2
-      const mouseX = mouseRef.current.x
-      const mouseY = mouseRef.current.y
+      // --- Draw impulses ---
+      for (const imp of impulses) {
+        const from = neurons[imp.fromIdx]; const to = neurons[imp.toIdx]
+        if (!from || !to) continue
+        const t = imp.progress
+        const midX = (from.x + to.x) / 2 + (from.y - to.y) * 0.07
+        const midY = (from.y + to.y) / 2 + (to.x - from.x) * 0.07
+        const px = (1 - t) * (1 - t) * from.x + 2 * (1 - t) * t * midX + t * t * to.x
+        const py = (1 - t) * (1 - t) * from.y + 2 * (1 - t) * t * midY + t * t * to.y
 
-      for (let i = 0; i < particles.length; i++) {
-        const particle = particles[i]
-        particle.x += particle.vx
-        particle.y += particle.vy
+        const glowSize = 5 + Math.sin(t * Math.PI) * 5
+        const grad = ctx.createRadialGradient(px, py, 0, px, py, glowSize)
+        grad.addColorStop(0, `rgba(${bright.r}, ${bright.g}, ${bright.b}, 0.95)`)
+        grad.addColorStop(0.35, `rgba(${active.r}, ${active.g}, ${active.b}, 0.5)`)
+        grad.addColorStop(1, `rgba(${active.r}, ${active.g}, ${active.b}, 0)`)
+        ctx.beginPath()
+        ctx.arc(px, py, glowSize, 0, Math.PI * 2)
+        ctx.fillStyle = grad
+        ctx.fill()
+      }
 
-        // Mouse interaction - stronger force, larger radius
-        const dx = mouseX - particle.x
-        const dy = mouseY - particle.y
-        const distSq = dx * dx + dy * dy
+      // --- Draw neurons ---
+      for (let i = 0; i < neurons.length; i++) {
+        const n = neurons[i]
+        if (n.activation > 0) n.activation = Math.max(0, n.activation - n.activationDecay)
 
-        if (distSq < 40000 && distSq > 0) { // 200^2
-          const distance = Math.sqrt(distSq)
-          const force = (200 - distance) / 200
-          particle.vx -= (dx / distance) * force * 0.08
-          particle.vy -= (dy / distance) * force * 0.08
+        const idlePulse = Math.sin(time * 0.0015 + n.pulsePhase) * 0.5 + 0.5
+        const baseAlpha = 0.12 + idlePulse * 0.08
+        const act = n.activation
+
+        const r = inactive.r + (bright.r - inactive.r) * act
+        const g = inactive.g + (bright.g - inactive.g) * act
+        const b = inactive.b + (bright.b - inactive.b) * act
+
+        // Glow when active
+        if (act > 0.1) {
+          const glowR = n.radius * (3 + act * 6)
+          const glow = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, glowR)
+          glow.addColorStop(0, `rgba(${active.r}, ${active.g}, ${active.b}, ${act * 0.35})`)
+          glow.addColorStop(0.5, `rgba(${active.r}, ${active.g}, ${active.b}, ${act * 0.12})`)
+          glow.addColorStop(1, `rgba(${active.r}, ${active.g}, ${active.b}, 0)`)
+          ctx.beginPath(); ctx.arc(n.x, n.y, glowR, 0, Math.PI * 2); ctx.fillStyle = glow; ctx.fill()
         }
 
-        // Boundaries
-        const layerHeight = rect.height * (0.10 + particle.layer * 0.13)
-        const maxSpreadX = 170 - particle.layer * 10
-        const maxSpreadY = 55
-
-        if (particle.x < centerX - maxSpreadX) particle.vx += 0.04
-        else if (particle.x > centerX + maxSpreadX) particle.vx -= 0.04
-        if (particle.y < layerHeight - maxSpreadY) particle.vy += 0.04
-        else if (particle.y > layerHeight + maxSpreadY) particle.vy -= 0.04
-
-        // Damping
-        particle.vx *= 0.96
-        particle.vy *= 0.96
-
-        // Draw glow
-        const glowGradient = ctx.createRadialGradient(
-          particle.x, particle.y, 0,
-          particle.x, particle.y, particle.size * 4
-        )
-        glowGradient.addColorStop(0, `rgba(${secondaryRGB.r}, ${secondaryRGB.g}, ${secondaryRGB.b}, ${particle.opacity * 0.6})`)
-        glowGradient.addColorStop(0.5, `rgba(${primaryRGB.r}, ${primaryRGB.g}, ${primaryRGB.b}, ${particle.opacity * 0.25})`)
-        glowGradient.addColorStop(1, `rgba(${primaryRGB.r}, ${primaryRGB.g}, ${primaryRGB.b}, 0)`)
-
-        ctx.fillStyle = glowGradient
-        ctx.beginPath()
-        ctx.arc(particle.x, particle.y, particle.size * 4, 0, Math.PI * 2)
-        ctx.fill()
-
         // Core
-        ctx.beginPath()
-        ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2)
-        ctx.fillStyle = `rgba(${secondaryRGB.r}, ${secondaryRGB.g}, ${secondaryRGB.b}, ${particle.opacity})`
+        const coreR = n.radius * (1 + act * 0.6)
+        ctx.beginPath(); ctx.arc(n.x, n.y, coreR, 0, Math.PI * 2)
+        ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${baseAlpha + act * 0.88})`
         ctx.fill()
+
+        // Bright center
+        if (act > 0.3) {
+          ctx.beginPath(); ctx.arc(n.x, n.y, coreR * 0.35, 0, Math.PI * 2)
+          ctx.fillStyle = `rgba(${bright.r}, ${bright.g}, ${bright.b}, ${act})`
+          ctx.fill()
+        }
       }
 
       animationRef.current = requestAnimationFrame(animate)
@@ -294,17 +338,17 @@ export function NeuralTree() {
       window.removeEventListener("resize", resizeCanvas)
       canvas.removeEventListener("mousemove", handleMouseMove)
       canvas.removeEventListener("touchmove", handleTouchMove)
-      if (animationRef.current) {
-        cancelAnimationFrame(animationRef.current)
-      }
+      canvas.removeEventListener("touchend", handleLeave)
+      canvas.removeEventListener("mouseleave", handleLeave)
+      if (animationRef.current) cancelAnimationFrame(animationRef.current)
     }
-  }, [initParticles, initBranches])
+  }, [initNeurons, fireNeuron])
 
   return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ duration: 1 }}
+      transition={{ duration: 1.5 }}
       className="absolute inset-0"
     >
       <canvas
@@ -312,10 +356,6 @@ export function NeuralTree() {
         className="w-full h-full touch-none"
         aria-hidden="true"
       />
-      {/* Decorative ambient glows */}
-      <div className="absolute top-1/4 right-1/4 w-48 h-48 rounded-full bg-primary/5 blur-3xl animate-pulse-glow" />
-      <div className="absolute bottom-1/3 left-1/3 w-56 h-56 rounded-full bg-secondary/8 blur-3xl animate-pulse-glow" style={{ animationDelay: "1s" }} />
-      <div className="absolute top-1/3 left-1/4 w-40 h-40 rounded-full bg-accent/5 blur-3xl animate-pulse-glow" style={{ animationDelay: "0.5s" }} />
     </motion.div>
   )
 }
