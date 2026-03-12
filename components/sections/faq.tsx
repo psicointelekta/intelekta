@@ -27,7 +27,7 @@ const faqs = [
   },
   {
     question: "Quanto tempo dura cada sessão?",
-    answer: "As sessões têm duração média de 50 minutos a 1 hora, dependendo do programa e da faixa etária. A frequência recomendada é de uma a duas vezes por semana, mas isso pode ser ajustado de acordo com os objetivos individuais de cada pessoa.",
+    answer: "As sessões têm duração de 1 hora e 30 minutos, com um encontro semanal. A frequência pode ser ajustada de acordo com os objetivos individuais de cada pessoa.",
   },
   {
     question: "Como é feita a avaliação inicial?",
@@ -151,7 +151,7 @@ export function Faq() {
                   className="w-full"
                   asChild
                 >
-                  <Link href="https://wa.me/5527999999999" target="_blank" rel="noopener noreferrer">
+                  <Link href="https://wa.me/5527996194455" target="_blank" rel="noopener noreferrer">
                     <MessageCircle className="mr-2 h-4 w-4" />
                     Falar pelo WhatsApp
                   </Link>

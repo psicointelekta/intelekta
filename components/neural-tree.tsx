@@ -34,36 +34,43 @@ export function NeuralTree() {
   const initNeurons = useCallback((width: number, height: number) => {
     const neurons: Neuron[] = []
     const isMobile = width < 500
-    const count = isMobile ? 55 : 110
-    const padding = 20
+    const count = isMobile ? 75 : 150
+    const padding = 15
 
     // Full-background distribution:
     // Sparse on left (where text is), dense on right + center
     const clusters = isMobile
       ? [
         // Mobile: denser coverage for visibility
-        { cx: width * 0.5, cy: height * 0.2, rx: width * 0.42, ry: height * 0.15, count: 14, weight: 1 },
-        { cx: width * 0.3, cy: height * 0.4, rx: width * 0.25, ry: height * 0.18, count: 10, weight: 1 },
-        { cx: width * 0.7, cy: height * 0.4, rx: width * 0.25, ry: height * 0.18, count: 10, weight: 1 },
-        { cx: width * 0.5, cy: height * 0.6, rx: width * 0.4, ry: height * 0.18, count: 12, weight: 1 },
-        { cx: width * 0.5, cy: height * 0.8, rx: width * 0.35, ry: height * 0.15, count: 9, weight: 1 },
+        { cx: width * 0.5, cy: height * 0.15, rx: width * 0.44, ry: height * 0.12, count: 16, weight: 1 },
+        { cx: width * 0.3, cy: height * 0.35, rx: width * 0.28, ry: height * 0.16, count: 14, weight: 1 },
+        { cx: width * 0.7, cy: height * 0.35, rx: width * 0.28, ry: height * 0.16, count: 14, weight: 1 },
+        { cx: width * 0.5, cy: height * 0.55, rx: width * 0.42, ry: height * 0.16, count: 16, weight: 1 },
+        { cx: width * 0.5, cy: height * 0.75, rx: width * 0.38, ry: height * 0.14, count: 10, weight: 1 },
+        { cx: width * 0.5, cy: height * 0.92, rx: width * 0.34, ry: height * 0.06, count: 5, weight: 0.8 },
       ]
       : [
-        // Desktop: intentionally sparse left, DENSE right
-        // Sparse left (text area)
-        { cx: width * 0.15, cy: height * 0.3, rx: width * 0.12, ry: height * 0.2, count: 7, weight: 0.8 },
-        { cx: width * 0.12, cy: height * 0.65, rx: width * 0.1, ry: height * 0.2, count: 6, weight: 0.8 },
-        // Center bridge
-        { cx: width * 0.4, cy: height * 0.4, rx: width * 0.12, ry: height * 0.25, count: 10, weight: 1 },
-        { cx: width * 0.38, cy: height * 0.7, rx: width * 0.12, ry: height * 0.15, count: 8, weight: 1 },
+        // Desktop: fuller coverage — still sparser left but with more presence
+        // Left area (text area — moderate presence)
+        { cx: width * 0.12, cy: height * 0.2, rx: width * 0.1, ry: height * 0.15, count: 7, weight: 0.85 },
+        { cx: width * 0.15, cy: height * 0.5, rx: width * 0.12, ry: height * 0.22, count: 9, weight: 0.85 },
+        { cx: width * 0.1, cy: height * 0.8, rx: width * 0.08, ry: height * 0.12, count: 5, weight: 0.8 },
+        // Center-left bridge
+        { cx: width * 0.32, cy: height * 0.25, rx: width * 0.1, ry: height * 0.18, count: 10, weight: 1 },
+        { cx: width * 0.35, cy: height * 0.55, rx: width * 0.12, ry: height * 0.2, count: 11, weight: 1 },
+        { cx: width * 0.3, cy: height * 0.82, rx: width * 0.1, ry: height * 0.12, count: 7, weight: 0.9 },
+        // Center
+        { cx: width * 0.5, cy: height * 0.35, rx: width * 0.1, ry: height * 0.18, count: 12, weight: 1 },
+        { cx: width * 0.5, cy: height * 0.7, rx: width * 0.1, ry: height * 0.16, count: 10, weight: 1 },
         // Dense right — main visual area
-        { cx: width * 0.62, cy: height * 0.3, rx: width * 0.14, ry: height * 0.2, count: 16, weight: 1 },
-        { cx: width * 0.58, cy: height * 0.55, rx: width * 0.16, ry: height * 0.2, count: 16, weight: 1 },
-        { cx: width * 0.7, cy: height * 0.75, rx: width * 0.14, ry: height * 0.15, count: 14, weight: 1 },
-        { cx: width * 0.82, cy: height * 0.4, rx: width * 0.13, ry: height * 0.22, count: 15, weight: 1 },
-        { cx: width * 0.85, cy: height * 0.7, rx: width * 0.11, ry: height * 0.18, count: 12, weight: 1 },
-        // Top right corner accent
-        { cx: width * 0.9, cy: height * 0.15, rx: width * 0.08, ry: height * 0.1, count: 4, weight: 0.8 },
+        { cx: width * 0.65, cy: height * 0.25, rx: width * 0.12, ry: height * 0.18, count: 16, weight: 1 },
+        { cx: width * 0.62, cy: height * 0.55, rx: width * 0.14, ry: height * 0.2, count: 16, weight: 1 },
+        { cx: width * 0.72, cy: height * 0.8, rx: width * 0.12, ry: height * 0.14, count: 14, weight: 1 },
+        { cx: width * 0.84, cy: height * 0.35, rx: width * 0.12, ry: height * 0.2, count: 15, weight: 1 },
+        { cx: width * 0.88, cy: height * 0.7, rx: width * 0.1, ry: height * 0.18, count: 12, weight: 1 },
+        // Top-right + bottom-right accent
+        { cx: width * 0.92, cy: height * 0.1, rx: width * 0.07, ry: height * 0.08, count: 4, weight: 0.8 },
+        { cx: width * 0.95, cy: height * 0.9, rx: width * 0.05, ry: height * 0.08, count: 2, weight: 0.7 },
       ]
 
     let placed = 0
@@ -83,7 +90,7 @@ export function NeuralTree() {
         for (const n of neurons) {
           const dx = n.x - x
           const dy = n.y - y
-          if (dx * dx + dy * dy < 1200) { // ~35px min distance
+          if (dx * dx + dy * dy < 784) { // ~28px min distance
             tooClose = true
             break
           }
@@ -92,7 +99,7 @@ export function NeuralTree() {
 
         neurons.push({
           x, y,
-          radius: 3 + Math.random() * 3.5 * cluster.weight,
+          radius: 3.5 + Math.random() * 3.5 * cluster.weight,
           activation: 0,
           activationDecay: 0.012 + Math.random() * 0.008,
           connections: [],
@@ -105,8 +112,8 @@ export function NeuralTree() {
     }
 
     // Build connections
-    const maxDist = isMobile ? 100 : 120
-    const maxConn = 5
+    const maxDist = isMobile ? 110 : 145
+    const maxConn = 6
 
     for (let i = 0; i < neurons.length; i++) {
       const dists: { idx: number; dist: number }[] = []
@@ -235,7 +242,7 @@ export function NeuralTree() {
       for (let i = 0; i < neurons.length; i++) {
         const n = neurons[i]
         const dx = mx - n.x; const dy = my - n.y
-        if (dx * dx + dy * dy < 22500) fireNeuron(i, time) // 150px
+        if (dx * dx + dy * dy < 40000) fireNeuron(i, time) // 200px
       }
 
       // --- Process impulses ---
@@ -255,7 +262,7 @@ export function NeuralTree() {
           if (j <= i) continue
           const m = neurons[j]
           const maxAct = Math.max(n.activation, m.activation)
-          const alpha = 0.09 + maxAct * 0.35
+          const alpha = 0.14 + maxAct * 0.4
 
           const midX = (n.x + m.x) / 2 + (n.y - m.y) * 0.07
           const midY = (n.y + m.y) / 2 + (m.x - n.x) * 0.07

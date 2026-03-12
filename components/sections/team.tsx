@@ -116,14 +116,14 @@ export function Team() {
 
                   {/* Instagram link */}
                   <a
-                    href="https://instagram.com/intelektamente"
+                    href="https://www.instagram.com/psicointelekta/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 text-dark-section-foreground/40 hover:text-primary transition-colors text-xs"
                     aria-label={`Instagram da Intelekta`}
                   >
                     <Instagram className="w-3.5 h-3.5" />
-                    @intelektamente
+                    @psicointelekta
                   </a>
                 </div>
               </div>

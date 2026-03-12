@@ -100,7 +100,6 @@ const structuredData = [
     description: 'Centro de desenvolvimento cognitivo e socioemocional fundamentado em neurociência. Oferecemos programas personalizados para crianças, adolescentes, adultos e seniores em Vila Velha, ES. Nossa metodologia integra neurociência, psicologia cognitiva e inteligência emocional.',
     url: 'https://intelektamente.com',
     logo: 'https://intelektamente.com/icon.svg',
-    foundingDate: '2021',
     address: {
       '@type': 'PostalAddress',
       streetAddress: 'Rua Afonso Pena, 403',
@@ -123,11 +122,11 @@ const structuredData = [
       },
     },
     sameAs: [
-      'https://instagram.com/intelektamente',
+      'https://www.instagram.com/psicointelekta/',
     ],
     contactPoint: {
       '@type': 'ContactPoint',
-      telephone: '+55-27-99999-9999',
+      telephone: '+55-27-99619-4455',
       contactType: 'customer service',
       availableLanguage: 'Portuguese',
     },
@@ -135,13 +134,13 @@ const structuredData = [
       {
         '@type': 'OpeningHoursSpecification',
         dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
-        opens: '08:00',
-        closes: '20:00',
+        opens: '09:00',
+        closes: '18:00',
       },
       {
         '@type': 'OpeningHoursSpecification',
         dayOfWeek: 'Saturday',
-        opens: '08:00',
+        opens: '09:00',
         closes: '12:00',
       },
     ],

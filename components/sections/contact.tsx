@@ -86,7 +86,7 @@ export function Contact() {
                     A maneira mais rápida de tirar dúvidas e agendar sua aula experimental.
                   </p>
                   <Button className="bg-green-600 hover:bg-green-700 text-white" asChild>
-                    <a href="https://wa.me/5527999999999" target="_blank" rel="noopener noreferrer">
+                    <a href="https://wa.me/5527996194455" target="_blank" rel="noopener noreferrer">
                       <MessageCircle className="mr-2 h-4 w-4" />
                       Abrir WhatsApp
                     </a>
@@ -196,8 +196,8 @@ export function Contact() {
                 </div>
                 <div>
                   <h3 className="font-semibold text-foreground text-sm">Telefone</h3>
-                  <a href="tel:+5527999999999" className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                    (27) 99999-9999
+                  <a href="tel:+5527996194455" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                    (27) 99619-4455
                   </a>
                 </div>
               </div>
@@ -221,15 +221,15 @@ export function Contact() {
                 <div>
                   <h3 className="font-semibold text-foreground text-sm">Horário</h3>
                   <p className="text-sm text-muted-foreground">
-                    Seg-Sex: 8h às 20h<br />
-                    Sáb: 8h às 12h
+                    Seg-Sex: 9h às 18h<br />
+                    Sáb: 9h às 12h
                   </p>
                 </div>
               </div>
 
               <div className="pt-3 border-t border-border">
                 <a
-                  href="https://instagram.com/intelektamente"
+                  href="https://www.instagram.com/psicointelekta/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors"
@@ -237,7 +237,7 @@ export function Contact() {
                   <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
                     <Instagram className="w-4 h-4 text-primary" />
                   </div>
-                  <span className="text-sm font-medium">@intelektamente</span>
+                  <span className="text-sm font-medium">@psicointelekta</span>
                 </a>
               </div>
             </div>

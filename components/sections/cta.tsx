@@ -59,7 +59,7 @@ export function Cta() {
                 className="h-13 sm:h-14 px-8 border-white/25 text-primary-foreground hover:bg-white/10 bg-transparent text-sm sm:text-base w-full sm:w-auto"
                 asChild
               >
-                <Link href="https://wa.me/5527999999999" target="_blank" rel="noopener noreferrer">
+                <Link href="https://wa.me/5527996194455" target="_blank" rel="noopener noreferrer">
                   <MessageCircle className="mr-2 h-4 sm:h-5 w-4 sm:w-5" />
                   Falar pelo WhatsApp
                 </Link>
