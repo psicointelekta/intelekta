@@ -20,11 +20,23 @@ export function Contact() {
   const isInView = useInView(ref, { once: true, margin: "-80px" })
   const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setIsSubmitting(true)
-    await new Promise(resolve => setTimeout(resolve, 1500))
-    setIsSubmitting(false)
+
+    const formData = new FormData(e.currentTarget)
+    const name = formData.get("name") as string
+    const phone = formData.get("phone") as string
+    const program = formData.get("program") as string
+
+    const message = `Olá! Meu nome é ${name}. Gostaria de agendar uma visita e saber mais sobre o programa ${program}. Meu contato é ${phone}.`
+    const whatsappUrl = `https://wa.me/5527996194455?text=${encodeURIComponent(message)}`
+
+    // Small delay for UX feel then redirect
+    setTimeout(() => {
+      window.open(whatsappUrl, "_blank", "noopener,noreferrer")
+      setIsSubmitting(false)
+    }, 800)
   }
 
   return (
@@ -86,7 +98,7 @@ export function Contact() {
                     A maneira mais rápida de tirar dúvidas e agendar sua aula experimental.
                   </p>
                   <Button className="bg-green-600 hover:bg-green-700 text-white" asChild>
-                    <a href="https://wa.me/5527996194455" target="_blank" rel="noopener noreferrer">
+                    <a href="https://wa.me/5527996194455?text=Olá! Gostaria de tirar algumas dúvidas e saber mais sobre a Intelekta." target="_blank" rel="noopener noreferrer">
                       <MessageCircle className="mr-2 h-4 w-4" />
                       Abrir WhatsApp
                     </a>
@@ -124,7 +136,7 @@ export function Contact() {
                         id="phone"
                         name="phone"
                         type="tel"
-                        placeholder="(27) 99999-9999"
+                        placeholder="(27) 99619-4455"
                         required
                         className="h-11"
                       />

@@ -3,7 +3,6 @@ import { Hero } from "@/components/sections/hero"
 import { About } from "@/components/sections/about"
 import { Methodology } from "@/components/sections/methodology"
 import { Programs } from "@/components/sections/programs"
-import { Activities } from "@/components/sections/activities"
 import { Team } from "@/components/sections/team"
 import { Testimonials } from "@/components/sections/testimonials"
 import { Faq } from "@/components/sections/faq"
@@ -27,8 +26,6 @@ export default function HomePage() {
         {/* ATO 3: Visualizar — Identificação + Desejo */}
         <div className="section-divider" />
         <Programs />
-        <div className="section-divider" />
-        <Activities />
 
         {/* ATO 4: Confiar — Segurança + Conexão */}
         <Team />

@@ -97,7 +97,7 @@ export function Header() {
                 <Link href="#contato">Contato</Link>
               </Button>
               <Button size="sm" className="animate-cta-pulse" asChild>
-                <Link href="#agendar">Aula Grátis</Link>
+                <a href="https://wa.me/5527996194455?text=Olá! Gostaria de agendar uma aula na Intelekta." target="_blank" rel="noopener noreferrer">Aula Experimental</a>
               </Button>
             </div>
 
@@ -175,7 +175,7 @@ export function Header() {
                   {/* Social link */}
                   <div className="mt-6 pt-6 border-t border-border">
                     <a
-                      href="https://instagram.com/intelektamente"
+                      href="https://instagram.com/psicointelekta"
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={() => setIsMobileMenuOpen(false)}
@@ -184,15 +184,15 @@ export function Header() {
                       <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center">
                         <Instagram className="w-4 h-4 text-primary" />
                       </div>
-                      <span className="text-sm font-medium">@intelektamente</span>
+                      <span className="text-sm font-medium">@psicointelekta</span>
                     </a>
                   </div>
                 </div>
                 <div className="px-6 py-6 border-t border-border">
                   <Button className="w-full" asChild>
-                    <Link href="#agendar" onClick={() => setIsMobileMenuOpen(false)}>
-                      Agende uma Aula Grátis
-                    </Link>
+                    <a href="https://wa.me/5527996194455?text=Olá! Gostaria de agendar uma aula na Intelekta." target="_blank" rel="noopener noreferrer" onClick={() => setIsMobileMenuOpen(false)}>
+                      Agende uma Aula Experimental
+                    </a>
                   </Button>
                 </div>
               </div>

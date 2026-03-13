@@ -9,31 +9,31 @@ import { cn } from "@/lib/utils"
 const testimonials = [
   {
     id: 1,
-    content: "A transformação que vimos no João Gabriel foi extraordinária. Em poucos meses, ele desenvolveu uma capacidade de concentração e gestão emocional que impactou positivamente sua vida escolar e familiar.",
+    content: "A transformação que tive foi extraordinária. Em poucos meses, desenvolvi uma capacidade de concentração e gestão emocional que impactou positivamente minha vida!",
     author: "João Gabriel Rosa",
-    role: "Filho de aluno",
+    role: "Aluno Adulto",
     program: "Neuroeducação",
     stars: 5,
   },
   {
     id: 2,
-    content: "O programa me ajudou a entender como minha mente funciona e a desenvolver estratégias práticas para os desafios do dia a dia. A abordagem lúdica faz toda a diferença.",
+    content: "Meu primo me indicou o programa e eu gostei muito! Me ajudou a entender como minha mente funciona e a desenvolver estratégias práticas para os desafios do dia a dia. A abordagem lúdica faz toda a diferença!",
     author: "Guto",
-    role: "Primo de aluno",
+    role: "Aluno Adolescente",
     program: "Xadrez",
     stars: 5,
   },
   {
     id: 3,
-    content: "A Aninha adora as aulas e sempre volta cheia de energia. Percebemos uma evolução enorme na forma como ela lida com as emoções e se organiza para estudar.",
+    content: "Eu adoro as aulas e sempre volto cheia de energia. Percebo uma evolução enorme na forma como eu lido com as emoções e me organizo para estudar.",
     author: "Aninha",
-    role: "Filha de aluno",
+    role: "Aluna do Infantil",
     program: "Musicoterapia",
     stars: 5,
   },
   {
     id: 4,
-    content: "Como pai, ver meus filhos se desenvolvendo com acompanhamento tão atencioso e personalizado me dá uma tranquilidade enorme. A equipe da Intelekta é excepcional.",
+    content: "Como pai, ver meus filhos se desenvolvendo com acompanhamento tão atencioso e personalizado me dá uma tranquilidade enorme. A equipe da Intelekta é excepcional!",
     author: "Gildásio",
     role: "Pai de aluno",
     program: "Reforço Escolar",
@@ -41,12 +41,6 @@ const testimonials = [
   },
 ]
 
-const stats = [
-  { value: "200+", label: "Famílias atendidas" },
-  { value: "4.9", label: "Avaliação média" },
-  { value: "95%", label: "Taxa de satisfação" },
-  { value: "5+", label: "Anos de experiência" },
-]
 
 export function Testimonials() {
   const ref = useRef(null)
@@ -76,47 +70,28 @@ export function Testimonials() {
       <div className="absolute bottom-0 right-0 w-[500px] h-[500px] rounded-full bg-primary/[0.03] blur-[120px] pointer-events-none" />
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* Header with stats inline */}
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-end mb-12 lg:mb-16">
-          <div>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5 }}
-              className="flex items-center gap-3 mb-5"
-            >
-              <div className="decorative-line" />
-              <span className="text-sm font-medium text-secondary uppercase tracking-wider">
-                Depoimentos
-              </span>
-            </motion.div>
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.08 }}
-              className="font-serif text-editorial-lg text-dark-section-foreground text-balance"
-            >
-              Histórias de{" "}
-              <span className="text-secondary">transformação</span>
-            </motion.h2>
-          </div>
-
-          {/* Stats — inline with header */}
+        {/* Header */}
+        <div className="mb-12 lg:mb-16">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5, delay: 0.16 }}
-            className="grid grid-cols-4 gap-4 lg:gap-6"
+            transition={{ duration: 0.5 }}
+            className="flex items-center gap-3 mb-5"
           >
-            {stats.map((stat) => (
-              <div key={stat.label} className="text-center lg:text-right">
-                <div className="font-serif text-xl sm:text-2xl lg:text-3xl font-bold text-primary mb-0.5">
-                  {stat.value}
-                </div>
-                <div className="text-[11px] sm:text-xs text-dark-section-foreground/50">{stat.label}</div>
-              </div>
-            ))}
+            <div className="decorative-line" />
+            <span className="text-sm font-medium text-secondary uppercase tracking-wider">
+              Depoimentos
+            </span>
           </motion.div>
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.5, delay: 0.08 }}
+            className="font-serif text-editorial-lg text-dark-section-foreground text-balance max-w-2xl"
+          >
+            Histórias reais de quem vivencia a{" "}
+            <span className="text-secondary italic">transformação cognitiva</span>
+          </motion.h2>
         </div>
 
         {/* Testimonial display */}
@@ -128,7 +103,7 @@ export function Testimonials() {
         >
           <div className="relative rounded-2xl sm:rounded-3xl bg-white/[0.04] border border-white/[0.08] p-6 sm:p-8 lg:p-12">
             {/* Large decorative quote */}
-            <span className="absolute top-4 sm:top-6 left-6 sm:left-8 font-serif text-6xl sm:text-8xl text-primary/15 leading-none select-none pointer-events-none">"</span>
+            <span className="absolute top-2 left-6 sm:top-4 sm:left-8 font-serif text-7xl sm:text-9xl text-primary/5 leading-none select-none pointer-events-none tracking-tighter">&ldquo;</span>
 
             {/* Content */}
             <div className="pt-8 sm:pt-6">

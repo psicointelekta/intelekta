@@ -154,7 +154,7 @@ export function About() {
 
                 {/* Mission quote — editorial style */}
                 <div className="relative pl-6 sm:pl-8 border-l-[3px] border-primary/40">
-                  <span className="absolute -left-3 -top-1 font-serif text-5xl text-primary/20 leading-none select-none">&ldquo;</span>
+                  <span className="absolute -left-1 -top-8 font-serif text-6xl text-primary/10 leading-none select-none pointer-events-none">&ldquo;</span>
                   <blockquote className="font-serif text-editorial-quote text-foreground italic text-pretty">
                     Nosso propósito é despertar em cada pessoa a confiança de que pode
                     desenvolver novas habilidades, superar desafios e construir uma vida

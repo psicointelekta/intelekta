@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useRef, useCallback } from "react"
-import { motion } from "framer-motion"
+import { m } from "framer-motion"
 
 interface Neuron {
   x: number
@@ -354,7 +354,7 @@ export function NeuralTree() {
   }, [initNeurons, fireNeuron])
 
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 1.5 }}
@@ -365,6 +365,6 @@ export function NeuralTree() {
         className="w-full h-full touch-none"
         aria-hidden="true"
       />
-    </motion.div>
+    </m.div>
   )
 }

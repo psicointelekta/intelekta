@@ -48,7 +48,7 @@ export function Footer() {
               </p>
               <div className="flex gap-2">
                 <a
-                  href="https://instagram.com/intelektamente"
+                  href="https://instagram.com/psicointelekta"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-9 h-9 rounded-lg bg-white/8 flex items-center justify-center text-dark-section-foreground/60 hover:bg-primary hover:text-primary-foreground transition-colors"
@@ -64,9 +64,11 @@ export function Footer() {
                   <Mail className="w-4 h-4" />
                 </a>
                 <a
-                  href="tel:+5527999999999"
+                  href="https://wa.me/5527996194455?text=Olá! Gostaria de tirar algumas dúvidas sobre a Intelekta."
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-9 h-9 rounded-lg bg-white/8 flex items-center justify-center text-dark-section-foreground/60 hover:bg-primary hover:text-primary-foreground transition-colors"
-                  aria-label="Telefone de contato"
+                  aria-label="WhatsApp de contato"
                 >
                   <Phone className="w-4 h-4" />
                 </a>
@@ -123,11 +125,13 @@ export function Footer() {
                     </li>
                     <li>
                       <a
-                        href="tel:+5527999999999"
+                        href="https://wa.me/5527996194455?text=Olá! Gostaria de tirar algumas dúvidas sobre a Intelekta."
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="flex items-center gap-2.5 text-sm text-dark-section-foreground/60 hover:text-primary transition-colors"
                       >
                         <Phone className="w-4 h-4 text-primary flex-shrink-0" />
-                        (27) 99999-9999
+                        (27) 99619-4455
                       </a>
                     </li>
                     <li>
