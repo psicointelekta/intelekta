@@ -132,9 +132,9 @@ export function Testimonials() {
 
                 <div className="flex items-center justify-between">
                   <div>
-                    <h4 className="font-semibold text-dark-section-foreground text-sm sm:text-base">
+                    <h3 className="font-semibold text-dark-section-foreground text-sm sm:text-base">
                       {testimonials[currentIndex].author}
-                    </h4>
+                    </h3>
                     <p className="text-xs sm:text-sm text-dark-section-foreground/50">
                       {testimonials[currentIndex].role} · {testimonials[currentIndex].program}
                     </p>

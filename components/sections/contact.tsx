@@ -128,40 +128,49 @@ export function Contact() {
                       />
                     </Field>
                   </FieldGroup>
+                  <Field>
+                    <FieldLabel htmlFor="name">Nome completo</FieldLabel>
+                    <Input
+                      id="name"
+                      name="name"
+                      type="text"
+                      placeholder="Como gostaria de ser chamado?"
+                      autoComplete="name"
+                      required
+                      className="h-11"
+                    />
+                  </Field>
 
-                  <FieldGroup>
-                    <Field>
-                      <FieldLabel htmlFor="phone">WhatsApp</FieldLabel>
-                      <Input
-                        id="phone"
-                        name="phone"
-                        type="tel"
-                        placeholder="(27) 99619-4455"
-                        required
-                        className="h-11"
-                      />
-                    </Field>
-                  </FieldGroup>
+                  <Field>
+                    <FieldLabel htmlFor="phone">WhatsApp</FieldLabel>
+                    <Input
+                      id="phone"
+                      name="phone"
+                      type="tel"
+                      placeholder="(27) 99999-9999"
+                      autoComplete="tel"
+                      required
+                      className="h-11"
+                    />
+                  </Field>
                 </div>
 
-                <FieldGroup>
-                  <Field>
-                    <FieldLabel htmlFor="program">Programa de interesse</FieldLabel>
-                    <Select name="program">
-                      <SelectTrigger className="h-11">
-                        <SelectValue placeholder="Selecione" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="neuroeducacao">Neuroeducação</SelectItem>
-                        <SelectItem value="musicoterapia">Musicoterapia</SelectItem>
-                        <SelectItem value="reforco-escolar">Reforço Escolar</SelectItem>
-                        <SelectItem value="xadrez">Xadrez</SelectItem>
-                        <SelectItem value="cubo-magico">Cubo Mágico</SelectItem>
-                        <SelectItem value="outro">Outro / Não sei</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </Field>
-                </FieldGroup>
+                <Field>
+                  <FieldLabel htmlFor="program">Programa de interesse</FieldLabel>
+                  <Select name="program" required>
+                    <SelectTrigger id="program" className="h-11 w-full">
+                      <SelectValue placeholder="Selecione um programa" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="Neuroeducação">Neuroeducação</SelectItem>
+                      <SelectItem value="Musicoterapia">Musicoterapia</SelectItem>
+                      <SelectItem value="Reforço Escolar">Reforço Escolar</SelectItem>
+                      <SelectItem value="Xadrez">Xadrez</SelectItem>
+                      <SelectItem value="Cubo Mágico">Cubo Mágico</SelectItem>
+                      <SelectItem value="Outro / Não sei">Outro / Não sei</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </Field>
 
                 <Button type="submit" size="lg" className="w-full h-12" disabled={isSubmitting}>
                   {isSubmitting ? (

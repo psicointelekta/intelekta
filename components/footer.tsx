@@ -42,7 +42,7 @@ export function Footer() {
                   className="h-10 w-auto brightness-0 invert"
                 />
               </Link>
-              <p className="text-dark-section-foreground/60 leading-relaxed mb-4 text-sm">
+              <p className="text-dark-section-foreground/80 leading-relaxed mb-4 text-sm">
                 Centro de desenvolvimento cognitivo e socioemocional fundamentado
                 em neurociência. Vila Velha, ES.
               </p>
@@ -51,14 +51,14 @@ export function Footer() {
                   href="https://instagram.com/psicointelekta"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-9 h-9 rounded-lg bg-white/8 flex items-center justify-center text-dark-section-foreground/60 hover:bg-primary hover:text-primary-foreground transition-colors"
+                  className="w-9 h-9 rounded-lg bg-white/8 flex items-center justify-center text-dark-section-foreground/80 hover:bg-primary hover:text-primary-foreground transition-colors"
                   aria-label="Instagram da Intelekta"
                 >
                   <Instagram className="w-4 h-4" />
                 </a>
                 <a
                   href="mailto:contato@intelektamente.com"
-                  className="w-9 h-9 rounded-lg bg-white/8 flex items-center justify-center text-dark-section-foreground/60 hover:bg-primary hover:text-primary-foreground transition-colors"
+                  className="w-9 h-9 rounded-lg bg-white/8 flex items-center justify-center text-dark-section-foreground/80 hover:bg-primary hover:text-primary-foreground transition-colors"
                   aria-label="Email de contato"
                 >
                   <Mail className="w-4 h-4" />
@@ -67,7 +67,7 @@ export function Footer() {
                   href="https://wa.me/5527996194455?text=Olá! Gostaria de tirar algumas dúvidas sobre a Intelekta."
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-9 h-9 rounded-lg bg-white/8 flex items-center justify-center text-dark-section-foreground/60 hover:bg-primary hover:text-primary-foreground transition-colors"
+                  className="w-9 h-9 rounded-lg bg-white/8 flex items-center justify-center text-dark-section-foreground/80 hover:bg-primary hover:text-primary-foreground transition-colors"
                   aria-label="WhatsApp de contato"
                 >
                   <Phone className="w-4 h-4" />
@@ -86,7 +86,7 @@ export function Footer() {
                       <li key={item.name}>
                         <Link
                           href={item.href}
-                          className="text-sm text-dark-section-foreground/60 hover:text-primary transition-colors"
+                          className="text-sm text-dark-section-foreground/80 hover:text-primary transition-colors"
                         >
                           {item.name}
                         </Link>
@@ -103,7 +103,7 @@ export function Footer() {
                       <li key={item.name}>
                         <Link
                           href={item.href}
-                          className="text-sm text-dark-section-foreground/60 hover:text-primary transition-colors"
+                          className="text-sm text-dark-section-foreground/80 hover:text-primary transition-colors"
                         >
                           {item.name}
                         </Link>
@@ -118,7 +118,7 @@ export function Footer() {
                   <ul className="space-y-3">
                     <li className="flex items-start gap-2.5">
                       <MapPin className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
-                      <span className="text-sm text-dark-section-foreground/60">
+                      <span className="text-sm text-dark-section-foreground/80">
                         Rua Afonso Pena, 403<br />
                         Praia da Costa, Vila Velha - ES
                       </span>
@@ -128,7 +128,7 @@ export function Footer() {
                         href="https://wa.me/5527996194455?text=Olá! Gostaria de tirar algumas dúvidas sobre a Intelekta."
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-2.5 text-sm text-dark-section-foreground/60 hover:text-primary transition-colors"
+                        className="flex items-center gap-2.5 text-sm text-dark-section-foreground/80 hover:text-primary transition-colors"
                       >
                         <Phone className="w-4 h-4 text-primary flex-shrink-0" />
                         (27) 99619-4455
@@ -137,7 +137,7 @@ export function Footer() {
                     <li>
                       <a
                         href="mailto:contato@intelektamente.com"
-                        className="flex items-center gap-2.5 text-sm text-dark-section-foreground/60 hover:text-primary transition-colors"
+                        className="flex items-center gap-2.5 text-sm text-dark-section-foreground/80 hover:text-primary transition-colors"
                       >
                         <Mail className="w-4 h-4 text-primary flex-shrink-0" />
                         contato@intelektamente.com
@@ -153,14 +153,14 @@ export function Footer() {
         {/* Bottom bar */}
         <div className="border-t border-white/8 py-6">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-3">
-            <p className="text-xs text-dark-section-foreground/40 text-center sm:text-left">
+            <p className="text-xs text-dark-section-foreground/70 text-center sm:text-left">
               &copy; {currentYear} Intelekta. Todos os direitos reservados.
             </p>
-            <div className="flex gap-5 text-xs text-dark-section-foreground/40">
-              <Link href="#" className="hover:text-dark-section-foreground/60 transition-colors">
+            <div className="flex gap-5 text-xs text-dark-section-foreground/70">
+              <Link href="#" className="hover:text-dark-section-foreground/80 transition-colors">
                 Política de Privacidade
               </Link>
-              <Link href="#" className="hover:text-dark-section-foreground/60 transition-colors">
+              <Link href="#" className="hover:text-dark-section-foreground/80 transition-colors">
                 Termos de Uso
               </Link>
             </div>
