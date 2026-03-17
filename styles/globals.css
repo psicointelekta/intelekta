@@ -122,4 +122,29 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  .skip-link {
+    position: fixed;
+    left: 12px;
+    top: -48px;
+    padding: 10px 14px;
+    background: oklch(0.205 0 0);
+    color: oklch(0.985 0 0);
+    border-radius: 10px;
+    z-index: 9999;
+    transition: top 0.2s ease, box-shadow 0.2s ease;
+    text-decoration: none;
+    font-weight: 600;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+  }
+
+  .skip-link:focus-visible {
+    top: 12px;
+    outline: 3px solid oklch(0.708 0 0);
+  }
+
+  :focus-visible {
+    outline: 2px solid oklch(0.488 0.243 264.376);
+    outline-offset: 2px;
+  }
 }

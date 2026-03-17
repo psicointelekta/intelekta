@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" role="img" aria-label="Intelekta">
+  <defs>
+    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2F8F78"/>
+      <stop offset="100%" stop-color="#5AD1B1"/>
+    </linearGradient>
+  </defs>
+  <rect width="200" height="200" rx="32" fill="#F6FBF9"/>
+  <path d="M100 32c-28 0-50 22.4-50 50 0 18.2 9.7 34.1 24.2 43l-6.2 30.6a4 4 0 0 0 5.9 4.3l30.8-16.5 30.8 16.5a4 4 0 0 0 5.9-4.3l-6.2-30.6C140.3 116.1 150 100.2 150 82c0-27.6-22-50-50-50Zm0 12c21 0 38 17 38 38 0 21.1-17 38-38 38s-38-16.9-38-38c0-21 17-38 38-38Zm0 18a20 20 0 1 0 0 40 20 20 0 0 0 0-40Z" fill="url(#g)" />
+</svg>

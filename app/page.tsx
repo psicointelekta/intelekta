@@ -15,7 +15,7 @@ export default function HomePage() {
   return (
     <>
       <Header />
-      <main>
+      <main id="conteudo-principal">
         {/* ATO 1: Despertar — Curiosidade + Esperança */}
         <Hero />
 

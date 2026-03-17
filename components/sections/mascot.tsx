@@ -50,7 +50,7 @@ export function Mascot() {
               {/* Nino Image */}
               <div className="relative">
                 <Image
-                  src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/nino-5Q72SWZ4deOsw8GPnkTMefvAvv46aQ.png"
+                  src="/images/nino-mascote.webp"
                   alt="Nino - Mascote da Intelekta, um esquilo simpático vestindo uma camiseta verde com o logo da árvore"
                   width={500}
                   height={600}

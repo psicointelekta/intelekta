@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next'
 import { Inter, Playfair_Display } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 import './globals.css'
 
 const inter = Inter({
@@ -17,7 +18,8 @@ const playfair = Playfair_Display({
 
 export const metadata: Metadata = {
   title: 'Intelekta | Centro de Desenvolvimento Cognitivo e Socioemocional em Vila Velha, ES',
-  description: 'Centro de desenvolvimento cognitivo e socioemocional fundamentado em neurociência em Vila Velha, ES. Programas personalizados para crianças a partir de 5 anos, adolescentes, adultos e seniores. Primeira aula gratuita.',
+  description:
+    'Centro de desenvolvimento cognitivo e socioemocional fundamentado em neurociência em Vila Velha, ES. Programas personalizados para crianças a partir de 5 anos, adolescentes, adultos e seniores. Primeira aula gratuita.',
   keywords: [
     'desenvolvimento cognitivo Vila Velha',
     'inteligência emocional crianças',
@@ -36,8 +38,9 @@ export const metadata: Metadata = {
   creator: 'Intelekta',
   publisher: 'Intelekta',
   metadataBase: new URL('https://intelektamente.com'),
+  manifest: '/site.webmanifest',
   alternates: {
-    canonical: '/',
+    canonical: 'https://intelektamente.com/',
   },
   openGraph: {
     type: 'website',
@@ -45,10 +48,11 @@ export const metadata: Metadata = {
     url: 'https://intelektamente.com',
     siteName: 'Intelekta',
     title: 'Intelekta | Fortalecendo Mentes e Emoções',
-    description: 'Centro de desenvolvimento cognitivo e socioemocional fundamentado em neurociência. Programas personalizados para todas as idades. Primeira aula gratuita em Vila Velha, ES.',
+    description:
+      'Centro de desenvolvimento cognitivo e socioemocional fundamentado em neurociência. Programas personalizados para todas as idades. Primeira aula gratuita em Vila Velha, ES.',
     images: [
       {
-        url: '/og-image.jpg',
+        url: '/og-image.svg',
         width: 1200,
         height: 630,
         alt: 'Intelekta - Centro de Desenvolvimento Cognitivo e Socioemocional em Vila Velha, ES',
@@ -58,8 +62,9 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Intelekta | Fortalecendo Mentes e Emoções',
-    description: 'Centro de desenvolvimento cognitivo e socioemocional fundamentado em neurociência. Primeira aula gratuita.',
-    images: ['/og-image.jpg'],
+    description:
+      'Centro de desenvolvimento cognitivo e socioemocional fundamentado em neurociência. Primeira aula gratuita.',
+    images: ['/og-image.svg'],
   },
   robots: {
     index: true,
@@ -76,8 +81,10 @@ export const metadata: Metadata = {
     icon: [
       { url: '/favicon.ico' },
       { url: '/icon.svg', type: 'image/svg+xml' },
+      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
     ],
-    apple: '/apple-touch-icon.png',
+    apple: [{ url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' }],
   },
 }
 
@@ -97,7 +104,8 @@ const structuredData = [
     '@id': 'https://intelektamente.com/#organization',
     name: 'Intelekta',
     alternateName: 'Intelekta - Centro de Desenvolvimento Cognitivo e Socioemocional',
-    description: 'Centro de desenvolvimento cognitivo e socioemocional fundamentado em neurociência. Oferecemos programas personalizados para crianças, adolescentes, adultos e seniores em Vila Velha, ES. Nossa metodologia integra neurociência, psicologia cognitiva e inteligência emocional.',
+    description:
+      'Centro de desenvolvimento cognitivo e socioemocional fundamentado em neurociência. Oferecemos programas personalizados para crianças, adolescentes, adultos e seniores em Vila Velha, ES. Nossa metodologia integra neurociência, psicologia cognitiva e inteligência emocional.',
     url: 'https://intelektamente.com',
     logo: 'https://intelektamente.com/icon.svg',
     address: {
@@ -121,9 +129,7 @@ const structuredData = [
         name: 'Espírito Santo',
       },
     },
-    sameAs: [
-      'https://www.instagram.com/psicointelekta/',
-    ],
+    sameAs: ['https://www.instagram.com/psicointelekta/'],
     contactPoint: {
       '@type': 'ContactPoint',
       telephone: '+55-27-99619-4455',
@@ -159,7 +165,8 @@ const structuredData = [
           itemOffered: {
             '@type': 'Service',
             name: 'Neuroeducação',
-            description: 'Programa multidisciplinar 100% lúdico que estimula, desenvolve e fortalece a mente em todas as idades. Jogos, oficinas criativas e atividades planejadas com base na neuroeducação.',
+            description:
+              'Programa multidisciplinar 100% lúdico que estimula, desenvolve e fortalece a mente em todas as idades. Jogos, oficinas criativas e atividades planejadas com base na neuroeducação.',
           },
         },
         {
@@ -167,7 +174,8 @@ const structuredData = [
           itemOffered: {
             '@type': 'Service',
             name: 'Musicoterapia',
-            description: 'Programa lúdico e presencial que utiliza instrumentos, canto, ritmo, escuta guiada e movimento corporal para desenvolver capacidades cognitivas e socioemocionais em todas as idades.',
+            description:
+              'Programa lúdico e presencial que utiliza instrumentos, canto, ritmo, escuta guiada e movimento corporal para desenvolver capacidades cognitivas e socioemocionais em todas as idades.',
           },
         },
         {
@@ -175,7 +183,8 @@ const structuredData = [
           itemOffered: {
             '@type': 'Service',
             name: 'Reforço Escolar',
-            description: 'Programa lúdico e presencial voltado da Educação Infantil ao Ensino Médio, com foco no desenvolvimento acadêmico e socioemocional através de jogos educativos e estratégias pedagógicas.',
+            description:
+              'Programa lúdico e presencial voltado da Educação Infantil ao Ensino Médio, com foco no desenvolvimento acadêmico e socioemocional através de jogos educativos e estratégias pedagógicas.',
           },
         },
         {
@@ -183,7 +192,8 @@ const structuredData = [
           itemOffered: {
             '@type': 'Service',
             name: 'Xadrez',
-            description: 'Programa lúdico e pedagógico que utiliza o xadrez para desenvolver atenção, memória, raciocínio lógico, planejamento e autorregulação emocional em todas as idades.',
+            description:
+              'Programa lúdico e pedagógico que utiliza o xadrez para desenvolver atenção, memória, raciocínio lógico, planejamento e autorregulação emocional em todas as idades.',
           },
         },
         {
@@ -191,7 +201,8 @@ const structuredData = [
           itemOffered: {
             '@type': 'Service',
             name: 'Cubo Mágico',
-            description: 'Programa lúdico e presencial que trabalha atenção, foco, raciocínio lógico e espacial, planejamento, memória e persistência através da resolução do cubo mágico.',
+            description:
+              'Programa lúdico e presencial que trabalha atenção, foco, raciocínio lógico e espacial, planejamento, memória e persistência através da resolução do cubo mágico.',
           },
         },
       ],
@@ -201,19 +212,22 @@ const structuredData = [
         '@type': 'Person',
         name: 'Suzidarle Pereira',
         jobTitle: 'Psicóloga e Neuropsicóloga',
-        description: 'Especializada no atendimento de crianças a partir de 6 anos e adolescentes com expertise em avaliação neuropsicológica.',
+        description:
+          'Especializada no atendimento de crianças a partir de 6 anos e adolescentes com expertise em avaliação neuropsicológica.',
       },
       {
         '@type': 'Person',
         name: 'Fabiana Lima',
         jobTitle: 'Psicopedagoga',
-        description: 'Professora há 12 anos dedicada ao desenvolvimento integral de crianças e adolescentes, unindo aprendizagem e ludicidade.',
+        description:
+          'Professora há 12 anos dedicada ao desenvolvimento integral de crianças e adolescentes, unindo aprendizagem e ludicidade.',
       },
       {
         '@type': 'Person',
         name: 'Flávia Luz',
         jobTitle: 'Consultora Técnica',
-        description: 'Psicóloga clínica há 24 anos, Mestre em Desenvolvimento Humano e coordenadora do Projeto Guardiões da Infância.',
+        description:
+          'Psicóloga clínica há 24 anos, Mestre em Desenvolvimento Humano e coordenadora do Projeto Guardiões da Infância.',
       },
     ],
   },
@@ -227,7 +241,8 @@ const structuredData = [
         name: 'Para qual faixa etária a Intelekta atende?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Atendemos pessoas a partir dos 5 anos de idade, com programas específicos para crianças (5-10 anos), adolescentes (11-17 anos), adultos (18-59 anos) e seniores (60+ anos).',
+          text:
+            'Atendemos pessoas a partir dos 5 anos de idade, com programas específicos para crianças (5-10 anos), adolescentes (11-17 anos), adultos (18-59 anos) e seniores (60+ anos).',
         },
       },
       {
@@ -235,7 +250,8 @@ const structuredData = [
         name: 'Como funciona a metodologia da Intelekta?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Nossa metodologia é fundamentada em três pilares: neurociência, psicologia cognitiva e inteligência emocional. Utilizamos atividades práticas e personalizadas baseadas em evidências científicas sobre neuroplasticidade.',
+          text:
+            'Nossa metodologia é fundamentada em três pilares: neurociência, psicologia cognitiva e inteligência emocional. Utilizamos atividades práticas e personalizadas baseadas em evidências científicas sobre neuroplasticidade.',
         },
       },
       {
@@ -243,7 +259,8 @@ const structuredData = [
         name: 'Qual a diferença entre a Intelekta e uma escola ou terapia?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'A Intelekta é um centro de educação complementar. Não substituímos a escola nem a terapia. Nosso foco é o desenvolvimento de habilidades cognitivas e socioemocionais que potencializam o desempenho em todas as áreas da vida.',
+          text:
+            'A Intelekta é um centro de educação complementar. Não substituímos a escola nem a terapia. Nosso foco é o desenvolvimento de habilidades cognitivas e socioemocionais que potencializam o desempenho em todas as áreas da vida.',
         },
       },
       {
@@ -251,7 +268,8 @@ const structuredData = [
         name: 'Posso fazer uma aula experimental gratuita?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Sim! Oferecemos uma aula experimental gratuita para que você ou seu filho conheça nosso espaço, metodologia e equipe. Entre em contato pelo WhatsApp para agendar.',
+          text:
+            'Sim! Oferecemos uma aula experimental gratuita para que você ou seu filho conheça nosso espaço, metodologia e equipe. Entre em contato pelo WhatsApp para agendar.',
         },
       },
       {
@@ -286,6 +304,8 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" className={`${inter.variable} ${playfair.variable}`}>
       <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -296,6 +316,7 @@ export default function RootLayout({
       <body className="font-sans antialiased" suppressHydrationWarning>
         {children}
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   )

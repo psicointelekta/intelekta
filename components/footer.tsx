@@ -46,11 +46,12 @@ export function Footer() {
             <div className="lg:col-span-1">
               <Link href="/" className="inline-block mb-5">
                 <Image
-                  src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-ZSJk5sIbSAfyxDabr8XqSSOBVuPbiN.png"
+                  src="/images/logo-intelekta.webp"
                   alt="Intelekta"
-                  width={120}
-                  height={42}
+                  width={140}
+                  height={48}
                   className="h-10 w-auto brightness-0 invert"
+                  priority
                 />
               </Link>
               <p className="text-dark-section-foreground/80 leading-relaxed mb-4 text-sm">

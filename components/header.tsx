@@ -1,11 +1,12 @@
 "use client"
 
-import { useState, useEffect, useCallback } from "react"
+import { useState, useEffect, useCallback, useRef } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { Menu, X, Instagram } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
+import { track } from "@vercel/analytics/react"
 
 const navigation = [
   { name: "Sobre", href: "#sobre" },
@@ -29,6 +30,7 @@ const mobileNavigation = [
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const drawerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -41,12 +43,35 @@ export function Header() {
   useEffect(() => {
     if (isMobileMenuOpen) {
       document.body.style.overflow = "hidden"
-    } else {
-      document.body.style.overflow = "unset"
+      const handleKeyDown = (event: KeyboardEvent) => {
+        if (event.key !== "Tab") return
+        const drawer = drawerRef.current
+        if (!drawer) return
+        const focusable = drawer.querySelectorAll<HTMLElement>(
+          'a, button, input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        )
+        if (!focusable.length) return
+        const first = focusable[0]
+        const last = focusable[focusable.length - 1]
+        if (event.shiftKey) {
+          if (document.activeElement === first) {
+            last.focus()
+            event.preventDefault()
+          }
+        } else {
+          if (document.activeElement === last) {
+            first.focus()
+            event.preventDefault()
+          }
+        }
+      }
+      document.addEventListener("keydown", handleKeyDown)
+      return () => {
+        document.removeEventListener("keydown", handleKeyDown)
+        document.body.style.overflow = "unset"
+      }
     }
-    return () => {
-      document.body.style.overflow = "unset"
-    }
+    document.body.style.overflow = "unset"
   }, [isMobileMenuOpen])
 
   const scrollTo = useCallback((e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
@@ -80,10 +105,10 @@ export function Header() {
               className="flex items-center cursor-pointer"
             >
               <Image
-                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-ZSJk5sIbSAfyxDabr8XqSSOBVuPbiN.png"
+                src="/images/logo-intelekta.webp"
                 alt="Intelekta - Centro de desenvolvimento cognitivo e socioemocional"
-                width={140}
-                height={48}
+                width={160}
+                height={52}
                 style={{ height: 'auto', width: 'auto' }}
                 className="h-10 sm:h-12"
                 priority
@@ -105,10 +130,24 @@ export function Header() {
 
             <div className="hidden lg:flex lg:items-center lg:gap-3">
               <Button variant="ghost" size="sm" asChild>
-                <a href="#contato" onClick={(e) => scrollTo(e, "#contato")}>Contato</a>
+                <a
+                  href="#contato"
+                  onClick={(e) => {
+                    track("cta_header_contato")
+                    scrollTo(e, "#contato")
+                  }}
+                >
+                  Contato
+                </a>
               </Button>
               <Button size="sm" asChild>
-                <a href="https://wa.me/5527996194455?text=Olá! Gostaria de agendar uma aula na Intelekta." target="_blank" rel="noopener noreferrer">Aula Experimental</a>
+                <a
+                  href="https://wa.me/5527996194455?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20aula%20na%20Intelekta."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Agendar aula gratuita
+                </a>
               </Button>
             </div>
 
@@ -131,13 +170,13 @@ export function Header() {
             onClick={() => setIsMobileMenuOpen(false)}
           />
           <div className="fixed right-0 top-0 bottom-0 w-full max-w-sm bg-card z-50 lg:hidden shadow-2xl">
-            <div className="flex flex-col h-full">
+            <div className="flex flex-col h-full" ref={drawerRef}>
               <div className="flex items-center justify-between px-6 h-16 sm:h-20 border-b border-border">
                 <Image
-                  src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-ZSJk5sIbSAfyxDabr8XqSSOBVuPbiN.png"
+                  src="/images/logo-intelekta.webp"
                   alt="Intelekta"
-                  width={100}
-                  height={36}
+                  width={120}
+                  height={42}
                   style={{ height: 'auto', width: 'auto' }}
                   className="h-8"
                 />
@@ -180,8 +219,16 @@ export function Header() {
               </div>
               <div className="px-6 py-6 border-t border-border">
                 <Button className="w-full" asChild>
-                  <a href="https://wa.me/5527996194455?text=Olá! Gostaria de agendar uma aula na Intelekta." target="_blank" rel="noopener noreferrer" onClick={() => setIsMobileMenuOpen(false)}>
-                    Agende uma Aula Experimental
+                  <a
+                    href="https://wa.me/5527996194455?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20aula%20na%20Intelekta."
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => {
+                      track("cta_header_mobile_whatsapp")
+                      setIsMobileMenuOpen(false)
+                    }}
+                  >
+                    Agende uma aula gratuita
                   </a>
                 </Button>
               </div>

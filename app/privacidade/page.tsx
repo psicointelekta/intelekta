@@ -7,17 +7,20 @@ export const metadata: Metadata = {
   description: 'Política de privacidade e proteção de dados pessoais da Intelekta, em conformidade com a LGPD.',
 }
 
+const LAST_UPDATE = '17 de março de 2026'
+
 export default function PrivacidadePage() {
   return (
     <main className="min-h-screen bg-background">
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
         <Link href="/" className="inline-block mb-10">
           <Image
-            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-ZSJk5sIbSAfyxDabr8XqSSOBVuPbiN.png"
+            src="/images/logo-intelekta.webp"
             alt="Intelekta"
-            width={120}
-            height={42}
+            width={140}
+            height={48}
             className="h-10 w-auto"
+            priority
           />
         </Link>
 
@@ -25,7 +28,7 @@ export default function PrivacidadePage() {
           Política de Privacidade
         </h1>
         <p className="text-sm text-muted-foreground mb-10">
-          Última atualização: 16 de março de 2026
+          Última atualização: {LAST_UPDATE}
         </p>
 
         <div className="space-y-8 text-foreground/80 leading-relaxed">
@@ -43,7 +46,7 @@ export default function PrivacidadePage() {
             <h2 className="font-serif text-xl font-semibold text-foreground mb-3">2. Dados Coletados</h2>
             <p className="text-sm mb-3">Podemos coletar os seguintes dados pessoais:</p>
             <ul className="list-disc pl-5 space-y-1 text-sm">
-              <li><strong>Dados de contato</strong>: nome, e-mail, telefone e programa de interesse, quando fornecidos voluntariamente pelo formulário de contato ou WhatsApp.</li>
+              <li><strong>Dados de contato</strong>: nome, telefone e programa de interesse, quando fornecidos voluntariamente pelo formulário de contato ou WhatsApp.</li>
               <li><strong>Dados de navegação</strong>: páginas visitadas, tempo de permanência e tipo de dispositivo, coletados de forma anônima pela ferramenta <em>Vercel Analytics</em>.</li>
             </ul>
             <p className="text-sm mt-3">

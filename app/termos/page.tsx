@@ -7,17 +7,20 @@ export const metadata: Metadata = {
   description: 'Termos de uso do website da Intelekta — Centro de Desenvolvimento Cognitivo e Socioemocional.',
 }
 
+const LAST_UPDATE = '17 de março de 2026'
+
 export default function TermosPage() {
   return (
     <main className="min-h-screen bg-background">
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
         <Link href="/" className="inline-block mb-10">
           <Image
-            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-ZSJk5sIbSAfyxDabr8XqSSOBVuPbiN.png"
+            src="/images/logo-intelekta.webp"
             alt="Intelekta"
-            width={120}
-            height={42}
+            width={140}
+            height={48}
             className="h-10 w-auto"
+            priority
           />
         </Link>
 
@@ -25,7 +28,7 @@ export default function TermosPage() {
           Termos de Uso
         </h1>
         <p className="text-sm text-muted-foreground mb-10">
-          Última atualização: 16 de março de 2026
+          Última atualização: {LAST_UPDATE}
         </p>
 
         <div className="space-y-8 text-foreground/80 leading-relaxed">

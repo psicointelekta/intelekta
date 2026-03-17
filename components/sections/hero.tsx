@@ -14,6 +14,7 @@ import { Button } from "@/components/ui/button"
 import { ArrowRight, MapPin, Star, TrendingUp, Users, Award, ChevronDown, Brain } from "lucide-react"
 import { NeuralTree } from "@/components/neural-tree"
 import { useEffect, useRef, useState, memo, useCallback } from "react"
+import { track } from "@vercel/analytics/react"
 
 /* ─── Animated Counter ─── */
 const Counter = memo(function Counter({ to, duration = 1.5 }: { to: number; duration?: number }) {
@@ -294,11 +295,12 @@ export function Hero() {
                     asChild
                   >
                     <a
-                      href="https://wa.me/5527996194455?text=Olá! Gostaria de agendar uma aula na Intelekta."
+                      href="https://wa.me/5527996194455?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20aula%20na%20Intelekta."
                       target="_blank"
                       rel="noopener noreferrer"
+                      onClick={() => track("cta_hero_whatsapp")}
                     >
-                      Agende uma aula Experimental
+                      Agendar aula gratuita
                       <ArrowRight className="ml-2 h-4 sm:h-5 w-4 sm:w-5 transition-transform duration-200 group-hover:translate-x-1" />
                     </a>
                   </Button>
