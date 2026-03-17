@@ -25,7 +25,7 @@ export function Contact() {
     setIsSubmitting(true)
 
     const formData = new FormData(e.currentTarget)
-    const name = formData.get("name") as string
+    const name = formData.get("full_name") as string
     const phone = formData.get("phone") as string
     const program = formData.get("program") as string
 

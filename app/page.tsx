@@ -1,14 +1,15 @@
 import { Header } from "@/components/header"
 import { Hero } from "@/components/sections/hero"
 import { About } from "@/components/sections/about"
-import { Methodology } from "@/components/sections/methodology"
-import { Programs } from "@/components/sections/programs"
-import { Team } from "@/components/sections/team"
-import { Testimonials } from "@/components/sections/testimonials"
-import { Faq } from "@/components/sections/faq"
-import { Cta } from "@/components/sections/cta"
-import { Contact } from "@/components/sections/contact"
-import { Footer } from "@/components/footer"
+import dynamic from "next/dynamic"
+
+const Methodology = dynamic(() => import("@/components/sections/methodology").then(mod => mod.Methodology))
+const Programs = dynamic(() => import("@/components/sections/programs").then(mod => mod.Programs))
+const Team = dynamic(() => import("@/components/sections/team").then(mod => mod.Team))
+const Testimonials = dynamic(() => import("@/components/sections/testimonials").then(mod => mod.Testimonials))
+const Faq = dynamic(() => import("@/components/sections/faq").then(mod => mod.Faq))
+const Contact = dynamic(() => import("@/components/sections/contact").then(mod => mod.Contact))
+const Footer = dynamic(() => import("@/components/footer").then(mod => mod.Footer))
 
 export default function HomePage() {
   return (
@@ -35,7 +36,6 @@ export default function HomePage() {
         {/* ATO 5: Agir — Urgência + Facilidade */}
         <Faq />
         <div className="section-divider" />
-        <Cta />
         <Contact />
       </main>
       <Footer />

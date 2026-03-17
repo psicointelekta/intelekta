@@ -173,7 +173,7 @@ export function Testimonials() {
                 key={index}
                 onClick={() => setCurrentIndex(index)}
                 className={cn(
-                  "h-1.5 rounded-full transition-all duration-300",
+                  "h-1.5 rounded-full transition-all duration-300 cursor-pointer",
                   index === currentIndex
                     ? "w-8 bg-primary"
                     : "w-1.5 bg-white/20 hover:bg-white/30"

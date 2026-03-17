@@ -1,5 +1,6 @@
 "use client"
 
+import { useCallback } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { Instagram, Mail, Phone, MapPin } from "lucide-react"
@@ -7,9 +8,10 @@ import { Instagram, Mail, Phone, MapPin } from "lucide-react"
 const navigation = {
   main: [
     { name: "Sobre", href: "#sobre" },
-    { name: "Programas", href: "#programas" },
     { name: "Metodologia", href: "#metodologia" },
+    { name: "Programas", href: "#programas" },
     { name: "Equipe", href: "#equipe" },
+    { name: "Depoimentos", href: "#depoimentos" },
     { name: "FAQ", href: "#faq" },
     { name: "Contato", href: "#contato" },
   ],
@@ -24,6 +26,15 @@ const navigation = {
 
 export function Footer() {
   const currentYear = new Date().getFullYear()
+
+  const scrollTo = useCallback((e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault()
+    const el = document.querySelector(href)
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" })
+      window.history.replaceState(null, "", href)
+    }
+  }, [])
 
   return (
     <footer className="bg-dark-section" role="contentinfo">
@@ -84,12 +95,13 @@ export function Footer() {
                   <ul className="space-y-2">
                     {navigation.main.map((item) => (
                       <li key={item.name}>
-                        <Link
+                        <a
                           href={item.href}
-                          className="text-sm text-dark-section-foreground/80 hover:text-primary transition-colors"
+                          onClick={(e) => scrollTo(e, item.href)}
+                          className="text-sm text-dark-section-foreground/80 hover:text-primary transition-colors cursor-pointer"
                         >
                           {item.name}
-                        </Link>
+                        </a>
                       </li>
                     ))}
                   </ul>
@@ -101,12 +113,13 @@ export function Footer() {
                   <ul className="space-y-2">
                     {navigation.programs.map((item) => (
                       <li key={item.name}>
-                        <Link
+                        <a
                           href={item.href}
-                          className="text-sm text-dark-section-foreground/80 hover:text-primary transition-colors"
+                          onClick={(e) => scrollTo(e, item.href)}
+                          className="text-sm text-dark-section-foreground/80 hover:text-primary transition-colors cursor-pointer"
                         >
                           {item.name}
-                        </Link>
+                        </a>
                       </li>
                     ))}
                   </ul>
@@ -157,10 +170,10 @@ export function Footer() {
               &copy; {currentYear} Intelekta. Todos os direitos reservados.
             </p>
             <div className="flex gap-5 text-xs text-dark-section-foreground/70">
-              <Link href="#" className="hover:text-dark-section-foreground/80 transition-colors">
+              <Link href="/privacidade" className="hover:text-dark-section-foreground/80 transition-colors">
                 Política de Privacidade
               </Link>
-              <Link href="#" className="hover:text-dark-section-foreground/80 transition-colors">
+              <Link href="/termos" className="hover:text-dark-section-foreground/80 transition-colors">
                 Termos de Uso
               </Link>
             </div>
