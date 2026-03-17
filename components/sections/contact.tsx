@@ -267,7 +267,6 @@ export function Contact() {
 
                 <div className="flex items-center justify-between text-xs text-muted-foreground">
                   <span>Retorno em até 24h · Dados seguros</span>
-                  <span className="hidden sm:inline">Planilha + WhatsApp automático</span>
                 </div>
 
                 <div className="space-y-2">
