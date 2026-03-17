@@ -192,9 +192,6 @@ export function Contact() {
               <div className="flex items-center justify-between gap-3 mb-4">
                 <div>
                   <h3 className="font-semibold text-foreground mb-1">Ou envie uma mensagem rápida</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Preencha e registramos seu contato em nossa planilha + abrimos o WhatsApp para você.
-                  </p>
                 </div>
                 <ShieldCheck className="w-5 h-5 text-primary" aria-hidden />
               </div>
