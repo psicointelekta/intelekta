@@ -105,7 +105,7 @@ const structuredData = [
     name: 'Intelekta',
     alternateName: 'Intelekta - Centro de Desenvolvimento Cognitivo e Socioemocional',
     description:
-      'Centro de desenvolvimento cognitivo e socioemocional fundamentado em neurociência. Oferecemos programas personalizados para crianças, adolescentes, adultos e seniores em Vila Velha, ES. Nossa metodologia integra neurociência, psicologia cognitiva e inteligência emocional.',
+      'Centro de desenvolvimento cognitivo e socioemocional idealizado por psicólogos e psicopedagogas, fundamentado em neurociência. Oferecemos 7 programas personalizados para crianças, adolescentes, adultos e seniores em Vila Velha, ES. Nossa metodologia integra neurociência, psicologia cognitiva e inteligência emocional.',
     url: 'https://intelektamente.com',
     logo: 'https://intelektamente.com/icon.svg',
     address: {
@@ -132,7 +132,7 @@ const structuredData = [
     sameAs: ['https://www.instagram.com/psicointelekta/'],
     contactPoint: {
       '@type': 'ContactPoint',
-      telephone: '+55-27-99619-4455',
+      telephone: '+55-27-98877-3890',
       contactType: 'customer service',
       availableLanguage: 'Portuguese',
     },
@@ -175,7 +175,7 @@ const structuredData = [
             '@type': 'Service',
             name: 'Musicoterapia',
             description:
-              'Programa lúdico e presencial que utiliza instrumentos, canto, ritmo, escuta guiada e movimento corporal para desenvolver capacidades cognitivas e socioemocionais em todas as idades.',
+              'Programa lúdico e presencial que utiliza instrumentos, canto, ritmo, escuta guiada e movimento corporal para desenvolver capacidades cognitivas e socioemocionais em todas as idades. Inclui programa especial para mães e bebês.',
           },
         },
         {
@@ -203,6 +203,24 @@ const structuredData = [
             name: 'Cubo Mágico',
             description:
               'Programa lúdico e presencial que trabalha atenção, foco, raciocínio lógico e espacial, planejamento, memória e persistência através da resolução do cubo mágico.',
+          },
+        },
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'Neurolê',
+            description:
+              'Programa de alfabetização inclusiva para crianças atípicas, utilizando abordagem lúdica e sensorial para desenvolver habilidades de leitura e escrita.',
+          },
+        },
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'Psicopedagogia',
+            description:
+              'Atendimento especializado em dificuldades de aprendizagem, com acompanhamento psicopedagógico personalizado que identifica barreiras e constrói caminhos para o desenvolvimento.',
           },
         },
       ],
@@ -242,7 +260,7 @@ const structuredData = [
         acceptedAnswer: {
           '@type': 'Answer',
           text:
-            'Atendemos pessoas a partir dos 5 anos de idade, com programas específicos para crianças (5-10 anos), adolescentes (11-17 anos), adultos (18-59 anos) e seniores (60+ anos).',
+            'Atendemos pessoas a partir dos 5 anos de idade, com programas específicos para crianças (5-12 anos), adolescentes (13-17 anos), adultos (18-59 anos) e seniores (60+ anos).',
         },
       },
       {

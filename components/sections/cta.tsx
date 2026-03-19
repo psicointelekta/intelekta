@@ -27,11 +27,11 @@ export function Cta() {
             {/* Text */}
             <div>
               <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-semibold text-primary-foreground leading-tight text-balance mb-4">
-                Comece sua jornada de desenvolvimento hoje
+                Vamos cuidar juntos do que mais importa
               </h2>
               <p className="text-base sm:text-lg text-primary-foreground/85 leading-relaxed mb-2">
-                Agende uma aula experimental gratuita e descubra como nossa abordagem
-                pode transformar seu desenvolvimento ou o de seu filho.
+                Agende uma aula experimental gratuita e conheça a nossa equipe de psicólogos
+                e psicopedagogas. Queremos ouvir a sua história e encontrar o melhor caminho — juntos.
               </p>
               <div className="flex flex-wrap gap-x-5 gap-y-1 text-sm text-primary-foreground/70 mt-4">
                 <span>✓ Primeira aula gratuita</span>
@@ -59,7 +59,7 @@ export function Cta() {
                 className="h-13 sm:h-14 px-8 border-white/25 text-primary-foreground hover:bg-white/10 bg-transparent text-sm sm:text-base w-full sm:w-auto"
                 asChild
               >
-                <Link href="https://wa.me/5527996194455" target="_blank" rel="noopener noreferrer">
+                <Link href="https://wa.me/5527988773890" target="_blank" rel="noopener noreferrer">
                   <MessageCircle className="mr-2 h-4 sm:h-5 w-4 sm:w-5" />
                   Falar pelo WhatsApp
                 </Link>

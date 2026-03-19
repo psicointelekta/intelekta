@@ -84,7 +84,7 @@ export function Team() {
             >
               <div className="rounded-2xl sm:rounded-3xl overflow-hidden border border-white/[0.08] hover:border-primary/25 transition-all duration-500 hover:shadow-xl hover:shadow-primary/[0.05] bg-white/[0.03]">
                 {/* Image — gradient bg for transparent portraits */}
-                <div className="relative aspect-[3/4] overflow-hidden bg-gradient-to-b from-primary/[0.08] via-primary/[0.04] to-transparent">
+                <div className="relative aspect-[4/3] sm:aspect-[3/4] overflow-hidden bg-gradient-to-b from-primary/[0.08] via-primary/[0.04] to-transparent">
                   {/* Subtle glow behind portrait */}
                   <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-3/4 h-1/2 rounded-full bg-primary/[0.06] blur-[50px] pointer-events-none" />
                   <Image

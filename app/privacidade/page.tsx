@@ -105,7 +105,7 @@ export default function PrivacidadePage() {
               Para exercer seus direitos, entre em contato pelo e-mail{' '}
               <a href="mailto:contato@intelektamente.com" className="text-primary hover:underline">contato@intelektamente.com</a>{' '}
               ou pelo WhatsApp{' '}
-              <a href="https://wa.me/5527996194455" className="text-primary hover:underline" target="_blank" rel="noopener noreferrer">(27) 99619-4455</a>.
+              <a href="https://wa.me/5527988773890" className="text-primary hover:underline" target="_blank" rel="noopener noreferrer">(27) 98877-3890</a>.
               Responderemos em até 15 dias úteis.
             </p>
           </section>
@@ -127,7 +127,7 @@ export default function PrivacidadePage() {
               <li><strong>Intelekta</strong></li>
               <li>Rua Afonso Pena, 403 — Praia da Costa, Vila Velha – ES</li>
               <li>E-mail: <a href="mailto:contato@intelektamente.com" className="text-primary hover:underline">contato@intelektamente.com</a></li>
-              <li>WhatsApp: <a href="https://wa.me/5527996194455" className="text-primary hover:underline" target="_blank" rel="noopener noreferrer">(27) 99619-4455</a></li>
+              <li>WhatsApp: <a href="https://wa.me/5527988773890" className="text-primary hover:underline" target="_blank" rel="noopener noreferrer">(27) 98877-3890</a></li>
             </ul>
           </section>
         </div>

@@ -17,10 +17,12 @@ const navigation = {
   ],
   programs: [
     { name: "Neuroeducação", href: "#programas" },
+    { name: "Xadrez Pedagógico", href: "#programas" },
     { name: "Musicoterapia", href: "#programas" },
-    { name: "Reforço Escolar", href: "#programas" },
-    { name: "Xadrez", href: "#programas" },
     { name: "Cubo Mágico", href: "#programas" },
+    { name: "Reforço Escolar", href: "#programas" },
+    { name: "Neurolê", href: "#programas" },
+    { name: "Psicopedagogia", href: "#programas" },
   ],
 }
 
@@ -76,7 +78,7 @@ export function Footer() {
                   <Mail className="w-4 h-4" />
                 </a>
                 <a
-                  href="https://wa.me/5527996194455?text=Olá! Gostaria de tirar algumas dúvidas sobre a Intelekta."
+                  href="https://wa.me/5527988773890?text=Olá! Gostaria de tirar algumas dúvidas sobre a Intelekta."
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-9 h-9 rounded-lg bg-white/8 flex items-center justify-center text-dark-section-foreground/80 hover:bg-primary hover:text-primary-foreground transition-colors"
@@ -139,13 +141,13 @@ export function Footer() {
                     </li>
                     <li>
                       <a
-                        href="https://wa.me/5527996194455?text=Olá! Gostaria de tirar algumas dúvidas sobre a Intelekta."
+                        href="https://wa.me/5527988773890?text=Olá! Gostaria de tirar algumas dúvidas sobre a Intelekta."
                         target="_blank"
                         rel="noopener noreferrer"
                         className="flex items-center gap-2.5 text-sm text-dark-section-foreground/80 hover:text-primary transition-colors"
                       >
                         <Phone className="w-4 h-4 text-primary flex-shrink-0" />
-                        (27) 99619-4455
+                        (27) 98877-3890
                       </a>
                     </li>
                     <li>

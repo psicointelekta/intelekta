@@ -3,131 +3,241 @@
 import { motion, useInView } from "framer-motion"
 import { useRef } from "react"
 import { Button } from "@/components/ui/button"
-import { ArrowRight, Baby, GraduationCap, Briefcase, Heart } from "lucide-react"
+import {
+  ArrowRight,
+} from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
 
 const ageStages = [
   {
     phase: "Crianças",
-    description: "Estimulamos atenção, memória e raciocínio de forma lúdica e acolhedora.",
-    icon: Baby,
+    age: "5–12 anos",
+    description: "Estimulamos atenção, memória, linguagem e coordenação de forma lúdica e acolhedora.",
   },
   {
     phase: "Adolescentes",
-    description: "Foco em habilidades socioemocionais, organização e autonomia nos estudos.",
-    icon: GraduationCap,
+    age: "13–17 anos",
+    description: "Foco em funções executivas, controle emocional e autonomia nos estudos.",
   },
   {
     phase: "Adultos",
-    description: "Reforçamos a produtividade, resolução de problemas e tomada de decisão.",
-    icon: Briefcase,
+    age: "18–59 anos",
+    description: "Produtividade, gestão do estresse, resolução de problemas e tomada de decisão.",
   },
   {
     phase: "Idosos",
-    description: "Prevenção do declínio cognitivo com foco em autonomia e qualidade de vida.",
-    icon: Heart,
+    age: "60+ anos",
+    description: "Prevenção do declínio cognitivo com foco em memória, autonomia e qualidade de vida.",
   },
 ]
 
-const pillars = [
+const programs = [
   {
     id: "neuroeducacao",
+    number: "01",
     title: "Neuroeducação",
-    description: "O alicerce científico de cada prática. Através das evidências da neuroplasticidade, transformamos a maneira como o conhecimento é processado e consolidado em qualquer idade.",
+    subtitle: "Programa multidisciplinar 100% lúdico",
+    description:
+      "Desenvolve, estimula e reabilita a mente em todas as idades através de jogos, brincadeiras, oficinas criativas e atividades sensório-motoras. Fundamentado em neuroplasticidade.",
+    tags: ["Todas as idades", "Lúdico", "Neuroplasticidade"],
     image: "/images/program-infantil.webp",
-    details: ["Base Científica", "Potencial Pleno"],
-    align: "left",
   },
   {
-    id: "raciocinio-estrategia",
-    title: "Raciocínio e Estratégia",
-    description: "Onde a lógica encontra o propósito. Desenvolvemos o pensamento crítico e a capacidade de resolução de problemas através de desafios que estimulam a mente de forma estratégica.",
+    id: "xadrez",
+    number: "02",
+    title: "Xadrez Pedagógico",
+    subtitle: "Estratégia que transforma o pensar",
+    description:
+      "Programa pedagógico que utiliza o xadrez para desenvolver atenção, memória, raciocínio lógico, planejamento e autorregulação emocional.",
+    tags: ["Raciocínio lógico", "Estratégia", "Foco"],
     image: "/images/activity-children-chess.webp",
-    details: ["Lógica Aplicada", "Foco Estratégico"],
-    align: "right",
   },
   {
-    id: "equilibrio-expressao",
-    title: "Equilíbrio e Expressão",
-    description: "A integração essencial entre mente e emoção. Criamos ferramentas para a autorregulação e autoconhecimento através de formas sensíveis de comunicação e ritmo.",
+    id: "musicoterapia",
+    number: "03",
+    title: "Musicoterapia",
+    subtitle: "A música como ferramenta terapêutica",
+    description:
+      "Utiliza instrumentos, canto, ritmo, escuta guiada e movimento corporal para desenvolver capacidades cognitivas e socioemocionais. Inclui programa especial para mães e bebês.",
+    tags: ["Expressão", "Bem-estar", "Mães e bebês"],
     image: "/images/program-adolescente.webp",
-    details: ["Inteligência Emocional", "Bem-estar"],
-    align: "left",
   },
   {
-    id: "apoio-pedagogico",
-    title: "Apoio Pedagógico",
-    description: "O suporte que respeita o tempo individual. Facilitamos a jornada acadêmica com estratégias personalizadas que fortalecem a confiança e removem barreiras de aprendizagem.",
-    image: "/images/program-adulto.webp",
-    details: ["Acompanhamento Focado", "Confiança"],
-    align: "right",
+    id: "cubo-magico",
+    number: "04",
+    title: "Cubo Mágico",
+    subtitle: "Desafio que expande a mente",
+    description:
+      "Trabalha atenção, foco, raciocínio lógico e espacial, planejamento, memória e persistência através da resolução do cubo mágico.",
+    tags: ["Raciocínio espacial", "Persistência", "Memória"],
+    image: "/images/activity-children-rubiks.webp",
   },
   {
-    id: "vinculos-socializacao",
-    title: "Vínculos e Socialização",
-    description: "A inteligência voltada ao convívio. Potencializamos habilidades sociais e empáticas para construir relações saudáveis e fortalecer o senso de comunidade.",
-    image: "/images/activity-seniors.webp",
-    details: ["Conexão Humana", "Longevidade Ativa"],
-    align: "left",
+    id: "reforco-escolar",
+    number: "05",
+    title: "Reforço Escolar",
+    subtitle: "Apoio personalizado que respeita o ritmo",
+    description:
+      "Programa lúdico voltado da Educação Infantil ao Ensino Médio, com foco no desenvolvimento acadêmico e socioemocional através de jogos educativos e estratégias pedagógicas.",
+    tags: ["Infantil ao Médio", "Personalizado", "Acadêmico"],
+    image: "/images/activity-teens-study.webp",
   },
-]
+  {
+    id: "neurole",
+    number: "06",
+    title: "Neurolê",
+    subtitle: "Alfabetização lúdica e sensorial",
+    description:
+      "Programa de alfabetização inclusiva para crianças atípicas, utilizando abordagem lúdica e sensorial para desenvolver habilidades de leitura e escrita de forma acolhedora.",
+    tags: ["Inclusivo", "Crianças atípicas", "Sensorial"],
+    image: "/images/program-infantil.webp",
+  },
+  {
+    id: "psicopedagogia",
+    number: "07",
+    title: "Psicopedagogia",
+    subtitle: "Acompanhamento especializado",
+    description:
+      "Atendimento especializado em dificuldades de aprendizagem, com acompanhamento psicopedagógico personalizado que identifica barreiras e constrói caminhos para o desenvolvimento.",
+    tags: ["Especializado", "Dificuldades de aprendizagem", "Individual"],
+    image: "/images/activity-adults.webp",
+  },
+] as const
+
+type Program = (typeof programs)[number]
+
+function ProgramRow({
+  program,
+  index,
+  isInView,
+}: {
+  program: Program
+  index: number
+  isInView: boolean
+}) {
+  const isReversed = index % 2 !== 0
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 16 }}
+      animate={isInView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.5, delay: 0.1 + index * 0.08 }}
+      className={`group grid items-center gap-6 lg:gap-10 grid-cols-1 sm:grid-cols-[1fr_1fr] ${
+        isReversed ? "sm:[direction:rtl]" : ""
+      }`}
+    >
+      {/* Image */}
+      <div className="sm:[direction:ltr] relative aspect-[16/10] overflow-hidden rounded-xl bg-muted">
+        <Image
+          src={program.image}
+          alt={program.title}
+          fill
+          className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+          sizes="(max-width: 640px) calc(100vw - 32px), 45vw"
+          loading="lazy"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent" />
+        <span
+          aria-hidden
+          className="pointer-events-none absolute bottom-2 right-3 select-none font-serif text-[52px] font-bold leading-none text-white/[0.08]"
+        >
+          {program.number}
+        </span>
+      </div>
+
+      {/* Text */}
+      <div className="sm:[direction:ltr]">
+        <p className="mb-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-primary/50">
+          {program.subtitle}
+        </p>
+        <h3 className="font-serif text-xl font-semibold leading-snug text-foreground sm:text-2xl">
+          {program.title}
+        </h3>
+        <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+          {program.description}
+        </p>
+        <div className="mt-3 flex flex-wrap gap-1.5">
+          {program.tags.map((tag) => (
+            <span
+              key={tag}
+              className="rounded-full border border-primary/10 bg-primary/[0.04] px-2.5 py-0.5 text-[10px] font-medium uppercase tracking-wider text-primary/60"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+      </div>
+    </motion.div>
+  )
+}
 
 export function Programs() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
 
   return (
-    <section id="programas" className="relative py-16 sm:py-20 lg:py-28 overflow-hidden bg-background" ref={ref}>
-      {/* Subtle background context */}
-      <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-gradient-to-bl from-primary/[0.02] to-transparent pointer-events-none" />
-      
+    <section
+      id="programas"
+      className="relative overflow-hidden bg-background py-16 sm:py-20 lg:py-28"
+      ref={ref}
+    >
+      <div className="pointer-events-none absolute right-0 top-0 h-1/2 w-1/2 bg-gradient-to-bl from-primary/[0.02] to-transparent" />
+
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
+
+        {/* ── Section Header ───────────────────────────────────────── */}
         <div className="mb-12 lg:mb-16">
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6 }}
-            className="flex items-center gap-4 mb-5"
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.5 }}
+            className="mb-5 flex items-center gap-3"
           >
-            <div className="h-px w-10 bg-primary/30" />
-            <span className="text-sm font-semibold text-primary uppercase tracking-[0.2em]">
+            <div className="decorative-line" />
+            <span className="text-sm font-medium uppercase tracking-wider text-primary">
               Programas
             </span>
           </motion.div>
-          
-          <div className="grid lg:grid-cols-5 gap-8 lg:gap-16 items-end">
-            <motion.div 
-              initial={{ opacity: 0, y: 15 }}
+
+          <div className="grid items-end gap-8 lg:grid-cols-5 lg:gap-16">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.1 }}
+              transition={{ duration: 0.5, delay: 0.08 }}
               className="lg:col-span-3"
             >
-              <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl text-foreground leading-tight">
-                Cada fase exige um <span className="italic text-primary">cuidado especial.</span>
+              <h2 className="font-serif text-editorial-lg text-balance text-foreground">
+                Cada pessoa merece um{" "}
+                <span className="text-primary">cuidado especial.</span>
               </h2>
-              <p className="mt-6 text-muted-foreground text-base sm:text-lg leading-relaxed max-w-2xl">
-                Sabemos que as necessidades mudam com o tempo. Por isso, nossas atividades são 
-                planejadas de forma personalizada para cada idade, respeitando o ritmo e os desafios individuais.
+              <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
+                Idealizada por psicólogos e psicopedagogas, a Intelekta oferece 7
+                programas especializados que promovem o aprendizado de forma lúdica,
+                envolvente e significativa — garantindo uma experiência única para
+                cada participante.
               </p>
             </motion.div>
 
-            {/* Compact Age Grid - Integration of user content */}
-            <div className="lg:col-span-2 grid grid-cols-2 gap-4">
+            {/* Age stage cards */}
+            <div className="grid grid-cols-2 gap-4 lg:col-span-2">
               {ageStages.map((stage, idx) => (
                 <motion.div
                   key={stage.phase}
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={isInView ? { opacity: 1, scale: 1 } : {}}
                   transition={{ duration: 0.5, delay: 0.3 + idx * 0.1 }}
-                  className="p-4 rounded-xl bg-muted/30 border border-primary/5 hover:bg-muted/50 transition-colors group"
+                  className="group rounded-xl border border-primary/5 bg-muted/30 p-4 transition-colors hover:bg-muted/50"
                 >
-                  <div className="flex items-center gap-2 mb-2">
-                    <stage.icon className="h-4 w-4 text-primary opacity-60 group-hover:opacity-100 transition-opacity" />
-                    <span className="text-xs font-bold uppercase tracking-wider text-foreground">{stage.phase}</span>
+                  <div className="mb-1.5">
+                    <span className="text-xs font-bold uppercase tracking-wider text-foreground">
+                      {stage.phase}
+                    </span>
                   </div>
-                  <p className="text-[10px] sm:text-xs text-muted-foreground leading-tight">
+                  <span className="mb-1 block text-[10px] font-medium text-primary/70">
+                    {stage.age}
+                  </span>
+                  <p className="text-[10px] leading-tight text-muted-foreground sm:text-xs">
                     {stage.description}
                   </p>
                 </motion.div>
@@ -136,87 +246,59 @@ export function Programs() {
           </div>
         </div>
 
-        {/* Development Pillars with Refined Copy */}
-        <div className="mt-20 lg:mt-24">
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={isInView ? { opacity: 1 } : {}}
-            transition={{ duration: 1 }}
-            className="flex items-center gap-4 mb-12"
-          >
-            <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-primary/40">Pilares de Estimulação</span>
-            <div className="h-px flex-grow bg-gradient-to-r from-primary/10 to-transparent" />
-          </motion.div>
+        {/* ── Editorial Index Strip ─────────────────────────────────── */}
+        <motion.div
+          initial={{ opacity: 0, y: 8 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7, delay: 0.45 }}
+          className="mb-12 flex flex-wrap items-center gap-x-6 gap-y-3 border-y border-primary/[0.08] py-4 lg:mb-14"
+        >
+          {programs.map((program, i) => (
+            <span
+              key={program.id}
+              className="flex items-baseline gap-2 text-[11px] text-muted-foreground/50"
+            >
+              <span className="font-mono text-[9px] text-primary/35">
+                {program.number}
+              </span>
+              <span className="font-medium tracking-wide">{program.title}</span>
+              {i < programs.length - 1 && (
+                <span className="hidden text-primary/20 sm:inline">·</span>
+              )}
+            </span>
+          ))}
+        </motion.div>
 
-          <div className="space-y-16 lg:space-y-20">
-            {pillars.map((pillar, index) => {
-              const isRight = pillar.align === "right"
-              const isLast = index === pillars.length - 1
-              
-              return (
-                <div key={pillar.id} className="relative">
-                  <div className={`flex flex-col ${isRight ? 'lg:flex-row-reverse' : 'lg:flex-row'} items-center gap-10 lg:gap-16 pb-16 lg:pb-20`}>
-                    {/* Image part */}
-                    <motion.div 
-                      initial={{ opacity: 0, scale: 0.98 }}
-                      animate={isInView ? { opacity: 1, scale: 1 } : {}}
-                      transition={{ duration: 0.8, delay: 0.1 }}
-                      className="w-full lg:w-2/5 relative group"
-                    >
-                      <div className="relative aspect-[4/3] sm:aspect-[16/9] lg:aspect-[4/3] overflow-hidden rounded-2xl border border-primary/5">
-                        <Image
-                          src={pillar.image}
-                          alt={pillar.title}
-                          fill
-                          className="object-cover transition-transform duration-[2s] group-hover:scale-105"
-                          sizes="(max-width: 1024px) 100vw, 40vw"
-                        />
-                        <div className="absolute inset-0 bg-neutral-900/5" />
-                      </div>
-                    </motion.div>
-
-                    {/* Content part */}
-                    <motion.div 
-                      initial={{ opacity: 0, x: isRight ? -20 : 20 }}
-                      animate={isInView ? { opacity: 1, x: 0 } : {}}
-                      transition={{ duration: 0.8, delay: 0.2 }}
-                      className="w-full lg:w-3/5 lg:px-4"
-                    >
-                      <h3 className="font-serif text-2xl sm:text-3xl font-medium mb-5 leading-tight text-foreground">
-                        {pillar.title}
-                      </h3>
-                      
-                      <p className="text-muted-foreground text-base sm:text-lg leading-relaxed mb-6">
-                        {pillar.description}
-                      </p>
-
-                      <div className="flex flex-wrap gap-2 mb-8">
-                        {pillar.details.map((detail) => (
-                          <span key={detail} className="text-[10px] font-bold uppercase tracking-wider text-primary/70 bg-primary/5 px-2.5 py-1 rounded-full border border-primary/10">
-                            {detail}
-                          </span>
-                        ))}
-                      </div>
-
-                      <Link 
-                        href="#agendar" 
-                        className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] text-primary hover:gap-4 transition-all group"
-                      >
-                        Saber mais
-                        <ArrowRight className="h-3.5 w-3.5" />
-                      </Link>
-                    </motion.div>
-                  </div>
-
-                  {!isLast && (
-                    <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/10 to-transparent" />
-                  )}
-                </div>
-              )
-            })}
-          </div>
+        {/* ── Programs — alternating rows ─────────────────────────── */}
+        <div className="space-y-8 sm:space-y-10">
+          {programs.map((program, index) => (
+            <ProgramRow
+              key={program.id}
+              program={program}
+              index={index}
+              isInView={isInView}
+            />
+          ))}
         </div>
 
+        {/* ── CTA ────────────────────────────────────────────────────── */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5, delay: 0.7 }}
+          className="mt-12 text-center lg:mt-16"
+        >
+          <p className="mb-4 text-sm text-muted-foreground">
+            Não sabe qual programa é ideal? Nossa equipe ajuda você a encontrar o
+            melhor caminho.
+          </p>
+          <Button size="lg" asChild>
+            <Link href="#contato">
+              Fale com a nossa equipe
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Link>
+          </Button>
+        </motion.div>
       </div>
     </section>
   )

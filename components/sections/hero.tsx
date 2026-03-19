@@ -10,76 +10,24 @@ import {
   m,
 } from "framer-motion"
 import Link from "next/link"
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
-import { ArrowRight, MapPin, Star, TrendingUp, Users, Award, ChevronDown, Brain } from "lucide-react"
+import { ArrowRight, MapPin, ChevronDown } from "lucide-react"
 import { NeuralTree } from "@/components/neural-tree"
-import { useEffect, useRef, useState, memo, useCallback } from "react"
+import { useEffect, useState, useCallback } from "react"
 import { track } from "@vercel/analytics/react"
 
-/* ─── Animated Counter ─── */
-const Counter = memo(function Counter({ to, duration = 1.5 }: { to: number; duration?: number }) {
-  const [count, setCount] = useState(0)
-  const ref = useRef<HTMLSpanElement>(null)
-  const rafRef = useRef<number>(0)
+const HERO_IMAGES = [
+  { src: "/images/hero-1.webp", alt: "Sessão de psicopedagogia com criança" },
+  { src: "/images/hero-2.webp", alt: "Atendimento psicológico acolhedor" },
+  { src: "/images/hero-3.webp", alt: "Ambiente terapêutico tranquilo" },
+]
 
-  useEffect(() => {
-    const el = ref.current
-    if (!el) return
-    const observer = new IntersectionObserver(([entry]) => {
-      if (!entry.isIntersecting) return
-      observer.disconnect()
-      const start = performance.now()
-      const tick = (now: number) => {
-        const t = Math.min((now - start) / (duration * 1000), 1)
-        const eased = 1 - Math.pow(1 - t, 3)
-        setCount(Math.floor(eased * to))
-        if (t < 1) rafRef.current = requestAnimationFrame(tick)
-        else setCount(to)
-      }
-      rafRef.current = requestAnimationFrame(tick)
-    }, { threshold: 0.1 })
-    observer.observe(el)
-    return () => { observer.disconnect(); cancelAnimationFrame(rafRef.current) }
-  }, [to, duration])
-
-  return <span ref={ref}>{count}</span>
-})
-
-/* ─── Floating Stat Card ─── */
-const StatCard = memo(function StatCard({
-  icon: Icon,
-  value,
-  label,
-  delay,
-  className = "",
-}: {
-  icon: React.ElementType
-  value: React.ReactNode
-  label: string
-  delay: number
-  className?: string
-}) {
-  return (
-    <m.div
-      initial={{ opacity: 0, y: 14 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] }}
-      whileHover={{ y: -3 }}
-      style={{ willChange: "transform, opacity" }}
-      className={`absolute bg-background/80 border border-border/50 rounded-2xl px-4 py-3.5 shadow-md ${className}`}
-    >
-      <div className="flex items-center gap-3">
-        <div className="w-8 h-8 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
-          <Icon className="w-4 h-4 text-primary" />
-        </div>
-        <div>
-          <p className="text-[17px] font-bold text-foreground leading-none mb-0.5">{value}</p>
-          <p className="text-[11px] text-muted-foreground leading-tight">{label}</p>
-        </div>
-      </div>
-    </m.div>
-  )
-})
+const HERO_IMAGES_MOBILE = [
+  { src: "/images/hero-mobile-1.webp", alt: "Criança em atividade lúdica de neuroeducação" },
+  { src: "/images/hero-mobile-2.webp", alt: "Adolescente em sessão de desenvolvimento cognitivo" },
+  { src: "/images/hero-mobile-3.webp", alt: "Idosa sorrindo durante atividade terapêutica" },
+]
 
 /* ─── Layout-shift-free word cycling ─── */
 const WORDS = ["mentes", "emoções", "futuros"] as const
@@ -102,15 +50,28 @@ export function Hero() {
   }, [mouseX, mouseY])
 
   const [wordIndex, setWordIndex] = useState(0)
+  const [currentImage, setCurrentImage] = useState(0)
+  const [currentMobileImage, setCurrentMobileImage] = useState(0)
+
   useEffect(() => {
     const id = setInterval(() => setWordIndex((i) => (i + 1) % WORDS.length), 2800)
+    return () => clearInterval(id)
+  }, [])
+
+  useEffect(() => {
+    const id = setInterval(() => setCurrentImage((i) => (i + 1) % HERO_IMAGES.length), 5000)
+    return () => clearInterval(id)
+  }, [])
+
+  useEffect(() => {
+    const id = setInterval(() => setCurrentMobileImage((i) => (i + 1) % HERO_IMAGES_MOBILE.length), 5000)
     return () => clearInterval(id)
   }, [])
 
   return (
     <LazyMotion features={domAnimation} strict>
       <section
-        className="relative min-h-[100svh] flex flex-col overflow-hidden bg-background pt-16 sm:pt-20"
+        className="relative min-h-[100svh] flex flex-col overflow-hidden bg-background pt-16 sm:pt-20 pb-16 sm:pb-0"
         onMouseMove={handleMouseMove}
       >
         {/* ── Gradient orbs ── */}
@@ -129,14 +90,6 @@ export function Hero() {
         <div className="absolute inset-0 bg-[linear-gradient(to_right,var(--border)_1px,transparent_1px)] bg-[length:80px_100%] opacity-[0.05] pointer-events-none" />
         <div className="absolute inset-0 bg-[linear-gradient(to_bottom,var(--border)_1px,transparent_1px)] bg-[length:100%_80px] opacity-[0.05] pointer-events-none" />
 
-        {/* ── Editorial letterform background ── */}
-        <div
-          className="absolute right-0 top-[4%] text-[clamp(140px,22vw,360px)] font-black leading-none select-none pointer-events-none text-foreground/[0.02] tracking-tighter"
-          aria-hidden
-        >
-          IK
-        </div>
-
         {/* ── Neural network ── */}
         <div className="absolute inset-0 pointer-events-none">
           <NeuralTree />
@@ -146,83 +99,35 @@ export function Hero() {
         <div className="absolute inset-0 bg-gradient-to-r from-background via-background/82 to-background/25 pointer-events-none" />
         <div className="absolute inset-0 bg-gradient-to-b from-background/20 via-transparent to-background/65 pointer-events-none" />
 
-        {/* ══ MAIN CONTENT — fills full height ══ */}
+        {/* ══ MAIN CONTENT ══ */}
         <div className="relative z-10 flex-1 flex items-center">
-          {/*
-            Push to the very edge: pl-4 sm:pl-6 lg:pl-8
-            No auto-centering max-width wrapper that adds phantom margins.
-            Content starts near the left edge with just the safety gutter.
-          */}
-          <div className="w-full pl-8 sm:pl-14 lg:pl-24 xl:pl-32 pr-4 sm:pr-6 lg:pr-8 py-10 sm:py-14 lg:py-16">
+          <div className="w-full mx-auto max-w-7xl px-6 sm:px-10 lg:px-12 py-10 sm:py-14 lg:py-16">
 
-            {/*
-              3-COLUMN GRID
-              [accent | content | cards]
-              No max-w-7xl centering — content is flush to the left gutter.
-            */}
-            <div className="grid lg:grid-cols-[44px_1fr_264px] xl:grid-cols-[52px_1fr_280px] gap-8 lg:gap-10 items-center max-w-[1400px]">
+            <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 xl:gap-20 items-center">
 
-              {/* ── LEFT ACCENT (desktop only) ── */}
-              <div className="hidden lg:flex flex-col items-center gap-3 self-stretch justify-center py-8">
-                <div className="flex-1 w-px bg-gradient-to-b from-transparent via-border/60 to-transparent" />
-                <p
-                  className="text-[9px] uppercase tracking-[0.28em] text-muted-foreground/35 font-medium"
-                  style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}
-                >
-                  Intelekta © {new Date().getFullYear()}
-                </p>
-                <span className="w-1.5 h-1.5 rounded-full bg-primary/30 shrink-0" />
-                <p
-                  className="text-[9px] uppercase tracking-[0.22em] text-muted-foreground/30 font-mono"
-                  style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}
-                >
-                  Vila Velha · ES
-                </p>
-                <div className="flex-1 w-px bg-gradient-to-b from-border/60 via-border/30 to-transparent" />
-              </div>
-
-              {/* ── CENTER: main content ── */}
-              <div className="min-w-0">
-
-                {/* Location badge */}
-                <m.div
-                  initial={{ opacity: 0, x: -14 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.48, ease: [0.22, 1, 0.36, 1] }}
-                  className="inline-flex items-center gap-3 mb-6 sm:mb-7"
-                >
-                  <div className="flex items-center gap-2 border border-primary/30 bg-primary/5 rounded-full pl-2 pr-4 py-1.5">
-                    <span className="relative flex h-5 w-5 items-center justify-center shrink-0">
-                      <span className="animate-ping absolute inline-flex h-3 w-3 rounded-full bg-primary/30" />
-                      <span className="relative w-2.5 h-2.5 rounded-full bg-primary" />
-                    </span>
-                    <MapPin className="w-3.5 h-3.5 text-primary shrink-0" />
-                    <span className="text-sm font-semibold text-primary tracking-wide">
-                      Vila Velha, ES
-                    </span>
-                  </div>
-                  <span className="hidden sm:block text-[11px] text-muted-foreground/45 font-mono tracking-widest">
-                    20°21′S 40°17′O
-                  </span>
-                </m.div>
-
+              {/* ── LEFT: content ── */}
+              <m.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              >
                 {/* Eyebrow */}
                 <m.p
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.42, delay: 0.06, ease: [0.22, 1, 0.36, 1] }}
-                  className="text-xs sm:text-sm uppercase tracking-[0.2em] text-muted-foreground/55 font-medium mb-4 sm:mb-5 flex items-center gap-3"
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5, delay: 0.1 }}
+                  className="text-xs uppercase tracking-[0.2em] text-muted-foreground mb-6 flex items-center gap-3"
                 >
-                  <span className="w-5 h-px bg-muted-foreground/30 shrink-0" />
+                  <span className="w-8 h-px bg-primary" />
                   Centro de desenvolvimento cognitivo e socioemocional
                 </m.p>
 
-                {/* ── HEADLINE ── */}
+                {/* Headline */}
                 <m.h1
                   initial={{ opacity: 0, y: 22 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.58, delay: 0.11, ease: [0.22, 1, 0.36, 1] }}
-                  className="font-serif text-editorial-xl text-foreground leading-[1.07]"
+                  transition={{ duration: 0.58, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+                  className="font-serif text-4xl sm:text-5xl lg:text-6xl xl:text-7xl text-foreground leading-[1.07] tracking-tight"
                 >
                   Fortalecendo{" "}
                   <span
@@ -231,7 +136,6 @@ export function Hero() {
                     aria-live="polite"
                     aria-atomic="true"
                   >
-                    {/* Invisible spacer — reserves width permanently */}
                     <span
                       className="col-start-1 row-start-1 text-primary"
                       aria-hidden
@@ -239,7 +143,6 @@ export function Hero() {
                     >
                       {LONGEST}
                     </span>
-                    {/* Animated word */}
                     <AnimatePresence mode="wait">
                       <m.span
                         key={wordIndex}
@@ -254,24 +157,23 @@ export function Hero() {
                         {WORDS[wordIndex]}
                       </m.span>
                     </AnimatePresence>
-                    {/* Static underline */}
                     <m.span
                       initial={{ scaleX: 0, opacity: 0 }}
                       animate={{ scaleX: 1, opacity: 1 }}
-                      transition={{ delay: 0.38, duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+                      transition={{ delay: 0.5, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                       className="absolute -bottom-1.5 left-0 h-[3px] w-full rounded-full bg-primary/30 origin-left"
                     />
                   </span>
-                  <br className="hidden sm:block" />
-                  {" "}que moldam o amanhã
+                  <br />
+                  <span className="text-muted-foreground">que moldam o amanhã</span>
                 </m.h1>
 
                 {/* Body copy */}
                 <m.p
                   initial={{ opacity: 0, y: 14 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.52, delay: 0.19, ease: [0.22, 1, 0.36, 1] }}
-                  className="mt-5 sm:mt-6 text-base sm:text-lg text-muted-foreground leading-relaxed max-w-[50ch] text-pretty"
+                  transition={{ duration: 0.52, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
+                  className="mt-6 lg:mt-8 text-base lg:text-lg text-muted-foreground leading-relaxed max-w-lg"
                 >
                   Programas personalizados fundamentados em{" "}
                   <span className="text-foreground font-medium">neurociência</span>{" "}
@@ -284,133 +186,153 @@ export function Hero() {
 
                 {/* CTAs */}
                 <m.div
-                  initial={{ opacity: 0, y: 14 }}
+                  initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.52, delay: 0.26, ease: [0.22, 1, 0.36, 1] }}
-                  className="mt-7 sm:mt-9 flex flex-col sm:flex-row gap-3"
+                  transition={{ duration: 0.5, delay: 0.35 }}
+                  className="mt-8 lg:mt-10 flex flex-col sm:flex-row gap-3"
                 >
                   <Button
                     size="lg"
-                    className="h-13 sm:h-14 px-7 sm:px-8 text-sm sm:text-base w-full sm:w-auto animate-cta-pulse group"
+                    className="h-14 px-8 text-base group"
                     asChild
                   >
                     <a
-                      href="https://wa.me/5527996194455?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20aula%20na%20Intelekta."
+                      href="https://wa.me/5527988773890?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20aula%20na%20Intelekta."
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={() => track("cta_hero_whatsapp")}
                     >
                       Agendar aula gratuita
-                      <ArrowRight className="ml-2 h-4 sm:h-5 w-4 sm:w-5 transition-transform duration-200 group-hover:translate-x-1" />
+                      <ArrowRight className="ml-2 h-5 w-5 transition-transform duration-200 group-hover:translate-x-1" />
                     </a>
                   </Button>
                   <Button
                     size="lg"
                     variant="outline"
-                    className="h-13 sm:h-14 px-7 sm:px-8 text-sm sm:text-base w-full sm:w-auto bg-background/50 group"
+                    className="h-14 px-8 text-base bg-transparent group"
                     asChild
                   >
-                    <Link href="#programas">
-                      Descubra seu programa ideal
-                      <ArrowRight className="ml-2 h-4 w-4 opacity-0 -translate-x-1.5 transition-all duration-200 group-hover:opacity-100 group-hover:translate-x-0" />
+                    <Link href="#sobre">
+                      Conheça a Intelekta
                     </Link>
                   </Button>
                 </m.div>
 
-                {/* Trust bar */}
-                <m.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.65, delay: 0.46 }}
-                  className="mt-8 sm:mt-10 flex flex-wrap items-center gap-5 sm:gap-7"
-                >
-                  <div className="flex items-center gap-2">
-                    <div className="flex gap-0.5">
-                      {[1, 2, 3, 4, 5].map((i) => (
-                        <Star key={i} className="w-4 h-4 text-amber-400 fill-amber-400" />
-                      ))}
-                    </div>
-                    <span className="text-sm font-bold text-foreground">5</span>
-                    <span className="text-sm text-muted-foreground">/5</span>
-                  </div>
-                  <div className="h-4 w-px bg-border" />
-                  <div className="flex items-center gap-2">
-                    <Users className="w-4 h-4 text-primary/55 shrink-0" />
-                    <span className="text-sm text-muted-foreground">
-                      <strong className="text-foreground">+200 famílias</strong> atendidas
-                    </span>
-                  </div>
-                  <div className="h-4 w-px bg-border hidden sm:block" />
-                  <div className="hidden sm:flex items-center gap-2">
-                    <Award className="w-4 h-4 text-primary/55 shrink-0" />
-                    <span className="text-sm text-muted-foreground">
-                      <strong className="text-foreground">30+ anos</strong> de experiência na equipe
-                    </span>
-                  </div>
-                </m.div>
-
-                {/* Program pills */}
+                {/* ── Mobile image carousel ── */}
                 <m.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.55, delay: 0.7, ease: [0.22, 1, 0.36, 1] }}
-                  className="mt-7 sm:mt-9 flex flex-wrap gap-2"
+                  transition={{ duration: 0.6, delay: 0.45 }}
+                  className="mt-8 lg:hidden"
                 >
-                  {[
-                    { label: "Crianças",     tag: "5–12 anos"  },
-                    { label: "Adolescentes", tag: "13–17 anos" },
-                    { label: "Adultos",      tag: "18–59 anos" },
-                    { label: "Idosos",       tag: "60+ anos"   },
-                  ].map((item) => (
-                    <div
-                      key={item.label}
-                      className="flex items-center gap-2 border border-border/50 rounded-full px-3.5 py-1.5 transition-colors duration-200 hover:bg-primary/5 hover:border-primary/30 cursor-default"
-                    >
-                      <span className="text-sm font-medium text-foreground">{item.label}</span>
-                      <span className="text-xs text-muted-foreground bg-muted rounded-full px-2 py-0.5">
-                        {item.tag}
-                      </span>
-                    </div>
-                  ))}
-                  <Link
-                    href="#programas"
-                    className="flex items-center gap-1.5 px-3.5 py-1.5 text-xs text-primary font-medium rounded-full transition-all duration-200 hover:bg-primary/5 hover:gap-2.5"
-                  >
-                    Ver todos <ArrowRight className="w-3 h-3" />
-                  </Link>
+                  <div className="relative aspect-[16/9] w-full rounded-xl overflow-hidden bg-muted">
+                    <AnimatePresence mode="wait">
+                      <m.div
+                        key={currentMobileImage}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.6 }}
+                        className="absolute inset-0"
+                      >
+                        <Image
+                          src={HERO_IMAGES_MOBILE[currentMobileImage].src}
+                          alt={HERO_IMAGES_MOBILE[currentMobileImage].alt}
+                          fill
+                          className="object-cover"
+                          sizes="(max-width: 640px) 90vw, 384px"
+                          priority={currentMobileImage === 0}
+                        />
+                      </m.div>
+                    </AnimatePresence>
+                    <div className="absolute inset-0 bg-gradient-to-t from-background/15 via-transparent to-transparent pointer-events-none" />
+                  </div>
+                  <div className="flex gap-2 mt-3">
+                    {HERO_IMAGES_MOBILE.map((_, index) => (
+                      <button
+                        key={index}
+                        onClick={() => setCurrentMobileImage(index)}
+                        className={`h-1 rounded-full transition-all duration-300 ${
+                          index === currentMobileImage
+                            ? "w-6 bg-primary"
+                            : "w-1 bg-border"
+                        }`}
+                        aria-label={`Ver imagem ${index + 1}`}
+                      />
+                    ))}
+                  </div>
                 </m.div>
-              </div>
 
-              {/* ── RIGHT: stat cards (desktop only) ── */}
-              <div className="hidden lg:block relative h-[308px] shrink-0">
-                <StatCard
-                  icon={Users}
-                  value={<><Counter to={200} />+</>}
-                  label="Famílias em Vila Velha, ES"
-                  delay={0.6}
-                  className="top-0 inset-x-0"
-                />
-                <StatCard
-                  icon={Brain}
-                  value="5.0 / 5"
-                  label="Avaliação média dos alunos"
-                  delay={0.75}
-                  className="top-[104px] inset-x-3"
-                />
-                <StatCard
-                  icon={TrendingUp}
-                  value={<><Counter to={93} />%</>}
-                  label="Melhora relatada em 60 dias"
-                  delay={0.9}
-                  className="top-[208px] inset-x-0"
-                />
+                {/* Trust indicators */}
                 <m.div
-                  initial={{ scaleY: 0, opacity: 0 }}
-                  animate={{ scaleY: 1, opacity: 1 }}
-                  transition={{ delay: 0.75, duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-                  className="absolute left-1/2 -translate-x-px top-14 bottom-12 w-px bg-gradient-to-b from-transparent via-border/50 to-transparent origin-top"
-                />
-              </div>
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.6, delay: 0.55 }}
+                  className="mt-12 pt-8 border-t border-border"
+                >
+                  <p className="text-xs uppercase tracking-[0.15em] text-muted-foreground mb-4">
+                    Atendimento especializado
+                  </p>
+                  <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-foreground">
+                    <span>Crianças</span>
+                    <span className="text-muted-foreground/40">|</span>
+                    <span>Adolescentes</span>
+                    <span className="text-muted-foreground/40">|</span>
+                    <span>Adultos</span>
+                    <span className="text-muted-foreground/40">|</span>
+                    <span>Idosos</span>
+                  </div>
+                </m.div>
+              </m.div>
+
+              {/* ── RIGHT: Image gallery (desktop) ── */}
+              <m.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                className="relative hidden lg:flex items-center justify-center"
+              >
+                <div className="relative w-full max-w-[380px] xl:max-w-[420px] mx-auto">
+                  <div className="relative aspect-[4/5] rounded-2xl overflow-hidden bg-muted">
+                    <AnimatePresence mode="wait">
+                      <m.div
+                        key={currentImage}
+                        initial={{ opacity: 0, scale: 1.05 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.97 }}
+                        transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                        className="absolute inset-0"
+                      >
+                        <Image
+                          src={HERO_IMAGES[currentImage].src}
+                          alt={HERO_IMAGES[currentImage].alt}
+                          fill
+                          className="object-cover"
+                          sizes="420px"
+                          priority={currentImage === 0}
+                        />
+                      </m.div>
+                    </AnimatePresence>
+                    <div className="absolute inset-0 bg-gradient-to-t from-background/20 via-transparent to-transparent pointer-events-none" />
+                  </div>
+
+                  {/* Image indicators */}
+                  <div className="flex justify-center gap-2 mt-4">
+                    {HERO_IMAGES.map((_, index) => (
+                      <button
+                        key={index}
+                        onClick={() => setCurrentImage(index)}
+                        className={`h-1.5 rounded-full transition-all duration-300 ${
+                          index === currentImage
+                            ? "w-8 bg-primary"
+                            : "w-1.5 bg-border hover:bg-muted-foreground/30"
+                        }`}
+                        aria-label={`Ver imagem ${index + 1}`}
+                      />
+                    ))}
+                  </div>
+                </div>
+              </m.div>
 
             </div>
           </div>
@@ -426,12 +348,12 @@ export function Hero() {
           ← Mova o mouse para estimular a rede neural
         </m.p>
 
-        {/* ── Scroll caret — pinned to very bottom of viewport ── */}
+        {/* ── Scroll caret ── */}
         <m.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 2.2, duration: 0.9 }}
-          className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 pointer-events-none"
+          className="absolute bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-20 pointer-events-none"
         >
           <m.div
             animate={{ y: [0, 6, 0] }}

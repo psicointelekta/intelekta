@@ -142,7 +142,7 @@ export function Header() {
               </Button>
               <Button size="sm" asChild>
                 <a
-                  href="https://wa.me/5527996194455?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20aula%20na%20Intelekta."
+                  href="https://wa.me/5527988773890?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20aula%20na%20Intelekta."
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -220,7 +220,7 @@ export function Header() {
               <div className="px-6 py-6 border-t border-border">
                 <Button className="w-full" asChild>
                   <a
-                    href="https://wa.me/5527996194455?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20aula%20na%20Intelekta."
+                    href="https://wa.me/5527988773890?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20aula%20na%20Intelekta."
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => {

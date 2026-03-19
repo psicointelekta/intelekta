@@ -20,10 +20,12 @@ type LeadStatus = "idle" | "success" | "error"
 
 const PROGRAMS = [
   "Neuroeducação",
+  "Xadrez Pedagógico",
   "Musicoterapia",
-  "Reforço Escolar",
-  "Xadrez",
   "Cubo Mágico",
+  "Reforço Escolar",
+  "Neurolê",
+  "Psicopedagogia",
   "Outro / Não sei",
 ]
 
@@ -89,7 +91,7 @@ export function Contact() {
       track("lead_submit_success", { program })
 
       const text = `Olá! Meu nome é ${fullName}. Gostaria de agendar uma visita e saber mais sobre o programa ${program}. Meu contato é ${phoneValue}. ${message ? `Observação: ${message}` : ""}`
-      const whatsappUrl = `https://wa.me/5527996194455?text=${encodeURIComponent(text)}`
+      const whatsappUrl = `https://wa.me/5527988773890?text=${encodeURIComponent(text)}`
       window.open(whatsappUrl, "_blank", "noopener,noreferrer")
       e.currentTarget.reset()
       setPhone("")
@@ -176,7 +178,7 @@ export function Contact() {
                     onClick={() => track("cta_whatsapp_abertura")}
                   >
                     <a
-                      href={`https://wa.me/5527996194455?text=${encodeURIComponent(whatsappMessage)}`}
+                      href={`https://wa.me/5527988773890?text=${encodeURIComponent(whatsappMessage)}`}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
@@ -320,8 +322,8 @@ export function Contact() {
                 </div>
                 <div>
                   <h3 className="font-semibold text-foreground text-sm">Telefone</h3>
-                  <a href="tel:+5527996194455" className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                    (27) 99619-4455
+                  <a href="tel:+5527988773890" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                    (27) 98877-3890
                   </a>
                 </div>
               </div>
