@@ -90,7 +90,7 @@ export function Methodology() {
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: 0.08 }}
-              className="font-serif text-editorial-lg text-balance text-foreground"
+              className="font-serif text-editorial-lg text-balance text-foreground leading-[1.04]"
             >
               Ciência a serviço do{" "}
               <span className="text-primary">desenvolvimento humano</span>
@@ -137,7 +137,7 @@ export function Methodology() {
                   {/* Roman numeral — large ghost decoration */}
                   <span
                     aria-hidden="true"
-                    className="pointer-events-none absolute bottom-1 right-4 select-none font-serif text-[96px] font-bold leading-none text-primary/[0.045] transition-colors duration-500 group-hover:text-primary/[0.085] lg:text-[112px]"
+                    className="pointer-events-none absolute bottom-1 right-4 select-none font-serif text-[96px] font-black leading-none text-primary/[0.045] transition-colors duration-500 group-hover:text-primary/[0.085] lg:text-[112px]"
                   >
                     {pillar.roman}
                   </span>
@@ -151,7 +151,7 @@ export function Methodology() {
                       <pillar.icon className="h-6 w-6 text-primary-foreground" />
                     </div>
 
-                    <h3 className="mb-3 font-serif text-xl font-semibold text-foreground sm:text-2xl">
+                    <h3 className="mb-3 font-serif text-xl font-bold tracking-[-0.02em] text-foreground sm:text-2xl">
                       {pillar.title}
                     </h3>
                     <p className="text-sm leading-relaxed text-muted-foreground sm:text-base">
@@ -170,7 +170,7 @@ export function Methodology() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5, delay: 0.5 }}
         >
-          <h3 className="mb-10 text-center font-serif text-xl font-semibold text-foreground sm:text-2xl lg:mb-14">
+          <h3 className="mb-10 text-center font-serif text-xl font-bold tracking-[-0.02em] text-foreground sm:text-2xl lg:mb-14">
             Como funciona na prática
           </h3>
 
@@ -185,7 +185,7 @@ export function Methodology() {
                   )}
                   {/* Step circle */}
                   <div className="relative z-10 mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl border-2 border-primary/30 bg-primary/10">
-                    <span className="font-serif text-xl font-bold text-primary">
+                    <span className="font-serif text-xl font-black text-primary">
                       {item.number}
                     </span>
                     {item.badge && (
@@ -209,7 +209,7 @@ export function Methodology() {
               {steps.map((item) => (
                 <div key={item.number} className="flex items-start gap-4">
                   <div className="relative flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border-2 border-primary/30 bg-primary/10">
-                    <span className="font-serif text-lg font-bold text-primary">
+                    <span className="font-serif text-lg font-black text-primary">
                       {item.number}
                     </span>
                     {item.badge && (

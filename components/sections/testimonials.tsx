@@ -87,7 +87,7 @@ export function Testimonials() {
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5, delay: 0.08 }}
-            className="font-serif text-editorial-lg text-dark-section-foreground text-balance max-w-2xl"
+            className="font-serif text-editorial-lg text-dark-section-foreground text-balance leading-[1.04] max-w-2xl"
           >
             Histórias reais de quem vivencia a{" "}
             <span className="text-secondary italic">transformação cognitiva</span>
@@ -126,7 +126,7 @@ export function Testimonials() {
                   ))}
                 </div>
 
-                <blockquote className="font-serif text-lg sm:text-xl lg:text-2xl text-dark-section-foreground leading-relaxed italic mb-8 sm:mb-10 text-pretty">
+                <blockquote className="font-serif text-lg sm:text-xl lg:text-2xl font-bold text-dark-section-foreground leading-[1.45] tracking-[-0.02em] italic mb-8 sm:mb-10 text-pretty">
                   {testimonials[currentIndex].content}
                 </blockquote>
 

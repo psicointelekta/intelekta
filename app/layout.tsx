@@ -1,19 +1,21 @@
 import type { Metadata, Viewport } from 'next'
-import { Inter, Playfair_Display } from 'next/font/google'
+import { Lato, Nunito } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import './globals.css'
 
-const inter = Inter({
+const lato = Lato({
   subsets: ['latin'],
-  variable: '--font-inter',
+  variable: '--font-lato',
   display: 'swap',
+  weight: ['400', '700'],
 })
 
-const playfair = Playfair_Display({
+const nunito = Nunito({
   subsets: ['latin'],
-  variable: '--font-playfair',
+  variable: '--font-nunito',
   display: 'swap',
+  weight: ['700', '900'],
 })
 
 export const metadata: Metadata = {
@@ -320,7 +322,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="pt-BR" className={`${inter.variable} ${playfair.variable}`}>
+    <html lang="pt-BR" className={`${lato.variable} ${nunito.variable}`}>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />

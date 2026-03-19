@@ -56,7 +56,7 @@ export function Team() {
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5, delay: 0.08 }}
-            className="font-serif text-editorial-lg text-dark-section-foreground text-balance mb-5"
+            className="font-serif text-editorial-lg text-dark-section-foreground text-balance leading-[1.04] mb-5"
           >
             Profissionais dedicadas ao{" "}
             <span className="text-secondary">seu desenvolvimento</span>
@@ -99,7 +99,7 @@ export function Team() {
 
                 {/* Content — below image, NOT overlapping */}
                 <div className="p-5 sm:p-6">
-                  <h3 className="font-serif text-xl sm:text-2xl font-semibold text-dark-section-foreground mb-1">
+                  <h3 className="font-serif text-xl sm:text-2xl font-bold tracking-[-0.02em] text-dark-section-foreground mb-1">
                     {founder.name}
                   </h3>
                   <span className="text-primary font-medium text-sm block mb-3">

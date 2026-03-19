@@ -50,7 +50,7 @@ export function MobileTestimonialsCarousel({
             ))}
           </div>
 
-          <blockquote className="mb-8 font-serif text-xl leading-8 italic text-pretty">
+          <blockquote className="mb-8 font-serif text-xl font-bold leading-8 tracking-[-0.02em] italic text-pretty">
             {current.content}
           </blockquote>
 

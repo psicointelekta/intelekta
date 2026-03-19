@@ -129,7 +129,7 @@ export function Hero() {
                   initial={{ opacity: 0, y: 22 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.58, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-                  className="font-serif text-4xl sm:text-5xl lg:text-6xl xl:text-7xl text-foreground leading-[1.07] tracking-tight"
+                  className="font-serif text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black text-foreground leading-[1.01] tracking-[-0.045em]"
                 >
                   Fortalecendo{" "}
                   <span

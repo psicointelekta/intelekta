@@ -26,7 +26,7 @@ export function Cta() {
           <div className="relative z-10 grid lg:grid-cols-2 gap-8 items-center">
             {/* Text */}
             <div>
-              <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-semibold text-primary-foreground leading-tight text-balance mb-4">
+              <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-black text-primary-foreground leading-[1.04] tracking-[-0.03em] text-balance mb-4">
                 Vamos cuidar juntos do que mais importa
               </h2>
               <p className="text-base sm:text-lg text-primary-foreground/85 leading-relaxed mb-2">

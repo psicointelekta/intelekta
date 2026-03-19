@@ -343,7 +343,7 @@ function SectionHeader({
           {eyebrow}
         </span>
       </div>
-      <h2 className={`font-serif text-editorial-lg text-balance leading-[1.08] tracking-tight ${titleColor}`}>
+      <h2 className={`font-serif text-editorial-lg text-balance font-extrabold leading-[1.04] tracking-[-0.03em] ${titleColor}`}>
         {title}
       </h2>
       {description ? <div className={`text-base leading-relaxed sm:text-lg ${bodyColor}`}>{description}</div> : null}
@@ -398,7 +398,7 @@ export function HomeMobile() {
                   Centro de desenvolvimento cognitivo e socioemocional
                 </p>
 
-                <h1 className="font-serif text-[2.8rem] leading-[1.02] tracking-tight text-foreground">
+                <h1 className="font-serif text-[2.8rem] font-black leading-[0.98] tracking-[-0.045em] text-foreground">
                   Fortalecendo <MobileHeroWordRotator />
                   <br />
                   <span className="text-muted-foreground">que moldam o amanhã</span>
@@ -525,7 +525,7 @@ export function HomeMobile() {
                     key={value.title}
                     className="relative isolate grid grid-cols-[44px_minmax(0,1fr)] gap-x-4 gap-y-1 border-b border-primary/[0.08] py-5 [contain:paint] sm:gap-x-5"
                   >
-                    <span className="font-serif text-3xl font-bold leading-none text-primary/[0.12]">
+                    <span className="font-serif text-3xl font-black leading-none text-primary/[0.12]">
                       {String(index + 1).padStart(2, "0")}
                     </span>
                     <div className="min-w-0">
@@ -553,7 +553,7 @@ export function HomeMobile() {
                   />
                 </div>
                 <div>
-                  <h3 className="font-serif text-3xl text-foreground">Conheça o Nino</h3>
+                  <h3 className="font-serif text-3xl font-bold tracking-[-0.02em] text-foreground">Conheça o Nino</h3>
                   <p className="mt-3 text-sm leading-7 text-muted-foreground">
                     Nosso mascote representa a curiosidade incansável, a inteligência ágil e o equilíbrio perfeito entre razão e emoção — qualidades que cultivamos em cada pessoa que passa pela Intelekta.
                   </p>
@@ -561,7 +561,7 @@ export function HomeMobile() {
                     <span className="pointer-events-none absolute -left-1 -top-7 select-none font-serif text-6xl leading-none text-primary/10">
                       &ldquo;
                     </span>
-                    <blockquote className="font-serif text-xl leading-8 italic text-foreground">
+                    <blockquote className="font-serif text-xl font-bold leading-8 tracking-[-0.02em] italic text-foreground">
                       Nosso propósito é despertar em cada pessoa a confiança de que pode desenvolver novas habilidades, superar desafios e construir uma vida mais equilibrada e significativa.
                     </blockquote>
                     <div className="mt-4 flex items-center gap-3">
@@ -604,7 +604,7 @@ export function HomeMobile() {
                       <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-primary shadow-md shadow-primary/20">
                         <pillar.icon className="h-6 w-6 text-primary-foreground" />
                       </div>
-                      <h3 className="font-serif text-2xl text-foreground">{pillar.title}</h3>
+                      <h3 className="font-serif text-2xl font-bold tracking-[-0.02em] text-foreground">{pillar.title}</h3>
                       <p className="mt-3 text-sm leading-7 text-muted-foreground">{pillar.description}</p>
                     </div>
                   </article>
@@ -613,7 +613,7 @@ export function HomeMobile() {
             </div>
 
             <div className="space-y-4">
-              <h3 className="text-center font-serif text-2xl font-semibold text-foreground">
+              <h3 className="text-center font-serif text-2xl font-bold tracking-[-0.02em] text-foreground">
                 Como funciona na prática
               </h3>
               <div className="space-y-4">
@@ -698,7 +698,7 @@ export function HomeMobile() {
                       <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-primary/50">
                         {program.subtitle}
                       </p>
-                      <h3 className="mt-2 font-serif text-3xl leading-tight text-foreground">{program.title}</h3>
+                      <h3 className="mt-2 font-serif text-3xl font-bold leading-tight tracking-[-0.025em] text-foreground">{program.title}</h3>
                       <p className="mt-3 text-sm leading-7 text-muted-foreground">{program.description}</p>
                     </div>
                     <div className="flex flex-wrap gap-2">
@@ -757,7 +757,7 @@ export function HomeMobile() {
                     />
                   </div>
                   <div className="p-5">
-                    <h3 className="font-serif text-2xl text-dark-section-foreground">{member.name}</h3>
+                    <h3 className="font-serif text-2xl font-bold tracking-[-0.02em] text-dark-section-foreground">{member.name}</h3>
                     <p className="mt-1 text-sm font-medium text-primary">{member.role}</p>
                     <p className="mt-3 text-sm leading-7 text-dark-section-foreground/70">{member.bio}</p>
                     <p className="mt-3 text-xs text-dark-section-foreground/40">
@@ -836,7 +836,7 @@ export function HomeMobile() {
             <div className="grid gap-4 pt-2">
               <article className="rounded-3xl bg-gradient-to-br from-primary to-accent p-6 text-primary-foreground">
                 <MessageCircle className="mb-4 h-8 w-8 opacity-80" />
-                <h3 className="font-serif text-2xl font-semibold">Primeira aula gratuita</h3>
+                <h3 className="font-serif text-2xl font-bold tracking-[-0.02em]">Primeira aula gratuita</h3>
                 <p className="mt-2 text-sm leading-7 text-primary-foreground/82">
                   Conheça nosso espaço, metodologia e equipe sem compromisso. Agende agora e comece a jornada de desenvolvimento.
                 </p>

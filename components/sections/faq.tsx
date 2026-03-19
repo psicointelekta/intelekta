@@ -72,7 +72,7 @@ export function Faq() {
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5, delay: 0.08 }}
-            className="font-serif text-editorial-lg text-foreground text-balance"
+            className="font-serif text-editorial-lg text-foreground text-balance leading-[1.04]"
           >
             Tire suas <span className="text-primary">dúvidas</span>
           </motion.h2>
@@ -120,7 +120,7 @@ export function Faq() {
 
                 <div className="relative z-10">
                   <Calendar className="w-8 h-8 mb-4 opacity-80" />
-                  <h3 className="font-serif text-xl sm:text-2xl font-semibold mb-2">
+                  <h3 className="font-serif text-xl sm:text-2xl font-bold tracking-[-0.02em] mb-2">
                     Primeira aula gratuita
                   </h3>
                   <p className="text-primary-foreground/80 text-sm leading-relaxed mb-6">

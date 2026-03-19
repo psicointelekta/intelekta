@@ -151,7 +151,7 @@ function ProgramRow({
         <p className="mb-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-primary/50">
           {program.subtitle}
         </p>
-        <h3 className="font-serif text-xl font-semibold leading-snug text-foreground sm:text-2xl">
+        <h3 className="font-serif text-xl font-bold leading-snug tracking-[-0.02em] text-foreground sm:text-2xl">
           {program.title}
         </h3>
         <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
@@ -213,7 +213,7 @@ export function Programs() {
               transition={{ duration: 0.5, delay: 0.08 }}
               className="lg:col-span-3"
             >
-              <h2 className="font-serif text-editorial-lg text-balance text-foreground">
+              <h2 className="font-serif text-editorial-lg text-balance text-foreground leading-[1.04]">
                 Cada pessoa merece um{" "}
                 <span className="text-primary">cuidado especial.</span>
               </h2>

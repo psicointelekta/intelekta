@@ -84,7 +84,7 @@ export function About() {
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: 0.08 }}
-              className="font-serif text-editorial-lg text-balance text-foreground"
+              className="font-serif text-editorial-lg text-balance text-foreground leading-[1.04]"
             >
               Um espaço onde pessoas são{" "}
               <span className="text-primary">acolhidas e transformadas</span>
@@ -156,12 +156,12 @@ export function About() {
                 className="group -mx-1 grid grid-cols-[44px_1fr] items-start gap-x-5 gap-y-1 rounded-sm border-b border-primary/[0.08] px-1 py-6 transition-colors duration-200 hover:bg-primary/[0.013] sm:gap-x-7 lg:grid-cols-[72px_1fr_1fr] lg:gap-x-10 lg:py-7"
               >
                 {/* Ordinal number */}
-                <span className="font-serif text-3xl font-bold leading-none text-primary/[0.12] transition-colors duration-300 group-hover:text-primary/[0.25] lg:text-4xl">
+                <span className="font-serif text-3xl font-black leading-none text-primary/[0.12] transition-colors duration-300 group-hover:text-primary/[0.25] lg:text-4xl">
                   {String(index + 1).padStart(2, "0")}
                 </span>
 
                 {/* Title */}
-                <h3 className="font-serif text-xl font-semibold leading-snug text-foreground sm:text-2xl">
+                <h3 className="font-serif text-xl font-bold leading-snug tracking-[-0.02em] text-foreground sm:text-2xl">
                   {value.title}
                 </h3>
 
@@ -204,7 +204,7 @@ export function About() {
 
               {/* Quote + context */}
               <div className="px-6 pb-10 lg:col-span-3 lg:px-12 lg:py-16 lg:pl-4">
-                <h3 className="mb-4 font-serif text-xl font-semibold text-foreground sm:text-2xl lg:text-3xl">
+                <h3 className="mb-4 font-serif text-xl font-bold tracking-[-0.02em] text-foreground sm:text-2xl lg:text-3xl">
                   Conheça o Nino
                 </h3>
                 <p className="mb-8 text-sm leading-relaxed text-muted-foreground sm:text-base">
@@ -222,7 +222,7 @@ export function About() {
                   >
                     &ldquo;
                   </span>
-                  <blockquote className="font-serif text-editorial-quote text-pretty italic text-foreground">
+                  <blockquote className="font-serif text-editorial-quote text-pretty font-bold italic text-foreground">
                     Nosso propósito é despertar em cada pessoa a confiança de
                     que pode desenvolver novas habilidades, superar desafios e
                     construir uma vida mais equilibrada e significativa.

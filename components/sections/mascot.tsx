@@ -98,7 +98,7 @@ export function Mascot() {
             <span className="inline-block text-sm font-medium text-primary uppercase tracking-wider mb-4">
               Conheça o Nino
             </span>
-            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-semibold text-foreground leading-tight mb-6 text-balance">
+            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-black text-foreground leading-[1.04] tracking-[-0.03em] mb-6 text-balance">
               Nosso mascote, nossa filosofia
             </h2>
             <p className="text-base sm:text-lg text-muted-foreground leading-relaxed mb-8">

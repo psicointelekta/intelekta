@@ -58,7 +58,7 @@ export function Articles() {
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="font-serif text-3xl sm:text-4xl lg:text-5xl font-semibold text-foreground leading-tight text-balance"
+              className="font-serif text-3xl sm:text-4xl lg:text-5xl font-black text-foreground leading-[1.04] tracking-[-0.035em] text-balance"
             >
               Artigos e insights
             </motion.h2>
@@ -116,7 +116,7 @@ export function Articles() {
 
                   {/* Content */}
                   <div className="p-6">
-                    <h3 className="font-serif text-xl font-semibold text-foreground mb-3 group-hover:text-primary transition-colors line-clamp-2">
+                    <h3 className="font-serif text-xl font-bold tracking-[-0.02em] text-foreground mb-3 group-hover:text-primary transition-colors line-clamp-2">
                       {article.title}
                     </h3>
                     <p className="text-muted-foreground leading-relaxed mb-4 line-clamp-2">
