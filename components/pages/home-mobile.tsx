@@ -499,7 +499,7 @@ export function HomeMobile() {
                         height={420}
                         className="h-auto w-full object-cover"
                         sizes="50vw"
-                        loading="lazy"
+                        priority
                       />
                     </div>
                   ))}

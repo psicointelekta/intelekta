@@ -252,7 +252,7 @@ export function Hero() {
                           fill
                           className="object-cover"
                           sizes="(max-width: 640px) 90vw, 384px"
-                          priority={index === 0}
+                          priority
                         />
                       </m.div>
                     ))}
@@ -321,7 +321,7 @@ export function Hero() {
                           fill
                           className="object-cover"
                           sizes="420px"
-                          priority={index === 0}
+                          priority
                         />
                       </m.div>
                     ))}
