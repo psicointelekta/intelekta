@@ -82,19 +82,25 @@ export function MobileTestimonialsCarousel({
         </div>
       </div>
 
-      <div className="mt-5 flex justify-center gap-2">
+      <div className="mt-5 flex justify-center gap-3">
         {testimonials.map((testimonial, index) => (
           <button
             key={testimonial.id ?? `${testimonial.author}-${index}`}
             type="button"
             onClick={() => setCurrentIndex(index)}
-            className={
+            className={`flex items-center justify-center h-7 w-7 rounded-full ${
               index === currentIndex
-                ? "h-1.5 w-8 rounded-full bg-primary"
-                : "h-1.5 w-1.5 rounded-full bg-white/20"
-            }
+                ? "bg-primary/20"
+                : "bg-transparent"
+            }`}
             aria-label={`Ir para depoimento ${index + 1}`}
-          />
+          >
+            <span className={`block rounded-full ${
+              index === currentIndex
+                ? "h-1.5 w-5 bg-primary"
+                : "h-1.5 w-1.5 bg-white/30"
+            }`} />
+          </button>
         ))}
       </div>
     </div>

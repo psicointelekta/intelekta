@@ -13,21 +13,15 @@ import {
   MapPin,
   MessageCircle,
   Phone,
-  Star,
   Users,
 } from "lucide-react"
 
-import { MobileContactForm } from "@/components/pages/mobile-contact-form"
-import { MobileHomeHeader } from "@/components/pages/mobile-home-header"
-import { MobileHeroWordRotator } from "@/components/pages/mobile-hero-word-rotator"
-import { MobileTestimonialsCarousel } from "@/components/pages/mobile-testimonials-carousel"
 import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion"
-
+  DeferredMobileContactForm,
+  DeferredMobileFaq,
+  DeferredMobileTestimonialsCarousel,
+} from "@/components/pages/mobile-deferred-widgets"
+import { MobileHomeHeader } from "@/components/pages/mobile-home-header"
 const heroCards = [
   { src: "/images/hero-mobile-1.webp", alt: "Criança em atividade lúdica de neuroeducação" },
   { src: "/images/hero-mobile-2.webp", alt: "Adolescente em sessão de desenvolvimento cognitivo" },
@@ -320,6 +314,30 @@ const mobileNavigation = [
   { name: "Contato", href: "#contato" },
 ] as const
 
+function MobileHeroWordRotator() {
+  return (
+    <span className="mobile-hero-word-rotator relative inline-grid align-top text-primary" role="text" aria-label="mentes, emoções e futuros">
+      <span
+        className="col-start-1 row-start-1"
+        aria-hidden
+        style={{ visibility: "hidden", pointerEvents: "none" }}
+      >
+        emoções
+      </span>
+      <span className="mobile-hero-word-cycle col-start-1 row-start-1 [animation-delay:-5.6s]" aria-hidden>
+        mentes
+      </span>
+      <span className="mobile-hero-word-cycle col-start-1 row-start-1 [animation-delay:-2.8s]" aria-hidden>
+        emoções
+      </span>
+      <span className="mobile-hero-word-cycle col-start-1 row-start-1 [animation-delay:0s]" aria-hidden>
+        futuros
+      </span>
+      <span className="absolute -bottom-1.5 left-0 h-[3px] w-full origin-left rounded-full bg-primary/30" />
+    </span>
+  )
+}
+
 function SectionHeader({
   eyebrow,
   title,
@@ -362,21 +380,21 @@ export function HomeMobile() {
         .animate-marquee-mobile-about {
           animation: marquee-mobile-about 26s linear infinite;
         }
-        @keyframes mobile-hero-word-enter {
-          0% {
-            opacity: 0;
-            transform: translateY(12px);
-            clip-path: inset(0 0 100% 0);
-          }
-          100% {
-            opacity: 1;
-            transform: translateY(0);
-            clip-path: inset(0 0 0 0);
-          }
+        @keyframes mobile-hero-word-cycle {
+          0%, 26% { opacity: 1; }
+          30%, 100% { opacity: 0; }
         }
-        .mobile-hero-word {
-          animation: mobile-hero-word-enter 360ms cubic-bezier(0.22, 1, 0.36, 1);
-          will-change: transform, opacity, clip-path;
+        .mobile-hero-word-cycle {
+          opacity: 0;
+          animation: mobile-hero-word-cycle 8.4s step-end infinite;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .mobile-hero-word-cycle {
+            animation: none;
+          }
+          .mobile-hero-word-cycle:not(:first-of-type) {
+            display: none;
+          }
         }
       `}</style>
 
@@ -384,10 +402,6 @@ export function HomeMobile() {
 
       <main id="top">
         <section className="relative overflow-hidden bg-background px-6 pb-16 pt-10" id="conteudo-principal">
-          <div className="pointer-events-none absolute -right-16 top-0 h-64 w-64 rounded-full bg-primary/[0.07] blur-[90px]" />
-          <div className="pointer-events-none absolute -bottom-20 -left-12 h-56 w-56 rounded-full bg-primary/[0.05] blur-[80px]" />
-          <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,var(--border)_1px,transparent_1px)] bg-[length:56px_100%] opacity-[0.04]" />
-          <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_bottom,var(--border)_1px,transparent_1px)] bg-[length:100%_56px] opacity-[0.04]" />
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-background/10 via-transparent to-background/70" />
 
           <div className="relative mx-auto max-w-7xl">
@@ -513,7 +527,7 @@ export function HomeMobile() {
 
             <div className="space-y-6">
               <div className="flex items-center gap-4">
-                <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-primary/35">
+                <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-accent">
                   Nossos valores
                 </span>
                 <div className="h-px flex-1 bg-gradient-to-r from-primary/10 to-transparent" />
@@ -525,7 +539,7 @@ export function HomeMobile() {
                     key={value.title}
                     className="relative isolate grid grid-cols-[44px_minmax(0,1fr)] gap-x-4 gap-y-1 border-b border-primary/[0.08] py-5 [contain:paint] sm:gap-x-5"
                   >
-                    <span className="font-serif text-3xl font-black leading-none text-primary/[0.12]">
+                    <span className="font-serif text-3xl font-black leading-none text-primary/[0.12]" aria-hidden="true">
                       {String(index + 1).padStart(2, "0")}
                     </span>
                     <div className="min-w-0">
@@ -658,7 +672,7 @@ export function HomeMobile() {
               {ageStages.map((stage) => (
                 <div key={stage.phase} className="rounded-2xl border border-primary/5 bg-muted/30 p-4">
                   <span className="text-xs font-bold uppercase tracking-wider text-foreground">{stage.phase}</span>
-                  <span className="mb-1 mt-1 block text-[10px] font-medium text-primary/70">{stage.age}</span>
+                  <span className="mb-1 mt-1 block text-[10px] font-medium text-foreground/70">{stage.age}</span>
                   <p className="text-[10px] leading-tight text-muted-foreground">{stage.description}</p>
                 </div>
               ))}
@@ -668,11 +682,11 @@ export function HomeMobile() {
               {programs.map((program, index) => (
                 <span
                   key={program.id}
-                  className="flex items-baseline gap-2 text-[11px] text-muted-foreground/60"
+                  className="flex items-baseline gap-2 text-[11px] text-muted-foreground"
                 >
-                  <span className="font-mono text-[9px] text-primary/35">{program.number}</span>
+                  <span className="font-mono text-[9px] text-muted-foreground" aria-hidden="true">{program.number}</span>
                   <span className="font-medium tracking-wide">{program.title}</span>
-                  {index < programs.length - 1 ? <span className="text-primary/20">·</span> : null}
+                  {index < programs.length - 1 ? <span className="text-muted-foreground/50" aria-hidden="true">·</span> : null}
                 </span>
               ))}
             </div>
@@ -760,14 +774,14 @@ export function HomeMobile() {
                     <h3 className="font-serif text-2xl font-bold tracking-[-0.02em] text-dark-section-foreground">{member.name}</h3>
                     <p className="mt-1 text-sm font-medium text-primary">{member.role}</p>
                     <p className="mt-3 text-sm leading-7 text-dark-section-foreground/70">{member.bio}</p>
-                    <p className="mt-3 text-xs text-dark-section-foreground/40">
+                    <p className="mt-3 text-xs text-dark-section-foreground/60">
                       {member.expertise.join(" · ")}
                     </p>
                     <a
                       href="https://www.instagram.com/psicointelekta/"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="mt-4 inline-flex items-center gap-2 text-xs text-dark-section-foreground/40"
+                      className="mt-4 inline-flex items-center gap-2 text-xs text-dark-section-foreground/60"
                       aria-label="Instagram da Intelekta"
                     >
                       <Instagram className="h-3.5 w-3.5" />
@@ -797,7 +811,7 @@ export function HomeMobile() {
               dark
             />
 
-            <MobileTestimonialsCarousel testimonials={testimonials} />
+            <DeferredMobileTestimonialsCarousel testimonials={testimonials} />
           </div>
         </section>
 
@@ -816,22 +830,7 @@ export function HomeMobile() {
               description="Respondemos as dúvidas mais comuns sobre metodologia, duração das sessões, avaliação inicial e faixa etária atendida." 
             />
 
-            <Accordion type="single" collapsible className="space-y-3">
-              {faqs.map((faq, index) => (
-                <AccordionItem
-                  key={faq.question}
-                  value={`mobile-faq-${index}`}
-                  className="rounded-3xl border border-border bg-card px-5 py-1 transition-colors duration-200 data-[state=open]:border-primary/30"
-                >
-                  <AccordionTrigger className="py-4 text-left text-base font-semibold text-foreground hover:text-primary hover:no-underline data-[state=open]:text-primary">
-                    {faq.question}
-                  </AccordionTrigger>
-                  <AccordionContent className="pb-4 text-sm leading-7 text-muted-foreground">
-                    {faq.answer}
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
+            <DeferredMobileFaq faqs={faqs} />
 
             <div className="grid gap-4 pt-2">
               <article className="rounded-3xl bg-gradient-to-br from-primary to-accent p-6 text-primary-foreground">
@@ -908,7 +907,7 @@ export function HomeMobile() {
                 </div>
               </article>
 
-              <MobileContactForm />
+              <DeferredMobileContactForm />
 
               <div className="rounded-3xl border border-border bg-card p-5">
                 <div className="space-y-4">
@@ -1087,7 +1086,7 @@ export function HomeMobile() {
         </footer>
       </main>
 
-      <div className="fixed inset-x-0 bottom-0 z-50 border-t border-border bg-background/95 p-3 backdrop-blur-xl">
+      <div className="fixed inset-x-0 bottom-0 z-50 border-t border-border bg-background/98 p-3">
         <div className="mx-auto grid max-w-md grid-cols-2 gap-3">
           <a
             href="tel:+5527988773890"

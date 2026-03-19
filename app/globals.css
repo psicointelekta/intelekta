@@ -16,7 +16,7 @@
   --popover-foreground: oklch(0.180 0.020 240);
 
   /* Primary: Intelekta Green — slightly warmer */
-  --primary: oklch(0.545 0.115 162);
+  --primary: oklch(0.525 0.115 162);
   --primary-foreground: oklch(1 0 0);
 
   /* Secondary: Soft teal */
