@@ -87,7 +87,7 @@ export function Team() {
               transition={{ duration: 0.5, delay: 0.25 + index * 0.1 }}
               className="group"
             >
-              <div className="rounded-2xl sm:rounded-3xl overflow-hidden border border-white/[0.08] hover:border-primary/25 transition-all duration-500 hover:shadow-xl hover:shadow-primary/[0.05] bg-white/[0.03]">
+              <div className="h-full flex flex-col rounded-2xl sm:rounded-3xl overflow-hidden border border-white/[0.08] hover:border-primary/25 transition-all duration-500 hover:shadow-xl hover:shadow-primary/[0.05] bg-white/[0.03]">
                 {/* Image — gradient bg for transparent portraits */}
                 <div className="relative aspect-[4/3] sm:aspect-[3/4] overflow-hidden bg-gradient-to-b from-primary/[0.08] via-primary/[0.04] to-transparent">
                   {/* Subtle glow behind portrait */}
@@ -103,7 +103,7 @@ export function Team() {
                 </div>
 
                 {/* Content — below image, NOT overlapping */}
-                <div className="p-5 sm:p-6">
+                <div className="p-5 sm:p-6 flex flex-col flex-1">
                   <h3 className="font-serif text-xl sm:text-2xl font-bold tracking-[-0.02em] text-dark-section-foreground mb-1">
                     {founder.name}
                   </h3>
@@ -115,7 +115,7 @@ export function Team() {
                   </p>
 
                   {/* Expertise as text */}
-                  <p className="text-xs text-dark-section-foreground/40 mb-4">
+                  <p className="text-xs text-dark-section-foreground/40 mb-4 mt-auto">
                     {founder.expertise.join(" · ")}
                   </p>
 
