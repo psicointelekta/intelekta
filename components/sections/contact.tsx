@@ -180,7 +180,7 @@ export function Contact() {
                     A maneira mais rápida de tirar dúvidas e agendar sua aula experimental.
                   </p>
                   <Button
-                    className="bg-green-600 hover:bg-green-700 text-white"
+                    className="bg-green-700 hover:bg-green-800 text-white"
                     asChild
                     onClick={() => track("cta_whatsapp_abertura")}
                   >

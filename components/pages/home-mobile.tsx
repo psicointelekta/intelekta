@@ -742,7 +742,7 @@ export function HomeMobile() {
                   </div>
                   <div className="space-y-4 p-5">
                     <div>
-                      <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-primary/50">
+                      <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-primary/70">
                         {program.subtitle}
                       </p>
                       <h3 className="mt-2 font-serif text-3xl font-bold leading-tight tracking-[-0.025em] text-foreground">{program.title}</h3>
@@ -752,7 +752,7 @@ export function HomeMobile() {
                       {program.tags.map((tag) => (
                         <span
                           key={tag}
-                          className="rounded-full border border-primary/10 bg-primary/[0.04] px-2.5 py-1 text-[10px] font-medium uppercase tracking-wider text-primary/60"
+                          className="rounded-full border border-primary/15 bg-primary/[0.06] px-2.5 py-1 text-[10px] font-medium uppercase tracking-wider text-primary/80"
                         >
                           {tag}
                         </span>
@@ -931,7 +931,7 @@ export function HomeMobile() {
                       href="https://wa.me/5527988773890?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20visita%20e%20saber%20mais%20sobre%20a%20Intelekta."
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="mt-4 inline-flex h-11 items-center justify-center gap-2 rounded-md bg-green-600 px-5 text-sm font-medium text-white"
+                      className="mt-4 inline-flex h-11 items-center justify-center gap-2 rounded-md bg-green-700 px-5 text-sm font-medium text-white"
                     >
                       <MessageCircle className="h-4 w-4" />
                       Abrir WhatsApp

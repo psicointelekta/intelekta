@@ -155,7 +155,7 @@ function ProgramRow({
 
       {/* Text */}
       <div className="sm:[direction:ltr]">
-        <p className="mb-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-primary/50">
+        <p className="mb-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-primary/70">
           {program.subtitle}
         </p>
         <h3 className="font-serif text-xl font-bold leading-snug tracking-[-0.02em] text-foreground sm:text-2xl">
@@ -168,7 +168,7 @@ function ProgramRow({
           {program.tags.map((tag) => (
             <span
               key={tag}
-              className="rounded-full border border-primary/10 bg-primary/[0.04] px-2.5 py-0.5 text-[10px] font-medium uppercase tracking-wider text-primary/60"
+              className="rounded-full border border-primary/15 bg-primary/[0.06] px-2.5 py-0.5 text-[10px] font-medium uppercase tracking-wider text-primary/80"
             >
               {tag}
             </span>
