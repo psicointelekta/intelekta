@@ -52,9 +52,9 @@ export const metadata: Metadata = {
       'Centro de desenvolvimento cognitivo e socioemocional fundamentado em neurociência. Programas personalizados para todas as idades. Primeira aula gratuita em Vila Velha, ES.',
     images: [
       {
-        url: '/og-image.svg',
-        width: 1200,
-        height: 630,
+        url: '/og-image.png',
+        width: 1920,
+        height: 1080,
         alt: 'Intelekta - Centro de Desenvolvimento Cognitivo e Socioemocional em Vila Velha, ES',
       },
     ],
@@ -64,7 +64,7 @@ export const metadata: Metadata = {
     title: 'Intelekta | Fortalecendo Mentes e Emoções',
     description:
       'Centro de desenvolvimento cognitivo e socioemocional fundamentado em neurociência. Primeira aula gratuita.',
-    images: ['/og-image.svg'],
+    images: ['/og-image.png'],
   },
   robots: {
     index: true,
