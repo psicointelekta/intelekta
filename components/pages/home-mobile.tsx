@@ -1,4 +1,5 @@
 import Image from "next/image"
+import type { ReactNode } from "react"
 import {
   ArrowRight,
   Brain,
@@ -6,6 +7,7 @@ import {
   ChevronRight,
   Clock3,
   HeartHandshake,
+  Instagram,
   Lightbulb,
   Mail,
   MapPin,
@@ -17,6 +19,7 @@ import {
 
 import { MobileContactForm } from "@/components/pages/mobile-contact-form"
 import { MobileHomeHeader } from "@/components/pages/mobile-home-header"
+import { MobileHeroWordRotator } from "@/components/pages/mobile-hero-word-rotator"
 import { MobileTestimonialsCarousel } from "@/components/pages/mobile-testimonials-carousel"
 
 const heroCards = [
@@ -29,17 +32,22 @@ const values = [
   {
     icon: HeartHandshake,
     title: "Olhar humano",
-    text: "Cada família é ouvida com atenção e recebe uma jornada realmente pensada para sua realidade.",
+    text: "Cada família é ouvida com atenção. Nossos profissionais criam vínculos reais com cada participante.",
+  },
+  {
+    icon: HeartHandshake,
+    title: "Acolhimento genuíno",
+    text: "Um ambiente seguro onde cada pessoa se sente valorizada, respeitada e cuidada em sua individualidade.",
   },
   {
     icon: Brain,
     title: "Ciência e sensibilidade",
-    text: "Neurociência e psicologia cognitiva aplicadas com empatia, clareza e propósito terapêutico.",
+    text: "Neurociência e psicologia cognitiva aplicadas com empatia — porque dados sem afeto não transformam.",
   },
   {
     icon: Users,
-    title: "Todas as fases da vida",
-    text: "Crianças, adolescentes, adultos e idosos podem desenvolver novas habilidades com acompanhamento próximo.",
+    title: "Personalização real",
+    text: "Programas adaptados às necessidades, ritmo e objetivos únicos de cada pessoa.",
   },
 ] as const
 
@@ -111,62 +119,99 @@ const steps: ReadonlyArray<MethodologyStep> = [
   },
 ]
 
+const ageStages = [
+  {
+    phase: "Crianças",
+    age: "5–12 anos",
+    description: "Estimulamos atenção, memória, linguagem e coordenação de forma lúdica e acolhedora.",
+  },
+  {
+    phase: "Adolescentes",
+    age: "13–17 anos",
+    description: "Foco em funções executivas, controle emocional e autonomia nos estudos.",
+  },
+  {
+    phase: "Adultos",
+    age: "18–59 anos",
+    description: "Produtividade, gestão do estresse, resolução de problemas e tomada de decisão.",
+  },
+  {
+    phase: "Idosos",
+    age: "60+ anos",
+    description: "Prevenção do declínio cognitivo com foco em memória, autonomia e qualidade de vida.",
+  },
+] as const
+
 const programs = [
   {
+    id: "neuroeducacao",
+    number: "01",
     title: "Neuroeducação",
     subtitle: "Programa multidisciplinar 100% lúdico",
     description:
-      "Desenvolve, estimula e reabilita a mente em todas as idades através de jogos, oficinas criativas e atividades sensório-motoras.",
+      "Desenvolve, estimula e reabilita a mente em todas as idades através de jogos, brincadeiras, oficinas criativas e atividades sensório-motoras. Fundamentado em neuroplasticidade.",
     tags: ["Todas as idades", "Lúdico", "Neuroplasticidade"],
     image: "/images/program-infantil.webp",
   },
   {
+    id: "xadrez",
+    number: "02",
     title: "Xadrez Pedagógico",
     subtitle: "Estratégia que transforma o pensar",
     description:
-      "Utiliza o xadrez para desenvolver atenção, memória, raciocínio lógico, planejamento e autorregulação emocional.",
-    tags: ["Estratégia", "Foco", "Raciocínio lógico"],
+      "Programa pedagógico que utiliza o xadrez para desenvolver atenção, memória, raciocínio lógico, planejamento e autorregulação emocional.",
+    tags: ["Raciocínio lógico", "Estratégia", "Foco"],
     image: "/images/activity-children-chess.webp",
   },
   {
+    id: "musicoterapia",
+    number: "03",
     title: "Musicoterapia",
     subtitle: "A música como ferramenta terapêutica",
     description:
-      "Instrumentos, canto, ritmo e movimento corporal para desenvolver capacidades cognitivas e socioemocionais.",
-    tags: ["Bem-estar", "Expressão", "Mães e bebês"],
+      "Utiliza instrumentos, canto, ritmo, escuta guiada e movimento corporal para desenvolver capacidades cognitivas e socioemocionais. Inclui programa especial para mães e bebês.",
+    tags: ["Expressão", "Bem-estar", "Mães e bebês"],
     image: "/images/program-adolescente.webp",
   },
   {
-    title: "Reforço Escolar",
-    subtitle: "Apoio personalizado que respeita o ritmo",
-    description:
-      "Programa lúdico com foco no desenvolvimento acadêmico e socioemocional por meio de jogos e estratégias pedagógicas.",
-    tags: ["Acadêmico", "Personalizado", "Infantil ao Médio"],
-    image: "/images/activity-teens-study.webp",
-  },
-] as const
-
-const additionalPrograms = [
-  {
+    id: "cubo-magico",
+    number: "04",
     title: "Cubo Mágico",
     subtitle: "Desafio que expande a mente",
     description:
-      "Trabalha atenção, foco, raciocínio lógico e espacial, planejamento, memória e persistência por meio da resolução do cubo mágico.",
+      "Trabalha atenção, foco, raciocínio lógico e espacial, planejamento, memória e persistência através da resolução do cubo mágico.",
     tags: ["Raciocínio espacial", "Persistência", "Memória"],
+    image: "/images/activity-children-rubiks.webp",
   },
   {
+    id: "reforco-escolar",
+    number: "05",
+    title: "Reforço Escolar",
+    subtitle: "Apoio personalizado que respeita o ritmo",
+    description:
+      "Programa lúdico voltado da Educação Infantil ao Ensino Médio, com foco no desenvolvimento acadêmico e socioemocional através de jogos educativos e estratégias pedagógicas.",
+    tags: ["Infantil ao Médio", "Personalizado", "Acadêmico"],
+    image: "/images/activity-teens-study.webp",
+  },
+  {
+    id: "neurole",
+    number: "06",
     title: "Neurolê",
     subtitle: "Alfabetização lúdica e sensorial",
     description:
-      "Programa de alfabetização inclusiva para crianças atípicas com abordagem lúdica e sensorial para leitura e escrita.",
-    tags: ["Inclusivo", "Sensorial", "Crianças atípicas"],
+      "Programa de alfabetização inclusiva para crianças atípicas, utilizando abordagem lúdica e sensorial para desenvolver habilidades de leitura e escrita de forma acolhedora.",
+    tags: ["Inclusivo", "Crianças atípicas", "Sensorial"],
+    image: "/images/program-infantil.webp",
   },
   {
+    id: "psicopedagogia",
+    number: "07",
     title: "Psicopedagogia",
     subtitle: "Acompanhamento especializado",
     description:
-      "Atendimento especializado em dificuldades de aprendizagem com acompanhamento psicopedagógico personalizado.",
-    tags: ["Especializado", "Aprendizagem", "Individual"],
+      "Atendimento especializado em dificuldades de aprendizagem, com acompanhamento psicopedagógico personalizado que identifica barreiras e constrói caminhos para o desenvolvimento.",
+    tags: ["Especializado", "Dificuldades de aprendizagem", "Individual"],
+    image: "/images/activity-adults.webp",
   },
 ] as const
 
@@ -175,18 +220,21 @@ const team = [
     name: "Suzidarle Pereira",
     role: "Psicóloga e Neuropsicóloga",
     bio: "Especializada no atendimento de crianças a partir de 6 anos e adolescentes, com expertise em avaliação neuropsicológica e terapia psicológica.",
+    expertise: ["Avaliação Neuropsicológica", "Terapia Psicológica", "Transtornos de Aprendizagem"],
     image: "/images/suzidarle_pereira_retrato.webp",
   },
   {
     name: "Fabiana Lima",
     role: "Psicopedagoga",
-    bio: "Professora há 12 anos dedicada ao desenvolvimento integral de crianças e adolescentes, unindo aprendizagem, ludicidade e acolhimento.",
+    bio: "Palestrante e professora há 12 anos dedicada ao desenvolvimento integral de crianças e adolescentes, unindo aprendizagem, ludicidade e acolhimento.",
+    expertise: ["Psicopedagogia", "Ludopedagogia", "Ludoterapia"],
     image: "/images/fabiana_lima_retrato.webp",
   },
   {
     name: "Flávia Luz",
     role: "Consultora Técnica",
-    bio: "Psicóloga clínica há 24 anos, Mestre em Desenvolvimento Humano e referência em saúde mental e cuidado infantojuvenil.",
+    bio: "Psicóloga clínica há 24 anos, Mestre em Desenvolvimento Humano, palestrante em saúde mental e coordenadora do Projeto Guardiões da Infância.",
+    expertise: ["Psicologia Clínica", "Desenvolvimento Humano", "Consultoria"],
     image: "/images/flavia_luz_retrato.webp",
   },
 ] as const
@@ -273,12 +321,12 @@ function SectionHeader({
   dark = false,
 }: {
   eyebrow: string
-  title: string
-  description?: string
+  title: ReactNode
+  description?: ReactNode
   dark?: boolean
 }) {
   const eyebrowColor = dark ? "text-secondary" : "text-primary"
-  const bodyColor = dark ? "text-dark-section-foreground/72" : "text-muted-foreground"
+  const bodyColor = dark ? "text-dark-section-foreground/70" : "text-muted-foreground"
   const titleColor = dark ? "text-dark-section-foreground" : "text-foreground"
 
   return (
@@ -289,10 +337,10 @@ function SectionHeader({
           {eyebrow}
         </span>
       </div>
-      <h2 className={`font-serif text-[2rem] leading-[1.08] tracking-tight ${titleColor}`}>
+      <h2 className={`font-serif text-editorial-lg text-balance leading-[1.08] tracking-tight ${titleColor}`}>
         {title}
       </h2>
-      {description ? <p className={`text-[15px] leading-7 ${bodyColor}`}>{description}</p> : null}
+      {description ? <div className={`text-base leading-relaxed sm:text-lg ${bodyColor}`}>{description}</div> : null}
     </div>
   )
 }
@@ -307,6 +355,22 @@ export function HomeMobile() {
         }
         .animate-marquee-mobile-about {
           animation: marquee-mobile-about 26s linear infinite;
+        }
+        @keyframes mobile-hero-word-enter {
+          0% {
+            opacity: 0;
+            transform: translateY(12px);
+            clip-path: inset(0 0 100% 0);
+          }
+          100% {
+            opacity: 1;
+            transform: translateY(0);
+            clip-path: inset(0 0 0 0);
+          }
+        }
+        .mobile-hero-word {
+          animation: mobile-hero-word-enter 360ms cubic-bezier(0.22, 1, 0.36, 1);
+          will-change: transform, opacity, clip-path;
         }
       `}</style>
 
@@ -329,7 +393,7 @@ export function HomeMobile() {
                 </p>
 
                 <h1 className="font-serif text-[2.8rem] leading-[1.02] tracking-tight text-foreground">
-                  Fortalecendo <span className="text-primary">mentes</span>
+                  Fortalecendo <MobileHeroWordRotator />
                   <br />
                   <span className="text-muted-foreground">que moldam o amanhã</span>
                 </h1>
@@ -415,8 +479,16 @@ export function HomeMobile() {
           <div className="relative mx-auto max-w-7xl space-y-10">
             <SectionHeader
               eyebrow="Sobre nós"
-              title="Um espaço onde pessoas são acolhidas e transformadas"
-              description="A Intelekta foi idealizada por psicólogos e psicopedagogas que acreditam que o cuidado humano vai muito além do conteúdo escolar."
+              title={
+                <>
+                  Um espaço onde pessoas são <span className="text-primary">acolhidas e transformadas</span>
+                </>
+              }
+              description={
+                <>
+                  A Intelekta foi idealizada por <strong className="text-foreground">psicólogos e psicopedagogas</strong> que acreditam que o cuidado humano vai muito além do conteúdo escolar. Somos um centro de desenvolvimento cognitivo e socioemocional dedicado a acolher e estimular pessoas em todas as fases da vida.
+                </>
+              }
             />
 
             <div className="-mx-6 overflow-hidden border-y border-primary/[0.07] py-3" aria-hidden="true">
@@ -433,14 +505,33 @@ export function HomeMobile() {
               </div>
             </div>
 
-            <div className="grid gap-3">
-              {values.map((value) => (
-                <article key={value.title} className="rounded-3xl border border-primary/[0.08] bg-card/70 p-5">
-                  <value.icon className="mb-4 h-5 w-5 text-primary" />
-                  <h3 className="font-serif text-2xl text-foreground">{value.title}</h3>
-                  <p className="mt-2 text-sm leading-7 text-muted-foreground">{value.text}</p>
-                </article>
-              ))}
+            <div className="space-y-6">
+              <div className="flex items-center gap-4">
+                <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-primary/35">
+                  Nossos valores
+                </span>
+                <div className="h-px flex-1 bg-gradient-to-r from-primary/10 to-transparent" />
+              </div>
+
+              <div className="border-t border-primary/[0.08]">
+                {values.map((value, index) => (
+                  <article
+                    key={value.title}
+                    className="grid grid-cols-[44px_1fr] gap-x-5 gap-y-1 border-b border-primary/[0.08] py-5"
+                  >
+                    <span className="font-serif text-3xl font-bold leading-none text-primary/[0.12]">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <div>
+                      <div className="mb-2 flex items-center gap-3">
+                        <value.icon className="h-4 w-4 text-primary" />
+                        <h3 className="font-serif text-2xl leading-snug text-foreground">{value.title}</h3>
+                      </div>
+                      <p className="text-sm leading-7 text-muted-foreground">{value.text}</p>
+                    </div>
+                  </article>
+                ))}
+              </div>
             </div>
 
             <div className="overflow-hidden rounded-3xl border border-primary/10 bg-gradient-to-br from-primary/[0.06] via-background to-secondary/[0.04]">
@@ -458,14 +549,14 @@ export function HomeMobile() {
                 <div>
                   <h3 className="font-serif text-3xl text-foreground">Conheça o Nino</h3>
                   <p className="mt-3 text-sm leading-7 text-muted-foreground">
-                    Nosso mascote representa a curiosidade incansável, a inteligência ágil e o equilíbrio entre razão e emoção.
+                    Nosso mascote representa a curiosidade incansável, a inteligência ágil e o equilíbrio perfeito entre razão e emoção — qualidades que cultivamos em cada pessoa que passa pela Intelekta.
                   </p>
                   <div className="relative mt-6 border-l-[3px] border-primary/40 pl-5">
                     <span className="pointer-events-none absolute -left-1 -top-7 select-none font-serif text-6xl leading-none text-primary/10">
                       &ldquo;
                     </span>
                     <blockquote className="font-serif text-xl leading-8 italic text-foreground">
-                      Nosso propósito é despertar em cada pessoa a confiança de que pode desenvolver novas habilidades e construir uma vida mais equilibrada.
+                      Nosso propósito é despertar em cada pessoa a confiança de que pode desenvolver novas habilidades, superar desafios e construir uma vida mais equilibrada e significativa.
                     </blockquote>
                     <div className="mt-4 flex items-center gap-3">
                       <div className="decorative-line" />
@@ -488,8 +579,12 @@ export function HomeMobile() {
           <div className="relative mx-auto max-w-7xl space-y-10">
             <SectionHeader
               eyebrow="Metodologia"
-              title="Ciência a serviço do desenvolvimento humano"
-              description="Nossa equipe combina conhecimento científico com sensibilidade humana para transformar cuidado em evolução real."
+              title={
+                <>
+                  Ciência a serviço do <span className="text-primary">desenvolvimento humano</span>
+                </>
+              }
+              description="Nossa equipe de psicólogos e psicopedagogas combina conhecimento científico com sensibilidade humana — porque acreditamos que o cuidado genuíno é o que transforma de verdade."
             />
 
             <div className="overflow-hidden rounded-3xl border border-primary/[0.09] bg-card/70">
@@ -545,21 +640,34 @@ export function HomeMobile() {
           <div className="relative mx-auto max-w-7xl space-y-10">
             <SectionHeader
               eyebrow="Programas"
-              title="Cada pessoa merece um cuidado especial"
-              description="Idealizada por psicólogos e psicopedagogas, a Intelekta oferece programas especializados que promovem o aprendizado de forma lúdica, envolvente e significativa." 
+              title={
+                <>
+                  Cada pessoa merece um <span className="text-primary">cuidado especial.</span>
+                </>
+              }
+              description="Idealizada por psicólogos e psicopedagogas, a Intelekta oferece 7 programas especializados que promovem o aprendizado de forma lúdica, envolvente e significativa, garantindo uma experiência única para cada participante."
             />
 
             <div className="grid gap-3 sm:grid-cols-2">
-              {[
-                ["Crianças", "5–12 anos"],
-                ["Adolescentes", "13–17 anos"],
-                ["Adultos", "18–59 anos"],
-                ["Idosos", "60+ anos"],
-              ].map(([phase, age]) => (
-                <div key={phase} className="rounded-2xl border border-primary/5 bg-muted/30 p-4">
-                  <span className="text-xs font-bold uppercase tracking-wider text-foreground">{phase}</span>
-                  <span className="mt-1 block text-[10px] font-medium text-primary/70">{age}</span>
+              {ageStages.map((stage) => (
+                <div key={stage.phase} className="rounded-2xl border border-primary/5 bg-muted/30 p-4">
+                  <span className="text-xs font-bold uppercase tracking-wider text-foreground">{stage.phase}</span>
+                  <span className="mb-1 mt-1 block text-[10px] font-medium text-primary/70">{stage.age}</span>
+                  <p className="text-[10px] leading-tight text-muted-foreground">{stage.description}</p>
                 </div>
+              ))}
+            </div>
+
+            <div className="flex flex-wrap items-center gap-x-5 gap-y-3 border-y border-primary/[0.08] py-4">
+              {programs.map((program, index) => (
+                <span
+                  key={program.id}
+                  className="flex items-baseline gap-2 text-[11px] text-muted-foreground/60"
+                >
+                  <span className="font-mono text-[9px] text-primary/35">{program.number}</span>
+                  <span className="font-medium tracking-wide">{program.title}</span>
+                  {index < programs.length - 1 ? <span className="text-primary/20">·</span> : null}
+                </span>
               ))}
             </div>
 
@@ -575,6 +683,9 @@ export function HomeMobile() {
                       sizes="100vw"
                       loading="lazy"
                     />
+                    <span className="pointer-events-none absolute bottom-2 right-3 select-none font-serif text-[52px] font-bold leading-none text-white/[0.08]">
+                      {program.number}
+                    </span>
                   </div>
                   <div className="space-y-4 p-5">
                     <div>
@@ -608,57 +719,6 @@ export function HomeMobile() {
               ))}
             </div>
 
-            <div className="space-y-4">
-              <div className="flex items-center gap-4">
-                <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-primary/35">
-                  Programas complementares
-                </span>
-                <div className="h-px flex-1 bg-gradient-to-r from-primary/10 to-transparent" />
-              </div>
-              <div className="grid gap-3">
-                {additionalPrograms.map((program) => (
-                  <article key={program.title} className="rounded-3xl border border-primary/[0.08] bg-card/70 p-5">
-                    <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-primary/50">
-                      {program.subtitle}
-                    </p>
-                    <h3 className="mt-2 font-serif text-2xl text-foreground">{program.title}</h3>
-                    <p className="mt-3 text-sm leading-7 text-muted-foreground">{program.description}</p>
-                    <div className="mt-4 flex flex-wrap gap-2">
-                      {program.tags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="rounded-full border border-primary/10 bg-primary/[0.04] px-2.5 py-1 text-[10px] font-medium uppercase tracking-wider text-primary/60"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  </article>
-                ))}
-              </div>
-            </div>
-
-            <div className="space-y-6">
-              {additionalPrograms.map((program) => (
-                <article key={program.title} className="rounded-3xl border border-primary/[0.08] bg-card/70 p-5">
-                  <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-primary/50">
-                    {program.subtitle}
-                  </p>
-                  <h3 className="mt-2 font-serif text-3xl leading-tight text-foreground">{program.title}</h3>
-                  <p className="mt-3 text-sm leading-7 text-muted-foreground">{program.description}</p>
-                  <div className="mt-4 flex flex-wrap gap-2">
-                    {program.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="rounded-full border border-primary/10 bg-primary/[0.04] px-2.5 py-1 text-[10px] font-medium uppercase tracking-wider text-primary/60"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </article>
-              ))}
-            </div>
           </div>
         </section>
 
@@ -668,8 +728,12 @@ export function HomeMobile() {
           <div className="relative mx-auto max-w-7xl space-y-10">
             <SectionHeader
               eyebrow="Nossa Equipe"
-              title="Profissionais dedicadas ao seu desenvolvimento"
-              description="Combinamos experiência clínica e educacional com acolhimento humano para criar experiências transformadoras."
+              title={
+                <>
+                  Profissionais dedicadas ao <span className="text-secondary">seu desenvolvimento</span>
+                </>
+              }
+              description="Combinamos décadas de experiência clínica e educacional com acolhimento humano para criar experiências transformadoras."
               dark
             />
 
@@ -690,6 +754,19 @@ export function HomeMobile() {
                     <h3 className="font-serif text-2xl text-dark-section-foreground">{member.name}</h3>
                     <p className="mt-1 text-sm font-medium text-primary">{member.role}</p>
                     <p className="mt-3 text-sm leading-7 text-dark-section-foreground/70">{member.bio}</p>
+                    <p className="mt-3 text-xs text-dark-section-foreground/40">
+                      {member.expertise.join(" · ")}
+                    </p>
+                    <a
+                      href="https://www.instagram.com/psicointelekta/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-4 inline-flex items-center gap-2 text-xs text-dark-section-foreground/40"
+                      aria-label="Instagram da Intelekta"
+                    >
+                      <Instagram className="h-3.5 w-3.5" />
+                      @psicointelekta
+                    </a>
                   </div>
                 </article>
               ))}
@@ -705,7 +782,11 @@ export function HomeMobile() {
           <div className="relative mx-auto max-w-7xl space-y-8">
             <SectionHeader
               eyebrow="Depoimentos"
-              title="Histórias reais de quem vivencia a transformação cognitiva"
+              title={
+                <>
+                  Histórias reais de quem vivencia a <span className="text-secondary italic">transformação cognitiva</span>
+                </>
+              }
               description="Depoimentos reais de quem encontrou na Intelekta um espaço para fortalecer cognição, emoção e autonomia."
               dark
             />
@@ -721,7 +802,11 @@ export function HomeMobile() {
           <div className="relative mx-auto max-w-7xl space-y-8">
             <SectionHeader
               eyebrow="Perguntas Frequentes"
-              title="Tire suas dúvidas"
+              title={
+                <>
+                  Tire suas <span className="text-primary">dúvidas</span>
+                </>
+              }
               description="Respondemos as dúvidas mais comuns sobre metodologia, duração das sessões, avaliação inicial e faixa etária atendida." 
             />
 
@@ -779,8 +864,12 @@ export function HomeMobile() {
           <div className="relative mx-auto max-w-7xl space-y-8">
             <SectionHeader
               eyebrow="Contato"
-              title="Vamos conversar?"
-              description="Entre em contato para agendar uma visita, conversar com a equipe e encontrar o programa mais adequado para o seu momento." 
+              title={
+                <>
+                  Vamos <span className="text-primary">conversar?</span>
+                </>
+              }
+              description="Entre em contato para agendar uma visita ou tirar suas dúvidas. Retornamos em até 24 horas."
             />
 
             <div className="grid gap-4">
@@ -879,21 +968,100 @@ export function HomeMobile() {
               </div>
             </div>
 
-            <footer className="space-y-4 border-t border-border pt-8 text-center">
-              <Image
-                src="/images/logo-intelekta.webp"
-                alt="Intelekta"
-                width={124}
-                height={40}
-                className="mx-auto h-8 w-auto"
-                loading="lazy"
-              />
-              <p className="text-sm leading-6 text-muted-foreground">
-                Centro de desenvolvimento cognitivo e socioemocional em Vila Velha, ES.
-              </p>
-              <div className="flex items-center justify-center gap-4 text-sm text-muted-foreground">
-                <a href="/privacidade">Privacidade</a>
-                <a href="/termos">Termos</a>
+            <footer className="overflow-hidden rounded-3xl border border-white/8 bg-dark-section px-5 py-8 text-dark-section-foreground">
+              <div className="space-y-4 text-center">
+                <Image
+                  src="/images/logo-intelekta.webp"
+                  alt="Intelekta"
+                  width={140}
+                  height={48}
+                  className="mx-auto h-9 w-auto brightness-0 invert"
+                  loading="lazy"
+                />
+                <p className="text-sm leading-6 text-dark-section-foreground/80">
+                  Centro de desenvolvimento cognitivo e socioemocional fundamentado em neurociência. Vila Velha, ES.
+                </p>
+                <div className="flex items-center justify-center gap-2">
+                  <a
+                    href="https://instagram.com/psicointelekta"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/8 text-dark-section-foreground/80"
+                    aria-label="Instagram da Intelekta"
+                  >
+                    <Instagram className="h-4 w-4" />
+                  </a>
+                  <a
+                    href="mailto:contato@intelektamente.com"
+                    className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/8 text-dark-section-foreground/80"
+                    aria-label="Email de contato"
+                  >
+                    <Mail className="h-4 w-4" />
+                  </a>
+                  <a
+                    href="https://wa.me/5527988773890?text=Olá! Gostaria de tirar algumas dúvidas sobre a Intelekta."
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/8 text-dark-section-foreground/80"
+                    aria-label="WhatsApp de contato"
+                  >
+                    <Phone className="h-4 w-4" />
+                  </a>
+                </div>
+              </div>
+
+              <div className="mt-8 grid gap-6 border-t border-white/8 pt-6 sm:grid-cols-2">
+                <div>
+                  <h3 className="mb-3 text-sm font-semibold text-dark-section-foreground">Navegação</h3>
+                  <div className="grid grid-cols-2 gap-x-4 gap-y-2 text-sm text-dark-section-foreground/80">
+                    {mobileNavigation.map((item) => (
+                      <a key={item.name} href={item.href}>
+                        {item.name}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <h3 className="mb-3 text-sm font-semibold text-dark-section-foreground">Programas</h3>
+                  <div className="grid gap-y-2 text-sm text-dark-section-foreground/80">
+                    {programs.map((program) => (
+                      <a key={program.id} href="#programas">
+                        {program.title}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-6 rounded-3xl border border-white/8 bg-white/[0.03] p-5">
+                <h3 className="mb-4 text-sm font-semibold text-dark-section-foreground">Contato</h3>
+                <div className="space-y-3 text-sm text-dark-section-foreground/80">
+                  <div className="flex items-start gap-3">
+                    <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                    <span>
+                      Rua Afonso Pena, 403
+                      <br />
+                      Praia da Costa, Vila Velha - ES
+                    </span>
+                  </div>
+                  <a href="tel:+5527988773890" className="flex items-center gap-3">
+                    <Phone className="h-4 w-4 shrink-0 text-primary" />
+                    <span>(27) 98877-3890</span>
+                  </a>
+                  <a href="mailto:contato@intelektamente.com" className="flex items-center gap-3">
+                    <Mail className="h-4 w-4 shrink-0 text-primary" />
+                    <span>contato@intelektamente.com</span>
+                  </a>
+                </div>
+              </div>
+
+              <div className="mt-6 flex flex-col gap-3 border-t border-white/8 pt-5 text-center text-sm text-dark-section-foreground/70">
+                <p>&copy; {new Date().getFullYear()} Intelekta. Todos os direitos reservados.</p>
+                <div className="flex items-center justify-center gap-4">
+                  <a href="/privacidade">Política de Privacidade</a>
+                  <a href="/termos">Termos de Uso</a>
+                </div>
               </div>
             </footer>
           </div>
