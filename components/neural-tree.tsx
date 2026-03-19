@@ -32,6 +32,7 @@ export function NeuralTree() {
   const timeRef = useRef(0)
   const lastAutoFireRef = useRef(0)
   const initialCascadeDone = useRef(false)
+  const lastSizeRef = useRef({ w: 0, h: 0 })
 
   const initNeurons = useCallback((width: number, height: number) => {
     const neurons: Neuron[] = []
@@ -166,21 +167,67 @@ export function NeuralTree() {
     const ctx = canvas.getContext("2d")
     if (!ctx) return
 
-    const resizeCanvas = () => {
+    const applyCanvasSize = () => {
       const dpr = Math.min(window.devicePixelRatio || 1, 2)
       const rect = canvas.getBoundingClientRect()
       canvas.width = rect.width * dpr
       canvas.height = rect.height * dpr
-      ctx.scale(dpr, dpr)
-      canvas.style.width = `${rect.width}px`
-      canvas.style.height = `${rect.height}px`
-      neuronsRef.current = initNeurons(rect.width, rect.height)
-      impulsesRef.current = []
-      initialCascadeDone.current = false
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
     }
 
-    resizeCanvas()
-    window.addEventListener("resize", resizeCanvas)
+    const rescaleNeurons = (prevW: number, prevH: number, newW: number, newH: number) => {
+      const scaleX = newW / prevW
+      const scaleY = newH / prevH
+      for (const n of neuronsRef.current) {
+        n.baseX *= scaleX
+        n.baseY *= scaleY
+        n.x *= scaleX
+        n.y *= scaleY
+      }
+    }
+
+    const initFull = (w: number, h: number) => {
+      applyCanvasSize()
+      neuronsRef.current = initNeurons(w, h)
+      impulsesRef.current = []
+      lastSizeRef.current = { w, h }
+    }
+
+    // First init
+    {
+      const rect = canvas.getBoundingClientRect()
+      initFull(rect.width, rect.height)
+    }
+
+    let resizeTimer: ReturnType<typeof setTimeout> | null = null
+    const handleResize = () => {
+      const rect = canvas.getBoundingClientRect()
+      const newW = rect.width
+      const newH = rect.height
+      const prev = lastSizeRef.current
+
+      // Always apply canvas size immediately so rendering matches viewport
+      applyCanvasSize()
+
+      // Rescale neurons immediately (cheap)
+      if (prev.w > 0 && prev.h > 0) {
+        rescaleNeurons(prev.w, prev.h, newW, newH)
+      }
+      lastSizeRef.current = { w: newW, h: newH }
+
+      // Check if we crossed mobile/desktop breakpoint — if so, debounce a full re-init
+      const wasMobile = prev.w < 500
+      const isMobile = newW < 500
+      if (wasMobile !== isMobile) {
+        if (resizeTimer) clearTimeout(resizeTimer)
+        resizeTimer = setTimeout(() => {
+          const r = canvas.getBoundingClientRect()
+          initFull(r.width, r.height)
+          initialCascadeDone.current = false
+        }, 300)
+      }
+    }
+    window.addEventListener("resize", handleResize)
 
     const handleMouseMove = (e: MouseEvent) => {
       const rect = canvas.getBoundingClientRect()
@@ -220,8 +267,7 @@ export function NeuralTree() {
 
       timeRef.current += 33
       const time = timeRef.current
-      const rect = canvas.getBoundingClientRect()
-      const w = rect.width; const h = rect.height
+      const w = lastSizeRef.current.w; const h = lastSizeRef.current.h
       ctx.clearRect(0, 0, w, h)
 
       const neurons = neuronsRef.current
@@ -414,7 +460,8 @@ export function NeuralTree() {
     animate()
 
     return () => {
-      window.removeEventListener("resize", resizeCanvas)
+      window.removeEventListener("resize", handleResize)
+      if (resizeTimer) clearTimeout(resizeTimer)
       window.removeEventListener("mousemove", handleMouseMove)
       window.removeEventListener("touchmove", handleTouchMove)
       window.removeEventListener("touchend", handleLeave)

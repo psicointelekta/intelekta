@@ -15,7 +15,7 @@ import {
 const faqs = [
   {
     question: "Para qual faixa etária a Intelekta atende?",
-    answer: "Atendemos pessoas a partir dos 5 anos de idade, com programas específicos para crianças (5-12 anos), adolescentes (13-17 anos), adultos (18-59 anos) e seniores (60+ anos). Cada programa é adaptado às necessidades e características de cada fase da vida.",
+    answer: "Atendemos pessoas a partir dos 5 anos de idade, com programas específicos para crianças (5-12 anos), adolescentes (13-17 anos), adultos (18-59 anos) e idosos (60+ anos). Cada programa é adaptado às necessidades e características de cada fase da vida.",
   },
   {
     question: "Como funciona a metodologia da Intelekta?",

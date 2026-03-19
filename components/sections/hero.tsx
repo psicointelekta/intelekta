@@ -204,7 +204,7 @@ export function Hero() {
                       rel="noopener noreferrer"
                       onClick={() => track("cta_hero_whatsapp")}
                     >
-                      Agendar aula gratuita
+                      Fale Conosco
                       <ArrowRight className="ml-2 h-5 w-5 transition-transform duration-200 group-hover:translate-x-1" />
                     </a>
                   </Button>
