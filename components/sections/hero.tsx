@@ -199,9 +199,7 @@ export function Hero() {
                     asChild
                   >
                     <a
-                      href="https://wa.me/5527988773890?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20aula%20na%20Intelekta."
-                      target="_blank"
-                      rel="noopener noreferrer"
+                      href="#contato"
                       onClick={() => track("cta_hero_whatsapp")}
                     >
                       Fale Conosco

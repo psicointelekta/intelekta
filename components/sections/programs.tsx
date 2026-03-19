@@ -167,6 +167,12 @@ function ProgramRow({
             </span>
           ))}
         </div>
+        <Button size="sm" className="mt-4 group/btn" asChild>
+          <Link href="#contato">
+            Saiba mais
+            <ArrowRight className="ml-1.5 h-3.5 w-3.5 transition-transform duration-200 group-hover/btn:translate-x-0.5" />
+          </Link>
+        </Button>
       </div>
     </motion.div>
   )
