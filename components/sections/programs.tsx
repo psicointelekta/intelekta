@@ -167,10 +167,10 @@ function ProgramRow({
             </span>
           ))}
         </div>
-        <Button size="sm" className="mt-4 group/btn" asChild>
+        <Button className="mt-4 h-11 px-6 text-sm group/btn" asChild>
           <Link href="#contato">
             Saiba mais
-            <ArrowRight className="ml-1.5 h-3.5 w-3.5 transition-transform duration-200 group-hover/btn:translate-x-0.5" />
+            <ArrowRight className="ml-1.5 h-4 w-4 transition-transform duration-200 group-hover/btn:translate-x-0.5" />
           </Link>
         </Button>
       </div>
