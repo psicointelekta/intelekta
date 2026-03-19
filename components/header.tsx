@@ -93,7 +93,7 @@ export function Header() {
             : "bg-transparent backdrop-blur-sm"
         )}
       >
-        <nav className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <nav className="mx-auto max-w-7xl px-6 sm:px-6 lg:px-8">
           <div className="flex h-16 sm:h-20 items-center justify-between">
             <a
               href="#"

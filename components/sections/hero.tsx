@@ -52,6 +52,8 @@ export function Hero() {
   const [wordIndex, setWordIndex] = useState(0)
   const [currentImage, setCurrentImage] = useState(0)
   const [currentMobileImage, setCurrentMobileImage] = useState(0)
+  const [imageResetKey, setImageResetKey] = useState(0)
+  const [mobileResetKey, setMobileResetKey] = useState(0)
 
   useEffect(() => {
     const id = setInterval(() => setWordIndex((i) => (i + 1) % WORDS.length), 2800)
@@ -59,14 +61,14 @@ export function Hero() {
   }, [])
 
   useEffect(() => {
-    const id = setInterval(() => setCurrentImage((i) => (i + 1) % HERO_IMAGES.length), 5000)
+    const id = setInterval(() => setCurrentImage((i) => (i + 1) % HERO_IMAGES.length), 3000)
     return () => clearInterval(id)
-  }, [])
+  }, [imageResetKey])
 
   useEffect(() => {
-    const id = setInterval(() => setCurrentMobileImage((i) => (i + 1) % HERO_IMAGES_MOBILE.length), 5000)
+    const id = setInterval(() => setCurrentMobileImage((i) => (i + 1) % HERO_IMAGES_MOBILE.length), 3000)
     return () => clearInterval(id)
-  }, [])
+  }, [mobileResetKey])
 
   return (
     <LazyMotion features={domAnimation} strict>
@@ -225,7 +227,10 @@ export function Hero() {
                   transition={{ duration: 0.6, delay: 0.45 }}
                   className="mt-8 lg:hidden"
                 >
-                  <div className="relative aspect-[16/9] w-full rounded-xl overflow-hidden bg-muted">
+                  <div
+                    className="relative aspect-[16/9] w-full rounded-xl overflow-hidden bg-muted cursor-pointer"
+                    onClick={() => { setCurrentMobileImage((i) => (i + 1) % HERO_IMAGES_MOBILE.length); setMobileResetKey((k) => k + 1) }}
+                  >
                     <AnimatePresence mode="wait">
                       <m.div
                         key={currentMobileImage}
@@ -251,7 +256,7 @@ export function Hero() {
                     {HERO_IMAGES_MOBILE.map((_, index) => (
                       <button
                         key={index}
-                        onClick={() => setCurrentMobileImage(index)}
+                        onClick={() => { setCurrentMobileImage(index); setMobileResetKey((k) => k + 1) }}
                         className={`h-1 rounded-full transition-all duration-300 ${
                           index === currentMobileImage
                             ? "w-6 bg-primary"
@@ -293,7 +298,10 @@ export function Hero() {
                 className="relative hidden lg:flex items-center justify-center"
               >
                 <div className="relative w-full max-w-[380px] xl:max-w-[420px] mx-auto">
-                  <div className="relative aspect-[4/5] rounded-2xl overflow-hidden bg-muted">
+                  <div
+                    className="relative aspect-[4/5] rounded-2xl overflow-hidden bg-muted cursor-pointer"
+                    onClick={() => { setCurrentImage((i) => (i + 1) % HERO_IMAGES.length); setImageResetKey((k) => k + 1) }}
+                  >
                     <AnimatePresence mode="wait">
                       <m.div
                         key={currentImage}
@@ -321,7 +329,7 @@ export function Hero() {
                     {HERO_IMAGES.map((_, index) => (
                       <button
                         key={index}
-                        onClick={() => setCurrentImage(index)}
+                        onClick={() => { setCurrentImage(index); setImageResetKey((k) => k + 1) }}
                         className={`h-1.5 rounded-full transition-all duration-300 ${
                           index === currentImage
                             ? "w-8 bg-primary"
