@@ -517,15 +517,15 @@ export function HomeMobile() {
                 {values.map((value, index) => (
                   <article
                     key={value.title}
-                    className="grid grid-cols-[44px_1fr] gap-x-5 gap-y-1 border-b border-primary/[0.08] py-5"
+                    className="grid grid-cols-[44px_minmax(0,1fr)] gap-x-4 gap-y-1 border-b border-primary/[0.08] py-5 sm:gap-x-5"
                   >
                     <span className="font-serif text-3xl font-bold leading-none text-primary/[0.12]">
                       {String(index + 1).padStart(2, "0")}
                     </span>
-                    <div>
-                      <div className="mb-2 flex items-center gap-3">
-                        <value.icon className="h-4 w-4 text-primary" />
-                        <h3 className="font-serif text-2xl leading-snug text-foreground">{value.title}</h3>
+                    <div className="min-w-0">
+                      <div className="mb-2 flex items-start gap-3">
+                        <value.icon className="mt-1 h-4 w-4 shrink-0 text-primary" />
+                        <h3 className="min-w-0 font-serif text-[1.35rem] leading-snug text-foreground sm:text-2xl">{value.title}</h3>
                       </div>
                       <p className="text-sm leading-7 text-muted-foreground">{value.text}</p>
                     </div>
@@ -968,104 +968,111 @@ export function HomeMobile() {
               </div>
             </div>
 
-            <footer className="overflow-hidden rounded-3xl border border-white/8 bg-dark-section px-5 py-8 text-dark-section-foreground">
-              <div className="space-y-4 text-center">
-                <Image
-                  src="/images/logo-intelekta.webp"
-                  alt="Intelekta"
-                  width={140}
-                  height={48}
-                  className="mx-auto h-9 w-auto brightness-0 invert"
-                  loading="lazy"
-                />
-                <p className="text-sm leading-6 text-dark-section-foreground/80">
-                  Centro de desenvolvimento cognitivo e socioemocional fundamentado em neurociência. Vila Velha, ES.
-                </p>
-                <div className="flex items-center justify-center gap-2">
-                  <a
-                    href="https://instagram.com/psicointelekta"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/8 text-dark-section-foreground/80"
-                    aria-label="Instagram da Intelekta"
-                  >
-                    <Instagram className="h-4 w-4" />
-                  </a>
-                  <a
-                    href="mailto:contato@intelektamente.com"
-                    className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/8 text-dark-section-foreground/80"
-                    aria-label="Email de contato"
-                  >
-                    <Mail className="h-4 w-4" />
-                  </a>
-                  <a
-                    href="https://wa.me/5527988773890?text=Olá! Gostaria de tirar algumas dúvidas sobre a Intelekta."
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/8 text-dark-section-foreground/80"
-                    aria-label="WhatsApp de contato"
-                  >
-                    <Phone className="h-4 w-4" />
-                  </a>
-                </div>
-              </div>
-
-              <div className="mt-8 grid gap-6 border-t border-white/8 pt-6 sm:grid-cols-2">
-                <div>
-                  <h3 className="mb-3 text-sm font-semibold text-dark-section-foreground">Navegação</h3>
-                  <div className="grid grid-cols-2 gap-x-4 gap-y-2 text-sm text-dark-section-foreground/80">
-                    {mobileNavigation.map((item) => (
-                      <a key={item.name} href={item.href}>
-                        {item.name}
-                      </a>
-                    ))}
-                  </div>
-                </div>
-
-                <div>
-                  <h3 className="mb-3 text-sm font-semibold text-dark-section-foreground">Programas</h3>
-                  <div className="grid gap-y-2 text-sm text-dark-section-foreground/80">
-                    {programs.map((program) => (
-                      <a key={program.id} href="#programas">
-                        {program.title}
-                      </a>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              <div className="mt-6 rounded-3xl border border-white/8 bg-white/[0.03] p-5">
-                <h3 className="mb-4 text-sm font-semibold text-dark-section-foreground">Contato</h3>
-                <div className="space-y-3 text-sm text-dark-section-foreground/80">
-                  <div className="flex items-start gap-3">
-                    <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
-                    <span>
-                      Rua Afonso Pena, 403
-                      <br />
-                      Praia da Costa, Vila Velha - ES
-                    </span>
-                  </div>
-                  <a href="tel:+5527988773890" className="flex items-center gap-3">
-                    <Phone className="h-4 w-4 shrink-0 text-primary" />
-                    <span>(27) 98877-3890</span>
-                  </a>
-                  <a href="mailto:contato@intelektamente.com" className="flex items-center gap-3">
-                    <Mail className="h-4 w-4 shrink-0 text-primary" />
-                    <span>contato@intelektamente.com</span>
-                  </a>
-                </div>
-              </div>
-
-              <div className="mt-6 flex flex-col gap-3 border-t border-white/8 pt-5 text-center text-sm text-dark-section-foreground/70">
-                <p>&copy; {new Date().getFullYear()} Intelekta. Todos os direitos reservados.</p>
-                <div className="flex items-center justify-center gap-4">
-                  <a href="/privacidade">Política de Privacidade</a>
-                  <a href="/termos">Termos de Uso</a>
-                </div>
-              </div>
-            </footer>
           </div>
         </section>
+
+        <footer className="relative overflow-hidden bg-dark-section px-6 py-10 text-dark-section-foreground">
+          <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-white/8" />
+          <div className="pointer-events-none absolute right-0 top-0 h-56 w-56 rounded-full bg-primary/[0.04] blur-[100px]" />
+          <div className="pointer-events-none absolute -left-20 bottom-0 h-64 w-64 rounded-full bg-primary/[0.03] blur-[120px]" />
+
+          <div className="relative mx-auto max-w-7xl">
+            <div className="space-y-4 text-center">
+              <Image
+                src="/images/logo-intelekta.webp"
+                alt="Intelekta"
+                width={140}
+                height={48}
+                className="mx-auto h-9 w-auto brightness-0 invert"
+                loading="lazy"
+              />
+              <p className="text-sm leading-6 text-dark-section-foreground/80">
+                Centro de desenvolvimento cognitivo e socioemocional fundamentado em neurociência. Vila Velha, ES.
+              </p>
+              <div className="flex items-center justify-center gap-2">
+                <a
+                  href="https://instagram.com/psicointelekta"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/8 text-dark-section-foreground/80"
+                  aria-label="Instagram da Intelekta"
+                >
+                  <Instagram className="h-4 w-4" />
+                </a>
+                <a
+                  href="mailto:contato@intelektamente.com"
+                  className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/8 text-dark-section-foreground/80"
+                  aria-label="Email de contato"
+                >
+                  <Mail className="h-4 w-4" />
+                </a>
+                <a
+                  href="https://wa.me/5527988773890?text=Olá! Gostaria de tirar algumas dúvidas sobre a Intelekta."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/8 text-dark-section-foreground/80"
+                  aria-label="WhatsApp de contato"
+                >
+                  <Phone className="h-4 w-4" />
+                </a>
+              </div>
+            </div>
+
+            <div className="mt-8 grid gap-6 border-t border-white/8 pt-6 sm:grid-cols-2">
+              <div>
+                <h3 className="mb-3 text-sm font-semibold text-dark-section-foreground">Navegação</h3>
+                <div className="grid grid-cols-2 gap-x-4 gap-y-2 text-sm text-dark-section-foreground/80">
+                  {mobileNavigation.map((item) => (
+                    <a key={item.name} href={item.href}>
+                      {item.name}
+                    </a>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <h3 className="mb-3 text-sm font-semibold text-dark-section-foreground">Programas</h3>
+                <div className="grid gap-y-2 text-sm text-dark-section-foreground/80">
+                  {programs.map((program) => (
+                    <a key={program.id} href="#programas">
+                      {program.title}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-6 rounded-3xl border border-white/8 bg-white/[0.03] p-5">
+              <h3 className="mb-4 text-sm font-semibold text-dark-section-foreground">Contato</h3>
+              <div className="space-y-3 text-sm text-dark-section-foreground/80">
+                <div className="flex items-start gap-3">
+                  <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                  <span>
+                    Rua Afonso Pena, 403
+                    <br />
+                    Praia da Costa, Vila Velha - ES
+                  </span>
+                </div>
+                <a href="tel:+5527988773890" className="flex items-center gap-3">
+                  <Phone className="h-4 w-4 shrink-0 text-primary" />
+                  <span>(27) 98877-3890</span>
+                </a>
+                <a href="mailto:contato@intelektamente.com" className="flex items-center gap-3">
+                  <Mail className="h-4 w-4 shrink-0 text-primary" />
+                  <span>contato@intelektamente.com</span>
+                </a>
+              </div>
+            </div>
+
+            <div className="mt-6 flex flex-col gap-3 border-t border-white/8 pt-5 text-center text-sm text-dark-section-foreground/70">
+              <p>&copy; {new Date().getFullYear()} Intelekta. Todos os direitos reservados.</p>
+              <div className="flex items-center justify-center gap-4">
+                <a href="/privacidade">Política de Privacidade</a>
+                <a href="/termos">Termos de Uso</a>
+              </div>
+            </div>
+          </div>
+        </footer>
       </main>
 
       <div className="fixed inset-x-0 bottom-0 z-50 border-t border-border bg-background/95 p-3 backdrop-blur-xl">
