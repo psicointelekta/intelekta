@@ -21,6 +21,12 @@ import { MobileContactForm } from "@/components/pages/mobile-contact-form"
 import { MobileHomeHeader } from "@/components/pages/mobile-home-header"
 import { MobileHeroWordRotator } from "@/components/pages/mobile-hero-word-rotator"
 import { MobileTestimonialsCarousel } from "@/components/pages/mobile-testimonials-carousel"
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion"
 
 const heroCards = [
   { src: "/images/hero-mobile-1.webp", alt: "Criança em atividade lúdica de neuroeducação" },
@@ -810,16 +816,22 @@ export function HomeMobile() {
               description="Respondemos as dúvidas mais comuns sobre metodologia, duração das sessões, avaliação inicial e faixa etária atendida." 
             />
 
-            <div className="space-y-3">
-              {faqs.map((faq) => (
-                <details key={faq.question} className="rounded-3xl border border-border bg-card px-5 py-4">
-                  <summary className="cursor-pointer list-none pr-6 text-left text-base font-semibold text-foreground marker:hidden">
+            <Accordion type="single" collapsible className="space-y-3">
+              {faqs.map((faq, index) => (
+                <AccordionItem
+                  key={faq.question}
+                  value={`mobile-faq-${index}`}
+                  className="rounded-3xl border border-border bg-card px-5 py-1 transition-colors duration-200 data-[state=open]:border-primary/30"
+                >
+                  <AccordionTrigger className="py-4 text-left text-base font-semibold text-foreground hover:text-primary hover:no-underline data-[state=open]:text-primary">
                     {faq.question}
-                  </summary>
-                  <p className="pt-3 text-sm leading-7 text-muted-foreground">{faq.answer}</p>
-                </details>
+                  </AccordionTrigger>
+                  <AccordionContent className="pb-4 text-sm leading-7 text-muted-foreground">
+                    {faq.answer}
+                  </AccordionContent>
+                </AccordionItem>
               ))}
-            </div>
+            </Accordion>
 
             <div className="grid gap-4 pt-2">
               <article className="rounded-3xl bg-gradient-to-br from-primary to-accent p-6 text-primary-foreground">

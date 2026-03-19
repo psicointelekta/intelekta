@@ -429,3 +429,52 @@ body {
       oklch(1 0 0 / 0.06) 70%,
       transparent 100%);
 }
+
+/* ===== NOT FOUND PAGE ===== */
+@keyframes not-found-rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes not-found-ghost {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -48%) scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes not-found-cloud-drift {
+
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+
+  50% {
+    transform: translate3d(18px, -4px, 0);
+  }
+}
+
+.animate-not-found-rise {
+  animation: not-found-rise 0.72s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.animate-not-found-ghost {
+  animation: not-found-ghost 1s ease 0.12s forwards;
+}
+
+.animate-not-found-cloud {
+  animation: not-found-cloud-drift 16s ease-in-out infinite;
+}
