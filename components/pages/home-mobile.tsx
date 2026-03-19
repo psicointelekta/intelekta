@@ -324,13 +324,13 @@ function MobileHeroWordRotator() {
       >
         emoções
       </span>
-      <span className="mobile-hero-word-cycle col-start-1 row-start-1 [animation-delay:-5.6s]" aria-hidden>
+      <span className="mobile-hero-word-cycle col-start-1 row-start-1" style={{ animationDelay: "0s" }} aria-hidden>
         mentes
       </span>
-      <span className="mobile-hero-word-cycle col-start-1 row-start-1 [animation-delay:-2.8s]" aria-hidden>
+      <span className="mobile-hero-word-cycle col-start-1 row-start-1" style={{ animationDelay: "-5.6s" }} aria-hidden>
         emoções
       </span>
-      <span className="mobile-hero-word-cycle col-start-1 row-start-1 [animation-delay:0s]" aria-hidden>
+      <span className="mobile-hero-word-cycle col-start-1 row-start-1" style={{ animationDelay: "-2.8s" }} aria-hidden>
         futuros
       </span>
       <span className="absolute -bottom-1.5 left-0 h-[3px] w-full origin-left rounded-full bg-primary/30" />
@@ -381,16 +381,19 @@ export function HomeMobile() {
           animation: marquee-mobile-about 26s linear infinite;
         }
         @keyframes mobile-hero-word-cycle {
-          0%, 26% { opacity: 1; }
-          30%, 100% { opacity: 0; }
+          0%, 32% { opacity: 1; }
+          33%, 100% { opacity: 0; }
         }
         .mobile-hero-word-cycle {
           opacity: 0;
-          animation: mobile-hero-word-cycle 8.4s step-end infinite;
+          animation-name: mobile-hero-word-cycle;
+          animation-duration: 8.4s;
+          animation-timing-function: steps(1);
+          animation-iteration-count: infinite;
         }
         @media (prefers-reduced-motion: reduce) {
           .mobile-hero-word-cycle {
-            animation: none;
+            animation-name: none;
           }
           .mobile-hero-word-cycle:not(:first-of-type) {
             display: none;

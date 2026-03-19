@@ -2,6 +2,7 @@
 const nextConfig = {
   experimental: {
     optimizePackageImports: ['framer-motion', 'lucide-react'],
+    cssChunking: 'strict',
   },
   images: {
     remotePatterns: [
