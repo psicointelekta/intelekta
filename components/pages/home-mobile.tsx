@@ -15,6 +15,10 @@ import {
   Users,
 } from "lucide-react"
 
+import { MobileContactForm } from "@/components/pages/mobile-contact-form"
+import { MobileHomeHeader } from "@/components/pages/mobile-home-header"
+import { MobileTestimonialsCarousel } from "@/components/pages/mobile-testimonials-carousel"
+
 const heroCards = [
   { src: "/images/hero-mobile-1.webp", alt: "Criança em atividade lúdica de neuroeducação" },
   { src: "/images/hero-mobile-2.webp", alt: "Adolescente em sessão de desenvolvimento cognitivo" },
@@ -142,6 +146,30 @@ const programs = [
   },
 ] as const
 
+const additionalPrograms = [
+  {
+    title: "Cubo Mágico",
+    subtitle: "Desafio que expande a mente",
+    description:
+      "Trabalha atenção, foco, raciocínio lógico e espacial, planejamento, memória e persistência por meio da resolução do cubo mágico.",
+    tags: ["Raciocínio espacial", "Persistência", "Memória"],
+  },
+  {
+    title: "Neurolê",
+    subtitle: "Alfabetização lúdica e sensorial",
+    description:
+      "Programa de alfabetização inclusiva para crianças atípicas com abordagem lúdica e sensorial para leitura e escrita.",
+    tags: ["Inclusivo", "Sensorial", "Crianças atípicas"],
+  },
+  {
+    title: "Psicopedagogia",
+    subtitle: "Acompanhamento especializado",
+    description:
+      "Atendimento especializado em dificuldades de aprendizagem com acompanhamento psicopedagógico personalizado.",
+    tags: ["Especializado", "Aprendizagem", "Individual"],
+  },
+] as const
+
 const team = [
   {
     name: "Suzidarle Pereira",
@@ -176,29 +204,66 @@ const testimonials = [
     author: "Guto",
     role: "Aluno adolescente",
   },
+  {
+    content:
+      "Eu adoro as aulas e sempre volto cheia de energia. Percebo uma evolução enorme na forma como lido com as emoções e me organizo para estudar.",
+    author: "Aninha",
+    role: "Aluna do infantil",
+  },
+  {
+    content:
+      "Como pai, ver meus filhos se desenvolvendo com acompanhamento tão atencioso e personalizado me dá uma tranquilidade enorme.",
+    author: "Gildásio",
+    role: "Pai de aluno",
+  },
 ] as const
 
 const faqs = [
   {
     question: "Para qual faixa etária a Intelekta atende?",
     answer:
-      "Atendemos pessoas a partir dos 5 anos, com programas específicos para crianças, adolescentes, adultos e idosos.",
+      "Atendemos pessoas a partir dos 5 anos de idade, com programas específicos para crianças (5-12 anos), adolescentes (13-17 anos), adultos (18-59 anos) e idosos (60+ anos). Cada programa é adaptado às necessidades e características de cada fase da vida.",
   },
   {
     question: "Como funciona a metodologia da Intelekta?",
     answer:
-      "Nossa metodologia integra neurociência, psicologia cognitiva e inteligência emocional em atividades práticas e personalizadas.",
+      "Nossa metodologia é fundamentada em três pilares: neurociência, psicologia cognitiva e inteligência emocional. Utilizamos atividades práticas e personalizadas que estimulam o desenvolvimento de novas habilidades cognitivas e emocionais, baseadas em evidências científicas sobre neuroplasticidade.",
+  },
+  {
+    question: "Qual a diferença entre a Intelekta e uma escola ou terapia?",
+    answer:
+      "A Intelekta é um centro de educação complementar. Não substituímos a escola, que foca em conteúdo acadêmico, nem a terapia, que trata questões clínicas. Nosso foco é o desenvolvimento de habilidades cognitivas e socioemocionais que potencializam o desempenho em todas as áreas da vida.",
+  },
+  {
+    question: "Quanto tempo dura cada sessão?",
+    answer:
+      "As sessões têm duração de 1 hora e 30 minutos, com um encontro semanal. A frequência pode ser ajustada de acordo com os objetivos individuais de cada pessoa.",
+  },
+  {
+    question: "Como é feita a avaliação inicial?",
+    answer:
+      "Realizamos uma avaliação inicial completa que mapeia habilidades cognitivas, perfil emocional e objetivos pessoais. A partir dessa análise, elaboramos um plano de desenvolvimento personalizado que orienta todo o trabalho ao longo do programa.",
   },
   {
     question: "Posso fazer uma aula experimental?",
     answer:
-      "Sim. Oferecemos uma avaliação inicial gratuita para entender o momento atual e indicar o melhor caminho.",
+      "Sim! Oferecemos uma aula experimental gratuita para que você ou seu filho conheça nosso espaço, metodologia e equipe. É uma oportunidade de vivenciar nossa abordagem antes de tomar qualquer decisão. Entre em contato para agendar.",
   },
   {
     question: "Onde fica a Intelekta?",
     answer:
-      "Rua Afonso Pena, 403, Praia da Costa, Vila Velha - ES.",
+      "Estamos localizados na Rua Afonso Pena, 403, no bairro Praia da Costa, em Vila Velha, ES. Nosso espaço foi cuidadosamente planejado para proporcionar um ambiente calmo, acolhedor e propício ao desenvolvimento.",
   },
+] as const
+
+const mobileNavigation = [
+  { name: "Sobre", href: "#sobre" },
+  { name: "Metodologia", href: "#metodologia" },
+  { name: "Programas", href: "#programas" },
+  { name: "Equipe", href: "#equipe" },
+  { name: "Depoimentos", href: "#depoimentos" },
+  { name: "FAQ", href: "#faq" },
+  { name: "Contato", href: "#contato" },
 ] as const
 
 function SectionHeader({
@@ -245,28 +310,7 @@ export function HomeMobile() {
         }
       `}</style>
 
-      <header className="sticky top-0 z-40 border-b border-border/50 bg-background/88 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-3">
-          <a href="#top" className="flex items-center">
-            <Image
-              src="/images/logo-intelekta.webp"
-              alt="Intelekta"
-              width={148}
-              height={48}
-              className="h-10 w-auto"
-              priority
-            />
-          </a>
-          <a
-            href="https://wa.me/5527988773890?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20aula%20na%20Intelekta."
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground"
-          >
-            Agendar aula
-          </a>
-        </div>
-      </header>
+      <MobileHomeHeader navigation={mobileNavigation} />
 
       <main id="top">
         <section className="relative overflow-hidden bg-background px-6 pb-16 pt-10" id="conteudo-principal">
@@ -502,7 +546,7 @@ export function HomeMobile() {
             <SectionHeader
               eyebrow="Programas"
               title="Cada pessoa merece um cuidado especial"
-              description="No mobile mantivemos a mesma atmosfera editorial do desktop, mas com menos interações e sem custo extra de animação."
+              description="Idealizada por psicólogos e psicopedagogas, a Intelekta oferece programas especializados que promovem o aprendizado de forma lúdica, envolvente e significativa." 
             />
 
             <div className="grid gap-3 sm:grid-cols-2">
@@ -563,6 +607,58 @@ export function HomeMobile() {
                 </article>
               ))}
             </div>
+
+            <div className="space-y-4">
+              <div className="flex items-center gap-4">
+                <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-primary/35">
+                  Programas complementares
+                </span>
+                <div className="h-px flex-1 bg-gradient-to-r from-primary/10 to-transparent" />
+              </div>
+              <div className="grid gap-3">
+                {additionalPrograms.map((program) => (
+                  <article key={program.title} className="rounded-3xl border border-primary/[0.08] bg-card/70 p-5">
+                    <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-primary/50">
+                      {program.subtitle}
+                    </p>
+                    <h3 className="mt-2 font-serif text-2xl text-foreground">{program.title}</h3>
+                    <p className="mt-3 text-sm leading-7 text-muted-foreground">{program.description}</p>
+                    <div className="mt-4 flex flex-wrap gap-2">
+                      {program.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="rounded-full border border-primary/10 bg-primary/[0.04] px-2.5 py-1 text-[10px] font-medium uppercase tracking-wider text-primary/60"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </div>
+
+            <div className="space-y-6">
+              {additionalPrograms.map((program) => (
+                <article key={program.title} className="rounded-3xl border border-primary/[0.08] bg-card/70 p-5">
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-primary/50">
+                    {program.subtitle}
+                  </p>
+                  <h3 className="mt-2 font-serif text-3xl leading-tight text-foreground">{program.title}</h3>
+                  <p className="mt-3 text-sm leading-7 text-muted-foreground">{program.description}</p>
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    {program.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="rounded-full border border-primary/10 bg-primary/[0.04] px-2.5 py-1 text-[10px] font-medium uppercase tracking-wider text-primary/60"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </article>
+              ))}
+            </div>
           </div>
         </section>
 
@@ -610,28 +706,11 @@ export function HomeMobile() {
             <SectionHeader
               eyebrow="Depoimentos"
               title="Histórias reais de quem vivencia a transformação cognitiva"
-              description="No mobile, substituímos o carrossel por cards estáticos, preservando o tom editorial e reduzindo o JavaScript ao mínimo."
+              description="Depoimentos reais de quem encontrou na Intelekta um espaço para fortalecer cognição, emoção e autonomia."
               dark
             />
 
-            <div className="grid gap-4">
-              {testimonials.map((testimonial) => (
-                <article key={testimonial.author} className="rounded-3xl border border-white/[0.08] bg-white/[0.04] p-6 text-dark-section-foreground">
-                  <div className="mb-4 flex gap-1">
-                    {Array.from({ length: 5 }).map((_, index) => (
-                      <Star key={index} className="h-4 w-4 fill-amber-400 text-amber-400" />
-                    ))}
-                  </div>
-                  <blockquote className="font-serif text-xl leading-8 italic text-pretty">
-                    {testimonial.content}
-                  </blockquote>
-                  <div className="mt-5 text-sm text-dark-section-foreground/70">
-                    <div className="font-semibold text-dark-section-foreground">{testimonial.author}</div>
-                    <div>{testimonial.role}</div>
-                  </div>
-                </article>
-              ))}
-            </div>
+            <MobileTestimonialsCarousel testimonials={testimonials} />
           </div>
         </section>
 
@@ -643,7 +722,7 @@ export function HomeMobile() {
             <SectionHeader
               eyebrow="Perguntas Frequentes"
               title="Tire suas dúvidas"
-              description="Mantivemos a linguagem da área de FAQ do desktop, usando apenas HTML nativo para máxima eficiência no mobile."
+              description="Respondemos as dúvidas mais comuns sobre metodologia, duração das sessões, avaliação inicial e faixa etária atendida." 
             />
 
             <div className="space-y-3">
@@ -655,6 +734,38 @@ export function HomeMobile() {
                   <p className="pt-3 text-sm leading-7 text-muted-foreground">{faq.answer}</p>
                 </details>
               ))}
+            </div>
+
+            <div className="grid gap-4 pt-2">
+              <article className="rounded-3xl bg-gradient-to-br from-primary to-accent p-6 text-primary-foreground">
+                <MessageCircle className="mb-4 h-8 w-8 opacity-80" />
+                <h3 className="font-serif text-2xl font-semibold">Primeira aula gratuita</h3>
+                <p className="mt-2 text-sm leading-7 text-primary-foreground/82">
+                  Conheça nosso espaço, metodologia e equipe sem compromisso. Agende agora e comece a jornada de desenvolvimento.
+                </p>
+                <a
+                  href="#contato"
+                  className="mt-5 inline-flex h-12 w-full items-center justify-center gap-2 rounded-md bg-white px-5 text-base font-semibold text-primary"
+                >
+                  Agendar agora
+                  <ArrowRight className="h-4 w-4" />
+                </a>
+              </article>
+
+              <article className="rounded-3xl border border-border bg-card p-5">
+                <p className="text-sm text-muted-foreground">
+                  Prefere tirar dúvidas rapidamente?
+                </p>
+                <a
+                  href="https://wa.me/5527988773890"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-4 inline-flex h-11 w-full items-center justify-center gap-2 rounded-md border border-border bg-background px-4 text-sm font-medium text-foreground"
+                >
+                  <MessageCircle className="h-4 w-4" />
+                  Falar pelo WhatsApp
+                </a>
+              </article>
             </div>
           </div>
         </section>
@@ -669,63 +780,102 @@ export function HomeMobile() {
             <SectionHeader
               eyebrow="Contato"
               title="Vamos conversar?"
-              description="No mobile simplificamos o fechamento da jornada: WhatsApp, telefone e endereço em blocos rápidos, mas com a mesma proposta visual do desktop."
+              description="Entre em contato para agendar uma visita, conversar com a equipe e encontrar o programa mais adequado para o seu momento." 
             />
 
-            <article className="rounded-3xl bg-gradient-to-br from-primary to-accent p-6 text-primary-foreground">
-              <MessageCircle className="mb-4 h-8 w-8 opacity-80" />
-              <h3 className="font-serif text-2xl">Primeira aula gratuita</h3>
-              <p className="mt-3 text-sm leading-7 text-primary-foreground/82">
-                Conheça nosso espaço, nossa metodologia e entenda qual programa faz mais sentido para o seu momento atual.
-              </p>
-              <a
-                href="https://wa.me/5527988773890?text=Ol%C3%A1!%20Quero%20agendar%20uma%20avalia%C3%A7%C3%A3o%20gratuita%20na%20Intelekta."
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-5 inline-flex h-12 w-full items-center justify-center gap-2 rounded-md bg-white px-5 text-base font-semibold text-primary"
-              >
-                Agendar agora
-                <ArrowRight className="h-4 w-4" />
-              </a>
-            </article>
-
-            <div className="grid gap-3">
-              <a href="tel:+5527988773890" className="rounded-3xl border border-border bg-card p-5">
-                <Phone className="h-5 w-5 text-primary" />
-                <h3 className="mt-3 text-base font-semibold text-foreground">Telefone</h3>
-                <p className="mt-1 text-sm leading-7 text-muted-foreground">(27) 98877-3890</p>
-              </a>
-
-              <a
-                href="mailto:contato@intelektamente.com"
-                className="rounded-3xl border border-border bg-card p-5"
-              >
-                <Mail className="h-5 w-5 text-primary" />
-                <h3 className="mt-3 text-base font-semibold text-foreground">Email</h3>
-                <p className="mt-1 text-sm leading-7 text-muted-foreground">contato@intelektamente.com</p>
-              </a>
-
-              <a
-                href="https://maps.google.com/?q=Rua+Afonso+Pena,+403,+Praia+da+Costa,+Vila+Velha,+ES"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="rounded-3xl border border-border bg-card p-5"
-              >
-                <MapPin className="h-5 w-5 text-primary" />
-                <h3 className="mt-3 text-base font-semibold text-foreground">Endereço</h3>
-                <p className="mt-1 text-sm leading-7 text-muted-foreground">
-                  Rua Afonso Pena, 403, Praia da Costa, Vila Velha - ES
-                </p>
-              </a>
-
-              <div className="rounded-3xl border border-border bg-card p-5">
-                <div className="flex items-center gap-3">
-                  <Clock3 className="h-5 w-5 text-primary" />
+            <div className="grid gap-4">
+              <article className="rounded-3xl border border-border bg-card p-5">
+                <div className="flex items-start gap-4">
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-green-500/10">
+                    <MessageCircle className="h-6 w-6 text-green-600" />
+                  </div>
                   <div>
-                    <h3 className="text-base font-semibold text-foreground">Horário de atendimento</h3>
-                    <p className="text-sm text-muted-foreground">Seg-Sex: 9h às 18h • Sáb: 9h às 12h</p>
+                    <h3 className="text-base font-semibold text-foreground">Fale conosco pelo WhatsApp</h3>
+                    <p className="mt-1 text-sm leading-7 text-muted-foreground">
+                      A maneira mais rápida de tirar dúvidas e agendar sua aula experimental.
+                    </p>
+                    <a
+                      href="https://wa.me/5527988773890?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20visita%20e%20saber%20mais%20sobre%20a%20Intelekta."
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-4 inline-flex h-11 items-center justify-center gap-2 rounded-md bg-green-600 px-5 text-sm font-medium text-white"
+                    >
+                      <MessageCircle className="h-4 w-4" />
+                      Abrir WhatsApp
+                    </a>
                   </div>
                 </div>
+              </article>
+
+              <MobileContactForm />
+
+              <div className="rounded-3xl border border-border bg-card p-5">
+                <div className="space-y-4">
+                  <div className="flex items-start gap-3">
+                    <div className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-primary/10">
+                      <MapPin className="h-4 w-4 text-primary" />
+                    </div>
+                    <div>
+                      <h3 className="text-sm font-semibold text-foreground">Endereço</h3>
+                      <p className="text-sm text-muted-foreground">
+                        Rua Afonso Pena, 403
+                        <br />
+                        Praia da Costa, Vila Velha - ES
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-3">
+                    <div className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-primary/10">
+                      <Phone className="h-4 w-4 text-primary" />
+                    </div>
+                    <div>
+                      <h3 className="text-sm font-semibold text-foreground">Telefone</h3>
+                      <a href="tel:+5527988773890" className="text-sm text-muted-foreground">
+                        (27) 98877-3890
+                      </a>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-3">
+                    <div className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-primary/10">
+                      <Mail className="h-4 w-4 text-primary" />
+                    </div>
+                    <div>
+                      <h3 className="text-sm font-semibold text-foreground">Email</h3>
+                      <a href="mailto:contato@intelektamente.com" className="text-sm text-muted-foreground">
+                        contato@intelektamente.com
+                      </a>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-3">
+                    <div className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-primary/10">
+                      <Clock3 className="h-4 w-4 text-primary" />
+                    </div>
+                    <div>
+                      <h3 className="text-sm font-semibold text-foreground">Horário</h3>
+                      <p className="text-sm text-muted-foreground">
+                        Seg-Sex: 9h às 18h
+                        <br />
+                        Sáb: 9h às 12h
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="overflow-hidden rounded-3xl border border-border h-[240px]">
+                <iframe
+                  src="https://maps.google.com/maps?q=Rua+Afonso+Pena,+403,+Praia+da+Costa,+Vila+Velha,+ES,+Brasil&t=&z=16&ie=UTF8&iwloc=&output=embed"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="Localização da Intelekta — Rua Afonso Pena, 403, Praia da Costa, Vila Velha, ES"
+                />
               </div>
             </div>
 

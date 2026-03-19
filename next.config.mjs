@@ -22,6 +22,26 @@ const nextConfig = {
   async headers() {
     return [
       {
+        source: '/',
+        headers: [
+          {
+            key: 'Vary',
+            value:
+              'rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch, Accept-Encoding, User-Agent',
+          },
+        ],
+      },
+      {
+        source: '/m',
+        headers: [
+          {
+            key: 'Vary',
+            value:
+              'rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch, Accept-Encoding, User-Agent',
+          },
+        ],
+      },
+      {
         source: '/(.*)',
         headers: [
           {

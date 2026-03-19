@@ -3,9 +3,20 @@ import { NextResponse } from "next/server"
 
 import { getDeviceVariantFromUserAgent } from "@/lib/device"
 
+function withUserAgentVary(response: NextResponse) {
+  response.headers.append("Vary", "User-Agent")
+  return response
+}
+
 export function proxy(request: NextRequest) {
+  if (request.nextUrl.pathname === "/m") {
+    const url = request.nextUrl.clone()
+    url.pathname = "/"
+    return withUserAgentVary(NextResponse.redirect(url))
+  }
+
   if (request.nextUrl.pathname !== "/") {
-    return NextResponse.next()
+    return withUserAgentVary(NextResponse.next())
   }
 
   const deviceVariant = getDeviceVariantFromUserAgent(
@@ -13,15 +24,15 @@ export function proxy(request: NextRequest) {
   )
 
   if (deviceVariant !== "mobile") {
-    return NextResponse.next()
+    return withUserAgentVary(NextResponse.next())
   }
 
   const url = request.nextUrl.clone()
   url.pathname = "/m"
 
-  return NextResponse.rewrite(url)
+  return withUserAgentVary(NextResponse.rewrite(url))
 }
 
 export const config = {
-  matcher: ["/"],
+  matcher: ["/", "/m"],
 }
