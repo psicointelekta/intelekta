@@ -6,6 +6,8 @@ import { m } from "framer-motion"
 interface Neuron {
   x: number
   y: number
+  baseX: number
+  baseY: number
   radius: number
   activation: number
   activationDecay: number
@@ -99,6 +101,8 @@ export function NeuralTree() {
 
         neurons.push({
           x, y,
+          baseX: x,
+          baseY: y,
           radius: 3.5 + Math.random() * 3.5 * cluster.weight,
           activation: 0,
           activationDecay: 0.012 + Math.random() * 0.008,
@@ -180,20 +184,29 @@ export function NeuralTree() {
 
     const handleMouseMove = (e: MouseEvent) => {
       const rect = canvas.getBoundingClientRect()
-      mouseRef.current = { x: e.clientX - rect.left, y: e.clientY - rect.top }
+      const x = e.clientX - rect.left
+      const y = e.clientY - rect.top
+      if (x >= 0 && x <= rect.width && y >= 0 && y <= rect.height) {
+        mouseRef.current = { x, y }
+      } else {
+        mouseRef.current = { x: -1000, y: -1000 }
+      }
     }
     const handleTouchMove = (e: TouchEvent) => {
       const rect = canvas.getBoundingClientRect()
       if (e.touches.length > 0) {
-        mouseRef.current = { x: e.touches[0].clientX - rect.left, y: e.touches[0].clientY - rect.top }
+        const x = e.touches[0].clientX - rect.left
+        const y = e.touches[0].clientY - rect.top
+        if (x >= 0 && x <= rect.width && y >= 0 && y <= rect.height) {
+          mouseRef.current = { x, y }
+        }
       }
     }
     const handleLeave = () => { mouseRef.current = { x: -1000, y: -1000 } }
 
-    canvas.addEventListener("mousemove", handleMouseMove)
-    canvas.addEventListener("touchmove", handleTouchMove, { passive: true })
-    canvas.addEventListener("touchend", handleLeave)
-    canvas.addEventListener("mouseleave", handleLeave)
+    window.addEventListener("mousemove", handleMouseMove)
+    window.addEventListener("touchmove", handleTouchMove, { passive: true })
+    window.addEventListener("touchend", handleLeave)
 
     const inactive = { r: 55, g: 155, b: 130 }
     const active = { r: 100, g: 200, b: 168 }
@@ -238,11 +251,40 @@ export function NeuralTree() {
         lastAutoFireRef.current = time
       }
 
-      // --- Mouse interaction ---
+      // --- Mouse interaction: fire + attract ---
+      const cursorActive = mx > -500 && my > -500
+      const attractRadius = 220
+      const attractStrength = 0.25
+
       for (let i = 0; i < neurons.length; i++) {
         const n = neurons[i]
-        const dx = mx - n.x; const dy = my - n.y
-        if (dx * dx + dy * dy < 40000) fireNeuron(i, time) // 200px
+        const dx = mx - n.baseX; const dy = my - n.baseY
+        const distSq = dx * dx + dy * dy
+
+        if (cursorActive && distSq < attractRadius * attractRadius) {
+          const dist = Math.sqrt(distSq)
+          const factor = (1 - dist / attractRadius) * attractStrength
+          n.x += (n.baseX + dx * factor - n.x) * 0.18
+          n.y += (n.baseY + dy * factor - n.y) * 0.18
+        } else {
+          n.x += (n.baseX - n.x) * 0.06
+          n.y += (n.baseY - n.y) * 0.06
+        }
+
+        if (distSq < 40000) fireNeuron(i, time) // 200px
+      }
+
+      // --- Cursor glow ---
+      if (cursorActive) {
+        const glowRadius = 160
+        const grad = ctx.createRadialGradient(mx, my, 0, mx, my, glowRadius)
+        grad.addColorStop(0, `rgba(${bright.r}, ${bright.g}, ${bright.b}, 0.14)`)
+        grad.addColorStop(0.4, `rgba(${active.r}, ${active.g}, ${active.b}, 0.06)`)
+        grad.addColorStop(1, `rgba(${active.r}, ${active.g}, ${active.b}, 0)`)
+        ctx.beginPath()
+        ctx.arc(mx, my, glowRadius, 0, Math.PI * 2)
+        ctx.fillStyle = grad
+        ctx.fill()
       }
 
       // --- Process impulses ---
@@ -256,26 +298,43 @@ export function NeuralTree() {
       }
 
       // --- Draw connections ---
+      const proxRadius = 200
+      const proxRadiusSq = proxRadius * proxRadius
+
       for (let i = 0; i < neurons.length; i++) {
         const n = neurons[i]
         for (const j of n.connections) {
           if (j <= i) continue
-          const m = neurons[j]
-          const maxAct = Math.max(n.activation, m.activation)
-          const alpha = 0.14 + maxAct * 0.4
+          const o = neurons[j]
+          const maxAct = Math.max(n.activation, o.activation)
 
-          const midX = (n.x + m.x) / 2 + (n.y - m.y) * 0.07
-          const midY = (n.y + m.y) / 2 + (m.x - n.x) * 0.07
+          // Proximity boost: brighten connections near cursor
+          let proxBoost = 0
+          if (cursorActive) {
+            const cmx = (n.x + o.x) / 2
+            const cmy = (n.y + o.y) / 2
+            const cdx = mx - cmx; const cdy = my - cmy
+            const cdSq = cdx * cdx + cdy * cdy
+            if (cdSq < proxRadiusSq) {
+              proxBoost = (1 - Math.sqrt(cdSq) / proxRadius) * 0.7
+            }
+          }
+
+          const alpha = 0.14 + maxAct * 0.4 + proxBoost * 0.5
+
+          const midX = (n.x + o.x) / 2 + (n.y - o.y) * 0.07
+          const midY = (n.y + o.y) / 2 + (o.x - n.x) * 0.07
 
           ctx.beginPath()
           ctx.moveTo(n.x, n.y)
-          ctx.quadraticCurveTo(midX, midY, m.x, m.y)
+          ctx.quadraticCurveTo(midX, midY, o.x, o.y)
 
-          const r = inactive.r + (active.r - inactive.r) * maxAct
-          const g = inactive.g + (active.g - inactive.g) * maxAct
-          const b = inactive.b + (active.b - inactive.b) * maxAct
+          const blend = Math.min(1, maxAct + proxBoost)
+          const r = inactive.r + (active.r - inactive.r) * blend
+          const g = inactive.g + (active.g - inactive.g) * blend
+          const b = inactive.b + (active.b - inactive.b) * blend
           ctx.strokeStyle = `rgba(${r}, ${g}, ${b}, ${alpha})`
-          ctx.lineWidth = 1 + maxAct * 2.5
+          ctx.lineWidth = 1 + maxAct * 2.5 + proxBoost * 2.5
           ctx.stroke()
         }
       }
@@ -310,30 +369,41 @@ export function NeuralTree() {
         const baseAlpha = 0.22 + idlePulse * 0.1
         const act = n.activation
 
-        const r = inactive.r + (bright.r - inactive.r) * act
-        const g = inactive.g + (bright.g - inactive.g) * act
-        const b = inactive.b + (bright.b - inactive.b) * act
+        // Proximity boost for neuron glow
+        let nProx = 0
+        if (cursorActive) {
+          const ndx = mx - n.x; const ndy = my - n.y
+          const ndSq = ndx * ndx + ndy * ndy
+          if (ndSq < proxRadiusSq) {
+            nProx = (1 - Math.sqrt(ndSq) / proxRadius) * 0.7
+          }
+        }
+        const totalAct = Math.min(1, act + nProx)
 
-        // Glow when active
-        if (act > 0.1) {
-          const glowR = n.radius * (3 + act * 6)
+        const r = inactive.r + (bright.r - inactive.r) * totalAct
+        const g = inactive.g + (bright.g - inactive.g) * totalAct
+        const b = inactive.b + (bright.b - inactive.b) * totalAct
+
+        // Glow when active or near cursor
+        if (totalAct > 0.1) {
+          const glowR = n.radius * (3 + totalAct * 6)
           const glow = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, glowR)
-          glow.addColorStop(0, `rgba(${active.r}, ${active.g}, ${active.b}, ${act * 0.35})`)
-          glow.addColorStop(0.5, `rgba(${active.r}, ${active.g}, ${active.b}, ${act * 0.12})`)
+          glow.addColorStop(0, `rgba(${active.r}, ${active.g}, ${active.b}, ${totalAct * 0.35})`)
+          glow.addColorStop(0.5, `rgba(${active.r}, ${active.g}, ${active.b}, ${totalAct * 0.12})`)
           glow.addColorStop(1, `rgba(${active.r}, ${active.g}, ${active.b}, 0)`)
           ctx.beginPath(); ctx.arc(n.x, n.y, glowR, 0, Math.PI * 2); ctx.fillStyle = glow; ctx.fill()
         }
 
         // Core
-        const coreR = n.radius * (1 + act * 0.6)
+        const coreR = n.radius * (1 + totalAct * 0.6)
         ctx.beginPath(); ctx.arc(n.x, n.y, coreR, 0, Math.PI * 2)
-        ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${baseAlpha + act * 0.88})`
+        ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${baseAlpha + totalAct * 0.88})`
         ctx.fill()
 
         // Bright center
-        if (act > 0.3) {
+        if (totalAct > 0.3) {
           ctx.beginPath(); ctx.arc(n.x, n.y, coreR * 0.35, 0, Math.PI * 2)
-          ctx.fillStyle = `rgba(${bright.r}, ${bright.g}, ${bright.b}, ${act})`
+          ctx.fillStyle = `rgba(${bright.r}, ${bright.g}, ${bright.b}, ${totalAct})`
           ctx.fill()
         }
       }
@@ -345,10 +415,9 @@ export function NeuralTree() {
 
     return () => {
       window.removeEventListener("resize", resizeCanvas)
-      canvas.removeEventListener("mousemove", handleMouseMove)
-      canvas.removeEventListener("touchmove", handleTouchMove)
-      canvas.removeEventListener("touchend", handleLeave)
-      canvas.removeEventListener("mouseleave", handleLeave)
+      window.removeEventListener("mousemove", handleMouseMove)
+      window.removeEventListener("touchmove", handleTouchMove)
+      window.removeEventListener("touchend", handleLeave)
       if (animationRef.current) cancelAnimationFrame(animationRef.current)
     }
   }, [initNeurons, fireNeuron])

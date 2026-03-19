@@ -231,25 +231,23 @@ export function Hero() {
                     className="relative aspect-[16/9] w-full rounded-xl overflow-hidden bg-muted cursor-pointer"
                     onClick={() => { setCurrentMobileImage((i) => (i + 1) % HERO_IMAGES_MOBILE.length); setMobileResetKey((k) => k + 1) }}
                   >
-                    <AnimatePresence mode="wait">
+                    {HERO_IMAGES_MOBILE.map((img, index) => (
                       <m.div
-                        key={currentMobileImage}
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.6 }}
+                        key={index}
+                        animate={{ opacity: index === currentMobileImage ? 1 : 0 }}
+                        transition={{ duration: 0.7, ease: "easeInOut" }}
                         className="absolute inset-0"
                       >
                         <Image
-                          src={HERO_IMAGES_MOBILE[currentMobileImage].src}
-                          alt={HERO_IMAGES_MOBILE[currentMobileImage].alt}
+                          src={img.src}
+                          alt={img.alt}
                           fill
                           className="object-cover"
                           sizes="(max-width: 640px) 90vw, 384px"
-                          priority={currentMobileImage === 0}
+                          priority={index === 0}
                         />
                       </m.div>
-                    </AnimatePresence>
+                    ))}
                     <div className="absolute inset-0 bg-gradient-to-t from-background/15 via-transparent to-transparent pointer-events-none" />
                   </div>
                   <div className="flex gap-2 mt-3">
@@ -302,25 +300,23 @@ export function Hero() {
                     className="relative aspect-[4/5] rounded-2xl overflow-hidden bg-muted cursor-pointer"
                     onClick={() => { setCurrentImage((i) => (i + 1) % HERO_IMAGES.length); setImageResetKey((k) => k + 1) }}
                   >
-                    <AnimatePresence mode="wait">
+                    {HERO_IMAGES.map((img, index) => (
                       <m.div
-                        key={currentImage}
-                        initial={{ opacity: 0, scale: 1.05 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 0.97 }}
+                        key={index}
+                        animate={{ opacity: index === currentImage ? 1 : 0, scale: index === currentImage ? 1 : 1.03 }}
                         transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
                         className="absolute inset-0"
                       >
                         <Image
-                          src={HERO_IMAGES[currentImage].src}
-                          alt={HERO_IMAGES[currentImage].alt}
+                          src={img.src}
+                          alt={img.alt}
                           fill
                           className="object-cover"
                           sizes="420px"
-                          priority={currentImage === 0}
+                          priority={index === 0}
                         />
                       </m.div>
-                    </AnimatePresence>
+                    ))}
                     <div className="absolute inset-0 bg-gradient-to-t from-background/20 via-transparent to-transparent pointer-events-none" />
                   </div>
 
