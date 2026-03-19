@@ -354,6 +354,11 @@ html {
   scroll-behavior: smooth;
 }
 
+html,
+body {
+  overflow-x: hidden;
+}
+
 /* Reduce motion for accessibility */
 @media (prefers-reduced-motion: reduce) {
 

@@ -347,7 +347,7 @@ function SectionHeader({
 
 export function HomeMobile() {
   return (
-    <div className="min-h-screen bg-background pb-28">
+    <div className="min-h-screen bg-background">
       <style>{`
         @keyframes marquee-mobile-about {
           from { transform: translateX(0); }
@@ -471,10 +471,10 @@ export function HomeMobile() {
           </div>
         </section>
 
-        <section id="sobre" className="relative overflow-hidden px-6 py-16">
-          <div className="pointer-events-none absolute right-0 top-0 h-72 w-72 rounded-full bg-primary/[0.035] blur-[120px]" />
-          <div className="pointer-events-none absolute -left-16 bottom-12 h-56 w-56 rounded-full bg-secondary/[0.04] blur-[100px]" />
-          <div className="pointer-events-none absolute inset-0 bg-[repeating-linear-gradient(135deg,transparent,transparent_56px,var(--primary)_56px,var(--primary)_56.5px)] opacity-[0.018]" />
+        <section id="sobre" className="relative isolate overflow-hidden px-6 py-16 [contain:paint]">
+          <div className="pointer-events-none absolute right-0 top-0 hidden h-72 w-72 rounded-full bg-primary/[0.035] blur-[120px] sm:block" />
+          <div className="pointer-events-none absolute -left-16 bottom-12 hidden h-56 w-56 rounded-full bg-secondary/[0.04] blur-[100px] sm:block" />
+          <div className="pointer-events-none absolute inset-0 hidden bg-[repeating-linear-gradient(135deg,transparent,transparent_56px,var(--primary)_56px,var(--primary)_56.5px)] opacity-[0.018] sm:block" />
 
           <div className="relative mx-auto max-w-7xl space-y-10">
             <SectionHeader
@@ -491,8 +491,8 @@ export function HomeMobile() {
               }
             />
 
-            <div className="-mx-6 overflow-hidden border-y border-primary/[0.07] py-3" aria-hidden="true">
-              <div className="animate-marquee-mobile-about flex whitespace-nowrap">
+            <div className="-mx-6 overflow-hidden border-y border-primary/[0.07] py-3 [transform:translateZ(0)]" aria-hidden="true">
+              <div className="animate-marquee-mobile-about flex whitespace-nowrap [backface-visibility:hidden]">
                 {[...keywords, ...keywords, ...keywords].map((keyword, index) => (
                   <span
                     key={`${keyword}-${index}`}
@@ -517,7 +517,7 @@ export function HomeMobile() {
                 {values.map((value, index) => (
                   <article
                     key={value.title}
-                    className="grid grid-cols-[44px_minmax(0,1fr)] gap-x-4 gap-y-1 border-b border-primary/[0.08] py-5 sm:gap-x-5"
+                    className="relative isolate grid grid-cols-[44px_minmax(0,1fr)] gap-x-4 gap-y-1 border-b border-primary/[0.08] py-5 [contain:paint] sm:gap-x-5"
                   >
                     <span className="font-serif text-3xl font-bold leading-none text-primary/[0.12]">
                       {String(index + 1).padStart(2, "0")}
@@ -534,14 +534,14 @@ export function HomeMobile() {
               </div>
             </div>
 
-            <div className="overflow-hidden rounded-3xl border border-primary/10 bg-gradient-to-br from-primary/[0.06] via-background to-secondary/[0.04]">
+            <div className="relative isolate overflow-hidden rounded-3xl border border-primary/10 bg-gradient-to-br from-primary/[0.06] via-background to-secondary/[0.04] [contain:paint]">
               <div className="grid gap-4 px-6 py-8">
                 <div className="relative mx-auto h-52 w-52">
                   <Image
                     src="/images/nino-mascote.webp"
                     alt="Nino, mascote da Intelekta"
                     fill
-                    className="object-contain drop-shadow-2xl"
+                    className="object-contain drop-shadow-lg sm:drop-shadow-2xl"
                     sizes="208px"
                     loading="lazy"
                   />
@@ -971,7 +971,7 @@ export function HomeMobile() {
           </div>
         </section>
 
-        <footer className="relative overflow-hidden bg-dark-section px-6 py-10 text-dark-section-foreground">
+        <footer className="relative overflow-hidden bg-dark-section px-6 pb-[calc(7rem+env(safe-area-inset-bottom))] pt-10 text-dark-section-foreground">
           <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-white/8" />
           <div className="pointer-events-none absolute right-0 top-0 h-56 w-56 rounded-full bg-primary/[0.04] blur-[100px]" />
           <div className="pointer-events-none absolute -left-20 bottom-0 h-64 w-64 rounded-full bg-primary/[0.03] blur-[120px]" />
