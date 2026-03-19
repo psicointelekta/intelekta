@@ -33,47 +33,45 @@ export function NeuralTree() {
   const lastAutoFireRef = useRef(0)
   const initialCascadeDone = useRef(false)
   const lastSizeRef = useRef({ w: 0, h: 0 })
+  const isMobileRef = useRef(false)
 
   const initNeurons = useCallback((width: number, height: number) => {
     const neurons: Neuron[] = []
     const isMobile = width < 500
-    const count = isMobile ? 75 : 150
-    const padding = 15
+    const count = isMobile ? 30 : 100
+    const padding = 20
+    const minDistSq = isMobile ? 3600 : 2500 // 60px mobile, 50px desktop
 
-    // Full-background distribution:
-    // Sparse on left (where text is), dense on right + center
+    // Evenly distributed across the full canvas with slight right-side density
     const clusters = isMobile
       ? [
-        // Mobile: denser coverage for visibility
-        { cx: width * 0.5, cy: height * 0.15, rx: width * 0.44, ry: height * 0.12, count: 16, weight: 1 },
-        { cx: width * 0.3, cy: height * 0.35, rx: width * 0.28, ry: height * 0.16, count: 14, weight: 1 },
-        { cx: width * 0.7, cy: height * 0.35, rx: width * 0.28, ry: height * 0.16, count: 14, weight: 1 },
-        { cx: width * 0.5, cy: height * 0.55, rx: width * 0.42, ry: height * 0.16, count: 16, weight: 1 },
-        { cx: width * 0.5, cy: height * 0.75, rx: width * 0.38, ry: height * 0.14, count: 10, weight: 1 },
-        { cx: width * 0.5, cy: height * 0.92, rx: width * 0.34, ry: height * 0.06, count: 5, weight: 0.8 },
+        { cx: width * 0.5, cy: height * 0.1, rx: width * 0.44, ry: height * 0.08, count: 5, weight: 0.7 },
+        { cx: width * 0.5, cy: height * 0.3, rx: width * 0.44, ry: height * 0.12, count: 6, weight: 0.8 },
+        { cx: width * 0.5, cy: height * 0.52, rx: width * 0.44, ry: height * 0.12, count: 7, weight: 0.9 },
+        { cx: width * 0.5, cy: height * 0.74, rx: width * 0.42, ry: height * 0.12, count: 7, weight: 0.85 },
+        { cx: width * 0.5, cy: height * 0.92, rx: width * 0.38, ry: height * 0.06, count: 5, weight: 0.7 },
       ]
       : [
-        // Desktop: fuller coverage — still sparser left but with more presence
-        // Left area (text area — moderate presence)
-        { cx: width * 0.12, cy: height * 0.2, rx: width * 0.1, ry: height * 0.15, count: 7, weight: 0.85 },
-        { cx: width * 0.15, cy: height * 0.5, rx: width * 0.12, ry: height * 0.22, count: 9, weight: 0.85 },
-        { cx: width * 0.1, cy: height * 0.8, rx: width * 0.08, ry: height * 0.12, count: 5, weight: 0.8 },
-        // Center-left bridge
-        { cx: width * 0.32, cy: height * 0.25, rx: width * 0.1, ry: height * 0.18, count: 10, weight: 1 },
-        { cx: width * 0.35, cy: height * 0.55, rx: width * 0.12, ry: height * 0.2, count: 11, weight: 1 },
-        { cx: width * 0.3, cy: height * 0.82, rx: width * 0.1, ry: height * 0.12, count: 7, weight: 0.9 },
+        // Sparse left band
+        { cx: width * 0.12, cy: height * 0.3, rx: width * 0.1, ry: height * 0.28, count: 5, weight: 0.7 },
+        { cx: width * 0.12, cy: height * 0.75, rx: width * 0.1, ry: height * 0.2, count: 4, weight: 0.7 },
+        // Center-left
+        { cx: width * 0.3, cy: height * 0.2, rx: width * 0.12, ry: height * 0.18, count: 7, weight: 0.85 },
+        { cx: width * 0.3, cy: height * 0.55, rx: width * 0.12, ry: height * 0.22, count: 8, weight: 0.85 },
+        { cx: width * 0.3, cy: height * 0.85, rx: width * 0.1, ry: height * 0.12, count: 5, weight: 0.8 },
         // Center
-        { cx: width * 0.5, cy: height * 0.35, rx: width * 0.1, ry: height * 0.18, count: 12, weight: 1 },
-        { cx: width * 0.5, cy: height * 0.7, rx: width * 0.1, ry: height * 0.16, count: 10, weight: 1 },
-        // Dense right — main visual area
-        { cx: width * 0.65, cy: height * 0.25, rx: width * 0.12, ry: height * 0.18, count: 16, weight: 1 },
-        { cx: width * 0.62, cy: height * 0.55, rx: width * 0.14, ry: height * 0.2, count: 16, weight: 1 },
-        { cx: width * 0.72, cy: height * 0.8, rx: width * 0.12, ry: height * 0.14, count: 14, weight: 1 },
-        { cx: width * 0.84, cy: height * 0.35, rx: width * 0.12, ry: height * 0.2, count: 15, weight: 1 },
-        { cx: width * 0.88, cy: height * 0.7, rx: width * 0.1, ry: height * 0.18, count: 12, weight: 1 },
-        // Top-right + bottom-right accent
-        { cx: width * 0.92, cy: height * 0.1, rx: width * 0.07, ry: height * 0.08, count: 4, weight: 0.8 },
-        { cx: width * 0.95, cy: height * 0.9, rx: width * 0.05, ry: height * 0.08, count: 2, weight: 0.7 },
+        { cx: width * 0.5, cy: height * 0.3, rx: width * 0.12, ry: height * 0.25, count: 9, weight: 1 },
+        { cx: width * 0.5, cy: height * 0.72, rx: width * 0.12, ry: height * 0.22, count: 8, weight: 1 },
+        // Right (denser)
+        { cx: width * 0.7, cy: height * 0.25, rx: width * 0.14, ry: height * 0.22, count: 12, weight: 1 },
+        { cx: width * 0.7, cy: height * 0.6, rx: width * 0.14, ry: height * 0.22, count: 12, weight: 1 },
+        { cx: width * 0.7, cy: height * 0.88, rx: width * 0.12, ry: height * 0.1, count: 8, weight: 0.9 },
+        // Far right
+        { cx: width * 0.9, cy: height * 0.3, rx: width * 0.08, ry: height * 0.25, count: 10, weight: 0.9 },
+        { cx: width * 0.9, cy: height * 0.72, rx: width * 0.08, ry: height * 0.22, count: 8, weight: 0.85 },
+        // Corners
+        { cx: width * 0.06, cy: height * 0.06, rx: width * 0.05, ry: height * 0.05, count: 2, weight: 0.6 },
+        { cx: width * 0.96, cy: height * 0.94, rx: width * 0.04, ry: height * 0.05, count: 2, weight: 0.6 },
       ]
 
     let placed = 0
@@ -93,7 +91,7 @@ export function NeuralTree() {
         for (const n of neurons) {
           const dx = n.x - x
           const dy = n.y - y
-          if (dx * dx + dy * dy < 784) { // ~28px min distance
+          if (dx * dx + dy * dy < minDistSq) {
             tooClose = true
             break
           }
@@ -104,9 +102,9 @@ export function NeuralTree() {
           x, y,
           baseX: x,
           baseY: y,
-          radius: 3.5 + Math.random() * 3.5 * cluster.weight,
+          radius: 2.2 + Math.random() * 2.3 * cluster.weight,
           activation: 0,
-          activationDecay: 0.012 + Math.random() * 0.008,
+          activationDecay: isMobile ? 0.006 + Math.random() * 0.004 : 0.012 + Math.random() * 0.008,
           connections: [],
           pulsePhase: Math.random() * Math.PI * 2,
           lastFired: -10000,
@@ -116,9 +114,9 @@ export function NeuralTree() {
       }
     }
 
-    // Build connections
-    const maxDist = isMobile ? 110 : 145
-    const maxConn = 6
+    // Build connections — wider reach for sparser layout
+    const maxDist = isMobile ? 140 : 180
+    const maxConn = 5
 
     for (let i = 0; i < neurons.length; i++) {
       const dists: { idx: number; dist: number }[] = []
@@ -151,12 +149,13 @@ export function NeuralTree() {
     neuron.activation = 1.0
     neuron.lastFired = time
 
+    const mobile = isMobileRef.current
     for (const connIdx of neuron.connections) {
       impulses.push({
         fromIdx: idx,
         toIdx: connIdx,
         progress: 0,
-        speed: 0.016 + Math.random() * 0.01,
+        speed: mobile ? 0.008 + Math.random() * 0.005 : 0.016 + Math.random() * 0.01,
       })
     }
   }, [])
@@ -188,6 +187,7 @@ export function NeuralTree() {
 
     const initFull = (w: number, h: number) => {
       applyCanvasSize()
+      isMobileRef.current = w < 500
       neuronsRef.current = initNeurons(w, h)
       impulsesRef.current = []
       lastSizeRef.current = { w, h }
@@ -290,8 +290,9 @@ export function NeuralTree() {
         lastAutoFireRef.current = time
       }
 
-      // --- Auto-fire: random neuron every 2-4 seconds ---
-      if (time - lastAutoFireRef.current > 2000 + Math.random() * 2000) {
+      // --- Auto-fire: random neuron every 2-4s (desktop) / 3-6s (mobile) ---
+      const autoFireInterval = isMobileRef.current ? 3000 + Math.random() * 3000 : 2000 + Math.random() * 2000
+      if (time - lastAutoFireRef.current > autoFireInterval) {
         const randomIdx = Math.floor(Math.random() * neurons.length)
         fireNeuron(randomIdx, time)
         lastAutoFireRef.current = time
@@ -322,10 +323,11 @@ export function NeuralTree() {
 
       // --- Cursor glow ---
       if (cursorActive) {
-        const glowRadius = 160
+        const glowRadius = 280
         const grad = ctx.createRadialGradient(mx, my, 0, mx, my, glowRadius)
-        grad.addColorStop(0, `rgba(${bright.r}, ${bright.g}, ${bright.b}, 0.14)`)
-        grad.addColorStop(0.4, `rgba(${active.r}, ${active.g}, ${active.b}, 0.06)`)
+        grad.addColorStop(0, `rgba(${bright.r}, ${bright.g}, ${bright.b}, 0.4)`)
+        grad.addColorStop(0.25, `rgba(${active.r}, ${active.g}, ${active.b}, 0.18)`)
+        grad.addColorStop(0.55, `rgba(${active.r}, ${active.g}, ${active.b}, 0.06)`)
         grad.addColorStop(1, `rgba(${active.r}, ${active.g}, ${active.b}, 0)`)
         ctx.beginPath()
         ctx.arc(mx, my, glowRadius, 0, Math.PI * 2)
@@ -395,10 +397,10 @@ export function NeuralTree() {
         const px = (1 - t) * (1 - t) * from.x + 2 * (1 - t) * t * midX + t * t * to.x
         const py = (1 - t) * (1 - t) * from.y + 2 * (1 - t) * t * midY + t * t * to.y
 
-        const glowSize = 5 + Math.sin(t * Math.PI) * 5
+        const glowSize = 7 + Math.sin(t * Math.PI) * 7
         const grad = ctx.createRadialGradient(px, py, 0, px, py, glowSize)
-        grad.addColorStop(0, `rgba(${bright.r}, ${bright.g}, ${bright.b}, 0.95)`)
-        grad.addColorStop(0.35, `rgba(${active.r}, ${active.g}, ${active.b}, 0.5)`)
+        grad.addColorStop(0, `rgba(${bright.r}, ${bright.g}, ${bright.b}, 1)`)
+        grad.addColorStop(0.3, `rgba(${active.r}, ${active.g}, ${active.b}, 0.65)`)
         grad.addColorStop(1, `rgba(${active.r}, ${active.g}, ${active.b}, 0)`)
         ctx.beginPath()
         ctx.arc(px, py, glowSize, 0, Math.PI * 2)
@@ -432,23 +434,23 @@ export function NeuralTree() {
 
         // Glow when active or near cursor
         if (totalAct > 0.1) {
-          const glowR = n.radius * (3 + totalAct * 6)
+          const glowR = n.radius * (4 + totalAct * 8)
           const glow = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, glowR)
-          glow.addColorStop(0, `rgba(${active.r}, ${active.g}, ${active.b}, ${totalAct * 0.35})`)
-          glow.addColorStop(0.5, `rgba(${active.r}, ${active.g}, ${active.b}, ${totalAct * 0.12})`)
+          glow.addColorStop(0, `rgba(${active.r}, ${active.g}, ${active.b}, ${totalAct * 0.5})`)
+          glow.addColorStop(0.4, `rgba(${active.r}, ${active.g}, ${active.b}, ${totalAct * 0.2})`)
           glow.addColorStop(1, `rgba(${active.r}, ${active.g}, ${active.b}, 0)`)
           ctx.beginPath(); ctx.arc(n.x, n.y, glowR, 0, Math.PI * 2); ctx.fillStyle = glow; ctx.fill()
         }
 
         // Core
-        const coreR = n.radius * (1 + totalAct * 0.6)
+        const coreR = n.radius * (1 + totalAct * 0.8)
         ctx.beginPath(); ctx.arc(n.x, n.y, coreR, 0, Math.PI * 2)
-        ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${baseAlpha + totalAct * 0.88})`
+        ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${baseAlpha + totalAct * 0.92})`
         ctx.fill()
 
         // Bright center
-        if (totalAct > 0.3) {
-          ctx.beginPath(); ctx.arc(n.x, n.y, coreR * 0.35, 0, Math.PI * 2)
+        if (totalAct > 0.25) {
+          ctx.beginPath(); ctx.arc(n.x, n.y, coreR * 0.4, 0, Math.PI * 2)
           ctx.fillStyle = `rgba(${bright.r}, ${bright.g}, ${bright.b}, ${totalAct})`
           ctx.fill()
         }
