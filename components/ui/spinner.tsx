@@ -1,3 +1,4 @@
+/** Spinner — animated loading indicator using Lucide Loader2. */
 import { Loader2Icon } from 'lucide-react'
 
 import { cn } from '@/lib/utils'

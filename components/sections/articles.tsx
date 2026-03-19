@@ -1,3 +1,4 @@
+/** Articles/blog section — currently unused in the live page composition. */
 "use client"
 
 import { motion, useInView } from "framer-motion"

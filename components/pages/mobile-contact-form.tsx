@@ -1,3 +1,13 @@
+/**
+ * Mobile lead capture form.
+ *
+ * Uses native HTML elements instead of Radix UI to minimise JS on mobile.
+ * On success, opens WhatsApp with a pre-filled message including the user's
+ * name, phone, program choice, and optional message.
+ *
+ * Honeypot field + server-side rate limiting protect against spam.
+ * UTM parameters are captured from the URL on mount.
+ */
 "use client"
 
 import { useEffect, useState } from "react"

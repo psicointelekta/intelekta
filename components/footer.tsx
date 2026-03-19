@@ -1,8 +1,11 @@
+/**
+ * Site footer with navigation, programs, contact info, and legal links.
+ * Smooth-scroll navigation mirrors the header behavior.
+ */
 "use client"
-
 import { useCallback } from "react"
-import Link from "next/link"
 import Image from "next/image"
+import Link from "next/link"
 import { Instagram, Mail, Phone, MapPin } from "lucide-react"
 
 const navigation = {

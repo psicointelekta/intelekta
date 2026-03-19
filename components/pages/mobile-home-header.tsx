@@ -1,3 +1,9 @@
+/**
+ * Mobile-specific sticky header with hamburger drawer.
+ *
+ * Accessibility: focus trap, Escape to close, body scroll lock.
+ * Sticky (not fixed) to avoid z-index conflicts with the bottom CTA bar.
+ */
 "use client"
 
 import { useEffect, useRef, useState } from "react"

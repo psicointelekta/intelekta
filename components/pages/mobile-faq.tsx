@@ -1,7 +1,12 @@
+/**
+ * Lightweight FAQ accordion for mobile.
+ * Uses native HTML + state instead of Radix Accordion
+ * to avoid loading the Radix runtime on mobile.
+ */
 "use client"
 
-import { useState } from "react"
 import { ChevronDown } from "lucide-react"
+import { useState } from "react"
 
 type FaqItem = {
   question: string

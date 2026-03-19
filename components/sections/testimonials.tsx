@@ -1,3 +1,7 @@
+/**
+ * Desktop testimonials section — swipeable/draggable carousel
+ * with framer-motion drag gestures and navigation dots.
+ */
 "use client"
 
 import { motion, useInView, type PanInfo } from "framer-motion"

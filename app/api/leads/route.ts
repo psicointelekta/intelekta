@@ -1,3 +1,14 @@
+/**
+ * POST /api/leads — Lead capture endpoint.
+ *
+ * Flow: validates form → checks honeypot → rate-limits by IP →
+ * authenticates with Google Sheets API → ensures sheet+headers exist →
+ * appends lead row with UTMs, UA, IP, and timestamp.
+ *
+ * Rate limit: 5 requests per 10 minutes per IP (in-memory Map).
+ * Note: the in-memory Map resets on cold starts — acceptable for a
+ * low-traffic site; not suitable for multi-instance deployments.
+ */
 import { NextRequest, NextResponse } from 'next/server'
 import { google } from 'googleapis'
 
@@ -8,7 +19,7 @@ type RateEntry = {
   reset: number
 }
 
-const WINDOW_MS = 10 * 60 * 1000
+const WINDOW_MS = 10 * 60 * 1000 // 10 minutes
 const MAX_REQUESTS = 5
 const rateMap = new Map<string, RateEntry>()
 
@@ -35,6 +46,8 @@ const isRateLimited = (ip: string) => {
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json()
+
+    // Honeypot field — bots fill hidden "website" input, humans don't
     if (body.website) {
       return NextResponse.json({ ok: true })
     }

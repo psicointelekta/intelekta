@@ -1,3 +1,8 @@
+/**
+ * Custom build script — cleans `.next` artifacts (with retries for Windows
+ * file-lock issues) then spawns `next build`.
+ * Run via `pnpm build` (see package.json).
+ */
 import { rm } from 'node:fs/promises'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'

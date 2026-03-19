@@ -1,3 +1,11 @@
+/**
+ * Root layout — configures fonts, metadata, structured data, and analytics.
+ *
+ * Fonts: Lato (body) + Nunito (headings) via next/font/google with display:swap.
+ * Analytics: Vercel Analytics + SpeedInsights (cookieless, LGPD-compliant).
+ * Structured Data: EducationalOrganization (7 services, 3 employees),
+ *   FAQPage (5 Q&As), and WebSite schema for rich search results.
+ */
 import type { Metadata, Viewport } from 'next'
 import { Lato, Nunito } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'

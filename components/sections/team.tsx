@@ -1,3 +1,8 @@
+/**
+ * Team section — displays the 3 Intelekta founders/consultants
+ * with portrait images, bios, and expertise areas.
+ * Dark-section background for visual contrast.
+ */
 "use client"
 
 import { motion, useInView } from "framer-motion"

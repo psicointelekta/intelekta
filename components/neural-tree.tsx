@@ -1,3 +1,13 @@
+/**
+ * Interactive neural network canvas animation for the hero section.
+ *
+ * - Generates 30 (mobile) or 100 (desktop) neurons in clustered positions
+ * - Builds proximity-based connections (max 5 per neuron, max 180px distance)
+ * - Auto-fires random neurons every 2–4s to keep the network alive
+ * - Mouse/touch interaction: attracts nearby neurons and triggers firing
+ * - Frame-skips (renders every 2nd frame) for battery/CPU efficiency
+ * - Rescales on resize; full re-init only when crossing mobile/desktop breakpoint
+ */
 "use client"
 
 import { useEffect, useRef, useCallback } from "react"

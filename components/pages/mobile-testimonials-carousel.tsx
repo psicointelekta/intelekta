@@ -1,3 +1,8 @@
+/**
+ * Lightweight testimonial carousel for mobile.
+ * No framer-motion dependency — uses basic state transitions
+ * to keep the mobile JS bundle small.
+ */
 "use client"
 
 import { useMemo, useState } from "react"

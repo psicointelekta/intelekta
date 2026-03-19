@@ -1,3 +1,8 @@
+/**
+ * Button — shadcn/ui primitive.
+ * Variants: default, secondary, outline, ghost, link.
+ * `asChild` delegates rendering to the child element via Radix Slot.
+ */
 import * as React from 'react'
 import { Slot } from '@radix-ui/react-slot'
 import { cva, type VariantProps } from 'class-variance-authority'

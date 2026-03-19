@@ -1,3 +1,14 @@
+/**
+ * Mobile home page — Server Component (zero client JS for the main shell).
+ *
+ * Design decisions:
+ * - All data (programs, team, faqs, testimonials) is defined inline
+ *   instead of shared with desktop to enable independent optimization.
+ * - CSS-only hero word rotator (no framer-motion) to minimise JS.
+ * - Interactive widgets (carousel, FAQ, form) are deferred via
+ *   DeferredMobile* wrappers (dynamic import, ssr:false).
+ * - Fixed bottom CTA bar (Ligar + Agendar) with safe-area padding.
+ */
 import Image from "next/image"
 import type { ReactNode } from "react"
 import {
@@ -314,6 +325,22 @@ const mobileNavigation = [
   { name: "Contato", href: "#contato" },
 ] as const
 
+/**
+ * CSS-only word rotator — cycles through "mentes", "emoções", "futuros".
+ *
+ * Animation math (8.4s total, 3 words):
+ * - Each word occupies 33% of the cycle (2.8s)
+ * - 0→4%: fade-in + translateY(8px→0)
+ * - 4→29%: visible hold
+ * - 29→33%: fade-out + translateY(0→-6px)
+ * - 33→100%: hidden
+ *
+ * Negative animation-delay offsets stagger the 3 spans so exactly
+ * one word is visible at any given time (0s, -5.6s, -2.8s).
+ *
+ * The invisible "emoções" span (longest word) reserves inline-grid
+ * width to prevent layout shift during cycling.
+ */
 function MobileHeroWordRotator() {
   return (
     <span className="mobile-hero-word-rotator relative inline-grid align-top text-primary" role="text" aria-label="mentes, emoções e futuros">

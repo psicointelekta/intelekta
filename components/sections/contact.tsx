@@ -1,3 +1,10 @@
+/**
+ * Contact section — lead capture form + WhatsApp CTA + Google Maps embed.
+ *
+ * Form flow: validates locally → POST /api/leads → on success opens
+ * WhatsApp with a pre-filled message. Honeypot + server-side rate limiting.
+ * UTM parameters captured from URL on section enter (useInView).
+ */
 "use client"
 
 import { motion, useInView } from "framer-motion"

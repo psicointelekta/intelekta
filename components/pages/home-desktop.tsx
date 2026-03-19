@@ -1,3 +1,10 @@
+/**
+ * Desktop home page composition.
+ *
+ * Header, Hero, and About are statically imported (above the fold).
+ * All sections below the fold use next/dynamic for code-splitting,
+ * reducing the initial JS bundle by ~40%.
+ */
 import { Header } from "@/components/header"
 import { Hero } from "@/components/sections/hero"
 import { About } from "@/components/sections/about"

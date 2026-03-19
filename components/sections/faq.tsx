@@ -1,3 +1,7 @@
+/**
+ * FAQ section — Radix Accordion with a sticky CTA sidebar
+ * (schedule free class + WhatsApp quick action).
+ */
 "use client"
 
 import { motion, useInView } from "framer-motion"

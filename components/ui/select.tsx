@@ -1,3 +1,4 @@
+/** Select — shadcn/ui wrapper around @radix-ui/react-select. */
 'use client'
 
 import * as React from 'react'

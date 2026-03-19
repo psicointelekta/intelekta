@@ -1,3 +1,4 @@
+/** Full-width CTA banner — "Agendar aula gratuita" call-to-action. */
 "use client"
 
 import { motion, useInView } from "framer-motion"

@@ -1,3 +1,9 @@
+/**
+ * Site header with desktop nav links and mobile slide-out drawer.
+ *
+ * Accessibility: focus trap inside mobile drawer, body scroll lock,
+ * Escape key closes drawer. Scroll-aware: adds blur + border after 20px.
+ */
 "use client"
 
 import { useState, useEffect, useCallback, useRef } from "react"

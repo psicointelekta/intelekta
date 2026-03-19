@@ -1,3 +1,11 @@
+/**
+ * About section — manifesto-style layout with:
+ * - Numbered values list ("Olhar humano", "Acolhimento genuíno"...)
+ * - Infinite keyword marquee for visual rhythm
+ * - Nino mascot card with founder mission quote
+ *
+ * All animations are scroll-triggered (useInView, once: true).
+ */
 "use client"
 
 import { motion, useInView } from "framer-motion"

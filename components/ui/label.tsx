@@ -1,3 +1,4 @@
+/** Label — shadcn/ui wrapper around @radix-ui/react-label. */
 'use client'
 
 import * as React from 'react'

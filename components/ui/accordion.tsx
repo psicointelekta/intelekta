@@ -1,3 +1,7 @@
+/**
+ * Accordion — shadcn/ui wrapper around @radix-ui/react-accordion.
+ * Used by the desktop FAQ section. Mobile uses native HTML `<details>`.
+ */
 'use client'
 
 import * as React from 'react'

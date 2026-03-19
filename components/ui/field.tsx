@@ -1,3 +1,8 @@
+/**
+ * Field — shadcn/ui compound-component for form fields.
+ * Provides FieldSet, Field, FieldLabel, FieldError, FieldDescription, etc.
+ * Used by the desktop contact form; mobile uses plain native HTML fields.
+ */
 'use client'
 
 import { useMemo } from 'react'

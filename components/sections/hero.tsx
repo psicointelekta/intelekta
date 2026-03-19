@@ -1,3 +1,13 @@
+/**
+ * Desktop hero section with:
+ * - Interactive neural network canvas (NeuralTree)
+ * - Mouse-reactive parallax gradient orbs (framer-motion springs)
+ * - Cycling word animation ("mentes", "emoções", "futuros") with clip-path transitions
+ * - Auto-rotating image carousels (desktop: 4:5, mobile: 16:9)
+ *
+ * Layout-shift prevention: invisible "emoções" (longest word) reserves
+ * the inline-grid width so the headline never reflows.
+ */
 "use client"
 
 import {

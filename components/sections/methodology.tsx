@@ -1,3 +1,8 @@
+/**
+ * Methodology section — three scientific pillars
+ * (Neurociência, Psicologia Cognitiva, Inteligência Emocional)
+ * displayed in a catalog strip, plus a 4-step horizontal timeline.
+ */
 "use client"
 
 import { motion, useInView } from "framer-motion"

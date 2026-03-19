@@ -1,3 +1,10 @@
+/**
+ * Programs section — showcases all 7 Intelekta programs in alternating
+ * image/text rows. Includes age-stage cards and an editorial index strip.
+ *
+ * Images use alternating left/right layout via CSS direction:rtl trick on
+ * even-indexed rows, avoiding extra layout logic.
+ */
 "use client"
 
 import { motion, useInView } from "framer-motion"

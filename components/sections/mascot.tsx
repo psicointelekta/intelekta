@@ -1,3 +1,4 @@
+/** Standalone Nino mascot section — currently inlined in the About section. */
 "use client"
 
 import { motion, useInView } from "framer-motion"

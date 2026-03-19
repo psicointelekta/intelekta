@@ -1,3 +1,4 @@
+/** Input — shadcn/ui base text input with ring focus style. */
 import * as React from 'react'
 
 import { cn } from '@/lib/utils'

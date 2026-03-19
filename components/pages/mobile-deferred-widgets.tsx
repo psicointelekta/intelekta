@@ -1,8 +1,15 @@
+/**
+ * Deferred mobile widgets — wraps heavy interactive components
+ * (testimonials carousel, FAQ accordion, contact form) in next/dynamic
+ * with ssr:false so they are loaded only after the main content paints.
+ *
+ * Each component renders a static SSR placeholder until mounted,
+ * preventing layout shift while reducing the initial JS bundle.
+ */
 "use client"
-
+import { Star } from "lucide-react"
 import dynamic from "next/dynamic"
 import { useEffect, useState } from "react"
-import { Star } from "lucide-react"
 
 type Testimonial = {
   content: string
