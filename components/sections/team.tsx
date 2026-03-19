@@ -21,7 +21,7 @@ const founders = [
     image: "/images/fabiana_lima_retrato.webp",
   },
   {
-    name: "Flávia Luz",
+    name: "Flávia Luz Vaz",
     role: "Consultora Técnica",
     bio: "Psicóloga clínica há 24 anos, Mestre em Desenvolvimento Humano, palestrante em saúde mental e coordenadora do Projeto Guardiões da Infância.",
     expertise: ["Psicologia Clínica", "Desenvolvimento Humano", "Consultoria"],

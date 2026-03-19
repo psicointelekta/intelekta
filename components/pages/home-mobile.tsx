@@ -231,7 +231,7 @@ const team = [
     image: "/images/fabiana_lima_retrato.webp",
   },
   {
-    name: "Flávia Luz",
+    name: "Flávia Luz Vaz",
     role: "Consultora Técnica",
     bio: "Psicóloga clínica há 24 anos, Mestre em Desenvolvimento Humano, palestrante em saúde mental e coordenadora do Projeto Guardiões da Infância.",
     expertise: ["Psicologia Clínica", "Desenvolvimento Humano", "Consultoria"],
@@ -381,14 +381,17 @@ export function HomeMobile() {
           animation: marquee-mobile-about 26s linear infinite;
         }
         @keyframes mobile-hero-word-cycle {
-          0%, 32% { opacity: 1; }
-          33%, 100% { opacity: 0; }
+          0% { opacity: 0; transform: translateY(8px); }
+          4% { opacity: 1; transform: translateY(0); }
+          29% { opacity: 1; transform: translateY(0); }
+          33% { opacity: 0; transform: translateY(-6px); }
+          100% { opacity: 0; transform: translateY(-6px); }
         }
         .mobile-hero-word-cycle {
           opacity: 0;
           animation-name: mobile-hero-word-cycle;
           animation-duration: 8.4s;
-          animation-timing-function: steps(1);
+          animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
           animation-iteration-count: infinite;
         }
         @media (prefers-reduced-motion: reduce) {
@@ -763,7 +766,7 @@ export function HomeMobile() {
             <div className="grid gap-4">
               {team.map((member) => (
                 <article key={member.name} className="overflow-hidden rounded-3xl border border-white/[0.08] bg-white/[0.03]">
-                  <div className="relative aspect-[4/3] overflow-hidden bg-gradient-to-b from-primary/[0.08] via-primary/[0.04] to-transparent">
+                  <div className="relative aspect-[4/3] overflow-hidden">
                     <Image
                       src={member.image}
                       alt={member.name}

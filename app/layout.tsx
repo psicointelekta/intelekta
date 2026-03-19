@@ -244,7 +244,7 @@ const structuredData = [
       },
       {
         '@type': 'Person',
-        name: 'Flávia Luz',
+        name: 'Flávia Luz Vaz',
         jobTitle: 'Consultora Técnica',
         description:
           'Psicóloga clínica há 24 anos, Mestre em Desenvolvimento Humano e coordenadora do Projeto Guardiões da Infância.',
