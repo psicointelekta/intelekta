@@ -10,11 +10,11 @@ import { Instagram, Mail, Phone, MapPin } from "lucide-react"
 
 const navigation = {
   main: [
-    { name: "Sobre", href: "#sobre" },
-    { name: "Metodologia", href: "#metodologia" },
     { name: "Programas", href: "#programas" },
-    { name: "Equipe", href: "#equipe" },
     { name: "Depoimentos", href: "#depoimentos" },
+    { name: "Metodologia", href: "#metodologia" },
+    { name: "Sobre", href: "#sobre" },
+    { name: "Equipe", href: "#equipe" },
     { name: "FAQ", href: "#faq" },
     { name: "Contato", href: "#contato" },
   ],

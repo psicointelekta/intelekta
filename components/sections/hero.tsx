@@ -212,7 +212,7 @@ export function Hero() {
                       href="#contato"
                       onClick={() => track("cta_hero_whatsapp")}
                     >
-                      Fale Conosco
+                      Agendar aula experimental
                       <ArrowRight className="ml-2 h-5 w-5 transition-transform duration-200 group-hover:translate-x-1" />
                     </a>
                   </Button>
@@ -222,8 +222,8 @@ export function Hero() {
                     className="h-14 px-8 text-base bg-transparent group"
                     asChild
                   >
-                    <Link href="#sobre">
-                      Conheça a Intelekta
+                    <Link href="#programas">
+                      Ver programas
                     </Link>
                   </Button>
                 </m.div>

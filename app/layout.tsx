@@ -29,7 +29,7 @@ const nunito = Nunito({
 export const metadata: Metadata = {
   title: 'Intelekta | Centro de Desenvolvimento Cognitivo e Socioemocional em Vila Velha, ES',
   description:
-    'Centro de desenvolvimento cognitivo e socioemocional fundamentado em neurociência em Vila Velha, ES. Programas personalizados para crianças a partir de 5 anos, adolescentes, adultos e idosos. Primeira aula gratuita.',
+    'Centro de desenvolvimento cognitivo e socioemocional fundamentado em neurociência em Vila Velha, ES. Programas personalizados para crianças a partir de 5 anos, adolescentes, adultos e idosos. Aula experimental gratuita mediante agendamento.',
   keywords: [
     'desenvolvimento cognitivo Vila Velha',
     'inteligência emocional crianças',
@@ -58,7 +58,7 @@ export const metadata: Metadata = {
     'centro de desenvolvimento cognitivo',
     'centro de desenvolvimento socioemocional',
     'programas personalizados desenvolvimento',
-    'primeira aula gratuita Vila Velha',
+    'aula experimental gratuita Vila Velha',
   ],
   authors: [{ name: 'Intelekta' }],
   creator: 'Intelekta',
@@ -75,7 +75,7 @@ export const metadata: Metadata = {
     siteName: 'Intelekta',
     title: 'Intelekta | Fortalecendo Mentes e Emoções',
     description:
-      'Centro de desenvolvimento cognitivo e socioemocional fundamentado em neurociência. Programas personalizados para todas as idades. Primeira aula gratuita em Vila Velha, ES.',
+      'Centro de desenvolvimento cognitivo e socioemocional fundamentado em neurociência. Programas personalizados para todas as idades. Aula experimental gratuita em Vila Velha, ES.',
     images: [
       {
         url: '/og-image.png',
@@ -89,7 +89,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Intelekta | Fortalecendo Mentes e Emoções',
     description:
-      'Centro de desenvolvimento cognitivo e socioemocional fundamentado em neurociência. Primeira aula gratuita.',
+      'Centro de desenvolvimento cognitivo e socioemocional fundamentado em neurociência. Aula experimental gratuita.',
     images: ['/og-image.png'],
   },
   robots: {

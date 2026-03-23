@@ -34,14 +34,14 @@ export function HomeDesktop() {
       <Header />
       <main id="conteudo-principal">
         <Hero />
-        <About />
+        <Programs />
+        <div className="section-divider-dark" />
+        <Testimonials />
         <div className="section-divider" />
         <Methodology />
         <div className="section-divider" />
-        <Programs />
+        <About />
         <Team />
-        <div className="section-divider-dark" />
-        <Testimonials />
         <Faq />
         <div className="section-divider" />
         <Contact />

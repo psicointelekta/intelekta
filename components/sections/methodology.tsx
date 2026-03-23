@@ -244,10 +244,10 @@ export function Methodology() {
             className="mt-10 text-center lg:mt-14"
           >
             <Link
-              href="#agendar"
+              href="#contato"
               className="inline-flex items-center gap-2 text-sm font-medium text-primary transition-all duration-300 hover:gap-3 sm:text-base"
             >
-              Comece com uma avaliação gratuita
+              Comece com uma aula experimental gratuita
               <ArrowRight className="h-4 w-4" />
             </Link>
           </motion.div>

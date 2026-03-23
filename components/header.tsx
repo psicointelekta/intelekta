@@ -15,20 +15,20 @@ import { cn } from "@/lib/utils"
 import { track } from "@vercel/analytics/react"
 
 const navigation = [
-  { name: "Sobre", href: "#sobre" },
-  { name: "Metodologia", href: "#metodologia" },
   { name: "Programas", href: "#programas" },
-  { name: "Equipe", href: "#equipe" },
   { name: "Depoimentos", href: "#depoimentos" },
+  { name: "Metodologia", href: "#metodologia" },
+  { name: "Sobre", href: "#sobre" },
+  { name: "Equipe", href: "#equipe" },
   { name: "FAQ", href: "#faq" },
 ]
 
 const mobileNavigation = [
-  { name: "Sobre", href: "#sobre" },
-  { name: "Metodologia", href: "#metodologia" },
   { name: "Programas", href: "#programas" },
-  { name: "Equipe", href: "#equipe" },
   { name: "Depoimentos", href: "#depoimentos" },
+  { name: "Metodologia", href: "#metodologia" },
+  { name: "Sobre", href: "#sobre" },
+  { name: "Equipe", href: "#equipe" },
   { name: "FAQ", href: "#faq" },
   { name: "Contato", href: "#contato" },
 ]
@@ -148,11 +148,11 @@ export function Header() {
               </Button>
               <Button size="sm" asChild>
                 <a
-                  href="https://wa.me/5527988773890?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20aula%20na%20Intelekta."
+                  href="https://wa.me/5527988773890?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20aula%20experimental%20gratuita%20na%20Intelekta."
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  Agendar aula gratuita
+                  Agendar aula experimental
                 </a>
               </Button>
             </div>
@@ -226,7 +226,7 @@ export function Header() {
               <div className="px-6 py-6 border-t border-border">
                 <Button className="w-full" asChild>
                   <a
-                    href="https://wa.me/5527988773890?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20aula%20na%20Intelekta."
+                    href="https://wa.me/5527988773890?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20aula%20experimental%20gratuita%20na%20Intelekta."
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => {
@@ -234,7 +234,7 @@ export function Header() {
                       setIsMobileMenuOpen(false)
                     }}
                   >
-                    Agende uma aula gratuita
+                    Agende uma aula experimental
                   </a>
                 </Button>
               </div>

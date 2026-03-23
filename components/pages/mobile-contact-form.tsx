@@ -90,7 +90,7 @@ export function MobileContactForm() {
 
       setStatus("success")
 
-      const text = `Olá! Meu nome é ${fullName}. Gostaria de agendar uma visita e saber mais sobre o programa ${program}. Meu contato é ${phoneValue}. ${message ? `Observação: ${message}` : ""}`
+      const text = `Olá! Meu nome é ${fullName}. Gostaria de agendar uma aula experimental gratuita e saber mais sobre o programa ${program}. Meu contato é ${phoneValue}. ${message ? `Observação: ${message}` : ""}`
       const whatsappUrl = `https://wa.me/5527988773890?text=${encodeURIComponent(text)}`
       window.open(whatsappUrl, "_blank", "noopener,noreferrer")
       event.currentTarget.reset()

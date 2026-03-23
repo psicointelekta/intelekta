@@ -153,13 +153,13 @@ export function MobileHomeHeader({ navigation }: { navigation: readonly NavItem[
 
             <div className="border-t border-border px-6 py-6">
               <a
-                href="https://wa.me/5527988773890?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20aula%20na%20Intelekta."
+                href="https://wa.me/5527988773890?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20aula%20experimental%20gratuita%20na%20Intelekta."
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={closeMenu}
                 className="inline-flex h-12 w-full items-center justify-center rounded-md bg-primary px-5 text-sm font-medium text-primary-foreground"
               >
-                Agende uma aula gratuita
+                Agende uma aula experimental
               </a>
             </div>
           </div>

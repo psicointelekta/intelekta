@@ -125,7 +125,7 @@ export function Faq() {
                 <div className="relative z-10">
                   <Calendar className="w-8 h-8 mb-4 opacity-80" />
                   <h3 className="font-serif text-xl sm:text-2xl font-bold tracking-[-0.02em] mb-2">
-                    Primeira aula gratuita
+                    Aula experimental gratuita
                   </h3>
                   <p className="text-primary-foreground/80 text-sm leading-relaxed mb-6">
                     Conheça nosso espaço, metodologia e equipe sem compromisso.
@@ -137,7 +137,7 @@ export function Faq() {
                     className="w-full bg-white text-primary hover:bg-white/90 font-semibold"
                     asChild
                   >
-                    <Link href="#agendar">
+                    <Link href="#contato">
                       Agendar agora
                       <ArrowRight className="ml-2 h-4 w-4" />
                     </Link>

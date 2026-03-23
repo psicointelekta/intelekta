@@ -45,7 +45,7 @@ export function Contact() {
 
   const whatsappMessage = useMemo(
     () =>
-      `Olá! Gostaria de agendar uma visita e saber mais sobre a Intelekta.`,
+      `Olá! Gostaria de agendar uma aula experimental gratuita e saber mais sobre a Intelekta.`,
     []
   )
 
@@ -97,7 +97,7 @@ export function Contact() {
       setStatus("success")
       track("lead_submit_success", { program })
 
-      const text = `Olá! Meu nome é ${fullName}. Gostaria de agendar uma visita e saber mais sobre o programa ${program}. Meu contato é ${phoneValue}. ${message ? `Observação: ${message}` : ""}`
+      const text = `Olá! Meu nome é ${fullName}. Gostaria de agendar uma aula experimental gratuita e saber mais sobre o programa ${program}. Meu contato é ${phoneValue}. ${message ? `Observação: ${message}` : ""}`
       const whatsappUrl = `https://wa.me/5527988773890?text=${encodeURIComponent(text)}`
       window.open(whatsappUrl, "_blank", "noopener,noreferrer")
       e.currentTarget.reset()
@@ -158,7 +158,7 @@ export function Contact() {
             transition={{ duration: 0.5, delay: 0.16 }}
             className="text-base sm:text-lg text-muted-foreground"
           >
-            Entre em contato para agendar uma visita ou tirar suas dúvidas. Retornamos em até 24 horas.
+            Entre em contato para agendar sua aula experimental gratuita ou tirar suas dúvidas. Retornamos em até 24 horas.
           </motion.p>
         </div>
 

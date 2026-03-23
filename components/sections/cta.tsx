@@ -1,4 +1,4 @@
-/** Full-width CTA banner — "Agendar aula gratuita" call-to-action. */
+/** Full-width CTA banner — "Agendar aula experimental" call-to-action. */
 "use client"
 
 import { motion, useInView } from "framer-motion"
@@ -35,7 +35,7 @@ export function Cta() {
                 e psicopedagogas. Queremos ouvir a sua história e encontrar o melhor caminho — juntos.
               </p>
               <div className="flex flex-wrap gap-x-5 gap-y-1 text-sm text-primary-foreground/70 mt-4">
-                <span>✓ Primeira aula gratuita</span>
+                <span>✓ Aula experimental gratuita</span>
                 <span>✓ Sem compromisso</span>
                 <span>✓ Atendimento personalizado</span>
               </div>
@@ -50,7 +50,7 @@ export function Cta() {
                 asChild
               >
                 <Link href="#contato">
-                  Agendar aula gratuita
+                  Agendar aula experimental
                   <ArrowRight className="ml-2 h-4 sm:h-5 w-4 sm:w-5" />
                 </Link>
               </Button>

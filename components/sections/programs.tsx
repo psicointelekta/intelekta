@@ -176,7 +176,7 @@ function ProgramRow({
         </div>
         <Button className="mt-4 h-11 px-6 text-sm group/btn" asChild>
           <Link href="#contato">
-            Saiba mais
+            Falar sobre este programa
             <ArrowRight className="ml-1.5 h-4 w-4 transition-transform duration-200 group-hover/btn:translate-x-0.5" />
           </Link>
         </Button>

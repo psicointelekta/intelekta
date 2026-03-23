@@ -316,11 +316,11 @@ const faqs = [
 ] as const
 
 const mobileNavigation = [
-  { name: "Sobre", href: "#sobre" },
-  { name: "Metodologia", href: "#metodologia" },
   { name: "Programas", href: "#programas" },
-  { name: "Equipe", href: "#equipe" },
   { name: "Depoimentos", href: "#depoimentos" },
+  { name: "Metodologia", href: "#metodologia" },
+  { name: "Sobre", href: "#sobre" },
+  { name: "Equipe", href: "#equipe" },
   { name: "FAQ", href: "#faq" },
   { name: "Contato", href: "#contato" },
 ] as const
@@ -458,19 +458,19 @@ export function HomeMobile() {
 
                 <div className="grid gap-3">
                   <a
-                    href="https://wa.me/5527988773890?text=Ol%C3%A1!%20Quero%20agendar%20uma%20avalia%C3%A7%C3%A3o%20gratuita%20na%20Intelekta."
+                    href="https://wa.me/5527988773890?text=Ol%C3%A1!%20Quero%20agendar%20uma%20aula%20experimental%20gratuita%20na%20Intelekta."
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex h-14 items-center justify-center gap-2 rounded-md bg-primary px-6 text-base font-medium text-primary-foreground"
                   >
-                    Fale Conosco
+                    Agendar aula experimental
                     <ArrowRight className="h-5 w-5" />
                   </a>
                   <a
-                    href="#sobre"
+                    href="#programas"
                     className="inline-flex h-14 items-center justify-center rounded-md border border-border bg-background px-6 text-base font-medium text-foreground"
                   >
-                    Conheça a Intelekta
+                    Ver programas
                   </a>
                 </div>
               </div>
@@ -523,6 +523,180 @@ export function HomeMobile() {
             </div>
           </div>
         </section>
+
+        <section id="programas" className="relative overflow-hidden bg-background px-6 py-16">
+          <div className="pointer-events-none absolute right-0 top-0 h-1/2 w-1/2 bg-gradient-to-bl from-primary/[0.02] to-transparent" />
+
+          <div className="relative mx-auto max-w-7xl space-y-10">
+            <SectionHeader
+              eyebrow="Programas"
+              title={
+                <>
+                  Cada pessoa merece um <span className="text-primary">cuidado especial.</span>
+                </>
+              }
+              description="Idealizada por psicólogos e psicopedagogas, a Intelekta oferece 7 programas especializados que promovem o aprendizado de forma lúdica, envolvente e significativa, garantindo uma experiência única para cada participante."
+            />
+
+            <div className="grid gap-3 sm:grid-cols-2">
+              {ageStages.map((stage) => (
+                <div key={stage.phase} className="rounded-2xl border border-primary/5 bg-muted/30 p-4">
+                  <span className="text-xs font-bold uppercase tracking-wider text-foreground">{stage.phase}</span>
+                  <span className="mb-1 mt-1 block text-[10px] font-medium text-foreground/70">{stage.age}</span>
+                  <p className="text-[10px] leading-tight text-muted-foreground">{stage.description}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="flex flex-wrap items-center gap-x-5 gap-y-3 border-y border-primary/[0.08] py-4">
+              {programs.map((program, index) => (
+                <span
+                  key={program.id}
+                  className="flex items-baseline gap-2 text-[11px] text-muted-foreground"
+                >
+                  <span className="font-mono text-[9px] text-muted-foreground" aria-hidden="true">{program.number}</span>
+                  <span className="font-medium tracking-wide">{program.title}</span>
+                  {index < programs.length - 1 ? <span className="text-muted-foreground/50" aria-hidden="true">·</span> : null}
+                </span>
+              ))}
+            </div>
+
+            <div className="space-y-6">
+              {programs.map((program) => (
+                <article key={program.title} className="overflow-hidden rounded-3xl border border-border bg-card/80">
+                  <div className="relative aspect-[16/10] bg-muted">
+                    <Image
+                      src={program.image}
+                      alt={program.title}
+                      fill
+                      className="object-cover"
+                      sizes="100vw"
+                      loading="lazy"
+                    />
+                    <span className="pointer-events-none absolute bottom-2 right-3 select-none font-serif text-[52px] font-bold leading-none text-white/[0.08]">
+                      {program.number}
+                    </span>
+                  </div>
+                  <div className="space-y-4 p-5">
+                    <div>
+                      <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-primary/70">
+                        {program.subtitle}
+                      </p>
+                      <h3 className="mt-2 font-serif text-3xl font-bold leading-tight tracking-[-0.025em] text-foreground">{program.title}</h3>
+                      <p className="mt-3 text-sm leading-7 text-muted-foreground">{program.description}</p>
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                      {program.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="rounded-full border border-primary/15 bg-primary/[0.06] px-2.5 py-1 text-[10px] font-medium uppercase tracking-wider text-primary/80"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                    <a
+                      href="https://wa.me/5527988773890?text=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20os%20programas%20da%20Intelekta."
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-sm font-medium text-primary"
+                    >
+                      Falar sobre este programa
+                      <ChevronRight className="h-4 w-4" />
+                    </a>
+                  </div>
+                </article>
+              ))}
+            </div>
+
+          </div>
+        </section>
+
+        <div className="section-divider-dark" />
+
+        <section id="depoimentos" className="relative overflow-hidden bg-dark-section px-6 py-16">
+          <div className="pointer-events-none absolute bottom-0 right-0 h-72 w-72 rounded-full bg-primary/[0.03] blur-[120px]" />
+
+          <div className="relative mx-auto max-w-7xl space-y-8">
+            <SectionHeader
+              eyebrow="Depoimentos"
+              title={
+                <>
+                  Histórias reais de quem vivencia a <span className="text-secondary italic">transformação cognitiva</span>
+                </>
+              }
+              description="Depoimentos reais de quem encontrou na Intelekta um espaço para fortalecer cognição, emoção e autonomia."
+              dark
+            />
+
+            <DeferredMobileTestimonialsCarousel testimonials={testimonials} />
+          </div>
+        </section>
+
+        <div className="section-divider" />
+
+        <section id="metodologia" className="relative overflow-hidden px-6 py-16">
+          <div className="pointer-events-none absolute bottom-0 left-0 h-72 w-72 rounded-full bg-secondary/[0.04] blur-[120px]" />
+          <div className="pointer-events-none absolute -right-16 top-24 h-56 w-56 rounded-full bg-primary/[0.035] blur-[100px]" />
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle,var(--primary)_0.5px,transparent_0.5px)] bg-[length:36px_36px] opacity-[0.02]" />
+
+          <div className="relative mx-auto max-w-7xl space-y-10">
+            <SectionHeader
+              eyebrow="Metodologia"
+              title={
+                <>
+                  Ciência a serviço do <span className="text-primary">desenvolvimento humano</span>
+                </>
+              }
+              description="Nossa equipe de psicólogos e psicopedagogas combina conhecimento científico com sensibilidade humana — porque acreditamos que o cuidado genuíno é o que transforma de verdade."
+            />
+
+            <div className="overflow-hidden rounded-3xl border border-primary/[0.09] bg-card/70">
+              <div className="grid divide-y divide-primary/[0.07]">
+                {pillars.map((pillar) => (
+                  <article key={pillar.title} className="group relative overflow-hidden p-6">
+                    <span className="pointer-events-none absolute bottom-1 right-4 select-none font-serif text-[88px] font-bold leading-none text-primary/[0.045]">
+                      {pillar.roman}
+                    </span>
+                    <div className="relative">
+                      <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-primary shadow-md shadow-primary/20">
+                        <pillar.icon className="h-6 w-6 text-primary-foreground" />
+                      </div>
+                      <h3 className="font-serif text-2xl font-bold tracking-[-0.02em] text-foreground">{pillar.title}</h3>
+                      <p className="mt-3 text-sm leading-7 text-muted-foreground">{pillar.description}</p>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </div>
+
+            <div className="space-y-4">
+              <h3 className="text-center font-serif text-2xl font-bold tracking-[-0.02em] text-foreground">
+                Como funciona na prática
+              </h3>
+              <div className="space-y-4">
+                {steps.map((step) => (
+                  <article key={step.number} className="flex items-start gap-4 rounded-3xl border border-primary/[0.08] bg-card/70 p-5">
+                    <div className="relative flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border-2 border-primary/30 bg-primary/10">
+                      <span className="font-serif text-lg font-bold text-primary">{step.number}</span>
+                      {step.badge ? (
+                        <span className="absolute -right-2 -top-2 rounded-full bg-primary px-1.5 py-0.5 text-[9px] font-bold uppercase text-primary-foreground">
+                          {step.badge}
+                        </span>
+                      ) : null}
+                    </div>
+                    <div>
+                      <h4 className="text-base font-semibold text-foreground">{step.title}</h4>
+                      <p className="mt-1 text-sm leading-7 text-muted-foreground">{step.desc}</p>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div className="section-divider" />
 
         <section id="sobre" className="relative isolate overflow-hidden px-6 py-16 [contain:paint]">
           <div className="pointer-events-none absolute right-0 top-0 hidden h-72 w-72 rounded-full bg-primary/[0.035] blur-[120px] sm:block" />
@@ -622,159 +796,6 @@ export function HomeMobile() {
           </div>
         </section>
 
-        <div className="section-divider" />
-
-        <section id="metodologia" className="relative overflow-hidden px-6 py-16">
-          <div className="pointer-events-none absolute bottom-0 left-0 h-72 w-72 rounded-full bg-secondary/[0.04] blur-[120px]" />
-          <div className="pointer-events-none absolute -right-16 top-24 h-56 w-56 rounded-full bg-primary/[0.035] blur-[100px]" />
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle,var(--primary)_0.5px,transparent_0.5px)] bg-[length:36px_36px] opacity-[0.02]" />
-
-          <div className="relative mx-auto max-w-7xl space-y-10">
-            <SectionHeader
-              eyebrow="Metodologia"
-              title={
-                <>
-                  Ciência a serviço do <span className="text-primary">desenvolvimento humano</span>
-                </>
-              }
-              description="Nossa equipe de psicólogos e psicopedagogas combina conhecimento científico com sensibilidade humana — porque acreditamos que o cuidado genuíno é o que transforma de verdade."
-            />
-
-            <div className="overflow-hidden rounded-3xl border border-primary/[0.09] bg-card/70">
-              <div className="grid divide-y divide-primary/[0.07]">
-                {pillars.map((pillar) => (
-                  <article key={pillar.title} className="group relative overflow-hidden p-6">
-                    <span className="pointer-events-none absolute bottom-1 right-4 select-none font-serif text-[88px] font-bold leading-none text-primary/[0.045]">
-                      {pillar.roman}
-                    </span>
-                    <div className="relative">
-                      <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-primary shadow-md shadow-primary/20">
-                        <pillar.icon className="h-6 w-6 text-primary-foreground" />
-                      </div>
-                      <h3 className="font-serif text-2xl font-bold tracking-[-0.02em] text-foreground">{pillar.title}</h3>
-                      <p className="mt-3 text-sm leading-7 text-muted-foreground">{pillar.description}</p>
-                    </div>
-                  </article>
-                ))}
-              </div>
-            </div>
-
-            <div className="space-y-4">
-              <h3 className="text-center font-serif text-2xl font-bold tracking-[-0.02em] text-foreground">
-                Como funciona na prática
-              </h3>
-              <div className="space-y-4">
-                {steps.map((step) => (
-                  <article key={step.number} className="flex items-start gap-4 rounded-3xl border border-primary/[0.08] bg-card/70 p-5">
-                    <div className="relative flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border-2 border-primary/30 bg-primary/10">
-                      <span className="font-serif text-lg font-bold text-primary">{step.number}</span>
-                      {step.badge ? (
-                        <span className="absolute -right-2 -top-2 rounded-full bg-primary px-1.5 py-0.5 text-[9px] font-bold uppercase text-primary-foreground">
-                          {step.badge}
-                        </span>
-                      ) : null}
-                    </div>
-                    <div>
-                      <h4 className="text-base font-semibold text-foreground">{step.title}</h4>
-                      <p className="mt-1 text-sm leading-7 text-muted-foreground">{step.desc}</p>
-                    </div>
-                  </article>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <div className="section-divider" />
-
-        <section id="programas" className="relative overflow-hidden bg-background px-6 py-16">
-          <div className="pointer-events-none absolute right-0 top-0 h-1/2 w-1/2 bg-gradient-to-bl from-primary/[0.02] to-transparent" />
-
-          <div className="relative mx-auto max-w-7xl space-y-10">
-            <SectionHeader
-              eyebrow="Programas"
-              title={
-                <>
-                  Cada pessoa merece um <span className="text-primary">cuidado especial.</span>
-                </>
-              }
-              description="Idealizada por psicólogos e psicopedagogas, a Intelekta oferece 7 programas especializados que promovem o aprendizado de forma lúdica, envolvente e significativa, garantindo uma experiência única para cada participante."
-            />
-
-            <div className="grid gap-3 sm:grid-cols-2">
-              {ageStages.map((stage) => (
-                <div key={stage.phase} className="rounded-2xl border border-primary/5 bg-muted/30 p-4">
-                  <span className="text-xs font-bold uppercase tracking-wider text-foreground">{stage.phase}</span>
-                  <span className="mb-1 mt-1 block text-[10px] font-medium text-foreground/70">{stage.age}</span>
-                  <p className="text-[10px] leading-tight text-muted-foreground">{stage.description}</p>
-                </div>
-              ))}
-            </div>
-
-            <div className="flex flex-wrap items-center gap-x-5 gap-y-3 border-y border-primary/[0.08] py-4">
-              {programs.map((program, index) => (
-                <span
-                  key={program.id}
-                  className="flex items-baseline gap-2 text-[11px] text-muted-foreground"
-                >
-                  <span className="font-mono text-[9px] text-muted-foreground" aria-hidden="true">{program.number}</span>
-                  <span className="font-medium tracking-wide">{program.title}</span>
-                  {index < programs.length - 1 ? <span className="text-muted-foreground/50" aria-hidden="true">·</span> : null}
-                </span>
-              ))}
-            </div>
-
-            <div className="space-y-6">
-              {programs.map((program) => (
-                <article key={program.title} className="overflow-hidden rounded-3xl border border-border bg-card/80">
-                  <div className="relative aspect-[16/10] bg-muted">
-                    <Image
-                      src={program.image}
-                      alt={program.title}
-                      fill
-                      className="object-cover"
-                      sizes="100vw"
-                      loading="lazy"
-                    />
-                    <span className="pointer-events-none absolute bottom-2 right-3 select-none font-serif text-[52px] font-bold leading-none text-white/[0.08]">
-                      {program.number}
-                    </span>
-                  </div>
-                  <div className="space-y-4 p-5">
-                    <div>
-                      <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-primary/70">
-                        {program.subtitle}
-                      </p>
-                      <h3 className="mt-2 font-serif text-3xl font-bold leading-tight tracking-[-0.025em] text-foreground">{program.title}</h3>
-                      <p className="mt-3 text-sm leading-7 text-muted-foreground">{program.description}</p>
-                    </div>
-                    <div className="flex flex-wrap gap-2">
-                      {program.tags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="rounded-full border border-primary/15 bg-primary/[0.06] px-2.5 py-1 text-[10px] font-medium uppercase tracking-wider text-primary/80"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                    <a
-                      href="https://wa.me/5527988773890?text=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20os%20programas%20da%20Intelekta."
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 text-sm font-medium text-primary"
-                    >
-                      Saiba mais
-                      <ChevronRight className="h-4 w-4" />
-                    </a>
-                  </div>
-                </article>
-              ))}
-            </div>
-
-          </div>
-        </section>
-
         <section id="equipe" className="relative overflow-hidden bg-dark-section px-6 py-16">
           <div className="pointer-events-none absolute left-1/2 top-0 h-72 w-[640px] -translate-x-1/2 rounded-full bg-primary/[0.04] blur-[120px]" />
 
@@ -827,27 +848,6 @@ export function HomeMobile() {
           </div>
         </section>
 
-        <div className="section-divider-dark" />
-
-        <section id="depoimentos" className="relative overflow-hidden bg-dark-section px-6 py-16">
-          <div className="pointer-events-none absolute bottom-0 right-0 h-72 w-72 rounded-full bg-primary/[0.03] blur-[120px]" />
-
-          <div className="relative mx-auto max-w-7xl space-y-8">
-            <SectionHeader
-              eyebrow="Depoimentos"
-              title={
-                <>
-                  Histórias reais de quem vivencia a <span className="text-secondary italic">transformação cognitiva</span>
-                </>
-              }
-              description="Depoimentos reais de quem encontrou na Intelekta um espaço para fortalecer cognição, emoção e autonomia."
-              dark
-            />
-
-            <DeferredMobileTestimonialsCarousel testimonials={testimonials} />
-          </div>
-        </section>
-
         <section id="faq" className="relative overflow-hidden px-6 py-16">
           <div className="pointer-events-none absolute -left-16 top-0 h-56 w-56 rounded-full bg-primary/[0.03] blur-[100px]" />
           <div className="pointer-events-none absolute -right-20 bottom-10 h-72 w-72 rounded-full bg-secondary/[0.04] blur-[120px]" />
@@ -868,7 +868,7 @@ export function HomeMobile() {
             <div className="grid gap-4 pt-2">
               <article className="rounded-3xl bg-gradient-to-br from-primary to-accent p-6 text-primary-foreground">
                 <MessageCircle className="mb-4 h-8 w-8 opacity-80" />
-                <h3 className="font-serif text-2xl font-bold tracking-[-0.02em]">Primeira aula gratuita</h3>
+                <h3 className="font-serif text-2xl font-bold tracking-[-0.02em]">Aula experimental gratuita</h3>
                 <p className="mt-2 text-sm leading-7 text-primary-foreground/82">
                   Conheça nosso espaço, metodologia e equipe sem compromisso. Agende agora e comece a jornada de desenvolvimento.
                 </p>
@@ -913,7 +913,7 @@ export function HomeMobile() {
                   Vamos <span className="text-primary">conversar?</span>
                 </>
               }
-              description="Entre em contato para agendar uma visita ou tirar suas dúvidas. Retornamos em até 24 horas."
+              description="Entre em contato para agendar sua aula experimental gratuita ou tirar suas dúvidas. Retornamos em até 24 horas."
             />
 
             <div className="grid gap-4">
@@ -928,7 +928,7 @@ export function HomeMobile() {
                       A maneira mais rápida de tirar dúvidas e agendar sua aula experimental.
                     </p>
                     <a
-                      href="https://wa.me/5527988773890?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20visita%20e%20saber%20mais%20sobre%20a%20Intelekta."
+                      href="https://wa.me/5527988773890?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20aula%20experimental%20gratuita%20e%20saber%20mais%20sobre%20a%20Intelekta."
                       target="_blank"
                       rel="noopener noreferrer"
                       className="mt-4 inline-flex h-11 items-center justify-center gap-2 rounded-md bg-green-700 px-5 text-sm font-medium text-white"
@@ -1129,7 +1129,7 @@ export function HomeMobile() {
             Ligar
           </a>
           <a
-            href="https://wa.me/5527988773890?text=Ol%C3%A1!%20Quero%20agendar%20uma%20avalia%C3%A7%C3%A3o%20gratuita%20na%20Intelekta."
+            href="https://wa.me/5527988773890?text=Ol%C3%A1!%20Quero%20agendar%20uma%20aula%20experimental%20gratuita%20na%20Intelekta."
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-primary px-4 text-sm font-semibold text-primary-foreground"

@@ -1,6 +1,6 @@
 # Intelekta
 
-> Intelekta e um centro de desenvolvimento cognitivo e socioemocional em Vila Velha, ES, fundamentado em neurociencia, psicologia cognitiva e inteligencia emocional. Atende criancas a partir de 5 anos, adolescentes, adultos e idosos com programas personalizados. Primeira aula gratuita mediante agendamento.
+> Intelekta e um centro de desenvolvimento cognitivo e socioemocional em Vila Velha, ES, fundamentado em neurociencia, psicologia cognitiva e inteligencia emocional. Atende criancas a partir de 5 anos, adolescentes, adultos e idosos com programas personalizados. Aula experimental gratuita mediante agendamento.
 
 Site: https://intelektamente.com/
 Canonical: https://intelektamente.com/
@@ -63,7 +63,7 @@ Intelekta foi idealizada por psicologos e psicopedagogas. Sua metodologia integr
 
 - Faixa etaria atendida: a partir de 5 anos, com programas adaptados para criancas, adolescentes, adultos e idosos.
 - Duracao das sessoes: em geral 1h30, normalmente com um encontro semanal.
-- Aula experimental: sim, ha primeira aula gratuita mediante agendamento.
+- Aula experimental: sim, ha aula experimental gratuita mediante agendamento.
 - Diferenca para escola ou terapia: a Intelekta e educacao complementar, com foco em desenvolvimento cognitivo e socioemocional; nao substitui escola nem terapia.
 
 ## Recommended Citations
