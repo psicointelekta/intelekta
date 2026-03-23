@@ -10,11 +10,10 @@
 import { motion, useInView } from "framer-motion"
 import { useRef } from "react"
 import { Button } from "@/components/ui/button"
-import {
-  ArrowRight,
-} from "lucide-react"
+import { ArrowRight } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
+import { ProgramCtaLink } from "@/components/program-cta-link"
 
 const ageStages = [
   {
@@ -114,6 +113,10 @@ const programs = [
 
 type Program = (typeof programs)[number]
 
+const featuredProgramIds = new Set<string>(["neuroeducacao", "reforco-escolar", "xadrez", "musicoterapia"])
+const featuredPrograms = programs.filter((program) => featuredProgramIds.has(program.id))
+const additionalPrograms = programs.filter((program) => !featuredProgramIds.has(program.id))
+
 function ProgramRow({
   program,
   index,
@@ -175,10 +178,10 @@ function ProgramRow({
           ))}
         </div>
         <Button className="mt-4 h-11 px-6 text-sm group/btn" asChild>
-          <Link href="#contato">
+          <ProgramCtaLink program={program.title} source={`programs:${program.id}`}>
             Falar sobre este programa
             <ArrowRight className="ml-1.5 h-4 w-4 transition-transform duration-200 group-hover/btn:translate-x-0.5" />
-          </Link>
+          </ProgramCtaLink>
         </Button>
       </div>
     </motion.div>
@@ -232,59 +235,30 @@ export function Programs() {
               </p>
             </motion.div>
 
-            {/* Age stage cards */}
-            <div className="grid grid-cols-2 gap-4 lg:col-span-2">
+            <div className="grid grid-cols-2 gap-3 lg:col-span-2">
               {ageStages.map((stage, idx) => (
                 <motion.div
                   key={stage.phase}
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={isInView ? { opacity: 1, scale: 1 } : {}}
                   transition={{ duration: 0.5, delay: 0.3 + idx * 0.1 }}
-                  className="group rounded-xl border border-primary/5 bg-muted/30 p-4 transition-colors hover:bg-muted/50"
+                  className="rounded-xl border border-primary/5 bg-muted/30 p-3.5"
                 >
-                  <div className="mb-1.5">
-                    <span className="text-xs font-bold uppercase tracking-wider text-foreground">
-                      {stage.phase}
-                    </span>
-                  </div>
-                  <span className="mb-1 block text-[10px] font-medium text-primary/70">
+                  <span className="block text-xs font-bold uppercase tracking-wider text-foreground">
+                    {stage.phase}
+                  </span>
+                  <span className="mt-1 block text-[11px] font-medium text-primary/75">
                     {stage.age}
                   </span>
-                  <p className="text-[10px] leading-tight text-muted-foreground sm:text-xs">
-                    {stage.description}
-                  </p>
                 </motion.div>
               ))}
             </div>
           </div>
         </div>
 
-        {/* ── Editorial Index Strip ─────────────────────────────────── */}
-        <motion.div
-          initial={{ opacity: 0, y: 8 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, delay: 0.45 }}
-          className="mb-12 flex flex-wrap items-center gap-x-6 gap-y-3 border-y border-primary/[0.08] py-4 lg:mb-14"
-        >
-          {programs.map((program, i) => (
-            <span
-              key={program.id}
-              className="flex items-baseline gap-2 text-[11px] text-muted-foreground/50"
-            >
-              <span className="font-mono text-[9px] text-primary/35">
-                {program.number}
-              </span>
-              <span className="font-medium tracking-wide">{program.title}</span>
-              {i < programs.length - 1 && (
-                <span className="hidden text-primary/20 sm:inline">·</span>
-              )}
-            </span>
-          ))}
-        </motion.div>
-
         {/* ── Programs — alternating rows ─────────────────────────── */}
         <div className="space-y-8 sm:space-y-10">
-          {programs.map((program, index) => (
+          {featuredPrograms.map((program, index) => (
             <ProgramRow
               key={program.id}
               program={program}
@@ -293,6 +267,56 @@ export function Programs() {
             />
           ))}
         </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5, delay: 0.55 }}
+          className="mt-12 lg:mt-14"
+        >
+          <div className="mb-6 flex items-center gap-4">
+            <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-primary/35">
+              Mais opções
+            </span>
+            <div className="h-px flex-1 bg-gradient-to-r from-primary/10 to-transparent" />
+          </div>
+
+          <div className="grid gap-4 md:grid-cols-3">
+            {additionalPrograms.map((program) => (
+              <article key={program.id} className="overflow-hidden rounded-2xl border border-border bg-card/80">
+                <div className="relative aspect-[16/10] bg-muted">
+                  <Image
+                    src={program.image}
+                    alt={program.title}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    loading="lazy"
+                  />
+                </div>
+                <div className="p-4">
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-primary/70">
+                    {program.subtitle}
+                  </p>
+                  <h3 className="mt-2 font-serif text-xl font-bold leading-snug tracking-[-0.02em] text-foreground">
+                    {program.title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                    {program.description}
+                  </p>
+                  <ProgramCtaLink
+                    program={program.title}
+                    source={`programs-compact:${program.id}`}
+                    className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-primary"
+                  >
+                    Ver detalhes
+                    <ArrowRight className="h-4 w-4" />
+                  </ProgramCtaLink>
+                </div>
+              </article>
+            ))}
+          </div>
+        </motion.div>
 
         {/* ── CTA ────────────────────────────────────────────────────── */}
         <motion.div

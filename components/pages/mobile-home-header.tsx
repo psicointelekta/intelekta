@@ -9,6 +9,7 @@
 import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
 import { Instagram, Menu, X } from "lucide-react"
+import { ProgramAwareWhatsappLink } from "@/components/program-aware-whatsapp-link"
 
 type NavItem = {
   name: string
@@ -152,15 +153,13 @@ export function MobileHomeHeader({ navigation }: { navigation: readonly NavItem[
             </div>
 
             <div className="border-t border-border px-6 py-6">
-              <a
-                href="https://wa.me/5527988773890?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20aula%20experimental%20gratuita%20na%20Intelekta."
-                target="_blank"
-                rel="noopener noreferrer"
+              <ProgramAwareWhatsappLink
+                source="mobile-header-drawer"
                 onClick={closeMenu}
                 className="inline-flex h-12 w-full items-center justify-center rounded-md bg-primary px-5 text-sm font-medium text-primary-foreground"
               >
                 Agende uma aula experimental
-              </a>
+              </ProgramAwareWhatsappLink>
             </div>
           </div>
         </>

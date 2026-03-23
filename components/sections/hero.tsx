@@ -210,7 +210,7 @@ export function Hero() {
                   >
                     <a
                       href="#contato"
-                      onClick={() => track("cta_hero_whatsapp")}
+                      onClick={() => track("cta_hero_primary_click")}
                     >
                       Agendar aula experimental
                       <ArrowRight className="ml-2 h-5 w-5 transition-transform duration-200 group-hover:translate-x-1" />
@@ -222,10 +222,30 @@ export function Hero() {
                     className="h-14 px-8 text-base bg-transparent group"
                     asChild
                   >
-                    <Link href="#programas">
+                    <Link href="#programas" onClick={() => track("cta_hero_programs_click")}>
                       Ver programas
                     </Link>
                   </Button>
+                </m.div>
+
+                <m.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.42 }}
+                  className="mt-5 flex flex-wrap gap-2"
+                >
+                  {[
+                    "A partir de 5 anos",
+                    "Psicólogos e psicopedagogas",
+                    "Praia da Costa, Vila Velha",
+                  ].map((item) => (
+                    <span
+                      key={item}
+                      className="rounded-full border border-border bg-card/80 px-3 py-1.5 text-xs font-medium text-foreground/80 backdrop-blur"
+                    >
+                      {item}
+                    </span>
+                  ))}
                 </m.div>
 
                 {/* ── Mobile image carousel ── */}

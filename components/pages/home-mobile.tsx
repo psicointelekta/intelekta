@@ -33,6 +33,9 @@ import {
   DeferredMobileTestimonialsCarousel,
 } from "@/components/pages/mobile-deferred-widgets"
 import { MobileHomeHeader } from "@/components/pages/mobile-home-header"
+import { ProgramCtaLink } from "@/components/program-cta-link"
+import { ProgramAwareWhatsappLink } from "@/components/program-aware-whatsapp-link"
+import { ProgramDiscovery } from "@/components/sections/program-discovery"
 const heroCards = [
   { src: "/images/hero-mobile-1.webp", alt: "Criança em atividade lúdica de neuroeducação" },
   { src: "/images/hero-mobile-2.webp", alt: "Adolescente em sessão de desenvolvimento cognitivo" },
@@ -225,6 +228,10 @@ const programs = [
     image: "/images/activity-adults.webp",
   },
 ] as const
+
+const featuredProgramIds = new Set<string>(["neuroeducacao", "reforco-escolar", "xadrez", "musicoterapia"])
+const featuredPrograms = programs.filter((program) => featuredProgramIds.has(program.id))
+const additionalPrograms = programs.filter((program) => !featuredProgramIds.has(program.id))
 
 const team = [
   {
@@ -473,6 +480,21 @@ export function HomeMobile() {
                     Ver programas
                   </a>
                 </div>
+
+                <div className="flex flex-wrap gap-2">
+                  {[
+                    "A partir de 5 anos",
+                    "Equipe especializada",
+                    "Praia da Costa, Vila Velha",
+                  ].map((item) => (
+                    <span
+                      key={item}
+                      className="rounded-full border border-border bg-card/80 px-3 py-1.5 text-[11px] font-medium text-foreground/80"
+                    >
+                      {item}
+                    </span>
+                  ))}
+                </div>
               </div>
 
               <div className="space-y-4">
@@ -524,6 +546,8 @@ export function HomeMobile() {
           </div>
         </section>
 
+        <ProgramDiscovery />
+
         <section id="programas" className="relative overflow-hidden bg-background px-6 py-16">
           <div className="pointer-events-none absolute right-0 top-0 h-1/2 w-1/2 bg-gradient-to-bl from-primary/[0.02] to-transparent" />
 
@@ -535,34 +559,20 @@ export function HomeMobile() {
                   Cada pessoa merece um <span className="text-primary">cuidado especial.</span>
                 </>
               }
-              description="Idealizada por psicólogos e psicopedagogas, a Intelekta oferece 7 programas especializados que promovem o aprendizado de forma lúdica, envolvente e significativa, garantindo uma experiência única para cada participante."
+              description="Selecionamos os atendimentos mais procurados para facilitar a leitura. Se nenhum deles for o ideal, você encontra outras opções logo abaixo."
             />
 
             <div className="grid gap-3 sm:grid-cols-2">
               {ageStages.map((stage) => (
-                <div key={stage.phase} className="rounded-2xl border border-primary/5 bg-muted/30 p-4">
+                <div key={stage.phase} className="rounded-2xl border border-primary/5 bg-muted/30 p-3.5">
                   <span className="text-xs font-bold uppercase tracking-wider text-foreground">{stage.phase}</span>
-                  <span className="mb-1 mt-1 block text-[10px] font-medium text-foreground/70">{stage.age}</span>
-                  <p className="text-[10px] leading-tight text-muted-foreground">{stage.description}</p>
+                  <span className="mt-1 block text-[11px] font-medium text-foreground/70">{stage.age}</span>
                 </div>
               ))}
             </div>
 
-            <div className="flex flex-wrap items-center gap-x-5 gap-y-3 border-y border-primary/[0.08] py-4">
-              {programs.map((program, index) => (
-                <span
-                  key={program.id}
-                  className="flex items-baseline gap-2 text-[11px] text-muted-foreground"
-                >
-                  <span className="font-mono text-[9px] text-muted-foreground" aria-hidden="true">{program.number}</span>
-                  <span className="font-medium tracking-wide">{program.title}</span>
-                  {index < programs.length - 1 ? <span className="text-muted-foreground/50" aria-hidden="true">·</span> : null}
-                </span>
-              ))}
-            </div>
-
             <div className="space-y-6">
-              {programs.map((program) => (
+              {featuredPrograms.map((program) => (
                 <article key={program.title} className="overflow-hidden rounded-3xl border border-border bg-card/80">
                   <div className="relative aspect-[16/10] bg-muted">
                     <Image
@@ -595,18 +605,64 @@ export function HomeMobile() {
                         </span>
                       ))}
                     </div>
-                    <a
-                      href="https://wa.me/5527988773890?text=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20os%20programas%20da%20Intelekta."
-                      target="_blank"
-                      rel="noopener noreferrer"
+                    <ProgramCtaLink
+                      program={program.title}
+                      source={`mobile-programs:${program.id}`}
                       className="inline-flex items-center gap-2 text-sm font-medium text-primary"
                     >
                       Falar sobre este programa
                       <ChevronRight className="h-4 w-4" />
-                    </a>
+                    </ProgramCtaLink>
                   </div>
                 </article>
               ))}
+            </div>
+
+            <div className="space-y-4">
+              <div className="flex items-center gap-4">
+                <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-primary/35">
+                  Mais opções
+                </span>
+                <div className="h-px flex-1 bg-gradient-to-r from-primary/10 to-transparent" />
+              </div>
+
+              <div className="grid gap-4">
+                {additionalPrograms.map((program) => (
+                  <article key={program.id} className="overflow-hidden rounded-3xl border border-border bg-card/80">
+                    <div className="grid grid-cols-[112px_1fr] gap-0">
+                      <div className="relative min-h-[140px] bg-muted">
+                        <Image
+                          src={program.image}
+                          alt={program.title}
+                          fill
+                          className="object-cover"
+                          sizes="112px"
+                          loading="lazy"
+                        />
+                      </div>
+                      <div className="p-4">
+                        <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-primary/70">
+                          {program.subtitle}
+                        </p>
+                        <h3 className="mt-1 font-serif text-xl font-bold leading-snug tracking-[-0.02em] text-foreground">
+                          {program.title}
+                        </h3>
+                        <p className="mt-2 text-sm leading-6 text-muted-foreground">
+                          {program.description}
+                        </p>
+                        <ProgramCtaLink
+                          program={program.title}
+                          source={`mobile-programs-compact:${program.id}`}
+                          className="mt-3 inline-flex items-center gap-2 text-sm font-medium text-primary"
+                        >
+                          Ver detalhes
+                          <ChevronRight className="h-4 w-4" />
+                        </ProgramCtaLink>
+                      </div>
+                    </div>
+                  </article>
+                ))}
+              </div>
             </div>
 
           </div>
@@ -913,8 +969,20 @@ export function HomeMobile() {
                   Vamos <span className="text-primary">conversar?</span>
                 </>
               }
-              description="Entre em contato para agendar sua aula experimental gratuita ou tirar suas dúvidas. Retornamos em até 24 horas."
+              description="Entre em contato para agendar sua aula experimental gratuita ou tirar suas dúvidas. Retornamos pelo WhatsApp em até 24 horas úteis."
             />
+
+            <div className="grid gap-3">
+              {[
+                "1. Entendemos seu objetivo",
+                "2. Indicamos o melhor caminho",
+                "3. Agendamos sua aula experimental",
+              ].map((step) => (
+                <div key={step} className="rounded-2xl border border-border bg-card/70 px-4 py-3 text-sm font-medium text-foreground/85">
+                  {step}
+                </div>
+              ))}
+            </div>
 
             <div className="grid gap-4">
               <article className="rounded-3xl border border-border bg-card p-5">
@@ -927,15 +995,13 @@ export function HomeMobile() {
                     <p className="mt-1 text-sm leading-7 text-muted-foreground">
                       A maneira mais rápida de tirar dúvidas e agendar sua aula experimental.
                     </p>
-                    <a
-                      href="https://wa.me/5527988773890?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20aula%20experimental%20gratuita%20e%20saber%20mais%20sobre%20a%20Intelekta."
-                      target="_blank"
-                      rel="noopener noreferrer"
+                    <ProgramAwareWhatsappLink
+                      source="mobile-contact-card"
                       className="mt-4 inline-flex h-11 items-center justify-center gap-2 rounded-md bg-green-700 px-5 text-sm font-medium text-white"
                     >
                       <MessageCircle className="h-4 w-4" />
                       Abrir WhatsApp
-                    </a>
+                    </ProgramAwareWhatsappLink>
                   </div>
                 </div>
               </article>
@@ -1128,15 +1194,13 @@ export function HomeMobile() {
             <Phone className="h-4 w-4" />
             Ligar
           </a>
-          <a
-            href="https://wa.me/5527988773890?text=Ol%C3%A1!%20Quero%20agendar%20uma%20aula%20experimental%20gratuita%20na%20Intelekta."
-            target="_blank"
-            rel="noopener noreferrer"
+          <ProgramAwareWhatsappLink
+            source="mobile-sticky-bar"
             className="inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-primary px-4 text-sm font-semibold text-primary-foreground"
           >
             <CheckCircle2 className="h-4 w-4" />
             Agendar
-          </a>
+          </ProgramAwareWhatsappLink>
         </div>
       </div>
     </div>

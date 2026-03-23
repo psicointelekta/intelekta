@@ -22,19 +22,14 @@ import {
 import { FieldGroup, Field, FieldLabel } from "@/components/ui/field"
 import { MapPin, Phone, Mail, Clock, Instagram, Send, MessageCircle, ShieldCheck } from "lucide-react"
 import { Spinner } from "@/components/ui/spinner"
+import { PROGRAM_OPTIONS } from "@/lib/program-catalog"
+import {
+  buildProgramWhatsappUrl,
+  PROGRAM_SELECTION_EVENT,
+  readProgramSelection,
+} from "@/lib/program-selection"
 
 type LeadStatus = "idle" | "success" | "error"
-
-const PROGRAMS = [
-  "Neuroeducação",
-  "Xadrez Pedagógico",
-  "Musicoterapia",
-  "Cubo Mágico",
-  "Reforço Escolar",
-  "Neurolê",
-  "Psicopedagogia",
-  "Outro / Não sei",
-]
 
 export function Contact() {
   const ref = useRef(null)
@@ -42,11 +37,11 @@ export function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [status, setStatus] = useState<LeadStatus>("idle")
   const [phone, setPhone] = useState("")
+  const [selectedProgram, setSelectedProgram] = useState("")
 
   const whatsappMessage = useMemo(
-    () =>
-      `Olá! Gostaria de agendar uma aula experimental gratuita e saber mais sobre a Intelekta.`,
-    []
+    () => buildProgramWhatsappUrl(selectedProgram),
+    [selectedProgram]
   )
 
   const formatPhone = useCallback((value: string) => {
@@ -69,7 +64,7 @@ export function Contact() {
 
     const fullName = formData.get("full_name") as string
     const phoneValue = (formData.get("phone") as string) || ""
-    const program = (formData.get("program") as string) || "Não informado"
+    const program = selectedProgram || (formData.get("program") as string) || "Não informado"
     const message = (formData.get("message") as string) || ""
     const payload = {
       full_name: fullName,
@@ -110,6 +105,26 @@ export function Contact() {
       setIsSubmitting(false)
     }
   }
+
+  useEffect(() => {
+    const selection = readProgramSelection()
+    if (selection?.program) {
+      setSelectedProgram(selection.program)
+    }
+
+    const handleSelection = (event: Event) => {
+      const customEvent = event as CustomEvent<{ program?: string }>
+      if (customEvent.detail?.program) {
+        setSelectedProgram(customEvent.detail.program)
+      }
+    }
+
+    window.addEventListener(PROGRAM_SELECTION_EVENT, handleSelection as EventListener)
+
+    return () => {
+      window.removeEventListener(PROGRAM_SELECTION_EVENT, handleSelection as EventListener)
+    }
+  }, [])
 
   useEffect(() => {
     if (!isInView) return
@@ -158,8 +173,25 @@ export function Contact() {
             transition={{ duration: 0.5, delay: 0.16 }}
             className="text-base sm:text-lg text-muted-foreground"
           >
-            Entre em contato para agendar sua aula experimental gratuita ou tirar suas dúvidas. Retornamos em até 24 horas.
+            Entre em contato para agendar sua aula experimental gratuita ou tirar suas dúvidas. Retornamos pelo WhatsApp em até 24 horas úteis.
           </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.5, delay: 0.22 }}
+            className="mt-6 grid gap-3 sm:grid-cols-3"
+          >
+            {[
+              "1. Entendemos seu objetivo",
+              "2. Indicamos o melhor caminho",
+              "3. Agendamos sua aula experimental",
+            ].map((step) => (
+              <div key={step} className="rounded-2xl border border-border bg-card/70 px-4 py-3 text-sm font-medium text-foreground/85">
+                {step}
+              </div>
+            ))}
+          </motion.div>
         </div>
 
         <div className="grid lg:grid-cols-5 gap-8 lg:gap-12">
@@ -177,7 +209,9 @@ export function Contact() {
                 <div className="flex-1">
                   <h3 className="font-semibold text-foreground mb-1">Fale conosco pelo WhatsApp</h3>
                   <p className="text-sm text-muted-foreground mb-4">
-                    A maneira mais rápida de tirar dúvidas e agendar sua aula experimental.
+                    {selectedProgram && selectedProgram !== "Outro / Não sei"
+                      ? `A maneira mais rápida de falar sobre ${selectedProgram} e agendar sua aula experimental.`
+                      : "A maneira mais rápida de tirar dúvidas e agendar sua aula experimental."}
                   </p>
                   <Button
                     className="bg-green-700 hover:bg-green-800 text-white"
@@ -185,7 +219,7 @@ export function Contact() {
                     onClick={() => track("cta_whatsapp_abertura")}
                   >
                     <a
-                      href={`https://wa.me/5527988773890?text=${encodeURIComponent(whatsappMessage)}`}
+                      href={whatsappMessage}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
@@ -210,6 +244,7 @@ export function Contact() {
                 <input data-utm-field type="hidden" name="utm_source" />
                 <input data-utm-field type="hidden" name="utm_medium" />
                 <input data-utm-field type="hidden" name="utm_campaign" />
+                <input type="hidden" name="program" value={selectedProgram} />
 
                 <div className="grid sm:grid-cols-2 gap-4">
                   <FieldGroup>
@@ -246,18 +281,23 @@ export function Contact() {
 
                 <Field>
                   <FieldLabel htmlFor="program">Programa de interesse</FieldLabel>
-                  <Select name="program" required>
+                  <Select value={selectedProgram} onValueChange={setSelectedProgram} required>
                     <SelectTrigger id="program" className="h-11 w-full">
                       <SelectValue placeholder="Selecione um programa" />
                     </SelectTrigger>
                     <SelectContent>
-                      {PROGRAMS.map((program) => (
+                      {PROGRAM_OPTIONS.map((program) => (
                         <SelectItem value={program} key={program}>
                           {program}
                         </SelectItem>
                       ))}
                     </SelectContent>
                   </Select>
+                  {selectedProgram ? (
+                    <p className="mt-2 text-xs text-muted-foreground">
+                      Programa pré-selecionado. Você pode ajustar se quiser.
+                    </p>
+                  ) : null}
                 </Field>
 
                 <Field>
@@ -272,7 +312,7 @@ export function Contact() {
                 </Field>
 
                 <div className="flex items-center justify-between text-xs text-muted-foreground">
-                  <span>Retorno em até 24h · Dados seguros</span>
+                  <span>Retorno pelo WhatsApp em até 24h úteis · Dados seguros</span>
                 </div>
 
                 <div className="space-y-2">
@@ -285,7 +325,7 @@ export function Contact() {
                     ) : (
                       <>
                         <Send className="mr-2 h-4 w-4" />
-                        Enviar e abrir WhatsApp
+                        Enviar
                       </>
                     )}
                   </Button>

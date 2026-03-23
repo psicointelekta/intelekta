@@ -13,6 +13,7 @@ import { Menu, X, Instagram } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { track } from "@vercel/analytics/react"
+import { ProgramAwareWhatsappLink } from "@/components/program-aware-whatsapp-link"
 
 const navigation = [
   { name: "Programas", href: "#programas" },
@@ -147,13 +148,9 @@ export function Header() {
                 </a>
               </Button>
               <Button size="sm" asChild>
-                <a
-                  href="https://wa.me/5527988773890?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20aula%20experimental%20gratuita%20na%20Intelekta."
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
+                <ProgramAwareWhatsappLink source="header-desktop">
                   Agendar aula experimental
-                </a>
+                </ProgramAwareWhatsappLink>
               </Button>
             </div>
 
@@ -225,17 +222,13 @@ export function Header() {
               </div>
               <div className="px-6 py-6 border-t border-border">
                 <Button className="w-full" asChild>
-                  <a
-                    href="https://wa.me/5527988773890?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20aula%20experimental%20gratuita%20na%20Intelekta."
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => {
-                      track("cta_header_mobile_whatsapp")
-                      setIsMobileMenuOpen(false)
-                    }}
+                  <ProgramAwareWhatsappLink
+                    source="header-mobile-drawer"
+                    className="w-full"
+                    onClick={() => setIsMobileMenuOpen(false)}
                   >
                     Agende uma aula experimental
-                  </a>
+                  </ProgramAwareWhatsappLink>
                 </Button>
               </div>
             </div>

@@ -12,19 +12,12 @@
 
 import { useEffect, useState } from "react"
 import { Send } from "lucide-react"
+import { track } from "@vercel/analytics/react"
+
+import { PROGRAM_OPTIONS } from "@/lib/program-catalog"
+import { PROGRAM_SELECTION_EVENT, readProgramSelection } from "@/lib/program-selection"
 
 type LeadStatus = "idle" | "success" | "error"
-
-const PROGRAMS = [
-  "Neuroeducação",
-  "Xadrez Pedagógico",
-  "Musicoterapia",
-  "Cubo Mágico",
-  "Reforço Escolar",
-  "Neurolê",
-  "Psicopedagogia",
-  "Outro / Não sei",
-] as const
 
 function formatPhone(value: string) {
   const digits = value.replace(/\D/g, "").slice(0, 11)
@@ -37,6 +30,7 @@ export function MobileContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [status, setStatus] = useState<LeadStatus>("idle")
   const [phone, setPhone] = useState("")
+  const [selectedProgram, setSelectedProgram] = useState("")
   const [utmSource, setUtmSource] = useState("")
   const [utmMedium, setUtmMedium] = useState("")
   const [utmCampaign, setUtmCampaign] = useState("")
@@ -46,6 +40,24 @@ export function MobileContactForm() {
     setUtmSource(params.get("utm_source") || "")
     setUtmMedium(params.get("utm_medium") || "")
     setUtmCampaign(params.get("utm_campaign") || "")
+
+    const selection = readProgramSelection()
+    if (selection?.program) {
+      setSelectedProgram(selection.program)
+    }
+
+    const handleSelection = (event: Event) => {
+      const customEvent = event as CustomEvent<{ program?: string }>
+      if (customEvent.detail?.program) {
+        setSelectedProgram(customEvent.detail.program)
+      }
+    }
+
+    window.addEventListener(PROGRAM_SELECTION_EVENT, handleSelection as EventListener)
+
+    return () => {
+      window.removeEventListener(PROGRAM_SELECTION_EVENT, handleSelection as EventListener)
+    }
   }, [])
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -62,7 +74,7 @@ export function MobileContactForm() {
 
     const fullName = String(formData.get("full_name") || "")
     const phoneValue = String(formData.get("phone") || "")
-    const program = String(formData.get("program") || "Não informado")
+    const program = selectedProgram || String(formData.get("program") || "Não informado")
     const message = String(formData.get("message") || "")
 
     const payload = {
@@ -89,6 +101,7 @@ export function MobileContactForm() {
       }
 
       setStatus("success")
+      track("lead_submit_success_mobile", { program })
 
       const text = `Olá! Meu nome é ${fullName}. Gostaria de agendar uma aula experimental gratuita e saber mais sobre o programa ${program}. Meu contato é ${phoneValue}. ${message ? `Observação: ${message}` : ""}`
       const whatsappUrl = `https://wa.me/5527988773890?text=${encodeURIComponent(text)}`
@@ -97,6 +110,7 @@ export function MobileContactForm() {
       setPhone("")
     } catch {
       setStatus("error")
+      track("lead_submit_error_mobile", { program })
     } finally {
       setIsSubmitting(false)
     }
@@ -108,13 +122,14 @@ export function MobileContactForm() {
         <div>
           <h3 className="text-base font-semibold text-foreground">Ou envie uma mensagem rápida</h3>
           <p className="mt-1 text-sm text-muted-foreground">
-            Retornamos em até 24 horas.
+            Retornamos pelo WhatsApp em até 24 horas úteis.
           </p>
         </div>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-4" noValidate>
         <input type="text" name="website" aria-hidden tabIndex={-1} className="hidden" />
+        <input type="hidden" name="program" value={selectedProgram} />
 
         <div className="space-y-1.5">
           <label htmlFor="mobile-full-name" className="text-sm font-medium text-foreground">
@@ -155,20 +170,25 @@ export function MobileContactForm() {
           </label>
           <select
             id="mobile-program"
-            name="program"
             required
-            defaultValue=""
+            value={selectedProgram}
+            onChange={(event) => setSelectedProgram(event.target.value)}
             className="h-11 w-full rounded-md border border-input bg-background px-3 text-sm text-foreground outline-none"
           >
             <option value="" disabled>
               Selecione um programa
             </option>
-            {PROGRAMS.map((program) => (
+            {PROGRAM_OPTIONS.map((program) => (
               <option key={program} value={program}>
                 {program}
               </option>
             ))}
           </select>
+          {selectedProgram ? (
+            <p className="text-xs text-muted-foreground">
+              Programa pré-selecionado. Você pode alterar se quiser.
+            </p>
+          ) : null}
         </div>
 
         <div className="space-y-1.5">
@@ -185,7 +205,7 @@ export function MobileContactForm() {
         </div>
 
         <div className="flex items-center justify-between text-xs text-muted-foreground">
-          <span>Retorno em até 24h · Dados seguros</span>
+          <span>Retorno pelo WhatsApp em até 24h úteis · Dados seguros</span>
         </div>
 
         <button
