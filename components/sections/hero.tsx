@@ -22,16 +22,57 @@ import {
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
-import { ArrowRight, MapPin, ChevronDown } from "lucide-react"
+import { ArrowRight, MapPin, ChevronDown, ChevronLeft, ChevronRight, Loader2 } from "lucide-react"
 import { NeuralTree } from "@/components/neural-tree"
 import { useEffect, useState, useCallback } from "react"
 import { track } from "@vercel/analytics/react"
 
-const HERO_IMAGES = [
-  { src: "/images/hero-1.webp", alt: "Sessão de psicopedagogia com criança" },
-  { src: "/images/hero-2.webp", alt: "Atendimento psicológico acolhedor" },
-  { src: "/images/hero-3.webp", alt: "Ambiente terapêutico tranquilo" },
+const DEFAULT_HERO_IMAGES = [
+  { 
+    src: "/images/hero-1.webp", 
+    alt: "Sessão de psicopedagogia com criança", 
+    title: "Fortalecendo mentes", 
+    category: "BEM-VINDO",
+    description: "Programas especializados fundamentados em neurociência para todas as idades.",
+    date: "",
+    link: "#programas",
+    imagePosition: "50% 50%",
+    imageZoom: "1"
+  },
+  { 
+    src: "/images/hero-2.webp", 
+    alt: "Atendimento psicológico acolhedor", 
+    title: "Transformando emoções", 
+    category: "ESPECIALIDADE",
+    description: "Equipe multidisciplinar dedicada ao desenvolvimento integral de mentes e emoções.",
+    date: "",
+    link: "#sobre",
+    imagePosition: "50% 50%",
+    imageZoom: "1"
+  },
+  { 
+    src: "/images/hero-3.webp", 
+    alt: "Ambiente terapêutico tranquilo", 
+    title: "Moldando futuros", 
+    category: "INFRAESTRUTURA",
+    description: "Ambiente planejado para proporcionar acolhimento, segurança e resultados reais.",
+    date: "",
+    link: "#contato",
+    imagePosition: "50% 50%",
+    imageZoom: "1"
+  },
 ]
+
+interface Announcement {
+  date: string
+  category: string
+  title: string
+  description: string
+  imageUrl?: string
+  linkUrl?: string
+  imagePosition?: string
+  imageZoom?: string
+}
 
 const HERO_IMAGES_MOBILE = [
   { src: "/images/hero-mobile-1.webp", alt: "Criança em atividade lúdica de neuroeducação" },
@@ -60,10 +101,51 @@ export function Hero() {
   }, [mouseX, mouseY])
 
   const [wordIndex, setWordIndex] = useState(0)
+  const [announcements, setAnnouncements] = useState<Announcement[]>([])
   const [currentImage, setCurrentImage] = useState(0)
   const [currentMobileImage, setCurrentMobileImage] = useState(0)
   const [imageResetKey, setImageResetKey] = useState(0)
   const [mobileResetKey, setMobileResetKey] = useState(0)
+  const [isInitialLoad, setIsInitialLoad] = useState(true)
+
+  useEffect(() => {
+    async function fetchAnnouncements() {
+      try {
+        const res = await fetch(`/api/announcements?t=${Date.now()}`)
+        if (res.ok) {
+          const data = await res.json()
+          if (Array.isArray(data) && data.length > 0) {
+            setAnnouncements(data)
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching announcements:', error)
+      }
+    }
+    fetchAnnouncements().finally(() => setIsInitialLoad(false))
+  }, [])
+
+  const ensureAbsoluteUrl = (url: string) => {
+    if (!url) return undefined
+    if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('mailto:') || url.startsWith('tel:')) return url
+    return `https://${url}`
+  }
+
+  const displayImages = announcements.length > 0 
+    ? announcements.map(a => ({ 
+        src: a.imageUrl || "/images/hero-1.webp", 
+        alt: a.title,
+        title: a.title,
+        category: a.category,
+        description: a.description,
+        date: a.date,
+        link: ensureAbsoluteUrl(a.linkUrl || ""),
+        imagePosition: a.imagePosition || '50% 50%',
+        imageZoom: a.imageZoom || '1'
+      }))
+    : isInitialLoad ? [] : DEFAULT_HERO_IMAGES
+
+  const hasImages = displayImages.length > 0
 
   useEffect(() => {
     const id = setInterval(() => setWordIndex((i) => (i + 1) % WORDS.length), 2800)
@@ -71,14 +153,16 @@ export function Hero() {
   }, [])
 
   useEffect(() => {
-    const id = setInterval(() => setCurrentImage((i) => (i + 1) % HERO_IMAGES.length), 3000)
+    if (displayImages.length === 0) return
+    const id = setInterval(() => setCurrentImage((i) => (i + 1) % displayImages.length), 5000)
     return () => clearInterval(id)
-  }, [imageResetKey])
+  }, [imageResetKey, displayImages.length])
 
   useEffect(() => {
-    const id = setInterval(() => setCurrentMobileImage((i) => (i + 1) % HERO_IMAGES_MOBILE.length), 3000)
+    if (displayImages.length === 0) return
+    const id = setInterval(() => setCurrentMobileImage((i) => (i + 1) % displayImages.length), 3000)
     return () => clearInterval(id)
-  }, [mobileResetKey])
+  }, [mobileResetKey, displayImages.length])
 
   return (
     <LazyMotion features={domAnimation} strict>
@@ -256,38 +340,75 @@ export function Hero() {
                   transition={{ duration: 0.6, delay: 0.45 }}
                   className="mt-8 lg:hidden"
                 >
-                  <div
-                    className="relative aspect-[16/9] w-full rounded-xl overflow-hidden bg-muted cursor-pointer"
-                    onClick={() => { setCurrentMobileImage((i) => (i + 1) % HERO_IMAGES_MOBILE.length); setMobileResetKey((k) => k + 1) }}
-                  >
-                    {HERO_IMAGES_MOBILE.map((img, index) => (
-                      <m.div
-                        key={index}
-                        animate={{ opacity: index === currentMobileImage ? 1 : 0 }}
-                        transition={{ duration: 0.7, ease: "easeInOut" }}
-                        className="absolute inset-0"
-                      >
-                        <Image
-                          src={img.src}
-                          alt={img.alt}
-                          fill
-                          className="object-cover"
-                          sizes="(max-width: 640px) 90vw, 384px"
-                          priority
-                        />
-                      </m.div>
-                    ))}
-                    <div className="absolute inset-0 bg-gradient-to-t from-background/15 via-transparent to-transparent pointer-events-none" />
+                  <div className="relative aspect-[16/9] w-full rounded-2xl overflow-hidden bg-muted shadow-lg ring-1 ring-white/10">
+                    {isInitialLoad && (
+                      <div className="absolute inset-0 flex items-center justify-center bg-neutral-900/50 backdrop-blur-sm">
+                        <div className="flex flex-col items-center gap-3">
+                          <Loader2 className="w-6 h-6 text-primary animate-spin" />
+                          <span className="text-[10px] uppercase tracking-widest text-muted-foreground animate-pulse">
+                            Buscando novidades...
+                          </span>
+                        </div>
+                      </div>
+                    )}
+                    <AnimatePresence mode="wait">
+                      {displayImages.map((img, index) => index === currentMobileImage && (
+                        <m.div
+                          key={index + mobileResetKey}
+                          initial={{ opacity: 0, x: 20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          exit={{ opacity: 0, x: -20 }}
+                          transition={{ duration: 0.5 }}
+                          className="absolute inset-0"
+                        >
+                          {img.link ? (
+                            <Link href={img.link} className="block w-full h-full relative">
+                              <Image
+                                src={img.src}
+                                alt={img.alt}
+                                fill
+                                className="object-cover"
+                                sizes="90vw"
+                                priority
+                              />
+                            </Link>
+                          ) : (
+                            <Image
+                              src={img.src}
+                              alt={img.alt}
+                              fill
+                              className="object-cover"
+                              sizes="90vw"
+                              priority
+                            />
+                          )}
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex flex-col justify-end p-5 pointer-events-none">
+                            <div className="flex items-center gap-2 mb-1.5">
+                              <span className="inline-block px-1.5 py-0.5 bg-primary text-[8px] font-bold tracking-widest text-primary-foreground rounded-sm uppercase">
+                                {img.category}
+                              </span>
+                              {img.date && (
+                                <span className="text-[8px] font-medium text-white/50">{img.date}</span>
+                              )}
+                            </div>
+                            <h3 className="font-serif text-lg font-bold text-white leading-tight mb-0.5 line-clamp-1">
+                              {img.title}
+                            </h3>
+                            <p className="text-white/70 text-[10px] line-clamp-1 font-light italic">
+                              {img.description}
+                            </p>
+                          </div>
+                        </m.div>
+                      ))}
+                    </AnimatePresence>
                   </div>
-                  <div className="flex gap-2 mt-3">
-                    {HERO_IMAGES_MOBILE.map((_, index) => (
+                  <div className="flex gap-1.5 mt-4 justify-center">
+                    {displayImages.map((_, index) => (
                       <button
                         key={index}
                         onClick={() => { setCurrentMobileImage(index); setMobileResetKey((k) => k + 1) }}
                         className={`h-1 rounded-full transition-all duration-300 ${
-                          index === currentMobileImage
-                            ? "w-6 bg-primary"
-                            : "w-1 bg-border"
+                          index === currentMobileImage ? "w-6 bg-primary" : "w-1.5 bg-white/20"
                         }`}
                         aria-label={`Ver imagem ${index + 1}`}
                       />
@@ -324,45 +445,136 @@ export function Hero() {
                 transition={{ duration: 0.8, delay: 0.2 }}
                 className="relative hidden lg:flex items-center justify-center"
               >
-                <div className="relative w-full max-w-[380px] xl:max-w-[420px] mx-auto">
-                  <div
-                    className="relative aspect-[4/5] rounded-2xl overflow-hidden bg-muted cursor-pointer"
-                    onClick={() => { setCurrentImage((i) => (i + 1) % HERO_IMAGES.length); setImageResetKey((k) => k + 1) }}
-                  >
-                    {HERO_IMAGES.map((img, index) => (
-                      <m.div
-                        key={index}
-                        animate={{ opacity: index === currentImage ? 1 : 0, scale: index === currentImage ? 1 : 1.03 }}
-                        transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-                        className="absolute inset-0"
-                      >
-                        <Image
-                          src={img.src}
-                          alt={img.alt}
-                          fill
-                          className="object-cover"
-                          sizes="420px"
-                          priority
-                        />
-                      </m.div>
-                    ))}
-                    <div className="absolute inset-0 bg-gradient-to-t from-background/20 via-transparent to-transparent pointer-events-none" />
+                <div className="relative w-full max-w-[550px] xl:max-w-[700px] mx-auto group space-y-4">
+                  <div className="flex items-center gap-3 px-2">
+                    <div className="w-8 h-px bg-primary/30" />
+                    <h4 className="text-[10px] font-bold tracking-[0.2em] text-primary uppercase">
+                      Fique por dentro das novidades na Intelekta!
+                    </h4>
                   </div>
+                   <div className="relative aspect-[4/3] rounded-3xl overflow-hidden bg-neutral-900 shadow-[0_32px_64px_-16px_rgba(0,0,0,0.4)] border border-white/10">
+                    {isInitialLoad && (
+                      <div className="absolute inset-0 flex flex-col items-center justify-center space-y-4">
+                        <div className="relative">
+                          <div className="w-16 h-16 rounded-full border-b-2 border-primary animate-spin" />
+                          <div className="absolute inset-0 flex items-center justify-center">
+                            <div className="w-2 h-2 rounded-full bg-primary animate-ping" />
+                          </div>
+                        </div>
+                        <p className="text-[10px] uppercase tracking-[0.3em] text-primary/50 font-bold animate-pulse">
+                          Sincronizando com Intelekta
+                        </p>
+                      </div>
+                    )}
+                    <AnimatePresence>
+                      {displayImages.map((img, index) => index === currentImage && (
+                        <m.div
+                          key={index + imageResetKey}
+                          initial={{ opacity: 0, scale: 1.05 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          exit={{ opacity: 0, scale: 0.95 }}
+                          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                          className="absolute inset-0"
+                        >
+                          {img.link ? (
+                            <Link 
+                              href={img.link} 
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="block w-full h-full relative group/link"
+                            >
+                              <Image
+                                src={img.src}
+                                alt={img.alt}
+                                fill
+                                className="object-cover transition-transform duration-700 group-hover/link:scale-110"
+                                style={{ 
+                                  objectPosition: img.imagePosition || '50% 50%',
+                                  transform: `scale(${img.imageZoom || 1})`
+                                }}
+                                sizes="460px"
+                                priority
+                              />
+                              <div className="absolute inset-0 bg-black/20 group-hover/link:bg-black/0 transition-colors duration-500" />
+                            </Link>
+                          ) : (
+                            <Image
+                              src={img.src}
+                              alt={img.alt}
+                              fill
+                              className="object-cover"
+                              style={{ 
+                                objectPosition: img.imagePosition || '50% 50%',
+                                transform: `scale(${img.imageZoom || 1})`
+                              }}
+                              sizes="460px"
+                              priority
+                            />
+                          )}
+                          
+                          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent flex flex-col justify-end p-8 xl:p-10">
+                            <m.div
+                              initial={{ opacity: 0, y: 20 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ delay: 0.2, duration: 0.6 }}
+                            >
+                              <div className="flex items-center gap-3 mb-4">
+                                <span className="inline-block px-3 py-1 bg-primary/90 text-[10px] font-bold tracking-[0.2em] text-primary-foreground rounded-full backdrop-blur-sm uppercase">
+                                  {img.category || "Novidade"}
+                                </span>
+                                {img.date && (
+                                  <div className="flex items-center gap-2 ml-1">
+                                    <div className="w-1.5 h-1.5 rounded-full bg-primary shadow-[0_0_8px_rgba(var(--primary),0.5)]" />
+                                    <span className="text-[10px] font-bold text-white tracking-widest uppercase">
+                                      {img.date}
+                                    </span>
+                                  </div>
+                                )}
+                              </div>
+                              <h3 className="font-serif text-3xl xl:text-4xl font-bold text-white leading-[1.1] mb-3 drop-shadow-sm">
+                                {img.title}
+                              </h3>
+                              <p className="text-white/70 text-sm xl:text-base line-clamp-2 font-light leading-relaxed max-w-[90%]">
+                                {img.description}
+                              </p>
+                            </m.div>
+                          </div>
+                        </m.div>
+                      ))}
+                    </AnimatePresence>
 
-                  {/* Image indicators */}
-                  <div className="flex justify-center gap-2 mt-4">
-                    {HERO_IMAGES.map((_, index) => (
-                      <button
-                        key={index}
-                        onClick={() => { setCurrentImage(index); setImageResetKey((k) => k + 1) }}
-                        className={`h-1.5 rounded-full transition-all duration-300 ${
-                          index === currentImage
-                            ? "w-8 bg-primary"
-                            : "w-1.5 bg-border hover:bg-muted-foreground/30"
-                        }`}
-                        aria-label={`Ver imagem ${index + 1}`}
-                      />
-                    ))}
+                    <div className="absolute bottom-6 right-8 left-8 flex items-center justify-between z-20">
+                      <div className="flex gap-2">
+                        {displayImages.map((_, idx) => (
+                          <button
+                            key={idx}
+                            onClick={() => { setCurrentImage(idx); setImageResetKey(k => k + 1) }}
+                            className={`h-1.5 rounded-full transition-all duration-500 ${
+                              idx === currentImage ? "w-8 bg-primary" : "w-1.5 bg-white/30 hover:bg-white/50"
+                            }`}
+                          />
+                        ))}
+                      </div>
+                      
+                      <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <Button 
+                          variant="ghost" 
+                          size="icon" 
+                          className="w-8 h-8 rounded-full border border-white/20 text-white hover:bg-white/20"
+                          onClick={(e) => { e.stopPropagation(); setCurrentImage(i => (i - 1 + displayImages.length) % displayImages.length); setImageResetKey(k => k + 1) }}
+                        >
+                          <ChevronLeft className="w-4 h-4" />
+                        </Button>
+                        <Button 
+                          variant="ghost" 
+                          size="icon" 
+                          className="w-8 h-8 rounded-full border border-white/20 text-white hover:bg-white/20"
+                          onClick={(e) => { e.stopPropagation(); setCurrentImage(i => (i + 1) % displayImages.length); setImageResetKey(k => k + 1) }}
+                        >
+                          <ChevronRight className="w-4 h-4" />
+                        </Button>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </m.div>

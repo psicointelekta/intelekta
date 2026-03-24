@@ -30,13 +30,22 @@ import {
 import {
   DeferredMobileContactForm,
   DeferredMobileFaq,
+  DeferredMobileNewsCarousel,
   DeferredMobileTestimonialsCarousel,
 } from "@/components/pages/mobile-deferred-widgets"
-import { Announcements } from "@/components/sections/announcements"
 import { MobileHomeHeader } from "@/components/pages/mobile-home-header"
 import { ProgramCtaLink } from "@/components/program-cta-link"
 import { ProgramAwareWhatsappLink } from "@/components/program-aware-whatsapp-link"
 import { ProgramDiscovery } from "@/components/sections/program-discovery"
+
+export interface Announcement {
+  date: string
+  category: string
+  title: string
+  description: string
+  imageUrl?: string
+  linkUrl?: string
+}
 const heroCards = [
   { src: "/images/hero-mobile-1.webp", alt: "Criança em atividade lúdica de neuroeducação" },
   { src: "/images/hero-mobile-2.webp", alt: "Adolescente em sessão de desenvolvimento cognitivo" },
@@ -404,7 +413,7 @@ function SectionHeader({
   )
 }
 
-export function HomeMobile() {
+export function HomeMobile({ announcements = [] }: { announcements?: Announcement[] }) {
   return (
     <div className="min-h-screen bg-background">
       <style>{`
@@ -499,34 +508,45 @@ export function HomeMobile() {
               </div>
 
               <div className="space-y-4">
-                <div className="relative overflow-hidden rounded-2xl bg-muted">
-                  <Image
-                    src={heroCards[0].src}
-                    alt={heroCards[0].alt}
-                    width={900}
-                    height={1125}
-                    className="h-auto w-full object-cover"
-                    sizes="100vw"
-                    priority
-                  />
-                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/18 via-transparent to-transparent" />
-                </div>
+                {/* Immersive Horizontal Carousel for Mobile Hero */}
+                {(() => {
+                  const ensureAbsoluteUrl = (url: string) => {
+                    if (!url) return undefined
+                    if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('mailto:') || url.startsWith('tel:')) return url
+                    return `https://${url}`
+                  }
 
-                <div className="grid grid-cols-2 gap-3">
-                  {heroCards.slice(1).map((image) => (
-                    <div key={image.src} className="relative overflow-hidden rounded-2xl bg-muted">
-                      <Image
-                        src={image.src}
-                        alt={image.alt}
-                        width={600}
-                        height={420}
-                        className="h-auto w-full object-cover"
-                        sizes="50vw"
-                        priority
-                      />
+                  const activeItems = announcements.length > 0 
+                    ? announcements.map(a => ({
+                        src: a.imageUrl || "/images/hero-mobile-1.webp",
+                        alt: a.title,
+                        title: a.title,
+                        category: a.category,
+                        description: a.description,
+                        date: a.date,
+                        link: ensureAbsoluteUrl(a.linkUrl || "")
+                      }))
+                    : heroCards.map(c => ({
+                        ...c,
+                        title: c.alt,
+                        category: "BEM-VINDO",
+                        description: "Programas especializados da Intelekta.",
+                        date: "",
+                        link: undefined
+                      }))
+
+                  return (
+                    <div className="space-y-4">
+                      <div className="px-1 flex items-center gap-2">
+                        <div className="w-1.5 h-1.5 rounded-full bg-primary" />
+                        <h4 className="text-[10px] font-bold tracking-widest text-primary uppercase">
+                          Novidades Intelekta
+                        </h4>
+                      </div>
+                      <DeferredMobileNewsCarousel items={activeItems} />
                     </div>
-                  ))}
-                </div>
+                  )
+                })()}
               </div>
 
               <div className="border-t border-border pt-6">
@@ -665,8 +685,6 @@ export function HomeMobile() {
                 ))}
               </div>
             </div>
-
-            <Announcements />
 
           </div>
         </section>

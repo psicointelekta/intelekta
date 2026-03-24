@@ -12,9 +12,6 @@ import dynamic from "next/dynamic"
 const About = dynamic(() =>
   import("@/components/sections/about").then((mod) => mod.About),
 )
-const Announcements = dynamic(() =>
-  import("@/components/sections/announcements").then((mod) => mod.Announcements),
-)
 const Methodology = dynamic(() =>
   import("@/components/sections/methodology").then((mod) => mod.Methodology),
 )
@@ -44,7 +41,6 @@ export function HomeDesktop() {
         <Hero />
         <ProgramDiscovery />
         <Programs />
-        <Announcements />
         <div className="section-divider-dark" />
         <Testimonials />
         <div className="section-divider" />

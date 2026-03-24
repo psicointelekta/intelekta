@@ -17,7 +17,7 @@ Guia completo para a equipe da Intelekta sobre como acompanhar leads, acessar da
 - [9. Como Funciona o Formulário de Contato](#9-como-funciona-o-formulário-de-contato)
 - [10. Dashboard da Vercel (Hospedagem)](#10-dashboard-da-vercel-hospedagem)
 - [11. Perguntas Frequentes](#11-perguntas-frequentes)
-- [12. Como Atualizar as Novidades e Avisos (Carrossel)](#12-como-atualizar-as-novidades-e-avisos-carrossel)
+- [12. Como Atualizar as Novidades e Avisos (Portal Admin)](#12-como-atualizar-as-novidades-e-avisos-portal-admin)
 - [13. Contato para Suporte Técnico](#13-contato-para-suporte-técnico)
 
 ---
@@ -214,9 +214,9 @@ Para substituir uma foto de profissional:
 
 ### Imagens do carrossel (hero)
 
-- Desktop: 3 imagens, resolução recomendada **840×1120px**
-- Mobile: 3 imagens, resolução recomendada **900×1125px**
-- Formato: **WebP** (melhor compressão)
+- Proporção: **Horizontal (3:2)**
+- Resolução recomendada: **1200×800px** ou **1500×1000px**
+- Formato: **WebP** (proporciona melhor carregamento e qualidade)
 
 ### Imagem OG (compartilhamento em redes sociais)
 
@@ -346,30 +346,29 @@ Envie ao desenvolvedor:
 
 ---
 
-## 12. Como Atualizar as Novidades e Avisos (Carrossel)
+## 12. Como Atualizar as Novidades e Avisos (Portal Admin)
 
-Agora o site possui uma seção de **Novidades** que você mesma pode atualizar através de uma nova aba na sua planilha.
+Agora o site possui um **Portal Administrativo** exclusivo onde você pode gerenciar as novidades que aparecem no topo do site (Hero) de forma muito mais simples.
 
-### Como atualizar
+### Como acessar
 
-1. Abra a mesma planilha onde chegam os leads.
-2. Clique na aba **"Novidades"** (caso não exista, peça ao desenvolvedor para criar).
-3. Cada linha preenchida (da linha 2 em diante) aparecerá como um card no carrossel do site.
+1. Acesse o endereço: `https://intelekta.com.br/admin` (ou o domínio oficial do site).
+2. Digite a **Senha Administrativa** fornecida pelo desenvolvedor.
 
-### Colunas que você deve preencher:
+### Como gerenciar
 
-| Coluna | O que colocar | Exemplo |
-| :--- | :--- | :--- |
-| **A — Data** | A data que aparecerá no card | 15 de Abril |
-| **B — Categoria** | O tipo de aviso (curto, em maiúsculas) | WORKSHOP, EVENTO, AVISO |
-| **C — Título** | O título principal da novidade | Novo Workshop de Neuroplasticidade |
-| **D — Descrição** | Um texto explicativo curto | Venha aprender técnicas práticas para... |
-| **E — ImagemURL** | Link de uma imagem (opcional) | https://imagem.com/foto.jpg |
-| **F — LinkURL** | Para onde o botão "Saiba mais" leva | https://instagram.com/p/abc123/ |
+- **Para Adicionar:** 
+  - Preencha o Título, Categoria e Data.
+  - **Upload de Imagem:** Clique no campo "Imagem de Fundo" e selecione um arquivo do seu computador.
+  - **Preview:** À direita do formulário, você verá uma simulação em tempo real de como o destaque ficará no site. Use isso para ajustar o texto e a imagem antes de publicar.
+  - Clique em **"Publicar Agora no Hero"**.
 
-### Dicas para Imagens:
-- Se você não colocar uma imagem, o site exibirá um ícone padrão.
-- Você pode usar links de fotos que já subiu no Google Drive (com acesso público), Instagram ou serviços como Imgur.
+- **Para Excluir:** 
+  - Role a página até "Publicações Ativas".
+  - Clique no ícone da **Lixeira vermelha** ao lado do item.
+
+> [!TIP]
+> **Armazenamento Seguro:** O site utiliza agora o **Vercel Blob**, o que garante que suas imagens fiquem salvas permanentemente na nuvem, independentemente de atualizações no site. Ao excluir uma novidade no painel, a imagem também é removida automaticamente para manter tudo organizado.
 
 ---
 

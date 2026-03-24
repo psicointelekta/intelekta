@@ -42,147 +42,81 @@ export function Footer() {
   }, [])
 
   return (
-    <footer className="bg-dark-section" role="contentinfo">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* Main footer content */}
-        <div className="py-12 lg:py-16">
-          <div className="grid lg:grid-cols-4 gap-10 lg:gap-8">
-            {/* Brand column */}
-            <div className="lg:col-span-1">
-              <Link href="/" className="inline-block mb-5">
-                <Image
-                  src="/images/logo-intelekta.webp"
-                  alt="Intelekta"
-                  width={140}
-                  height={48}
-                  className="h-10 w-auto brightness-0 invert"
-                  priority
-                />
-              </Link>
-              <p className="text-dark-section-foreground/80 leading-relaxed mb-4 text-sm">
-                Centro de desenvolvimento cognitivo e socioemocional fundamentado
-                em neurociência. Vila Velha, ES.
-              </p>
-              <div className="flex gap-2">
-                <a
-                  href="https://instagram.com/psicointelekta"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-9 h-9 rounded-lg bg-white/8 flex items-center justify-center text-dark-section-foreground/80 hover:bg-primary hover:text-primary-foreground transition-colors"
-                  aria-label="Instagram da Intelekta"
-                >
-                  <Instagram className="w-4 h-4" />
-                </a>
-                <a
-                  href="mailto:contato@intelektamente.com"
-                  className="w-9 h-9 rounded-lg bg-white/8 flex items-center justify-center text-dark-section-foreground/80 hover:bg-primary hover:text-primary-foreground transition-colors"
-                  aria-label="Email de contato"
-                >
-                  <Mail className="w-4 h-4" />
-                </a>
-                <a
-                  href="https://wa.me/5527988773890?text=Olá! Gostaria de tirar algumas dúvidas sobre a Intelekta."
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-9 h-9 rounded-lg bg-white/8 flex items-center justify-center text-dark-section-foreground/80 hover:bg-primary hover:text-primary-foreground transition-colors"
-                  aria-label="WhatsApp de contato"
-                >
-                  <Phone className="w-4 h-4" />
-                </a>
-              </div>
-            </div>
+    <footer className="bg-dark-section py-12 border-t border-primary/5" role="contentinfo">
+      <div className="mx-auto max-w-7xl px-6 flex flex-col items-center text-center space-y-8">
+        {/* Brand */}
+        <Link href="/" className="inline-block transition-transform hover:scale-105 duration-300">
+          <Image
+            src="/images/logo-intelekta.webp"
+            alt="Intelekta"
+            width={140}
+            height={46}
+            className="h-10 w-auto brightness-0 invert opacity-90"
+            priority
+          />
+        </Link>
 
-            {/* Navigation columns */}
-            <div className="lg:col-span-3">
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-8">
-                {/* Main links */}
-                <div>
-                  <h3 className="font-semibold text-dark-section-foreground mb-3 text-sm">Navegação</h3>
-                  <ul className="space-y-2">
-                    {navigation.main.map((item) => (
-                      <li key={item.name}>
-                        <a
-                          href={item.href}
-                          onClick={(e) => scrollTo(e, item.href)}
-                          className="text-sm text-dark-section-foreground/80 hover:text-primary transition-colors cursor-pointer"
-                        >
-                          {item.name}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+        {/* Short About */}
+        <p className="text-dark-section-foreground/50 text-xs sm:text-sm max-w-md leading-relaxed">
+          Desenvolvimento cognitivo e socioemocional fundamentado na neurociência. 
+          Vila Velha - ES.
+        </p>
 
-                {/* Programs */}
-                <div>
-                  <h3 className="font-semibold text-dark-section-foreground mb-3 text-sm">Programas</h3>
-                  <ul className="space-y-2">
-                    {navigation.programs.map((item) => (
-                      <li key={item.name}>
-                        <a
-                          href={item.href}
-                          onClick={(e) => scrollTo(e, item.href)}
-                          className="text-sm text-dark-section-foreground/80 hover:text-primary transition-colors cursor-pointer"
-                        >
-                          {item.name}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                {/* Contact info */}
-                <div className="col-span-2 sm:col-span-1">
-                  <h3 className="font-semibold text-dark-section-foreground mb-3 text-sm">Contato</h3>
-                  <ul className="space-y-3">
-                    <li className="flex items-start gap-2.5">
-                      <MapPin className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
-                      <span className="text-sm text-dark-section-foreground/80">
-                        Rua Afonso Pena, 403<br />
-                        Praia da Costa, Vila Velha - ES
-                      </span>
-                    </li>
-                    <li>
-                      <a
-                        href="https://wa.me/5527988773890?text=Olá! Gostaria de tirar algumas dúvidas sobre a Intelekta."
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-2.5 text-sm text-dark-section-foreground/80 hover:text-primary transition-colors"
-                      >
-                        <Phone className="w-4 h-4 text-primary flex-shrink-0" />
-                        (27) 98877-3890
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="mailto:contato@intelektamente.com"
-                        className="flex items-center gap-2.5 text-sm text-dark-section-foreground/80 hover:text-primary transition-colors"
-                      >
-                        <Mail className="w-4 h-4 text-primary flex-shrink-0" />
-                        contato@intelektamente.com
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
+        {/* Simplified Nav */}
+        <div className="flex flex-wrap justify-center gap-x-8 gap-y-4">
+          {navigation.main.map((item) => (
+            <a
+              key={item.name}
+              href={item.href}
+              onClick={(e) => scrollTo(e, item.href)}
+              className="text-xs font-bold uppercase tracking-widest text-dark-section-foreground/60 hover:text-primary transition-colors"
+            >
+              {item.name}
+            </a>
+          ))}
         </div>
 
-        {/* Bottom bar */}
-        <div className="border-t border-white/8 py-6">
-          <div className="flex flex-col sm:flex-row justify-between items-center gap-3">
-            <p className="text-xs text-dark-section-foreground/70 text-center sm:text-left">
-              &copy; {currentYear} Intelekta. Todos os direitos reservados.
-            </p>
-            <div className="flex gap-5 text-xs text-dark-section-foreground/70">
-              <Link href="/privacidade" className="hover:text-dark-section-foreground/80 transition-colors">
-                Política de Privacidade
-              </Link>
-              <Link href="/termos" className="hover:text-dark-section-foreground/80 transition-colors">
-                Termos de Uso
-              </Link>
-            </div>
+        {/* Social & Contact Mix */}
+        <div className="flex items-center gap-6">
+          <a
+            href="https://instagram.com/psicointelekta"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-dark-section-foreground/40 hover:text-primary transition-colors"
+            aria-label="Instagram"
+          >
+            <Instagram className="w-5 h-5" />
+          </a>
+          <a
+            href="https://wa.me/5527988773890"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-dark-section-foreground/40 hover:text-primary transition-colors"
+            aria-label="WhatsApp"
+          >
+            <Phone className="w-5 h-5" />
+          </a>
+          <a
+            href="mailto:contato@intelektamente.com"
+            className="text-dark-section-foreground/40 hover:text-primary transition-colors"
+            aria-label="Email"
+          >
+            <Mail className="w-5 h-5" />
+          </a>
+        </div>
+
+        {/* Minimal Bottom */}
+        <div className="pt-8 border-t border-white/5 w-full flex flex-col sm:flex-row justify-between items-center gap-4">
+          <p className="text-[10px] text-dark-section-foreground/30 uppercase tracking-widest">
+            &copy; {currentYear} Intelekta &bull; Todos os direitos reservados
+          </p>
+          <div className="flex gap-6">
+            <Link href="/privacidade" className="text-[10px] text-dark-section-foreground/30 hover:text-primary transition-colors font-bold uppercase tracking-widest">
+              Privacidade
+            </Link>
+            <Link href="/termos" className="text-[10px] text-dark-section-foreground/30 hover:text-primary transition-colors font-bold uppercase tracking-widest">
+              Termos
+            </Link>
           </div>
         </div>
       </div>

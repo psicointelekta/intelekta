@@ -39,6 +39,11 @@ const MobileContactForm = dynamic(
   { ssr: false },
 )
 
+const MobileNewsCarousel = dynamic(
+  () => import("@/components/pages/mobile-news-carousel").then((mod) => mod.MobileNewsCarousel),
+  { ssr: false },
+)
+
 export function DeferredMobileTestimonialsCarousel({ testimonials }: { testimonials: readonly Testimonial[] }) {
   const [isMounted, setIsMounted] = useState(false)
 
@@ -116,4 +121,22 @@ export function DeferredMobileContactForm() {
   }
 
   return <MobileContactForm />
+}
+
+export function DeferredMobileNewsCarousel({ items }: { items: any[] }) {
+  const [isMounted, setIsMounted] = useState(false)
+
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
+
+  if (!isMounted) {
+    return (
+      <div className="relative overflow-hidden rounded-3xl bg-muted shadow-lg aspect-[4/5] animate-pulse">
+        <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+      </div>
+    )
+  }
+
+  return <MobileNewsCarousel items={items} />
 }
