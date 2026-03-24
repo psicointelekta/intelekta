@@ -1,35 +1,69 @@
 /**
  * Next.js 16 Proxy (replaces traditional middleware.ts).
- *
- * Routes users based on User-Agent:
- * - Mobile UA → rewrites `/` to `/m` (separate mobile page, invisible to user)
- * - Desktop UA → serves `/` normally
- * - Direct `/m` access → 301 redirects to `/` (prevents duplicate content)
- *
- * Every response includes `Vary: User-Agent` so CDN caches
- * separate versions per device class.
+ * 
+ * BIG TECH SECURITY LAYER INTEGRATED:
+ * - Device-based routing (Mobile/Desktop)
+ * - Security Headers (CSP, HSTS, X-Frame)
+ * - Session Cookie Protection for Admin
  */
 import type { NextRequest } from "next/server"
 import { NextResponse } from "next/server"
-
 import { getDeviceVariantFromUserAgent } from "@/lib/device"
 
-/** Ensures CDN/edge caches store separate responses per User-Agent */
-function withUserAgentVary(response: NextResponse) {
+/** Ensures CDN/edge caches store separate responses per User-Agent and adds Security Headers */
+function injectSecurityAndVary(response: NextResponse) {
+  // 1. Device Vary
   response.headers.append("Vary", "User-Agent")
+  
+  // 2. BIG TECH SECURITY HEADERS
+  const cspHeader = `
+    default-src 'self';
+    script-src 'self' 'unsafe-eval' 'unsafe-inline' https://va.vercel-scripts.com;
+    style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+    img-src 'self' blob: data: https://*.public.blob.vercel-storage.com https://images.unsplash.com;
+    font-src 'self' https://fonts.gstatic.com;
+    object-src 'none';
+    base-uri 'self';
+    form-action 'self';
+    frame-ancestors 'none';
+    block-all-mixed-content;
+    upgrade-insecure-requests;
+  `.replace(/\s{2,}/g, ' ').trim()
+
+  response.headers.set('Content-Security-Policy', cspHeader)
+  response.headers.set('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload')
+  response.headers.set('X-Content-Type-Options', 'nosniff')
+  response.headers.set('X-Frame-Options', 'DENY')
+  response.headers.set('X-XSS-Protection', '1; mode=block')
+  response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin')
+  response.headers.set('Permissions-Policy', 'camera=(), microphone=(), geolocation=(), interest-cohort=()')
+  
   return response
 }
 
 export function proxy(request: NextRequest) {
-  // Prevent direct /m access — canonical URL is always /
-  if (request.nextUrl.pathname === "/m") {
-    const url = request.nextUrl.clone()
-    url.pathname = "/"
-    return withUserAgentVary(NextResponse.redirect(url))
+  const { pathname } = request.nextUrl
+
+  // --- 🔒 SEGURANÇA: ADMIN API PROTECTION ---
+  if (pathname.startsWith('/api/admin') && pathname !== '/api/admin/verify') {
+    const session = request.cookies.get('intelekta_admin_session')
+    if (!session) {
+      return NextResponse.json({ error: 'Auth required' }, { status: 401 })
+    }
   }
 
-  if (request.nextUrl.pathname !== "/") {
-    return withUserAgentVary(NextResponse.next())
+  // --- 📱 ROUTING: MOBILE vs DESKTOP ---
+  
+  // Prevent direct /m access
+  if (pathname === "/m") {
+    const url = request.nextUrl.clone()
+    url.pathname = "/"
+    return injectSecurityAndVary(NextResponse.redirect(url))
+  }
+
+  // Only handle root for mobile rewrite
+  if (pathname !== "/") {
+    return injectSecurityAndVary(NextResponse.next())
   }
 
   const deviceVariant = getDeviceVariantFromUserAgent(
@@ -37,16 +71,24 @@ export function proxy(request: NextRequest) {
   )
 
   if (deviceVariant !== "mobile") {
-    return withUserAgentVary(NextResponse.next())
+    return injectSecurityAndVary(NextResponse.next())
   }
 
-  // Rewrite (not redirect) so the URL bar stays on / for mobile users
+  // Rewrite for mobile users
   const url = request.nextUrl.clone()
   url.pathname = "/m"
 
-  return withUserAgentVary(NextResponse.rewrite(url))
+  return injectSecurityAndVary(NextResponse.rewrite(url))
 }
 
 export const config = {
-  matcher: ["/", "/m"],
+  matcher: [
+    /*
+     * Match all request paths except for the ones starting with:
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico (favicon file)
+     */
+    '/((?!_next/static|_next/image|favicon.ico).*)',
+  ],
 }

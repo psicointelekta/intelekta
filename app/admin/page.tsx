@@ -27,6 +27,7 @@ export default function AdminPage() {
   const [isActionLoading, setIsActionLoading] = useState(false)
   const [isUploading, setIsUploading] = useState(false)
   const [editingIndex, setEditingIndex] = useState<number | null>(null)
+  const [botField, setBotField] = useState("") // Honey Pot
   
   const [newData, setNewData] = useState<Announcement>({
     date: "15 de Abril",
@@ -42,22 +43,19 @@ export default function AdminPage() {
   const [previewUrl, setPreviewUrl] = useState<string | null>(null)
 
   useEffect(() => {
-    const savedPass = localStorage.getItem('intelekta_admin_pass')
-    if (savedPass) {
-      setPassword(savedPass)
-      setIsAuthenticated(true)
-      fetchAnnouncementsDirectly(savedPass)
-    }
+    checkSession()
   }, [])
 
-  async function fetchAnnouncementsDirectly(savedPass: string) {
+  async function checkSession() {
     setIsLoading(true)
     try {
-      const res = await fetch('/api/announcements')
+      const res = await fetch('/api/admin/verify')
       if (res.ok) {
-        const data = await res.json()
-        setAnnouncements(data)
+        setIsAuthenticated(true)
+        fetchAnnouncements()
       }
+    } catch (err) {
+      console.error("Session check error:", err)
     } finally {
       setIsLoading(false)
     }
@@ -78,14 +76,29 @@ export default function AdminPage() {
 
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault()
-    if (!password) return
-    localStorage.setItem('intelekta_admin_pass', password)
-    setIsAuthenticated(true)
-    fetchAnnouncements()
+    if (!password || botField) return // Honey pot check
+    setIsActionLoading(true)
+    try {
+      const res = await fetch('/api/admin/verify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password })
+      })
+      if (res.ok) {
+        setIsAuthenticated(true)
+        fetchAnnouncements()
+      } else {
+        alert("Senha incorreta.")
+      }
+    } catch (err) {
+      alert("Erro ao conectar com o servidor.")
+    } finally {
+      setIsActionLoading(false)
+    }
   }
 
   function handleLogout() {
-    localStorage.removeItem('intelekta_admin_pass')
+    // Session is handled by cookie, but we can clear local state
     setIsAuthenticated(false)
     setPassword("")
   }
@@ -99,18 +112,18 @@ export default function AdminPage() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
-          password, 
           action: isEditing ? 'update' : 'add', 
           data: isEditing ? { ...newData, index: editingIndex } : newData 
         })
       })
       if (res.ok) {
-        setNewData({ date: "15 de Abril", category: "WORKSHOP", title: "Título da Novidade", description: "", imageUrl: "", linkUrl: "", imagePosition: "50% 50%" })
+        setNewData({ date: "15 de Abril", category: "WORKSHOP", title: "Título da Novidade", description: "", imageUrl: "", linkUrl: "", imagePosition: "50% 50%", imageZoom: "1" })
         setPreviewUrl(null)
         setEditingIndex(null)
         fetchAnnouncements()
       } else {
-        alert("Erro ao " + (isEditing ? "editar" : "adicionar") + ". Verifique a senha.")
+        alert("Erro na operação. Sua sessão pode ter expirado.")
+        if (res.status === 401) setIsAuthenticated(false)
       }
     } finally {
       setIsActionLoading(false)
@@ -142,7 +155,6 @@ export default function AdminPage() {
     setIsUploading(true)
     const formData = new FormData()
     formData.append('file', file)
-    formData.append('password', password)
 
     try {
       const res = await fetch('/api/admin/upload', {
@@ -166,7 +178,7 @@ export default function AdminPage() {
     try {
       const res = await fetch('/api/admin/announcements', {
         method: 'POST',
-        body: JSON.stringify({ password, action: 'delete', data: { index } })
+        body: JSON.stringify({ action: 'delete', data: { index } })
       })
       if (res.ok) {
         fetchAnnouncements()
@@ -190,6 +202,15 @@ export default function AdminPage() {
             <p className="text-muted-foreground text-sm mt-2">Digite a senha administrativa da Intelekta</p>
           </div>
           <form onSubmit={handleLogin} className="space-y-4">
+            <div className="hidden">
+              <input 
+                type="text" 
+                value={botField} 
+                onChange={e => setBotField(e.target.value)} 
+                tabIndex={-1} 
+                autoComplete="off" 
+              />
+            </div>
             <Input 
               type="password" 
               placeholder="Senha" 

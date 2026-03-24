@@ -7,11 +7,7 @@ const TAB_NAME = process.env.GOOGLE_SHEET_TAB_NEWS || 'Novidades'
 
 export async function POST(req: Request) {
   try {
-    const { password, action, data } = await req.json()
-
-    if (password !== process.env.ADMIN_PASSWORD) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-    }
+    const { action, data } = await req.json()
 
     const sheets = await getGoogleSheets()
 
