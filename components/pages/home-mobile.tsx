@@ -32,6 +32,7 @@ import {
   DeferredMobileFaq,
   DeferredMobileTestimonialsCarousel,
 } from "@/components/pages/mobile-deferred-widgets"
+import { Announcements } from "@/components/sections/announcements"
 import { MobileHomeHeader } from "@/components/pages/mobile-home-header"
 import { ProgramCtaLink } from "@/components/program-cta-link"
 import { ProgramAwareWhatsappLink } from "@/components/program-aware-whatsapp-link"
@@ -664,6 +665,8 @@ export function HomeMobile() {
                 ))}
               </div>
             </div>
+
+            <Announcements />
 
           </div>
         </section>

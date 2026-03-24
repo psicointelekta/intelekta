@@ -17,7 +17,8 @@ Guia completo para a equipe da Intelekta sobre como acompanhar leads, acessar da
 - [9. Como Funciona o Formulário de Contato](#9-como-funciona-o-formulário-de-contato)
 - [10. Dashboard da Vercel (Hospedagem)](#10-dashboard-da-vercel-hospedagem)
 - [11. Perguntas Frequentes](#11-perguntas-frequentes)
-- [12. Contato para Suporte Técnico](#12-contato-para-suporte-técnico)
+- [12. Como Atualizar as Novidades e Avisos (Carrossel)](#12-como-atualizar-as-novidades-e-avisos-carrossel)
+- [13. Contato para Suporte Técnico](#13-contato-para-suporte-técnico)
 
 ---
 
@@ -345,7 +346,34 @@ Envie ao desenvolvedor:
 
 ---
 
-## 12. Contato para Suporte Técnico
+## 12. Como Atualizar as Novidades e Avisos (Carrossel)
+
+Agora o site possui uma seção de **Novidades** que você mesma pode atualizar através de uma nova aba na sua planilha.
+
+### Como atualizar
+
+1. Abra a mesma planilha onde chegam os leads.
+2. Clique na aba **"Novidades"** (caso não exista, peça ao desenvolvedor para criar).
+3. Cada linha preenchida (da linha 2 em diante) aparecerá como um card no carrossel do site.
+
+### Colunas que você deve preencher:
+
+| Coluna | O que colocar | Exemplo |
+| :--- | :--- | :--- |
+| **A — Data** | A data que aparecerá no card | 15 de Abril |
+| **B — Categoria** | O tipo de aviso (curto, em maiúsculas) | WORKSHOP, EVENTO, AVISO |
+| **C — Título** | O título principal da novidade | Novo Workshop de Neuroplasticidade |
+| **D — Descrição** | Um texto explicativo curto | Venha aprender técnicas práticas para... |
+| **E — ImagemURL** | Link de uma imagem (opcional) | https://imagem.com/foto.jpg |
+| **F — LinkURL** | Para onde o botão "Saiba mais" leva | https://instagram.com/p/abc123/ |
+
+### Dicas para Imagens:
+- Se você não colocar uma imagem, o site exibirá um ícone padrão.
+- Você pode usar links de fotos que já subiu no Google Drive (com acesso público), Instagram ou serviços como Imgur.
+
+---
+
+## 13. Contato para Suporte Técnico
 
 Para qualquer questão técnica relacionada ao site:
 

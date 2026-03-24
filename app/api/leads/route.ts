@@ -10,7 +10,7 @@
  * low-traffic site; not suitable for multi-instance deployments.
  */
 import { NextRequest, NextResponse } from 'next/server'
-import { google } from 'googleapis'
+import { getGoogleSheets, SPREADSHEET_ID } from '@/lib/google-sheets'
 
 export const runtime = 'nodejs'
 
@@ -66,23 +66,10 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Muitas tentativas. Tente novamente em alguns minutos.' }, { status: 429 })
     }
 
-    const serviceEmail = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL
-    const privateKey = process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, '\n')
-    const sheetId = process.env.GOOGLE_SHEET_ID
+    const sheetId = SPREADSHEET_ID
     const sheetTab = process.env.GOOGLE_SHEET_TAB || 'Leads'
 
-    if (!serviceEmail || !privateKey || !sheetId) {
-      console.warn('Google Sheets envs ausentes')
-      return NextResponse.json({ ok: false, reason: 'Missing envs' }, { status: 500 })
-    }
-
-    const auth = new google.auth.JWT({
-      email: serviceEmail,
-      key: privateKey,
-      scopes: ['https://www.googleapis.com/auth/spreadsheets'],
-    })
-
-    const sheets = google.sheets({ version: 'v4', auth })
+    const sheets = await getGoogleSheets()
 
     const HEADERS = [
       'Data/Hora',
