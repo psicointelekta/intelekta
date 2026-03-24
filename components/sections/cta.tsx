@@ -20,9 +20,9 @@ export function Cta() {
           transition={{ duration: 0.6 }}
           className="relative overflow-hidden rounded-2xl sm:rounded-3xl bg-gradient-to-br from-primary via-primary to-accent p-8 sm:p-10 lg:p-16"
         >
-          {/* Background decoration */}
-          <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,0.03)_25%,rgba(255,255,255,0.03)_50%,transparent_50%,transparent_75%,rgba(255,255,255,0.03)_75%)] bg-[length:48px_48px]" />
-          <div className="absolute top-0 right-0 w-64 sm:w-80 h-64 sm:h-80 rounded-full bg-white/8 blur-3xl" />
+          {/* Background decoration Refined */}
+          <div className="absolute inset-0 bg-[radial-gradient(circle,rgba(255,255,255,0.07)_1px,transparent_1px)] bg-[length:32px_32px] pointer-events-none" />
+          <div className="absolute top-0 right-0 w-64 sm:w-80 h-64 sm:h-80 rounded-full bg-white/10 blur-3xl pointer-events-none" />
 
           <div className="relative z-10 grid lg:grid-cols-2 gap-8 items-center">
             {/* Text */}

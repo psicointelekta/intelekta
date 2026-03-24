@@ -72,8 +72,8 @@ export function Methodology() {
       <div className="pointer-events-none absolute bottom-0 left-0 h-[500px] w-[500px] rounded-full bg-secondary/[0.04] blur-[120px]" />
       <div className="pointer-events-none absolute -right-20 top-40 h-[400px] w-[400px] rounded-full bg-primary/[0.035] blur-[100px]" />
 
-      {/* Dot matrix texture */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle,var(--primary)_0.5px,transparent_0.5px)] bg-[length:40px_40px] opacity-[0.02]" />
+      {/* Dot matrix texture Refined */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle,var(--primary)_0.5px,transparent_0.5px)] bg-[length:32px_32px] opacity-[0.015] pointer-events-none" />
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 

@@ -58,8 +58,8 @@ export function About() {
       <div className="absolute inset-0 bg-background" />
       <div className="pointer-events-none absolute right-0 top-0 h-[500px] w-[500px] rounded-full bg-primary/[0.035] blur-[120px]" />
       <div className="pointer-events-none absolute -left-20 bottom-20 h-[400px] w-[400px] rounded-full bg-secondary/[0.04] blur-[100px]" />
-      {/* Diagonal lines texture */}
-      <div className="absolute inset-0 bg-[repeating-linear-gradient(135deg,transparent,transparent_60px,var(--primary)_60px,var(--primary)_60.5px)] opacity-[0.018]" />
+      {/* Diagonal lines texture Refined */}
+      <div className="absolute inset-0 bg-[repeating-linear-gradient(135deg,transparent,transparent_80px,var(--primary)_80px,var(--primary)_80.5px)] opacity-[0.012] pointer-events-none" />
 
       {/* Marquee keyframes */}
       <style>{`

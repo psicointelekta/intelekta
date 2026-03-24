@@ -98,9 +98,10 @@ export function Hero() {
           aria-hidden
         />
 
-        {/* ── Grid lines ── */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,var(--border)_1px,transparent_1px)] bg-[length:80px_100%] opacity-[0.05] pointer-events-none" />
-        <div className="absolute inset-0 bg-[linear-gradient(to_bottom,var(--border)_1px,transparent_1px)] bg-[length:100%_80px] opacity-[0.05] pointer-events-none" />
+        {/* ── Grid lines Refined ── */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,var(--border)_1px,transparent_1px)] bg-[length:80px_100%] opacity-[0.04] pointer-events-none" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_bottom,var(--border)_1px,transparent_1px)] bg-[length:100%_80px] opacity-[0.04] pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle,var(--primary)_0.5px,transparent_0.5px)] bg-[length:40px_40px] opacity-[0.1] [mask-image:radial-gradient(ellipse_at_center,black,transparent_80%)] pointer-events-none" />
 
         {/* ── Neural network ── */}
         <div className="absolute inset-0 pointer-events-none">
