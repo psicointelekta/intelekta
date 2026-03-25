@@ -22,7 +22,7 @@ async function getAnnouncements() {
     const sheetTab = process.env.GOOGLE_SHEET_TAB_NEWS || 'Novidades'
     const response = await sheets.spreadsheets.values.get({
       spreadsheetId: SPREADSHEET_ID,
-      range: `${sheetTab}!A2:F10`,
+      range: `${sheetTab}!A2:H10`,
     })
 
     const rows = response.data.values || []
@@ -33,6 +33,8 @@ async function getAnnouncements() {
       description: row[3] || '',
       imageUrl: row[4] || '',
       linkUrl: row[5] || '',
+      imagePosition: row[6] || '50% 50%',
+      imageZoom: row[7] || '1',
     }))
   } catch (error) {
     console.error('Error fetching announcements for mobile home:', error)

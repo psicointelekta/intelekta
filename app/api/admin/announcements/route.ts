@@ -52,6 +52,44 @@ export async function POST(req: Request) {
       return NextResponse.json({ success: true })
     }
 
+    if (action === 'move') {
+      const { index, direction } = data // index: current row index (0-based), direction: 'up' or 'down'
+      
+      const sheet = await sheets.spreadsheets.get({
+        spreadsheetId: SPREADSHEET_ID,
+      })
+      
+      const tab = sheet.data.sheets?.find(s => s.properties?.title === TAB_NAME)
+      if (!tab) throw new Error('Tab not found')
+      
+      const sheetId = tab.properties?.sheetId
+      const fromIndex = index + 1 // 1-based index (Header is row 1, index 0 is row 2)
+      const destinationIndex = direction === 'up' ? fromIndex - 1 : fromIndex + 1
+
+      // Don't move up if it's already at the top (row 2)
+      if (direction === 'up' && fromIndex <= 1) return NextResponse.json({ success: true })
+      
+      await sheets.spreadsheets.batchUpdate({
+        spreadsheetId: SPREADSHEET_ID,
+        requestBody: {
+          requests: [
+            {
+              moveDimension: {
+                source: {
+                  sheetId,
+                  dimension: 'ROWS',
+                  startIndex: fromIndex,
+                  endIndex: fromIndex + 1,
+                },
+                destinationIndex: destinationIndex < fromIndex ? destinationIndex : destinationIndex + 1,
+              },
+            },
+          ],
+        },
+      })
+      return NextResponse.json({ success: true })
+    }
+
     if (action === 'delete') {
       const { index } = data // Zero-based index from the fetched list (row 2 = index 0)
       

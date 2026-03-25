@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server'
+import { cookies } from 'next/headers'
 
 /**
  * BIG TECH SECURITY LOGIN
@@ -10,10 +11,9 @@ export async function POST(req: Request) {
     const { password } = await req.json()
 
     if (password === process.env.ADMIN_PASSWORD) {
-      const response = NextResponse.json({ success: true })
-      
       // Setting Cookie with BigTech security flags
-      response.cookies.set('intelekta_admin_session', 'authenticated', {
+      const cookieStore = await cookies()
+      cookieStore.set('intelekta_admin_session', 'authenticated', {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
         sameSite: 'strict',
@@ -21,7 +21,7 @@ export async function POST(req: Request) {
         path: '/',
       })
       
-      return response
+      return NextResponse.json({ success: true })
     } else {
       return NextResponse.json({ success: false }, { status: 401 })
     }
@@ -34,10 +34,22 @@ export async function POST(req: Request) {
  * GET /api/admin/verify
  * Silent session check
  */
-export async function GET(req: Request) {
-  const cookieStore = req.headers.get('cookie')
-  if (cookieStore?.includes('intelekta_admin_session=authenticated')) {
+export async function GET() {
+  const cookieStore = await cookies()
+  const session = cookieStore.get('intelekta_admin_session')
+  
+  if (session?.value === 'authenticated') {
     return NextResponse.json({ authenticated: true })
   }
   return NextResponse.json({ authenticated: false }, { status: 401 })
+}
+
+/**
+ * DELETE /api/admin/verify
+ * Logout
+ */
+export async function DELETE() {
+  const cookieStore = await cookies()
+  cookieStore.delete('intelekta_admin_session')
+  return NextResponse.json({ success: true })
 }

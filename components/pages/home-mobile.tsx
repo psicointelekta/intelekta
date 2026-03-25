@@ -45,6 +45,8 @@ export interface Announcement {
   description: string
   imageUrl?: string
   linkUrl?: string
+  imagePosition?: string
+  imageZoom?: string
 }
 const heroCards = [
   { src: "/images/hero-mobile-1.webp", alt: "Criança em atividade lúdica de neuroeducação" },
@@ -524,7 +526,9 @@ export function HomeMobile({ announcements = [] }: { announcements?: Announcemen
                         category: a.category,
                         description: a.description,
                         date: a.date,
-                        link: ensureAbsoluteUrl(a.linkUrl || "")
+                        link: ensureAbsoluteUrl(a.linkUrl || ""),
+                        imagePosition: a.imagePosition || '50% 50%',
+                        imageZoom: a.imageZoom || '1'
                       }))
                     : heroCards.map(c => ({
                         ...c,
@@ -543,7 +547,7 @@ export function HomeMobile({ announcements = [] }: { announcements?: Announcemen
                           Novidades Intelekta
                         </h4>
                       </div>
-                      <DeferredMobileNewsCarousel items={activeItems} />
+                      <DeferredMobileNewsCarousel key={announcements.length + (announcements[0]?.title || '')} items={activeItems} />
                     </div>
                   )
                 })()}

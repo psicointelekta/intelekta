@@ -22,8 +22,9 @@ import {
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
-import { ArrowRight, MapPin, ChevronDown, ChevronLeft, ChevronRight, Loader2 } from "lucide-react"
+import { ArrowRight, MapPin, ChevronDown, ChevronLeft, ChevronRight, Loader2, Plus } from "lucide-react"
 import { NeuralTree } from "@/components/neural-tree"
+import { MobileNewsCarousel } from "@/components/pages/mobile-news-carousel"
 import { useEffect, useState, useCallback } from "react"
 import { track } from "@vercel/analytics/react"
 
@@ -103,9 +104,7 @@ export function Hero() {
   const [wordIndex, setWordIndex] = useState(0)
   const [announcements, setAnnouncements] = useState<Announcement[]>([])
   const [currentImage, setCurrentImage] = useState(0)
-  const [currentMobileImage, setCurrentMobileImage] = useState(0)
   const [imageResetKey, setImageResetKey] = useState(0)
-  const [mobileResetKey, setMobileResetKey] = useState(0)
   const [isInitialLoad, setIsInitialLoad] = useState(true)
 
   useEffect(() => {
@@ -158,11 +157,7 @@ export function Hero() {
     return () => clearInterval(id)
   }, [imageResetKey, displayImages.length])
 
-  useEffect(() => {
-    if (displayImages.length === 0) return
-    const id = setInterval(() => setCurrentMobileImage((i) => (i + 1) % displayImages.length), 3000)
-    return () => clearInterval(id)
-  }, [mobileResetKey, displayImages.length])
+  // Mobile carousel is now handled by its own component with drag support
 
   return (
     <LazyMotion features={domAnimation} strict>
@@ -340,80 +335,18 @@ export function Hero() {
                   transition={{ duration: 0.6, delay: 0.45 }}
                   className="mt-8 lg:hidden"
                 >
-                  <div className="relative aspect-[16/9] w-full rounded-2xl overflow-hidden bg-muted shadow-lg ring-1 ring-white/10">
-                    {isInitialLoad && (
-                      <div className="absolute inset-0 flex items-center justify-center bg-neutral-900/50 backdrop-blur-sm">
+                  {isInitialLoad ? (
+                    <div className="relative aspect-[4/3] w-full rounded-2xl overflow-hidden bg-muted shadow-lg ring-1 ring-white/10 flex items-center justify-center bg-neutral-900/50 backdrop-blur-sm">
                         <div className="flex flex-col items-center gap-3">
                           <Loader2 className="w-6 h-6 text-primary animate-spin" />
                           <span className="text-[10px] uppercase tracking-widest text-muted-foreground animate-pulse">
                             Buscando novidades...
                           </span>
                         </div>
-                      </div>
-                    )}
-                    <AnimatePresence mode="wait">
-                      {displayImages.map((img, index) => index === currentMobileImage && (
-                        <m.div
-                          key={index + mobileResetKey}
-                          initial={{ opacity: 0, x: 20 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          exit={{ opacity: 0, x: -20 }}
-                          transition={{ duration: 0.5 }}
-                          className="absolute inset-0"
-                        >
-                          {img.link ? (
-                            <Link href={img.link} className="block w-full h-full relative">
-                              <Image
-                                src={img.src}
-                                alt={img.alt}
-                                fill
-                                className="object-cover"
-                                sizes="90vw"
-                                priority
-                              />
-                            </Link>
-                          ) : (
-                            <Image
-                              src={img.src}
-                              alt={img.alt}
-                              fill
-                              className="object-cover"
-                              sizes="90vw"
-                              priority
-                            />
-                          )}
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent flex flex-col justify-end p-5 pointer-events-none">
-                            <div className="flex items-center gap-2 mb-1.5">
-                              <span className="inline-block px-1.5 py-0.5 bg-primary text-[8px] font-bold tracking-widest text-primary-foreground rounded-sm uppercase">
-                                {img.category}
-                              </span>
-                              {img.date && (
-                                <span className="text-[8px] font-medium text-white/50">{img.date}</span>
-                              )}
-                            </div>
-                            <h3 className="font-serif text-lg font-bold text-white leading-tight mb-0.5 line-clamp-1">
-                              {img.title}
-                            </h3>
-                            <p className="text-white/70 text-[10px] line-clamp-1 font-light italic">
-                              {img.description}
-                            </p>
-                          </div>
-                        </m.div>
-                      ))}
-                    </AnimatePresence>
-                  </div>
-                  <div className="flex gap-1.5 mt-4 justify-center">
-                    {displayImages.map((_, index) => (
-                      <button
-                        key={index}
-                        onClick={() => { setCurrentMobileImage(index); setMobileResetKey((k) => k + 1) }}
-                        className={`h-1 rounded-full transition-all duration-300 ${
-                          index === currentMobileImage ? "w-6 bg-primary" : "w-1.5 bg-white/20"
-                        }`}
-                        aria-label={`Ver imagem ${index + 1}`}
-                      />
-                    ))}
-                  </div>
+                    </div>
+                  ) : (
+                    <MobileNewsCarousel items={displayImages} />
+                  )}
                 </m.div>
 
                 {/* Trust indicators */}
@@ -512,7 +445,7 @@ export function Hero() {
                             />
                           )}
                           
-                          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent flex flex-col justify-end p-8 xl:p-10">
+                          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent flex flex-col justify-end px-8 pt-8 pb-14 xl:px-10 xl:pt-10 xl:pb-16">
                             <m.div
                               initial={{ opacity: 0, y: 20 }}
                               animate={{ opacity: 1, y: 0 }}
@@ -522,21 +455,22 @@ export function Hero() {
                                 <span className="inline-block px-3 py-1 bg-primary/90 text-[10px] font-bold tracking-[0.2em] text-primary-foreground rounded-full backdrop-blur-sm uppercase">
                                   {img.category || "Novidade"}
                                 </span>
-                                {img.date && (
-                                  <div className="flex items-center gap-2 ml-1">
-                                    <div className="w-1.5 h-1.5 rounded-full bg-primary shadow-[0_0_8px_rgba(var(--primary),0.5)]" />
-                                    <span className="text-[10px] font-bold text-white tracking-widest uppercase">
-                                      {img.date}
-                                    </span>
-                                  </div>
-                                )}
                               </div>
+                              {img.date && (
+                                <div className="absolute top-4 right-4 z-20 px-3 py-1.5 bg-black/40 backdrop-blur-md rounded-lg border border-white/10 text-[10px] text-white/90 font-medium whitespace-nowrap">
+                                  {img.date}
+                                </div>
+                              )}
                               <h3 className="font-serif text-3xl xl:text-4xl font-bold text-white leading-[1.1] mb-3 drop-shadow-sm">
                                 {img.title}
                               </h3>
-                              <p className="text-white/70 text-sm xl:text-base line-clamp-2 font-light leading-relaxed max-w-[90%]">
+                              <p className="text-white/70 text-sm xl:text-base line-clamp-3 font-light leading-relaxed max-w-[90%]">
                                 {img.description}
                               </p>
+                              <div className="pt-2 text-xs font-semibold text-primary flex items-center gap-2">
+                                Saiba mais
+                                <Plus className="w-3 h-3" />
+                              </div>
                             </m.div>
                           </div>
                         </m.div>
@@ -556,22 +490,22 @@ export function Hero() {
                         ))}
                       </div>
                       
-                      <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <div className="flex gap-2 z-30">
                         <Button 
                           variant="ghost" 
                           size="icon" 
-                          className="w-8 h-8 rounded-full border border-white/20 text-white hover:bg-white/20"
+                          className="w-10 h-10 rounded-full border border-white/40 text-white bg-black/20 hover:bg-white/20 backdrop-blur-sm transition-all shadow-lg"
                           onClick={(e) => { e.stopPropagation(); setCurrentImage(i => (i - 1 + displayImages.length) % displayImages.length); setImageResetKey(k => k + 1) }}
                         >
-                          <ChevronLeft className="w-4 h-4" />
+                          <ChevronLeft className="w-5 h-5" />
                         </Button>
                         <Button 
                           variant="ghost" 
                           size="icon" 
-                          className="w-8 h-8 rounded-full border border-white/20 text-white hover:bg-white/20"
+                          className="w-10 h-10 rounded-full border border-white/40 text-white bg-black/20 hover:bg-white/20 backdrop-blur-sm transition-all shadow-lg"
                           onClick={(e) => { e.stopPropagation(); setCurrentImage(i => (i + 1) % displayImages.length); setImageResetKey(k => k + 1) }}
                         >
-                          <ChevronRight className="w-4 h-4" />
+                          <ChevronRight className="w-5 h-5" />
                         </Button>
                       </div>
                     </div>
