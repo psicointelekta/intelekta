@@ -1,4 +1,4 @@
-/** Standalone Nino mascot section — currently inlined in the About section. */
+/** Standalone mascot section — showcasing the octopus metaphor for multifaceted intelligence. */
 "use client"
 
 import { motion, useInView } from "framer-motion"
@@ -10,22 +10,22 @@ const qualities = [
   {
     icon: Sparkles,
     title: "Curiosidade",
-    description: "Assim como o esquilo que explora cada canto da floresta, incentivamos a busca constante por conhecimento.",
+    description: "Assim como o polvo que explora cada fenda do oceano, incentivamos a busca constante por novas descobertas.",
   },
   {
     icon: Scale,
-    title: "Equilíbrio",
-    description: "Nino nos lembra que razão e emoção devem caminhar juntas para uma vida plena e significativa.",
+    title: "Adaptabilidade",
+    description: "Nossa essência é a flexibilidade para transformar desafios em oportunidades de crescimento.",
   },
   {
     icon: Heart,
-    title: "Acolhimento",
-    description: "Representa o ambiente seguro e afetuoso que criamos para cada pessoa que confia em nós.",
+    title: "Conexão",
+    description: "Representa a inteligência que une razão, emoção e ação em um só propósito de cuidado.",
   },
   {
     icon: Lightbulb,
-    title: "Aprendizado",
-    description: "Simboliza a alegria de descobrir, de superar desafios e de crescer a cada dia.",
+    title: "Multisensorial",
+    description: "Simboliza a capacidade de aprender e se desenvolver através de múltiplas perspectivas e estímulos.",
   },
 ]
 
@@ -37,7 +37,7 @@ export function Mascot() {
     <section className="py-20 lg:py-32 bg-background overflow-hidden" ref={ref}>
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          {/* Nino Image */}
+          {/* Mascot Image */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
@@ -48,11 +48,11 @@ export function Mascot() {
               {/* Background decoration */}
               <div className="absolute inset-0 rounded-full bg-gradient-to-br from-secondary/20 to-primary/10 blur-3xl scale-75" />
               
-              {/* Nino Image */}
+              {/* Mascot Image */}
               <div className="relative">
                 <Image
-                  src="/images/nino-mascote.webp"
-                  alt="Nino - Mascote da Intelekta, um esquilo simpático vestindo uma camiseta verde com o logo da árvore"
+                  src="/images/polvo-intelekta.png"
+                  alt="Polvo Intelekta - Mascote que representa a inteligência adaptável e multifacetada"
                   width={500}
                   height={600}
                   className="relative z-10 w-full h-auto drop-shadow-2xl"
@@ -97,16 +97,16 @@ export function Mascot() {
             className="order-1 lg:order-2"
           >
             <span className="inline-block text-sm font-medium text-primary uppercase tracking-wider mb-4">
-              Conheça o Nino
+              Conheça o nosso mascote
             </span>
             <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-black text-foreground leading-[1.04] tracking-[-0.03em] mb-6 text-balance">
               Nosso mascote, nossa filosofia
             </h2>
             <p className="text-base sm:text-lg text-muted-foreground leading-relaxed mb-8">
-              Nino é um esquilo curioso que representa a essência da Intelekta: 
-              a busca pelo conhecimento aliada ao equilíbrio emocional. Ele nos 
-              lembra que aprender pode ser uma jornada prazerosa quando cultivamos 
-              curiosidade e cuidamos de nossas emoções.
+              O Polvo Intelekta representa nossa essência: a inteligência 
+              multifacetada e a capacidade de adaptação constante. Ele nos 
+              lembra que o desenvolvimento humano é uma jornada rica e conectada, 
+              onde cada descoberta abre novos caminhos para o potencial de cada um.
             </p>
 
             <div className="grid sm:grid-cols-2 gap-5 sm:gap-6">

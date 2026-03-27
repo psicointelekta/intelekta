@@ -37,6 +37,8 @@ import { MobileHomeHeader } from "@/components/pages/mobile-home-header"
 import { ProgramCtaLink } from "@/components/program-cta-link"
 import { ProgramAwareWhatsappLink } from "@/components/program-aware-whatsapp-link"
 import { ProgramDiscovery } from "@/components/sections/program-discovery"
+import { Programs } from "@/components/sections/programs"
+import { programs } from "@/lib/program-catalog"
 
 export interface Announcement {
   date: string
@@ -144,106 +146,6 @@ const steps: ReadonlyArray<MethodologyStep> = [
     desc: "Medição de resultados e refinamento constante do processo.",
   },
 ]
-
-const ageStages = [
-  {
-    phase: "Crianças",
-    age: "5–12 anos",
-    description: "Estimulamos atenção, memória, linguagem e coordenação de forma lúdica e acolhedora.",
-  },
-  {
-    phase: "Adolescentes",
-    age: "13–17 anos",
-    description: "Foco em funções executivas, controle emocional e autonomia nos estudos.",
-  },
-  {
-    phase: "Adultos",
-    age: "18–59 anos",
-    description: "Produtividade, gestão do estresse, resolução de problemas e tomada de decisão.",
-  },
-  {
-    phase: "Idosos",
-    age: "60+ anos",
-    description: "Prevenção do declínio cognitivo com foco em memória, autonomia e qualidade de vida.",
-  },
-] as const
-
-const programs = [
-  {
-    id: "neuroeducacao",
-    number: "01",
-    title: "Neuroeducação",
-    subtitle: "Programa multidisciplinar 100% lúdico",
-    description:
-      "Desenvolve, estimula e reabilita a mente em todas as idades através de jogos, brincadeiras, oficinas criativas e atividades sensório-motoras. Fundamentado em neuroplasticidade.",
-    tags: ["Todas as idades", "Lúdico", "Neuroplasticidade"],
-    image: "/images/program-infantil.webp",
-  },
-  {
-    id: "xadrez",
-    number: "02",
-    title: "Xadrez Pedagógico",
-    subtitle: "Estratégia que transforma o pensar",
-    description:
-      "Programa pedagógico que utiliza o xadrez para desenvolver atenção, memória, raciocínio lógico, planejamento e autorregulação emocional.",
-    tags: ["Raciocínio lógico", "Estratégia", "Foco"],
-    image: "/images/activity-children-chess.webp",
-  },
-  {
-    id: "musicoterapia",
-    number: "03",
-    title: "Musicoterapia",
-    subtitle: "A música como ferramenta terapêutica",
-    description:
-      "Utiliza instrumentos, canto, ritmo, escuta guiada e movimento corporal para desenvolver capacidades cognitivas e socioemocionais. Inclui programa especial para mães e bebês.",
-    tags: ["Expressão", "Bem-estar", "Mães e bebês"],
-    image: "/images/program-adolescente.webp",
-  },
-  {
-    id: "cubo-magico",
-    number: "04",
-    title: "Cubo Mágico",
-    subtitle: "Desafio que expande a mente",
-    description:
-      "Trabalha atenção, foco, raciocínio lógico e espacial, planejamento, memória e persistência através da resolução do cubo mágico.",
-    tags: ["Raciocínio espacial", "Persistência", "Memória"],
-    image: "/images/activity-children-rubiks.webp",
-  },
-  {
-    id: "reforco-escolar",
-    number: "05",
-    title: "Reforço Escolar",
-    subtitle: "Apoio personalizado que respeita o ritmo",
-    description:
-      "Programa lúdico voltado da Educação Infantil ao Ensino Médio, com foco no desenvolvimento acadêmico e socioemocional através de jogos educativos e estratégias pedagógicas.",
-    tags: ["Infantil ao Médio", "Personalizado", "Acadêmico"],
-    image: "/images/activity-teens-study.webp",
-  },
-  {
-    id: "neurole",
-    number: "06",
-    title: "Neurolê",
-    subtitle: "Alfabetização lúdica e sensorial",
-    description:
-      "Programa de alfabetização inclusiva para crianças atípicas, utilizando abordagem lúdica e sensorial para desenvolver habilidades de leitura e escrita de forma acolhedora.",
-    tags: ["Inclusivo", "Crianças atípicas", "Sensorial"],
-    image: "/images/program-infantil.webp",
-  },
-  {
-    id: "psicopedagogia",
-    number: "07",
-    title: "Psicopedagogia",
-    subtitle: "Acompanhamento especializado",
-    description:
-      "Atendimento especializado em dificuldades de aprendizagem, com acompanhamento psicopedagógico personalizado que identifica barreiras e constrói caminhos para o desenvolvimento.",
-    tags: ["Especializado", "Dificuldades de aprendizagem", "Individual"],
-    image: "/images/activity-adults.webp",
-  },
-] as const
-
-const featuredProgramIds = new Set<string>(["neuroeducacao", "reforco-escolar", "xadrez", "musicoterapia"])
-const featuredPrograms = programs.filter((program) => featuredProgramIds.has(program.id))
-const additionalPrograms = programs.filter((program) => !featuredProgramIds.has(program.id))
 
 const team = [
   {
@@ -573,125 +475,7 @@ export function HomeMobile({ announcements = [] }: { announcements?: Announcemen
 
         <ProgramDiscovery />
 
-        <section id="programas" className="relative overflow-hidden bg-background px-6 py-16">
-          <div className="pointer-events-none absolute right-0 top-0 h-1/2 w-1/2 bg-gradient-to-bl from-primary/[0.02] to-transparent" />
-
-          <div className="relative mx-auto max-w-7xl space-y-10">
-            <SectionHeader
-              eyebrow="Programas"
-              title={
-                <>
-                  Cada pessoa merece um <span className="text-primary">cuidado especial.</span>
-                </>
-              }
-              description="Selecionamos os atendimentos mais procurados para facilitar a leitura. Se nenhum deles for o ideal, você encontra outras opções logo abaixo."
-            />
-
-            <div className="grid gap-3 sm:grid-cols-2">
-              {ageStages.map((stage) => (
-                <div key={stage.phase} className="rounded-2xl border border-primary/5 bg-muted/30 p-3.5">
-                  <span className="text-xs font-bold uppercase tracking-wider text-foreground">{stage.phase}</span>
-                  <span className="mt-1 block text-[11px] font-medium text-foreground/70">{stage.age}</span>
-                </div>
-              ))}
-            </div>
-
-            <div className="space-y-6">
-              {featuredPrograms.map((program) => (
-                <article key={program.title} className="overflow-hidden rounded-3xl border border-border bg-card/80">
-                  <div className="relative aspect-[16/10] bg-muted">
-                    <Image
-                      src={program.image}
-                      alt={program.title}
-                      fill
-                      className="object-cover"
-                      sizes="100vw"
-                      loading="lazy"
-                    />
-                    <span className="pointer-events-none absolute bottom-2 right-3 select-none font-serif text-[52px] font-bold leading-none text-white/[0.08]">
-                      {program.number}
-                    </span>
-                  </div>
-                  <div className="space-y-4 p-5">
-                    <div>
-                      <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-primary/70">
-                        {program.subtitle}
-                      </p>
-                      <h3 className="mt-2 font-serif text-3xl font-bold leading-tight tracking-[-0.025em] text-foreground">{program.title}</h3>
-                      <p className="mt-3 text-sm leading-7 text-muted-foreground">{program.description}</p>
-                    </div>
-                    <div className="flex flex-wrap gap-2">
-                      {program.tags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="rounded-full border border-primary/15 bg-primary/[0.06] px-2.5 py-1 text-[10px] font-medium uppercase tracking-wider text-primary/80"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                    <ProgramCtaLink
-                      program={program.title}
-                      source={`mobile-programs:${program.id}`}
-                      className="inline-flex items-center gap-2 text-sm font-medium text-primary"
-                    >
-                      Falar sobre este programa
-                      <ChevronRight className="h-4 w-4" />
-                    </ProgramCtaLink>
-                  </div>
-                </article>
-              ))}
-            </div>
-
-            <div className="space-y-4">
-              <div className="flex items-center gap-4">
-                <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-primary/35">
-                  Mais opções
-                </span>
-                <div className="h-px flex-1 bg-gradient-to-r from-primary/10 to-transparent" />
-              </div>
-
-              <div className="grid gap-4">
-                {additionalPrograms.map((program) => (
-                  <article key={program.id} className="overflow-hidden rounded-3xl border border-border bg-card/80">
-                    <div className="grid grid-cols-[112px_1fr] gap-0">
-                      <div className="relative min-h-[140px] bg-muted">
-                        <Image
-                          src={program.image}
-                          alt={program.title}
-                          fill
-                          className="object-cover"
-                          sizes="112px"
-                          loading="lazy"
-                        />
-                      </div>
-                      <div className="p-4">
-                        <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-primary/70">
-                          {program.subtitle}
-                        </p>
-                        <h3 className="mt-1 font-serif text-xl font-bold leading-snug tracking-[-0.02em] text-foreground">
-                          {program.title}
-                        </h3>
-                        <p className="mt-2 text-sm leading-6 text-muted-foreground">
-                          {program.description}
-                        </p>
-                        <ProgramCtaLink
-                          program={program.title}
-                          source={`mobile-programs-compact:${program.id}`}
-                          className="mt-3 inline-flex items-center gap-2 text-sm font-medium text-primary"
-                        >
-                          Ver detalhes
-                          <ChevronRight className="h-4 w-4" />
-                        </ProgramCtaLink>
-                      </div>
-                    </div>
-                  </article>
-                ))}
-              </div>
-            </div>
-
-          </div>
-        </section>
+        <Programs />
 
         <div className="section-divider-dark" />
 
@@ -846,8 +630,8 @@ export function HomeMobile({ announcements = [] }: { announcements?: Announcemen
               <div className="grid gap-4 px-6 py-8">
                 <div className="relative mx-auto h-52 w-52">
                   <Image
-                    src="/images/nino-mascote.webp"
-                    alt="Nino, mascote da Intelekta"
+                    src="/images/polvo-intelekta.png"
+                    alt="Polvo Intelekta, mascote da Intelekta"
                     fill
                     className="object-contain drop-shadow-lg sm:drop-shadow-2xl"
                     sizes="208px"
@@ -855,9 +639,9 @@ export function HomeMobile({ announcements = [] }: { announcements?: Announcemen
                   />
                 </div>
                 <div>
-                  <h3 className="font-serif text-3xl font-bold tracking-[-0.02em] text-foreground">Conheça o Nino</h3>
+                  <h3 className="font-serif text-3xl font-bold tracking-[-0.02em] text-foreground">Conheça o Polvo Intelekta</h3>
                   <p className="mt-3 text-sm leading-7 text-muted-foreground">
-                    Nosso mascote representa a curiosidade incansável, a inteligência ágil e o equilíbrio perfeito entre razão e emoção — qualidades que cultivamos em cada pessoa que passa pela Intelekta.
+                    Nosso mascote representa a flexibilidade, a inteligência multifacetada e as múltiplas formas de aprender e se conectar com o mundo — qualidades que cultivamos em cada pessoa que passa pela Intelekta.
                   </p>
                   <div className="relative mt-6 border-l-[3px] border-primary/40 pl-5">
                     <span className="pointer-events-none absolute -left-1 -top-7 select-none font-serif text-6xl leading-none text-primary/10">

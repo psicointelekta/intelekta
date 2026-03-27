@@ -180,7 +180,7 @@ Para alterar textos no site, envie ao desenvolvedor uma mensagem com:
 | Seção               | O que contém                                 | Exemplo de texto                                    |
 | --------------------- | --------------------------------------------- | --------------------------------------------------- |
 | **Hero**        | Título principal, subtítulo e botões       | "Fortalecendo mentes, emoções e futuros"          |
-| **Sobre**       | Manifesto, valores da Intelekta, card do Nino | "Cada criança é um universo..."                   |
+| **Sobre**       | Manifesto, valores da Intelekta, card do Mascote | "Cada criança é um universo..."                   |
 | **Metodologia** | Os 3 pilares + timeline                       | "Avaliação", "Ativação", "Autonomia"            |
 | **Programas**   | Nomes, descrições e tags dos 7 programas    | "Neuroeducação", "Xadrez Pedagógico", etc.       |
 | **Equipe**      | Nomes, cargos, bios e especialidades          | "Suzidarle Pereira — Psicóloga e Neuropsicóloga" |

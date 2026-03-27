@@ -1,7 +1,9 @@
 "use client"
 
+import { useState, useRef, useEffect } from "react"
 import Image from "next/image"
 import Link from "next/link"
+import { motion, useMotionValue } from "framer-motion"
 import { ArrowRight } from "lucide-react"
 import { track } from "@vercel/analytics/react"
 
@@ -9,9 +11,26 @@ import { PROGRAM_DISCOVERY_PATHS } from "@/lib/program-catalog"
 import { saveProgramSelection } from "@/lib/program-selection"
 
 export function ProgramDiscovery() {
+  const [slideWidth, setSlideWidth] = useState(0)
+  const carouselRef = useRef<HTMLDivElement>(null)
+  const x = useMotionValue(0)
+
   const featuredPaths = PROGRAM_DISCOVERY_PATHS.filter((path) =>
     ["aprendizagem", "cognicao-ludica", "emocao-expressao", "orientacao"].includes(path.id),
   )
+
+  useEffect(() => {
+    const measure = () => {
+      if (!carouselRef.current) return
+      // No mobile usamos um peek de 40px para mostrar que tem mais vindo
+      const peek = window.innerWidth < 1024 ? 40 : 0
+      setSlideWidth(carouselRef.current.offsetWidth - peek)
+    }
+
+    measure()
+    window.addEventListener("resize", measure)
+    return () => window.removeEventListener("resize", measure)
+  }, [])
 
   return (
     <section id="encontrar-programa" className="relative overflow-hidden bg-muted/20 py-16 sm:py-20 lg:py-24">
@@ -35,12 +54,23 @@ export function ProgramDiscovery() {
           </p>
         </div>
 
-        <div className="mt-10 grid gap-4 md:grid-cols-2">
-          {featuredPaths.map((path, index) => (
-            <article
-              key={path.id}
-              className="overflow-hidden rounded-3xl border border-border bg-card/90 shadow-sm transition-transform duration-200 hover:-translate-y-0.5"
-            >
+        <div className="mt-10 overflow-hidden lg:overflow-visible" ref={carouselRef}>
+          {/* Mobile Carousel Wrapper */}
+          <motion.div
+            className="flex flex-row flex-nowrap items-stretch gap-4 lg:grid lg:grid-cols-2 lg:gap-4 w-fit lg:w-full"
+            style={slideWidth > 0 && typeof window !== 'undefined' && window.innerWidth < 1024 ? { x } : {}}
+            drag={slideWidth > 0 && typeof window !== 'undefined' && window.innerWidth < 1024 ? "x" : false}
+            dragConstraints={{
+              left: -(featuredPaths.length - 1) * (slideWidth + 16), // 16 is gap-4
+              right: 0,
+            }}
+          >
+            {featuredPaths.map((path, index) => (
+              <article
+                key={path.id}
+                style={slideWidth > 0 && typeof window !== 'undefined' && window.innerWidth < 1024 ? { width: slideWidth } : {}}
+                className="shrink-0 overflow-hidden rounded-3xl border border-border bg-card/90 shadow-sm transition-transform duration-200 hover:-translate-y-0.5"
+              >
               <div className="relative aspect-[16/10] bg-muted">
                 <Image
                   src={path.image}
@@ -50,7 +80,7 @@ export function ProgramDiscovery() {
                   sizes="(max-width: 768px) 100vw, 50vw"
                   loading="lazy"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-black/5 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
                 <div className="absolute inset-x-4 bottom-4">
                   <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-white/80">
                     {path.eyebrow}
@@ -97,8 +127,9 @@ export function ProgramDiscovery() {
                   <ArrowRight className="h-4 w-4" />
                 </Link>
               </div>
-            </article>
-          ))}
+              </article>
+            ))}
+          </motion.div>
         </div>
 
         <p className="mt-6 text-sm text-muted-foreground">

@@ -2,7 +2,7 @@
  * About section — manifesto-style layout with:
  * - Numbered values list ("Olhar humano", "Acolhimento genuíno"...)
  * - Infinite keyword marquee for visual rhythm
- * - Nino mascot card with founder mission quote
+ * - Mascot card with founder mission quote
  *
  * All animations are scroll-triggered (useInView, once: true).
  */
@@ -182,7 +182,7 @@ export function About() {
           </div>
         </div>
 
-        {/* ── Nino + Mission ────────────────────────────────────────── */}
+        {/* ── Mascot + Mission ────────────────────────────────────────── */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -193,12 +193,12 @@ export function About() {
             <div className="pointer-events-none absolute right-0 top-0 h-40 w-40 rounded-full bg-primary/[0.06] blur-[60px]" />
 
             <div className="relative grid lg:grid-cols-5">
-              {/* Nino */}
+              {/* Mascot */}
               <div className="relative flex items-center justify-center px-8 py-10 lg:col-span-2 lg:px-12 lg:py-16">
                 <div className="relative h-52 w-52 sm:h-60 sm:w-60 lg:h-72 lg:w-72">
                   <Image
-                    src="/images/nino-mascote.webp"
-                    alt="Nino — Mascote da Intelekta, um esquilo que representa a curiosidade, inteligência e equilíbrio entre razão e emoção"
+                    src="/images/polvo-intelekta.png"
+                    alt="Polvo Intelekta — Mascote que representa a inteligência adaptável e o equilíbrio entre razão e emoção"
                     fill
                     className="object-contain drop-shadow-2xl"
                     sizes="(max-width: 640px) 208px, (max-width: 1024px) 240px, 288px"
@@ -213,12 +213,12 @@ export function About() {
               {/* Quote + context */}
               <div className="px-6 pb-10 lg:col-span-3 lg:px-12 lg:py-16 lg:pl-4">
                 <h3 className="mb-4 font-serif text-xl font-bold tracking-[-0.02em] text-foreground sm:text-2xl lg:text-3xl">
-                  Conheça o Nino
+                  Conheça o nosso mascote
                 </h3>
                 <p className="mb-8 text-sm leading-relaxed text-muted-foreground sm:text-base">
-                  Nosso mascote representa a curiosidade incansável, a
-                  inteligência ágil e o equilíbrio perfeito entre razão e
-                  emoção — qualidades que cultivamos em cada pessoa que passa
+                  Nosso mascote representa a flexibilidade, a inteligência 
+                  multifacetada e as múltiplas formas de aprender e se conectar 
+                  com o mundo — qualidades que cultivamos em cada pessoa que passa 
                   pela Intelekta.
                 </p>
 

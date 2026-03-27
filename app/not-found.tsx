@@ -63,8 +63,8 @@ export default function NotFound() {
             >
               <div className="absolute inset-x-6 bottom-6 -z-10 h-16 rounded-full bg-primary/15 blur-3xl" />
               <Image
-                src="/images/nino-mascote.webp"
-                alt="Nino, mascote da Intelekta"
+                src="/images/polvo-intelekta.png"
+                alt="Polvo Intelekta, mascote da Intelekta"
                 width={340}
                 height={430}
                 priority
@@ -87,8 +87,8 @@ export default function NotFound() {
               </h1>
 
               <p className="mx-auto mt-5 max-w-lg text-base leading-[1.65] text-muted-foreground md:mx-0 md:text-[1.05rem]">
-                Não se preocupe. O Nino te ajuda a voltar para a página certa. Tudo o que você
-                precisa continua aqui na Intelekta.
+                Não se preocupe. O nosso mascote te ajuda a voltar para a página
+                certa. Tudo o que você precisa continua aqui na Intelekta.
               </p>
 
               <div

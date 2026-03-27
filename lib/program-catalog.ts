@@ -73,3 +73,99 @@ export const PROGRAM_DISCOVERY_PATHS = [
     image: "/images/activity-adults.webp",
   },
 ] as const
+
+export const ageStages = [
+  {
+    phase: "Crianças",
+    age: "5–12 anos",
+    description: "Estimulamos atenção, memória, linguagem e coordenação de forma lúdica e acolhedora.",
+  },
+  {
+    phase: "Adolescentes",
+    age: "13–17 anos",
+    description: "Foco em funções executivas, controle emocional e autonomia nos estudos.",
+  },
+  {
+    phase: "Adultos",
+    age: "18–59 anos",
+    description: "Produtividade, gestão do estresse, resolução de problemas e tomada de decisão.",
+  },
+  {
+    phase: "Idosos",
+    age: "60+ anos",
+    description: "Prevenção do declínio cognitivo com foco em memória, autonomia e qualidade de vida.",
+  },
+] as const
+
+export const programs = [
+  {
+    id: "neuroeducacao",
+    number: "01",
+    title: "Neuroeducação",
+    subtitle: "Programa multidisciplinar 100% lúdico",
+    description:
+      "Desenvolve, estimula e reabilita a mente em todas as idades através de jogos, brincadeiras, oficinas criativas e atividades sensório-motoras. Fundamentado em neuroplasticidade.",
+    tags: ["Todas as idades", "Lúdico", "Neuroplasticidade"],
+    image: "/images/program-infantil.webp",
+  },
+  {
+    id: "xadrez",
+    number: "02",
+    title: "Xadrez Pedagógico",
+    subtitle: "Estratégia que transforma o pensar",
+    description:
+      "Programa pedagógico que utiliza o xadrez para desenvolver atenção, memória, raciocínio lógico, planejamento e autorregulação emocional.",
+    tags: ["Raciocínio lógico", "Estratégia", "Foco"],
+    image: "/images/activity-children-chess.webp",
+  },
+  {
+    id: "musicoterapia",
+    number: "03",
+    title: "Musicoterapia",
+    subtitle: "A música como ferramenta terapêutica",
+    description:
+      "Utiliza instrumentos, canto, ritmo, escuta guiada e movimento corporal para desenvolver capacidades cognitivas e socioemocionais. Inclui programa especial para mães e bebês.",
+    tags: ["Expressão", "Bem-estar", "Mães e bebês"],
+    image: "/images/program-adolescente.webp",
+  },
+  {
+    id: "cubo-magico",
+    number: "04",
+    title: "Cubo Mágico",
+    subtitle: "Desafio que expande a mente",
+    description:
+      "Trabalha atenção, foco, raciocínio lógico e espacial, planejamento, memória e persistência através da resolução do cubo mágico.",
+    tags: ["Raciocínio espacial", "Persistência", "Memória"],
+    image: "/images/activity-children-rubiks.webp",
+  },
+  {
+    id: "reforco-escolar",
+    number: "05",
+    title: "Reforço Escolar",
+    subtitle: "Apoio personalizado que respeita o ritmo",
+    description:
+      "Programa lúdico voltado da Educação Infantil ao Ensino Médio, com foco no desenvolvimento acadêmico e socioemocional através de jogos educativos e estratégias pedagógicas.",
+    tags: ["Infantil ao Médio", "Personalizado", "Acadêmico"],
+    image: "/images/activity-teens-study.webp",
+  },
+  {
+    id: "neurole",
+    number: "06",
+    title: "Neurolê",
+    subtitle: "Alfabetização lúdica e sensorial",
+    description:
+      "Programa de alfabetização inclusiva para crianças atípicas, utilizando abordagem lúdica e sensorial para desenvolver habilidades de leitura e escrita de forma acolhedora.",
+    tags: ["Inclusivo", "Crianças atípicas", "Sensorial"],
+    image: "/images/program-infantil.webp",
+  },
+  {
+    id: "psicopedagogia",
+    number: "07",
+    title: "Psicopedagogia",
+    subtitle: "Acompanhamento especializado",
+    description:
+      "Atendimento especializado em dificuldades de aprendizagem, com acompanhamento psicopedagógico personalizado que identifica barreiras e constrói caminhos para o desenvolvimento.",
+    tags: ["Especializado", "Dificuldades de aprendizagem", "Individual"],
+    image: "/images/activity-adults.webp",
+  },
+] as const
