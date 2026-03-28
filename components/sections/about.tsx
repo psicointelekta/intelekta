@@ -197,7 +197,7 @@ export function About() {
               <div className="relative flex items-center justify-center px-8 py-10 lg:col-span-2 lg:px-12 lg:py-16">
                 <div className="relative h-52 w-52 sm:h-60 sm:w-60 lg:h-72 lg:w-72">
                   <Image
-                    src="/images/polvo-intelekta.png"
+                    src="/images/polvo-intelekta.webp"
                     alt="Polvo Intelekta — Mascote que representa a inteligência adaptável e o equilíbrio entre razão e emoção"
                     fill
                     className="object-contain drop-shadow-2xl"
@@ -216,9 +216,9 @@ export function About() {
                   Conheça o nosso mascote
                 </h3>
                 <p className="mb-8 text-sm leading-relaxed text-muted-foreground sm:text-base">
-                  Nosso mascote representa a flexibilidade, a inteligência 
-                  multifacetada e as múltiplas formas de aprender e se conectar 
-                  com o mundo — qualidades que cultivamos em cada pessoa que passa 
+                  Nosso mascote representa a flexibilidade, a inteligência
+                  multifacetada e as múltiplas formas de aprender e se conectar
+                  com o mundo — qualidades que cultivamos em cada pessoa que passa
                   pela Intelekta.
                 </p>
 

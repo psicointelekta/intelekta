@@ -418,26 +418,26 @@ export function HomeMobile({ announcements = [] }: { announcements?: Announcemen
                     return `https://${url}`
                   }
 
-                  const activeItems = announcements.length > 0 
+                  const activeItems = announcements.length > 0
                     ? announcements.map(a => ({
-                        src: a.imageUrl || "/images/hero-mobile-1.webp",
-                        alt: a.title,
-                        title: a.title,
-                        category: a.category,
-                        description: a.description,
-                        date: a.date,
-                        link: ensureAbsoluteUrl(a.linkUrl || ""),
-                        imagePosition: a.imagePosition || '50% 50%',
-                        imageZoom: a.imageZoom || '1'
-                      }))
+                      src: a.imageUrl || "/images/hero-mobile-1.webp",
+                      alt: a.title,
+                      title: a.title,
+                      category: a.category,
+                      description: a.description,
+                      date: a.date,
+                      link: ensureAbsoluteUrl(a.linkUrl || ""),
+                      imagePosition: a.imagePosition || '50% 50%',
+                      imageZoom: a.imageZoom || '1'
+                    }))
                     : heroCards.map(c => ({
-                        ...c,
-                        title: c.alt,
-                        category: "BEM-VINDO",
-                        description: "Programas especializados da Intelekta.",
-                        date: "",
-                        link: undefined
-                      }))
+                      ...c,
+                      title: c.alt,
+                      category: "BEM-VINDO",
+                      description: "Programas especializados da Intelekta.",
+                      date: "",
+                      link: undefined
+                    }))
 
                   return (
                     <div className="space-y-4">
@@ -629,7 +629,7 @@ export function HomeMobile({ announcements = [] }: { announcements?: Announcemen
               <div className="grid gap-4 px-6 py-8">
                 <div className="relative mx-auto h-52 w-52">
                   <Image
-                    src="/images/polvo-intelekta.png"
+                    src="/images/polvo-intelekta.webp"
                     alt="Polvo Intelekta, mascote da Intelekta"
                     fill
                     className="object-contain drop-shadow-lg sm:drop-shadow-2xl"
@@ -724,7 +724,7 @@ export function HomeMobile({ announcements = [] }: { announcements?: Announcemen
                   Tire suas <span className="text-primary">dúvidas</span>
                 </>
               }
-              description="Respondemos as dúvidas mais comuns sobre metodologia, duração das sessões, avaliação inicial e faixa etária atendida." 
+              description="Respondemos as dúvidas mais comuns sobre metodologia, duração das sessões, avaliação inicial e faixa etária atendida."
             />
 
             <DeferredMobileFaq faqs={faqs} />

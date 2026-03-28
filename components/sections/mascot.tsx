@@ -47,18 +47,18 @@ export function Mascot() {
             <div className="relative max-w-md mx-auto lg:max-w-none">
               {/* Background decoration */}
               <div className="absolute inset-0 rounded-full bg-gradient-to-br from-secondary/20 to-primary/10 blur-3xl scale-75" />
-              
+
               {/* Mascot Image */}
               <div className="relative">
                 <Image
-                  src="/images/polvo-intelekta.png"
+                  src="/images/polvo-intelekta.webp"
                   alt="Polvo Intelekta - Mascote que representa a inteligência adaptável e multifacetada"
                   width={500}
                   height={600}
                   className="relative z-10 w-full h-auto drop-shadow-2xl"
                   priority
                 />
-                
+
                 {/* Floating elements */}
                 <motion.div
                   animate={{ y: [-8, 8, -8] }}
@@ -103,9 +103,9 @@ export function Mascot() {
               Nosso mascote, nossa filosofia
             </h2>
             <p className="text-base sm:text-lg text-muted-foreground leading-relaxed mb-8">
-              O Polvo Intelekta representa nossa essência: a inteligência 
-              multifacetada e a capacidade de adaptação constante. Ele nos 
-              lembra que o desenvolvimento humano é uma jornada rica e conectada, 
+              O Polvo Intelekta representa nossa essência: a inteligência
+              multifacetada e a capacidade de adaptação constante. Ele nos
+              lembra que o desenvolvimento humano é uma jornada rica e conectada,
               onde cada descoberta abre novos caminhos para o potencial de cada um.
             </p>
 
