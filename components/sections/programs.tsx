@@ -325,7 +325,7 @@ export function Programs() {
                          * O intent sumiu do lugar estranho acima do título e agora
                          * é um eyebrow integrado à hierarquia, com contraste correto.
                          */}
-                        <div className="absolute inset-x-0 bottom-0 flex flex-col justify-end bg-gradient-to-t from-black/95 via-black/75 to-transparent p-4 pt-20 sm:p-8 sm:pt-32 lg:p-10 lg:pt-36">
+                        <div className="absolute inset-x-0 bottom-0 flex flex-col justify-end bg-gradient-to-t from-black/95 via-black/75 to-transparent px-14 pb-6 pt-20 sm:p-8 sm:pt-32 lg:p-10 lg:pt-36">
 
                           {/* Intent — eyebrow com linha decorativa e contraste correto */}
                           <div className="mb-2 flex items-center gap-2 sm:mb-2.5">
