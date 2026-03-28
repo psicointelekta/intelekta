@@ -86,7 +86,7 @@ const WORDS = ["mentes", "emoções", "futuros"] as const
 const LONGEST = "emoções"
 
 /* ─── MAIN HERO ─── */
-export function Hero() {
+export function Hero({ initialAnnouncements = [] }: { initialAnnouncements?: Announcement[] }) {
   const mouseX = useMotionValue(0.5)
   const mouseY = useMotionValue(0.5)
   const springX = useSpring(mouseX, { stiffness: 38, damping: 26 })
@@ -102,12 +102,18 @@ export function Hero() {
   }, [mouseX, mouseY])
 
   const [wordIndex, setWordIndex] = useState(0)
-  const [announcements, setAnnouncements] = useState<Announcement[]>([])
   const [currentImage, setCurrentImage] = useState(0)
   const [imageResetKey, setImageResetKey] = useState(0)
-  const [isInitialLoad, setIsInitialLoad] = useState(true)
+  const [isInitialLoad, setIsInitialLoad] = useState(!initialAnnouncements?.length)
+  const [announcements, setAnnouncements] = useState<Announcement[]>(initialAnnouncements || [])
 
   useEffect(() => {
+    // Only fetch if we didn't get initial announcements or we want to force a client-side update
+    if (initialAnnouncements?.length > 0) {
+      setIsInitialLoad(false)
+      return
+    }
+
     async function fetchAnnouncements() {
       try {
         const res = await fetch(`/api/announcements?t=${Date.now()}`)
@@ -335,7 +341,7 @@ export function Hero() {
                   transition={{ duration: 0.6, delay: 0.45 }}
                   className="mt-8 lg:hidden"
                 >
-                  {isInitialLoad ? (
+                  {isInitialLoad && !announcements?.length ? (
                     <div className="relative aspect-[4/3] w-full rounded-2xl overflow-hidden bg-muted shadow-lg ring-1 ring-white/10 flex items-center justify-center bg-neutral-900/50 backdrop-blur-sm">
                         <div className="flex flex-col items-center gap-3">
                           <Loader2 className="w-6 h-6 text-primary animate-spin" />
@@ -385,8 +391,9 @@ export function Hero() {
                       Fique por dentro das novidades na Intelekta!
                     </h4>
                   </div>
-                   <div className="relative aspect-[4/3] rounded-3xl overflow-hidden bg-neutral-900 shadow-[0_32px_64px_-16px_rgba(0,0,0,0.4)] border border-white/10">
-                    {isInitialLoad && (
+                  
+                  <div className="relative aspect-[4/3] rounded-3xl overflow-hidden bg-neutral-900 shadow-[0_32px_64px_-16px_rgba(0,0,0,0.4)] border border-white/10">
+                    {isInitialLoad && !announcements?.length && (
                       <div className="absolute inset-0 flex flex-col items-center justify-center space-y-4">
                         <div className="relative">
                           <div className="w-16 h-16 rounded-full border-b-2 border-primary animate-spin" />
@@ -399,7 +406,8 @@ export function Hero() {
                         </p>
                       </div>
                     )}
-                    <AnimatePresence>
+
+                    <AnimatePresence mode="wait">
                       {displayImages.map((img, index) => index === currentImage && (
                         <m.div
                           key={index + imageResetKey}
@@ -409,43 +417,25 @@ export function Hero() {
                           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
                           className="absolute inset-0"
                         >
-                          {img.link ? (
-                            <Link 
-                              href={img.link} 
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="block w-full h-full relative group/link"
-                            >
-                              <Image
-                                src={img.src}
-                                alt={img.alt}
-                                fill
-                                className="object-cover transition-transform duration-700 group-hover/link:scale-110"
-                                style={{ 
-                                  objectPosition: img.imagePosition || '50% 50%',
-                                  transform: `scale(${img.imageZoom || 1})`
-                                }}
-                                sizes="460px"
-                                priority
-                              />
-                              <div className="absolute inset-0 bg-black/20 group-hover/link:bg-black/0 transition-colors duration-500" />
-                            </Link>
-                          ) : (
-                            <Image
-                              src={img.src}
-                              alt={img.alt}
-                              fill
-                              className="object-cover"
-                              style={{ 
-                                objectPosition: img.imagePosition || '50% 50%',
-                                transform: `scale(${img.imageZoom || 1})`
-                              }}
-                              sizes="460px"
-                              priority
-                            />
-                          )}
+                          <Image
+                            src={img.src}
+                            alt={img.alt}
+                            fill
+                            className="object-cover"
+                            style={{ 
+                              objectPosition: img.imagePosition || '50% 50%',
+                              transform: `scale(${img.imageZoom || 1})`
+                            }}
+                            sizes="460px"
+                            priority
+                          />
                           
                           <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent flex flex-col justify-end px-8 pt-8 pb-14 xl:px-10 xl:pt-10 xl:pb-16">
+                            {img.date && (
+                              <div className="absolute top-4 right-4 z-20 px-3 py-1.5 bg-black/40 backdrop-blur-md rounded-lg border border-white/10 text-[10px] text-white/90 font-medium whitespace-nowrap">
+                                {img.date}
+                              </div>
+                            )}
                             <m.div
                               initial={{ opacity: 0, y: 20 }}
                               animate={{ opacity: 1, y: 0 }}
@@ -456,21 +446,23 @@ export function Hero() {
                                   {img.category || "Novidade"}
                                 </span>
                               </div>
-                              {img.date && (
-                                <div className="absolute top-4 right-4 z-20 px-3 py-1.5 bg-black/40 backdrop-blur-md rounded-lg border border-white/10 text-[10px] text-white/90 font-medium whitespace-nowrap">
-                                  {img.date}
-                                </div>
-                              )}
                               <h3 className="font-serif text-3xl xl:text-4xl font-bold text-white leading-[1.1] mb-3 drop-shadow-sm">
                                 {img.title}
                               </h3>
                               <p className="text-white/70 text-sm xl:text-base line-clamp-3 font-light leading-relaxed max-w-[90%]">
                                 {img.description}
                               </p>
-                              <div className="pt-2 text-xs font-semibold text-primary flex items-center gap-2">
-                                Saiba mais
-                                <Plus className="w-3 h-3" />
-                              </div>
+                              {img.link && (
+                                <Link
+                                  href={img.link}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="mt-4 pointer-events-auto inline-flex items-center justify-center gap-2 rounded-full bg-primary px-5 py-2 text-xs font-bold text-primary-foreground shadow-lg backdrop-blur-sm transition-all hover:scale-105 active:scale-95"
+                                >
+                                  Saiba mais
+                                  <Plus className="w-3.5 h-3.5" />
+                                </Link>
+                              )}
                             </m.div>
                           </div>
                         </m.div>

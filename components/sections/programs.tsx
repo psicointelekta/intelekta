@@ -1,42 +1,35 @@
 /**
  * Programs section — Indexed Panel Navigator
  *
- * Layout: sidebar index (desktop) + horizontal carousel w/ peek effect
- * UX signals that hint "more to explore":
- *   1. Peek — next slide visible at right edge (PEEK px)
- *   2. Fade gradient over the peeping area
- *   3. Expanding dot progress bar + "01/07" counter
- *   4. Prev/Next overlay buttons on the image
- *   5. Sidebar immediately shows all 7 programs numbered
- *   6. Mobile pill strip has right-edge fade hint
- *
- * SEO: all 7 programs rendered in DOM via visually-hidden article list.
- * A11y: proper tablist/tab/tabpanel roles + keyboard support.
+ * Melhorias v2:
+ *   - Intent text redesenhado: eyebrow com linha decorativa, contraste correto (white/75)
+ *   - Hierarquia tipográfica refeita na overlay (intent → title → subtitle → desc → tags)
+ *   - Drag com threshold de velocidade — swipe leve já navega para o próximo card
+ *   - Removido conflito animate + style={{ x }} (usamos só animate + info de drag)
+ *   - Ghost number reposicionado (canto superior, maior, mais atmosphérico)
  */
 "use client"
 
 import {
   motion,
   useInView,
-  useMotionValue,
-  animate as motionAnimate,
 } from "framer-motion"
 import { useRef, useState, useEffect, useCallback } from "react"
 import { Button } from "@/components/ui/button"
-import { ArrowLeft, ArrowRight, CheckCircle2, ChevronLeft, ChevronRight, MessageCircle } from "lucide-react"
+import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
 import { programs, ageStages } from "@/lib/program-catalog"
 import { ProgramCtaLink } from "@/components/program-cta-link"
-import { ProgramAwareWhatsappLink } from "@/components/program-aware-whatsapp-link"
 
 // ─── Constants ───────────────────────────────────────────────────────────────
 
-const PEEK   = 40  // px of next slide visible at right edge no mobile/tablet
-const GAP    = 12  // gap between carousel slides
-const ITEM_H = 44  // sidebar button height (px) — keep in sync with h-11
+const PEEK            = 40   // px de preview do próximo slide no edge direito
+const GAP             = 12   // gap entre slides
+const ITEM_H          = 44   // altura do botão da sidebar (sync com h-11)
+const SWIPE_THRESHOLD = 0.20 // 20% da largura do slide = snap
+const VELOCITY_THRESHOLD = 400 // px/s = snap na direção do swipe
 
-// Estilo inline à prova de falhas para ocultar o SEO (evita que crie uma lista vertical se o Tailwind falhar)
 const visuallyHidden: React.CSSProperties = {
   position: "absolute",
   width: "1px",
@@ -51,8 +44,6 @@ const visuallyHidden: React.CSSProperties = {
 
 // ─── Component ───────────────────────────────────────────────────────────────
 
-type Program = (typeof programs)[number]
-
 export function Programs() {
   const sectionRef  = useRef<HTMLElement>(null)
   const carouselRef = useRef<HTMLDivElement>(null)
@@ -61,9 +52,14 @@ export function Programs() {
 
   const [activeIndex, setActiveIndex] = useState(0)
   const [slideWidth,  setSlideWidth]  = useState(0)
-  const x = useMotionValue(0)
+  const [mounted,     setMounted]     = useState(false)
 
-  // ── Measure the carousel container ─────────────────────────────────────────
+  // ── Previne erro de hidratação ──────────────────────────────────────────────
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  // ── Mede o container do carrossel ──────────────────────────────────────────
   useEffect(() => {
     const update = () => {
       if (!carouselRef.current) return
@@ -73,32 +69,20 @@ export function Programs() {
     const ro = new ResizeObserver(update)
     if (carouselRef.current) ro.observe(carouselRef.current)
     return () => ro.disconnect()
-  },[])
+  }, [])
 
-  // ── Spring the strip to the active slide ───────────────────────────────────
-  useEffect(() => {
-    if (slideWidth === 0) return
-    motionAnimate(x, -activeIndex * (slideWidth + GAP), {
-      type:      "spring",
-      stiffness: 300,
-      damping:   30,
-      mass:      0.8,
-    })
-  }, [activeIndex, slideWidth, x])
-
-  // ── Keep mobile tab strip centred on active pill ────────────────────────────
+  // ── Centraliza a pill ativa no strip mobile ─────────────────────────────────
   useEffect(() => {
     const strip = tabStripRef.current
     if (!strip) return
     const btn = strip.children[activeIndex] as HTMLElement | undefined
     btn?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" })
-  },[activeIndex])
+  }, [activeIndex])
 
   const goTo = useCallback((idx: number) => {
     setActiveIndex(Math.max(0, Math.min(programs.length - 1, idx)))
-  },[])
+  }, [])
 
-  // Keyboard navigation for the sidebar
   const handleSidebarKeyDown = useCallback(
     (e: React.KeyboardEvent) => {
       if (e.key === "ArrowDown") { e.preventDefault(); goTo(activeIndex + 1) }
@@ -107,9 +91,23 @@ export function Programs() {
     [activeIndex, goTo],
   )
 
-  const active = programs[activeIndex]
+  // ── Drag handler com threshold de velocidade ────────────────────────────────
+  // Resolve o travamento: um swipe curto + rápido já navega para o próximo card.
+  // Antes o código usava x.get() sem considerar velocidade — ficava preso entre slides.
+  const handleDragEnd = useCallback(
+    (_: unknown, info: { offset: { x: number }; velocity: { x: number } }) => {
+      const { offset, velocity } = info
+      const didSwipeLeft  = offset.x < -(slideWidth * SWIPE_THRESHOLD) || velocity.x < -VELOCITY_THRESHOLD
+      const didSwipeRight = offset.x >  (slideWidth * SWIPE_THRESHOLD) || velocity.x >  VELOCITY_THRESHOLD
 
-  // ── Render ──────────────────────────────────────────────────────────────────
+      if (didSwipeLeft)  goTo(activeIndex + 1)
+      else if (didSwipeRight) goTo(activeIndex - 1)
+      else goTo(activeIndex) // snap de volta ao atual se o swipe foi pequeno demais
+    },
+    [activeIndex, goTo, slideWidth],
+  )
+
+  // ─── Render ─────────────────────────────────────────────────────────────────
 
   return (
     <section
@@ -125,7 +123,7 @@ export function Programs() {
         {/* ━━━━━━━━ HEADER + AGE STAGES ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          animate={mounted && isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.5 }}
           className="mb-6 lg:mb-12"
         >
@@ -166,7 +164,7 @@ export function Programs() {
         {/* ━━━━━━━━ NAVIGATOR ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          animate={mounted && isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
           transition={{ duration: 0.5, delay: 0.15 }}
           className="grid lg:grid-cols-[220px_1fr] lg:gap-10"
         >
@@ -178,11 +176,10 @@ export function Programs() {
             onKeyDown={handleSidebarKeyDown}
           >
             <nav role="tablist" className="relative">
-              {/* Spring-animated active indicator */}
               <motion.div
                 aria-hidden
                 className="absolute left-0 w-[2px] rounded-full bg-primary"
-                animate={{ y: activeIndex * ITEM_H, height: ITEM_H }}
+                animate={mounted ? { y: activeIndex * ITEM_H, height: ITEM_H } : {}}
                 transition={{ type: "spring", stiffness: 420, damping: 38 }}
               />
 
@@ -231,7 +228,7 @@ export function Programs() {
               <div
                 ref={tabStripRef}
                 className="flex gap-1.5 overflow-x-auto pb-1 [&::-webkit-scrollbar]:hidden"
-                style={{ scrollbarWidth: "none", WebkitOverflowScrolling: "touch" }}
+                style={{ scrollbarWidth: "none", WebkitOverflowScrolling: "touch" } as React.CSSProperties}
               >
                 {programs.map((program, idx) => (
                   <button
@@ -255,10 +252,8 @@ export function Programs() {
                     </span>
                   </button>
                 ))}
-                {/* Spacer so last pill isn't hidden under fade */}
                 <div className="w-8 shrink-0" aria-hidden />
               </div>
-              {/* Right-edge fade: hints more pills exist */}
               <div
                 aria-hidden
                 className="pointer-events-none absolute inset-y-0 right-0 w-10 bg-gradient-to-l from-background to-transparent"
@@ -269,28 +264,32 @@ export function Programs() {
             <div ref={carouselRef} className="relative overflow-hidden rounded-xl sm:rounded-2xl">
               {slideWidth > 0 ? (
                 <>
+                  {/*
+                   * CORREÇÃO CRÍTICA DE PERFORMANCE:
+                   * Antes: style={{ x }} + animate={{ x }} conflitavam — o motionValue x
+                   *   era definido pelo drag e pelo animate ao mesmo tempo → jank.
+                   * Agora: usamos APENAS animate={{ x: ... }} para posicionamento programático.
+                   *   O drag atualiza via onDragEnd → goTo() → animate reage com spring.
+                   *   onDragEnd usa info.offset + info.velocity (não x.get()) — sem conflito.
+                   */}
                   <motion.div
-                    /* Aqui garantimos que nunca vai quebrar linha e formar lista vertical */
-                    className="flex flex-row flex-nowrap items-stretch gap-3 touch-pan-y select-none cursor-grab w-fit"
-                    style={{ x }}
+                    className="flex flex-row flex-nowrap items-stretch gap-3 touch-pan-y select-none cursor-grab active:cursor-grabbing w-fit"
+                    animate={{ x: -activeIndex * (slideWidth + GAP) }}
+                    transition={{ type: "spring", stiffness: 320, damping: 32, mass: 0.9 }}
                     drag="x"
                     dragConstraints={{
                       left:  -(programs.length - 1) * (slideWidth + GAP),
                       right: 0,
                     }}
-                    dragElastic={0.05}
+                    dragElastic={0.08}
                     dragMomentum={false}
-                    whileDrag={{ cursor: "grabbing" }}
-                    onDragEnd={() => {
-                      const nearest = Math.round(-x.get() / (slideWidth + GAP))
-                      goTo(Math.max(0, Math.min(programs.length - 1, nearest)))
-                    }}
+                    onDragEnd={handleDragEnd}
                   >
                     {programs.map((program) => (
                       <div
                         key={program.id}
                         style={{ width: slideWidth }}
-                        className="relative h-[340px] shrink-0 overflow-hidden rounded-xl bg-muted sm:h-[420px] lg:h-auto lg:aspect-[16/10]"
+                        className="relative h-[420px] shrink-0 overflow-hidden rounded-xl bg-muted sm:h-[500px] lg:h-auto lg:aspect-[16/10]"
                       >
                         <Image
                           src={program.image}
@@ -302,39 +301,76 @@ export function Programs() {
                           draggable={false}
                         />
 
-                        {/* Ghost program number */}
+                        {/*
+                         * Ghost number — reposicionado para o canto superior esquerdo
+                         * e aumentado. Fica fora do overlay de fundo, mais atmosférico.
+                         */}
                         <span
                           aria-hidden
-                          className="pointer-events-none absolute right-3 top-2 select-none font-serif text-[56px] font-bold leading-none text-white/[0.07] sm:right-6 sm:top-4 sm:text-[96px] lg:text-[120px]"
+                          className="pointer-events-none absolute -left-1 top-0 select-none font-serif font-bold leading-none text-white/[0.06] sm:-left-2"
+                          style={{ fontSize: "clamp(80px, 14vw, 160px)" }}
                         >
                           {program.number}
                         </span>
 
-                        {/* Bottom details overlay with gradient */}
-                        <div className="absolute inset-x-0 bottom-0 flex flex-col justify-end bg-gradient-to-t from-black/95 via-black/80 to-transparent p-4 pt-16 sm:p-8 sm:pt-28 lg:p-12 lg:pt-32">
-                          <p className="mb-1 text-[9px] font-bold uppercase tracking-[0.2em] text-primary sm:text-[11px]">
-                            {program.subtitle}
-                          </p>
-                          <h3 className="font-serif text-xl font-bold tracking-[-0.02em] text-white sm:text-3xl lg:text-4xl">
+                        {/*
+                         * OVERLAY REDESENHADO — hierarquia tipográfica:
+                         *   intent eyebrow  (white/55, caps, linha decorativa)
+                         *   ↓ título        (white, serif, grande)
+                         *   ↓ subtitle      (white/40, caps pequeno)
+                         *   ↓ description   (white/75, corpo)
+                         *   ↓ tags
+                         *   ↓ CTA
+                         *
+                         * O intent sumiu do lugar estranho acima do título e agora
+                         * é um eyebrow integrado à hierarquia, com contraste correto.
+                         */}
+                        <div className="absolute inset-x-0 bottom-0 flex flex-col justify-end bg-gradient-to-t from-black/95 via-black/75 to-transparent p-4 pt-20 sm:p-8 sm:pt-32 lg:p-10 lg:pt-36">
+
+                          {/* Intent — eyebrow com linha decorativa e contraste correto */}
+                          <div className="mb-2 flex items-center gap-2 sm:mb-2.5">
+                            <div className="h-px w-5 shrink-0 bg-primary/80 sm:w-6" />
+                            <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-white/60 sm:text-[11px]">
+                              {program.intent}
+                            </p>
+                          </div>
+
+                          {/* Título — principal, precisa ser o maior elemento */}
+                          <h3 className="font-serif text-2xl font-bold leading-tight tracking-[-0.02em] text-white sm:text-4xl lg:text-[2.6rem]">
                             {program.title}
                           </h3>
-                          <p className="mt-1.5 line-clamp-2 max-w-2xl text-[13px] leading-relaxed text-white/80 sm:mt-3 sm:line-clamp-none sm:text-base">
+
+                          {/* Subtitle — secundário, bem menor, afastado do título */}
+                          <p className="mt-1 text-[9px] font-bold uppercase tracking-[0.22em] text-white/35 sm:mt-1.5 sm:text-[10px]">
+                            {program.subtitle}
+                          </p>
+
+                          {/* Divisor sutil */}
+                          <div className="my-2.5 h-px w-full bg-white/10 sm:my-3.5" />
+
+                          {/* Description — corpo legível */}
+                          <p className="line-clamp-2 max-w-2xl text-[13px] leading-relaxed text-white/75 sm:line-clamp-none sm:text-[15px]">
                             {program.description}
                           </p>
-                          
-                          <div className="mt-2.5 flex flex-wrap gap-1.5 sm:mt-5 sm:gap-2">
+
+                          {/* Tags */}
+                          <div className="mt-2.5 flex flex-wrap gap-1.5 sm:mt-4 sm:gap-2">
                             {program.tags.map((tag) => (
                               <span
                                 key={tag}
-                                className="rounded-full border border-white/15 bg-white/10 px-2 py-0.5 text-[9px] font-medium uppercase tracking-wider text-white/90 backdrop-blur-sm sm:px-3 sm:py-1 sm:text-[10px]"
+                                className="rounded-full border border-white/10 bg-white/[0.06] px-2 py-0.5 text-[9px] font-medium uppercase tracking-wider text-white/70 backdrop-blur-sm sm:px-3 sm:py-1 sm:text-[10px]"
                               >
                                 {tag}
                               </span>
                             ))}
                           </div>
 
-                          <div className="mt-4 flex sm:mt-6">
-                            <Button className="group/btn h-9 px-4 text-[12px] sm:h-11 sm:px-6 sm:text-sm" asChild>
+                          {/* CTA */}
+                          <div className="mt-4 flex sm:mt-5">
+                            <Button
+                              className="group/btn h-9 px-4 text-[12px] sm:h-11 sm:px-6 sm:text-sm"
+                              asChild
+                            >
                               <ProgramCtaLink program={program.title} source={`programs:${program.id}`}>
                                 Falar sobre o programa
                                 <ArrowRight className="ml-1.5 h-3.5 w-3.5 transition-transform duration-200 group-hover/btn:translate-x-0.5 sm:ml-2 sm:h-4 sm:w-4" />
@@ -351,7 +387,7 @@ export function Programs() {
                     onClick={() => goTo(activeIndex - 1)}
                     disabled={activeIndex === 0}
                     aria-label="Programa anterior"
-                    className="absolute left-2 top-1/2 z-10 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-black/25 text-white shadow-md backdrop-blur-sm transition-all hover:bg-black/45 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 disabled:pointer-events-none disabled:opacity-0 sm:left-3 sm:h-9 sm:w-9"
+                    className="absolute left-2 top-1/2 z-10 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-black/30 text-white shadow-md backdrop-blur-sm transition-all hover:bg-black/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 disabled:pointer-events-none disabled:opacity-0 sm:left-3 sm:h-10 sm:w-10"
                   >
                     <ChevronLeft className="h-4 w-4 sm:h-5 sm:w-5" />
                   </button>
@@ -362,7 +398,7 @@ export function Programs() {
                     disabled={activeIndex === programs.length - 1}
                     aria-label="Próximo programa"
                     style={{ right: PEEK + 8 }}
-                    className="absolute top-1/2 z-10 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-black/25 text-white shadow-md backdrop-blur-sm transition-all hover:bg-black/45 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 disabled:pointer-events-none disabled:opacity-0 sm:h-9 sm:w-9"
+                    className="absolute top-1/2 z-10 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-black/30 text-white shadow-md backdrop-blur-sm transition-all hover:bg-black/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 disabled:pointer-events-none disabled:opacity-0 sm:h-10 sm:w-10"
                   >
                     <ChevronRight className="h-4 w-4 sm:h-5 sm:w-5" />
                   </button>
@@ -378,32 +414,29 @@ export function Programs() {
                   />
                 </>
               ) : (
-                /* Placeholder while measuring (prevents CLS) */
                 <div className="h-[340px] animate-pulse rounded-xl bg-muted sm:h-[420px] lg:h-auto lg:aspect-[16/10]" />
               )}
             </div>
 
             {/* ── Progress indicator ──────────────────────────────────────── */}
             <div className="mt-3 flex items-center justify-between sm:justify-start sm:gap-4">
-              {/* Expanding dot bar */}
               <div className="flex items-center gap-1.5" role="group" aria-label="Progresso">
                 {programs.map((_, idx) => (
                   <motion.button
                     key={idx}
                     onClick={() => goTo(idx)}
                     aria-label={`Ir para programa ${idx + 1}`}
-                    animate={{
+                    animate={mounted ? {
                       width:   idx === activeIndex ? 24 : 6,
                       opacity: idx === activeIndex ? 1 : 0.25,
-                    }}
+                    } : {}}
                     transition={{ duration: 0.25, ease: "easeOut" }}
-                    className={`h-1.5 rounded-full focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary sm:h-1.5 ${
+                    className={`h-1.5 rounded-full focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary ${
                       idx === activeIndex ? "bg-primary" : "bg-muted-foreground"
                     }`}
                   />
                 ))}
               </div>
-              {/* Counter */}
               <span className="font-mono text-[10px] tabular-nums text-muted-foreground/45 sm:text-[11px]">
                 {String(activeIndex + 1).padStart(2, "0")} /{" "}
                 {String(programs.length).padStart(2, "0")}
@@ -412,8 +445,7 @@ export function Programs() {
           </div>
         </motion.div>
 
-        {/* ━━━━━━━━ SEO: Block Visually Hidden Seguro ━━━━━━━━━━━━━━━━━━━━━━━━ */}
-        {/* Usando inline css garante que sob nenhuma circunstância o texto apareça empilhado na tela caso a classe sr-only falhe */}
+        {/* ━━━━━━━━ SEO: Block Visually Hidden ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
         <div style={visuallyHidden} aria-hidden="true">
           {programs.map((p) => (
             <article key={`seo-${p.id}`}>
@@ -427,7 +459,7 @@ export function Programs() {
         {/* ━━━━━━━━ CTA ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          animate={mounted && isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
           transition={{ duration: 0.5, delay: 0.35 }}
           className="mt-8 text-center sm:mt-10 lg:mt-14"
         >

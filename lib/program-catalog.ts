@@ -106,6 +106,7 @@ export const programs = [
     description:
       "Desenvolve, estimula e reabilita a mente em todas as idades através de jogos, brincadeiras, oficinas criativas e atividades sensório-motoras. Fundamentado em neuroplasticidade.",
     tags: ["Todas as idades", "Lúdico", "Neuroplasticidade"],
+    intent: "Quero estimular memória e desenvolvimento global",
     image: "/images/program-infantil.webp",
   },
   {
@@ -116,6 +117,7 @@ export const programs = [
     description:
       "Programa pedagógico que utiliza o xadrez para desenvolver atenção, memória, raciocínio lógico, planejamento e autorregulação emocional.",
     tags: ["Raciocínio lógico", "Estratégia", "Foco"],
+    intent: "Quero desenvolver foco, raciocínio e planejamento",
     image: "/images/activity-children-chess.webp",
   },
   {
@@ -126,6 +128,7 @@ export const programs = [
     description:
       "Utiliza instrumentos, canto, ritmo, escuta guiada e movimento corporal para desenvolver capacidades cognitivas e socioemocionais. Inclui programa especial para mães e bebês.",
     tags: ["Expressão", "Bem-estar", "Mães e bebês"],
+    intent: "Quero desenvolver expressão e regulação emocional",
     image: "/images/program-adolescente.webp",
   },
   {
@@ -136,6 +139,7 @@ export const programs = [
     description:
       "Trabalha atenção, foco, raciocínio lógico e espacial, planejamento, memória e persistência através da resolução do cubo mágico.",
     tags: ["Raciocínio espacial", "Persistência", "Memória"],
+    intent: "Quero desafiar e expandir minhas habilidades mentais",
     image: "/images/activity-children-rubiks.webp",
   },
   {
@@ -146,6 +150,7 @@ export const programs = [
     description:
       "Programa lúdico voltado da Educação Infantil ao Ensino Médio, com foco no desenvolvimento acadêmico e socioemocional através de jogos educativos e estratégias pedagógicas.",
     tags: ["Infantil ao Médio", "Personalizado", "Acadêmico"],
+    intent: "Quero apoio para aprendizagem e rotina escolar",
     image: "/images/activity-teens-study.webp",
   },
   {
@@ -156,6 +161,7 @@ export const programs = [
     description:
       "Programa de alfabetização inclusiva para crianças atípicas, utilizando abordagem lúdica e sensorial para desenvolver habilidades de leitura e escrita de forma acolhedora.",
     tags: ["Inclusivo", "Crianças atípicas", "Sensorial"],
+    intent: "Quero apoio para alfabetização inclusiva e acolhedora",
     image: "/images/program-infantil.webp",
   },
   {
@@ -166,6 +172,7 @@ export const programs = [
     description:
       "Atendimento especializado em dificuldades de aprendizagem, com acompanhamento psicopedagógico personalizado que identifica barreiras e constrói caminhos para o desenvolvimento.",
     tags: ["Especializado", "Dificuldades de aprendizagem", "Individual"],
+    intent: "Procuro acompanhamento especializado em aprendizagem",
     image: "/images/activity-adults.webp",
   },
 ] as const

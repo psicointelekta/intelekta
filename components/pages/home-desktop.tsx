@@ -18,9 +18,6 @@ const Methodology = dynamic(() =>
 const Programs = dynamic(() =>
   import("@/components/sections/programs").then((mod) => mod.Programs),
 )
-const ProgramDiscovery = dynamic(() =>
-  import("@/components/sections/program-discovery").then((mod) => mod.ProgramDiscovery),
-)
 const Team = dynamic(() =>
   import("@/components/sections/team").then((mod) => mod.Team),
 )
@@ -33,13 +30,12 @@ const Contact = dynamic(() =>
 )
 const Footer = dynamic(() => import("@/components/footer").then((mod) => mod.Footer))
 
-export function HomeDesktop() {
+export function HomeDesktop({ announcements = [] }: { announcements?: any[] }) {
   return (
     <>
       <Header />
       <main id="conteudo-principal">
-        <Hero />
-        <ProgramDiscovery />
+        <Hero initialAnnouncements={announcements} />
         <Programs />
         <div className="section-divider-dark" />
         <Testimonials />

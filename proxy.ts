@@ -18,10 +18,12 @@ function injectSecurityAndVary(response: NextResponse) {
   // 2. BIG TECH SECURITY HEADERS
   const cspHeader = `
     default-src 'self';
-    script-src 'self' 'unsafe-eval' 'unsafe-inline' https://va.vercel-scripts.com;
+    script-src 'self' 'unsafe-eval' 'unsafe-inline' https://va.vercel-scripts.com https://www.googletagmanager.com;
     style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
-    img-src 'self' blob: data: https://*.public.blob.vercel-storage.com https://images.unsplash.com;
+    img-src 'self' blob: data: https://*.public.blob.vercel-storage.com https://images.unsplash.com https://*.google.com https://*.google.com.br https://www.googletagmanager.com;
     font-src 'self' https://fonts.gstatic.com;
+    connect-src 'self' https://va.vercel-scripts.com https://www.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com;
+    frame-src 'self' https://www.google.com https://maps.google.com https://*.google.com https://*.google.com.br;
     object-src 'none';
     base-uri 'self';
     form-action 'self';

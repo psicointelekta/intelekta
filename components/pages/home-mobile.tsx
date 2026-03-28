@@ -30,13 +30,11 @@ import {
 import {
   DeferredMobileContactForm,
   DeferredMobileFaq,
-  DeferredMobileNewsCarousel,
   DeferredMobileTestimonialsCarousel,
 } from "@/components/pages/mobile-deferred-widgets"
+import { MobileNewsCarousel } from "@/components/pages/mobile-news-carousel"
 import { MobileHomeHeader } from "@/components/pages/mobile-home-header"
-import { ProgramCtaLink } from "@/components/program-cta-link"
 import { ProgramAwareWhatsappLink } from "@/components/program-aware-whatsapp-link"
-import { ProgramDiscovery } from "@/components/sections/program-discovery"
 import { Programs } from "@/components/sections/programs"
 import { programs } from "@/lib/program-catalog"
 
@@ -449,7 +447,7 @@ export function HomeMobile({ announcements = [] }: { announcements?: Announcemen
                           Novidades Intelekta
                         </h4>
                       </div>
-                      <DeferredMobileNewsCarousel key={announcements.length + (announcements[0]?.title || '')} items={activeItems} />
+                      <MobileNewsCarousel items={activeItems} />
                     </div>
                   )
                 })()}
@@ -473,9 +471,10 @@ export function HomeMobile({ announcements = [] }: { announcements?: Announcemen
           </div>
         </section>
 
-        <ProgramDiscovery />
-
-        <Programs />
+        {/* Programas */}
+        <section id="programas-mobile" className="py-2">
+          <Programs />
+        </section>
 
         <div className="section-divider-dark" />
 
