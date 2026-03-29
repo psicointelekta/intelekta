@@ -675,7 +675,9 @@ export function HomeMobile({ announcements = [] }: { announcements?: Announcemen
             <div className="grid gap-4">
               {team.map((member) => (
                 <article key={member.name} className="overflow-hidden rounded-3xl border border-white/[0.08] bg-white/[0.03]">
-                  <div className="relative aspect-[4/3] overflow-hidden">
+                  <div className="relative aspect-[4/3] overflow-hidden bg-gradient-to-b from-primary/[0.08] via-primary/[0.04] to-transparent">
+                    {/* Subtle glow behind portrait */}
+                    <div className="absolute bottom-0 left-1/2 -translate-x-1/2 h-1/2 w-3/4 rounded-full bg-primary/[0.06] blur-[50px] pointer-events-none" />
                     <Image
                       src={member.image}
                       alt={member.name}

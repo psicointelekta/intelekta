@@ -103,8 +103,8 @@ export function MobileHomeHeader({ navigation }: { navigation: readonly NavItem[
 
       {isOpen ? (
         <>
-          <div className="fixed inset-0 z-40 bg-foreground/20 backdrop-blur-sm" onClick={closeMenu} />
-          <div className="fixed inset-y-0 right-0 z-50 flex w-full max-w-sm flex-col bg-card shadow-2xl" ref={drawerRef}>
+          <div className="fixed inset-0 z-[80] bg-foreground/20 backdrop-blur-sm" onClick={closeMenu} />
+          <div className="fixed inset-y-0 right-0 z-[100] flex w-[280px] max-w-[85vw] flex-col bg-card shadow-2xl" ref={drawerRef}>
             <div className="flex items-center justify-between border-b border-border px-6 py-5">
               <Image
                 src="/images/logo-intelekta.webp"
@@ -152,13 +152,13 @@ export function MobileHomeHeader({ navigation }: { navigation: readonly NavItem[
               </div>
             </div>
 
-            <div className="border-t border-border px-6 py-6">
+            <div className="border-t border-border px-6 py-6 pb-[calc(1.5rem+env(safe-area-inset-bottom))]">
               <ProgramAwareWhatsappLink
                 source="mobile-header-drawer"
                 onClick={closeMenu}
-                className="inline-flex h-12 w-full items-center justify-center rounded-md bg-primary px-5 text-sm font-medium text-primary-foreground"
+                className="inline-flex h-12 w-full items-center justify-center rounded-xl bg-primary px-5 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/10 active:scale-[0.98] transition-all"
               >
-                Agende uma aula experimental
+                Agende uma aula
               </ProgramAwareWhatsappLink>
             </div>
           </div>
