@@ -305,7 +305,7 @@ export function Hero({ initialAnnouncements = [] }: { initialAnnouncements?: Ann
                   <Button
                     size="lg"
                     variant="outline"
-                    className="h-14 px-8 text-base bg-transparent group hover:bg-neutral-100 hover:text-black transition-all duration-300"
+                    className="h-14 px-8 text-base bg-transparent group hover:bg-neutral-200 hover:text-black hover:border-neutral-300 transition-all duration-300 shadow-sm hover:shadow-md"
                     asChild
                   >
                     <Link href="#programas" onClick={() => track("cta_hero_programs_click")}>
