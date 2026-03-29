@@ -162,16 +162,16 @@ export function Programs() {
               </p>
             </div>
 
-            {/* Age stages compact strip */}
-            <div className="grid grid-cols-2 gap-1.5 sm:flex sm:flex-wrap sm:gap-2 sm:justify-end">
+            {/* Age stages compact strip — Now scrollable on mobile */}
+            <div className="flex gap-2 overflow-x-auto pb-1 sm:flex-wrap sm:justify-end sm:overflow-visible [&::-webkit-scrollbar]:hidden" style={{ scrollbarWidth: 'none', WebkitOverflowScrolling: 'touch' } as React.CSSProperties}>
               {ageStages.map((s) => (
-                <span
+                <div
                   key={s.phase}
-                  className="rounded-full border border-primary/10 bg-primary/[0.04] px-2.5 py-1 sm:px-3 sm:py-1.5"
+                  className="shrink-0 rounded-full border border-primary/10 bg-primary/[0.04] px-3 py-1.5 sm:px-3 sm:py-1.5"
                 >
                   <span className="text-[10px] font-bold text-foreground sm:text-[11px]">{s.phase}</span>
-                  <span className="ml-1 text-[10px] text-primary/60 sm:ml-1.5 sm:text-[11px]">{s.age}</span>
-                </span>
+                  <span className="ml-1.5 text-[10px] text-primary/60 sm:ml-1.5 sm:text-[11px]">{s.age}</span>
+                </div>
               ))}
             </div>
           </div>
@@ -305,7 +305,7 @@ export function Programs() {
                       <div
                         key={program.id}
                         style={{ width: slideWidth }}
-                        className="relative h-[420px] shrink-0 overflow-hidden rounded-xl bg-muted sm:h-[500px] lg:h-auto lg:aspect-[16/10]"
+                        className="relative h-[540px] shrink-0 overflow-hidden rounded-xl bg-muted sm:h-[500px] lg:h-auto lg:aspect-[16/10]"
                       >
                         <Image
                           src={program.image}
@@ -364,20 +364,20 @@ export function Programs() {
                           {/* Divisor sutil */}
                           <div className="my-2.5 h-px w-full bg-white/10 sm:my-3.5" />
 
-                          {/* Description — corpo legível */}
-                          <p className="line-clamp-2 max-w-2xl text-[13px] leading-relaxed text-white/75 sm:line-clamp-none sm:text-[15px]">
+                          {/* Description — corpo legível, sem cortes no mobile */}
+                          <p className="max-w-2xl text-[13px] leading-relaxed text-white/80 sm:text-[15px]">
                             {program.description}
                           </p>
 
-                          {/* Tags */}
-                          <div className="mt-2.5 flex flex-wrap gap-1.5 sm:mt-4 sm:gap-2">
-                            {program.tags.map((tag) => (
-                              <span
-                                key={tag}
-                                className="rounded-full border border-white/10 bg-white/[0.06] px-2 py-0.5 text-[9px] font-medium uppercase tracking-wider text-white/70 backdrop-blur-sm sm:px-3 sm:py-1 sm:text-[10px]"
-                              >
-                                {tag}
-                              </span>
+                          {/* Tags — Limpas e discretas no mobile */}
+                          <div className="mt-3 flex flex-wrap items-center gap-y-1 sm:mt-4 sm:gap-2">
+                            {program.tags.map((tag, idx) => (
+                              <div key={tag} className="flex items-center">
+                                {idx > 0 && <span className="mx-2 text-[10px] text-white/20 sm:hidden">•</span>}
+                                <span className="text-[10px] font-semibold uppercase tracking-wider text-white/50 sm:rounded-full sm:border sm:border-white/10 sm:bg-white/[0.06] sm:px-3 sm:py-1 sm:text-white/70 sm:backdrop-blur-sm sm:text-[10px]">
+                                  {tag}
+                                </span>
+                              </div>
                             ))}
                           </div>
 

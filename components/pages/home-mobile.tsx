@@ -500,9 +500,9 @@ export function HomeMobile({ announcements = [] }: { announcements?: Announcemen
 
         <div className="section-divider" />
 
-        <section id="metodologia" className="relative overflow-hidden px-6 py-16">
-          <div className="pointer-events-none absolute bottom-0 left-0 h-72 w-72 rounded-full bg-secondary/[0.04] blur-[120px]" />
-          <div className="pointer-events-none absolute -right-16 top-24 h-56 w-56 rounded-full bg-primary/[0.035] blur-[100px]" />
+        <section id="metodologia" className="relative overflow-hidden px-6 py-16 [contain:paint]">
+          <div className="pointer-events-none absolute bottom-0 left-0 h-72 w-72 rounded-full bg-secondary/[0.04] blur-[64px]" />
+          <div className="pointer-events-none absolute -right-16 top-24 h-56 w-56 rounded-full bg-primary/[0.035] blur-[48px]" />
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle,var(--primary)_0.5px,transparent_0.5px)] bg-[length:36px_36px] opacity-[0.02]" />
 
           <div className="relative mx-auto max-w-7xl space-y-10">
@@ -628,12 +628,12 @@ export function HomeMobile({ announcements = [] }: { announcements?: Announcemen
 
             <div className="relative isolate overflow-hidden rounded-3xl border border-primary/10 bg-gradient-to-br from-primary/[0.06] via-background to-secondary/[0.04] [contain:paint]">
               <div className="grid gap-4 px-6 py-8">
-                <div className="relative mx-auto h-52 w-52">
+                <div className="relative mx-auto h-52 w-52 rounded-full bg-primary/[0.03] shadow-inner">
                   <Image
                     src="/images/polvo-intelekta.webp"
                     alt="Polvo Intelekta, mascote da Intelekta"
                     fill
-                    className="object-contain drop-shadow-lg sm:drop-shadow-2xl"
+                    className="object-contain sm:drop-shadow-2xl"
                     sizes="208px"
                     loading="lazy"
                   />
@@ -661,8 +661,8 @@ export function HomeMobile({ announcements = [] }: { announcements?: Announcemen
           </div>
         </section>
 
-        <section id="equipe" className="relative overflow-hidden bg-dark-section px-6 py-16">
-          <div className="pointer-events-none absolute left-1/2 top-0 h-72 w-[640px] -translate-x-1/2 rounded-full bg-primary/[0.04] blur-[120px]" />
+        <section id="equipe" className="relative overflow-hidden bg-dark-section px-6 py-16 [contain:paint]">
+          <div className="pointer-events-none absolute left-1/2 top-0 h-72 w-[640px] -translate-x-1/2 rounded-full bg-primary/[0.04] blur-[64px]" />
 
           <div className="relative mx-auto max-w-7xl space-y-10">
             <SectionHeader
@@ -713,9 +713,9 @@ export function HomeMobile({ announcements = [] }: { announcements?: Announcemen
           </div>
         </section>
 
-        <section id="faq" className="relative overflow-hidden px-6 py-16">
-          <div className="pointer-events-none absolute -left-16 top-0 h-56 w-56 rounded-full bg-primary/[0.03] blur-[100px]" />
-          <div className="pointer-events-none absolute -right-20 bottom-10 h-72 w-72 rounded-full bg-secondary/[0.04] blur-[120px]" />
+        <section id="faq" className="relative overflow-hidden px-6 py-16 [contain:paint]">
+          <div className="pointer-events-none absolute -left-16 top-0 h-56 w-56 rounded-full bg-primary/[0.03] blur-[48px]" />
+          <div className="pointer-events-none absolute -right-20 bottom-10 h-72 w-72 rounded-full bg-secondary/[0.04] blur-[64px]" />
 
           <div className="relative mx-auto max-w-7xl space-y-8">
             <SectionHeader
@@ -766,9 +766,9 @@ export function HomeMobile({ announcements = [] }: { announcements?: Announcemen
 
         <div className="section-divider" />
 
-        <section id="contato" className="relative overflow-hidden px-6 py-16">
-          <div className="pointer-events-none absolute top-16 -right-16 h-56 w-56 rounded-full bg-primary/[0.03] blur-[100px]" />
-          <div className="pointer-events-none absolute bottom-0 -left-20 h-72 w-72 rounded-full bg-secondary/[0.04] blur-[120px]" />
+        <section id="contato" className="relative overflow-hidden px-6 py-16 [contain:paint]">
+          <div className="pointer-events-none absolute top-16 -right-16 h-56 w-56 rounded-full bg-primary/[0.03] blur-[48px]" />
+          <div className="pointer-events-none absolute bottom-0 -left-20 h-72 w-72 rounded-full bg-secondary/[0.04] blur-[64px]" />
 
           <div className="relative mx-auto max-w-7xl space-y-8">
             <SectionHeader
