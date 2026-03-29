@@ -308,7 +308,7 @@ function SectionHeader({
           {eyebrow}
         </span>
       </div>
-      <h2 className={`font-serif text-editorial-lg text-balance font-extrabold leading-[1.04] tracking-[-0.03em] ${titleColor}`}>
+      <h2 className={`font-serif text-editorial-lg font-extrabold leading-[1.04] tracking-[-0.03em] ${titleColor}`}>
         {title}
       </h2>
       {description ? <div className={`text-base leading-relaxed sm:text-lg ${bodyColor}`}>{description}</div> : null}
@@ -325,7 +325,7 @@ export function HomeMobile({ announcements = [] }: { announcements?: Announcemen
           to { transform: translateX(-50%); }
         }
         .animate-marquee-mobile-about {
-          animation: marquee-mobile-about 26s linear infinite;
+          /* Disabled on mobile for performance */
         }
         @keyframes mobile-hero-word-cycle {
           0% { opacity: 0; transform: translateY(8px); }
@@ -480,7 +480,6 @@ export function HomeMobile({ announcements = [] }: { announcements?: Announcemen
         <div className="section-divider-dark" />
 
         <section id="depoimentos" className="relative overflow-hidden bg-dark-section px-6 py-16">
-          <div className="pointer-events-none absolute bottom-0 right-0 h-72 w-72 rounded-full bg-primary/[0.03] blur-[120px]" />
 
           <div className="relative mx-auto max-w-7xl space-y-8">
             <SectionHeader
@@ -501,8 +500,6 @@ export function HomeMobile({ announcements = [] }: { announcements?: Announcemen
         <div className="section-divider" />
 
         <section id="metodologia" className="relative overflow-hidden px-6 py-16 [contain:paint]">
-          <div className="pointer-events-none absolute bottom-0 left-0 h-72 w-72 rounded-full bg-secondary/[0.04] blur-[64px]" />
-          <div className="pointer-events-none absolute -right-16 top-24 h-56 w-56 rounded-full bg-primary/[0.035] blur-[48px]" />
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle,var(--primary)_0.5px,transparent_0.5px)] bg-[length:36px_36px] opacity-[0.02]" />
 
           <div className="relative mx-auto max-w-7xl space-y-10">
@@ -583,15 +580,15 @@ export function HomeMobile({ announcements = [] }: { announcements?: Announcemen
               }
             />
 
-            <div className="-mx-6 overflow-hidden border-y border-primary/[0.07] py-3 [transform:translateZ(0)]" aria-hidden="true">
-              <div className="animate-marquee-mobile-about flex whitespace-nowrap [backface-visibility:hidden]">
-                {[...keywords, ...keywords, ...keywords].map((keyword, index) => (
+            <div className="-mx-6 border-y border-primary/[0.07] py-3" aria-hidden="true">
+              <div className="flex flex-wrap items-center justify-center gap-y-2 px-6">
+                {keywords.slice(0, 8).map((keyword, index) => (
                   <span
                     key={`${keyword}-${index}`}
-                    className="inline-flex items-center gap-5 px-5 text-[10px] font-bold uppercase tracking-[0.22em] text-primary/25"
+                    className="inline-flex items-center gap-3 px-3 text-[10px] font-bold uppercase tracking-[0.22em] text-primary/35"
                   >
                     {keyword}
-                    <span className="inline-block h-[3px] w-[3px] rounded-full bg-primary/20" />
+                    {index < 7 && <span className="inline-block h-[3px] w-[3px] rounded-full bg-primary/20" />}
                   </span>
                 ))}
               </div>
@@ -626,7 +623,7 @@ export function HomeMobile({ announcements = [] }: { announcements?: Announcemen
               </div>
             </div>
 
-            <div className="relative isolate overflow-hidden rounded-3xl border border-primary/10 bg-gradient-to-br from-primary/[0.06] via-background to-secondary/[0.04] [contain:paint]">
+            <div className="relative overflow-hidden rounded-3xl border border-primary/10 bg-card [contain:paint]">
               <div className="grid gap-4 px-6 py-8">
                 <div className="relative mx-auto h-52 w-52 rounded-full bg-primary/[0.03] shadow-inner">
                   <Image
@@ -662,7 +659,6 @@ export function HomeMobile({ announcements = [] }: { announcements?: Announcemen
         </section>
 
         <section id="equipe" className="relative overflow-hidden bg-dark-section px-6 py-16 [contain:paint]">
-          <div className="pointer-events-none absolute left-1/2 top-0 h-72 w-[640px] -translate-x-1/2 rounded-full bg-primary/[0.04] blur-[64px]" />
 
           <div className="relative mx-auto max-w-7xl space-y-10">
             <SectionHeader
@@ -714,8 +710,6 @@ export function HomeMobile({ announcements = [] }: { announcements?: Announcemen
         </section>
 
         <section id="faq" className="relative overflow-hidden px-6 py-16 [contain:paint]">
-          <div className="pointer-events-none absolute -left-16 top-0 h-56 w-56 rounded-full bg-primary/[0.03] blur-[48px]" />
-          <div className="pointer-events-none absolute -right-20 bottom-10 h-72 w-72 rounded-full bg-secondary/[0.04] blur-[64px]" />
 
           <div className="relative mx-auto max-w-7xl space-y-8">
             <SectionHeader
@@ -767,8 +761,6 @@ export function HomeMobile({ announcements = [] }: { announcements?: Announcemen
         <div className="section-divider" />
 
         <section id="contato" className="relative overflow-hidden px-6 py-16 [contain:paint]">
-          <div className="pointer-events-none absolute top-16 -right-16 h-56 w-56 rounded-full bg-primary/[0.03] blur-[48px]" />
-          <div className="pointer-events-none absolute bottom-0 -left-20 h-72 w-72 rounded-full bg-secondary/[0.04] blur-[64px]" />
 
           <div className="relative mx-auto max-w-7xl space-y-8">
             <SectionHeader

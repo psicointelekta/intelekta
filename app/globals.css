@@ -189,11 +189,10 @@
     }
   }
 
-  /* Ultralight static dots for Mobile (avoids GPU-heavy turbulence) */
+  /* Disable noise texture on Mobile (saves substantial GPU memory) */
   @media (max-width: 1023px) {
     body::before {
-      opacity: 0.012;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 6 6' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='1' cy='1' r='0.5' fill='black' opacity='0.2'/%3E%3C/svg%3E");
+      display: none !important;
     }
   }
 }
