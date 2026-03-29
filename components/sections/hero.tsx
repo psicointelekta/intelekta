@@ -305,7 +305,7 @@ export function Hero({ initialAnnouncements = [] }: { initialAnnouncements?: Ann
                   <Button
                     size="lg"
                     variant="outline"
-                    className="h-14 px-8 text-base bg-transparent group"
+                    className="h-14 px-8 text-base bg-transparent group hover:bg-neutral-100 hover:text-black transition-all duration-300"
                     asChild
                   >
                     <Link href="#programas" onClick={() => track("cta_hero_programs_click")}>
@@ -407,15 +407,20 @@ export function Hero({ initialAnnouncements = [] }: { initialAnnouncements?: Ann
                       </div>
                     )}
 
-                    <AnimatePresence mode="wait">
+                    <AnimatePresence>
                       {displayImages.map((img, index) => index === currentImage && (
                         <m.div
-                          key={index + imageResetKey}
-                          initial={{ opacity: 0, scale: 1.05 }}
+                          key={`${index}-${imageResetKey}`}
+                          initial={{ opacity: 0, scale: 1.02 }}
                           animate={{ opacity: 1, scale: 1 }}
-                          exit={{ opacity: 0, scale: 0.95 }}
-                          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                          exit={{ opacity: 0, scale: 0.98 }}
+                          transition={{ 
+                            duration: 1.2, 
+                            ease: [0.22, 1, 0.36, 1],
+                            opacity: { duration: 0.8 }
+                          }}
                           className="absolute inset-0"
+                          style={{ willChange: "opacity, transform" }}
                         >
                           <Image
                             src={img.src}

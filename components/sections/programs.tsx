@@ -54,10 +54,30 @@ export function Programs() {
   const [slideWidth,  setSlideWidth]  = useState(0)
   const [mounted,     setMounted]     = useState(false)
 
-  // ── Previne erro de hidratação ──────────────────────────────────────────────
+  const goTo = useCallback((idx: number) => {
+    setActiveIndex(Math.max(0, Math.min(programs.length - 1, idx)))
+  }, [])
+
+  // ── Previne erro de hidratação e cuida do link profundo (Deep Linking) ──────
   useEffect(() => {
     setMounted(true)
-  }, [])
+
+    const handleHashSync = () => {
+      const hash = window.location.hash
+      if (hash.includes("?p=")) {
+        const programId = hash.split("?p=")[1]
+        const index = programs.findIndex(p => p.id === programId)
+        if (index !== -1) {
+          // Pequeno delay para garantir que o carrossel mediu a largura (slideWidth)
+          setTimeout(() => goTo(index), 100)
+        }
+      }
+    }
+
+    handleHashSync()
+    window.addEventListener("hashchange", handleHashSync)
+    return () => window.removeEventListener("hashchange", handleHashSync)
+  }, [goTo])
 
   // ── Mede o container do carrossel ──────────────────────────────────────────
   useEffect(() => {
@@ -78,10 +98,6 @@ export function Programs() {
     const btn = strip.children[activeIndex] as HTMLElement | undefined
     btn?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" })
   }, [activeIndex])
-
-  const goTo = useCallback((idx: number) => {
-    setActiveIndex(Math.max(0, Math.min(programs.length - 1, idx)))
-  }, [])
 
   const handleSidebarKeyDown = useCallback(
     (e: React.KeyboardEvent) => {
@@ -147,7 +163,7 @@ export function Programs() {
             </div>
 
             {/* Age stages compact strip */}
-            <div className="flex flex-wrap gap-1.5 sm:gap-2 sm:justify-end">
+            <div className="grid grid-cols-2 gap-1.5 sm:flex sm:flex-wrap sm:gap-2 sm:justify-end">
               {ageStages.map((s) => (
                 <span
                   key={s.phase}

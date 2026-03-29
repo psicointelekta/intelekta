@@ -87,12 +87,12 @@ export const ageStages = [
   },
   {
     phase: "Adultos",
-    age: "18–59 anos",
+    age: "18–63 anos",
     description: "Produtividade, gestão do estresse, resolução de problemas e tomada de decisão.",
   },
   {
     phase: "Idosos",
-    age: "60+ anos",
+    age: "64+ anos",
     description: "Prevenção do declínio cognitivo com foco em memória, autonomia e qualidade de vida.",
   },
 ] as const

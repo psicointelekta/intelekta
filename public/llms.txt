@@ -40,8 +40,8 @@ Intelekta foi idealizada por psicologos e psicopedagogas. Sua metodologia integr
 
 - Criancas: 5-12 anos
 - Adolescentes: 13-17 anos
-- Adultos: 18-59 anos
-- Idosos: 60+ anos
+- Adultos: 18-63 anos
+- Idosos: 64+ anos
 
 ## Programs
 

@@ -62,10 +62,11 @@ export function MobileContactForm() {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+    const form = event.currentTarget // Capture before await
     setIsSubmitting(true)
     setStatus("idle")
 
-    const formData = new FormData(event.currentTarget)
+    const formData = new FormData(form)
 
     if (formData.get("website")) {
       setIsSubmitting(false)
@@ -103,10 +104,7 @@ export function MobileContactForm() {
       setStatus("success")
       track("lead_submit_success_mobile", { program })
 
-      const text = `Olá! Meu nome é ${fullName}. Gostaria de agendar uma aula experimental gratuita e saber mais sobre o programa ${program}. Meu contato é ${phoneValue}. ${message ? `Observação: ${message}` : ""}`
-      const whatsappUrl = `https://wa.me/5527988773890?text=${encodeURIComponent(text)}`
-      window.open(whatsappUrl, "_blank", "noopener,noreferrer")
-      event.currentTarget.reset()
+      form.reset() // Use captured ref
       setPhone("")
     } catch {
       setStatus("error")
@@ -214,11 +212,11 @@ export function MobileContactForm() {
           className="inline-flex h-12 w-full items-center justify-center gap-2 rounded-md bg-primary px-5 text-sm font-medium text-primary-foreground disabled:opacity-60"
         >
           <Send className="h-4 w-4" />
-          {isSubmitting ? "Enviando..." : "Enviar e abrir WhatsApp"}
+          {isSubmitting ? "Enviando..." : "Enviar Mensagem"}
         </button>
 
         <p className="text-xs text-muted-foreground" aria-live="polite" role="status">
-          {status === "success" && "Lead registrado com sucesso. Abrindo WhatsApp..."}
+          {status === "success" && "Mensagem enviada com sucesso! Entraremos em contato em breve."}
           {status === "error" && "Não conseguimos registrar. Tente novamente ou fale direto no WhatsApp."}
         </p>
       </form>

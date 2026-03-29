@@ -286,7 +286,7 @@ const structuredData = [
         acceptedAnswer: {
           '@type': 'Answer',
           text:
-            'Atendemos pessoas a partir dos 5 anos de idade, com programas específicos para crianças (5-12 anos), adolescentes (13-17 anos), adultos (18-59 anos) e idosos (60+ anos).',
+            'Atendemos pessoas a partir dos 5 anos de idade, com programas específicos para crianças (5-12 anos), adolescentes (13-17 anos), adultos (18-63 anos) e idosos (64+ anos).',
         },
       },
       {

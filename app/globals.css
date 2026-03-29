@@ -2,7 +2,7 @@
 @import 'tw-animate-css';
 @import 'shadcn/tailwind.css';
 
-@custom-variant dark (&:is(.dark *));
+
 
 :root {
   /* Intelekta Brand Colors — Refined */
@@ -111,6 +111,7 @@
 }
 
 @theme inline {
+  --variant-dark: (&:is(.dark, .dark *));
   --font-sans: var(--font-lato), system-ui, sans-serif;
   --font-serif: var(--font-nunito), system-ui, sans-serif;
   --font-mono: 'Geist Mono', 'Geist Mono Fallback', monospace;

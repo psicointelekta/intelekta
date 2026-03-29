@@ -7,6 +7,7 @@ import { useCallback } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { Instagram, Mail, Phone, MapPin } from "lucide-react"
+import { cn } from "@/lib/utils"
 
 const navigation = {
   main: [
@@ -19,30 +20,41 @@ const navigation = {
     { name: "Contato", href: "#contato" },
   ],
   programs: [
-    { name: "Neuroeducação", href: "#programas" },
-    { name: "Xadrez Pedagógico", href: "#programas" },
-    { name: "Musicoterapia", href: "#programas" },
-    { name: "Cubo Mágico", href: "#programas" },
-    { name: "Reforço Escolar", href: "#programas" },
-    { name: "Neurolê", href: "#programas" },
-    { name: "Psicopedagogia", href: "#programas" },
+    { name: "Neuroeducação", href: "#programas?p=neuroeducacao" },
+    { name: "Xadrez Pedagógico", href: "#programas?p=xadrez" },
+    { name: "Musicoterapia", href: "#programas?p=musicoterapia" },
+    { name: "Cubo Mágico", href: "#programas?p=cubo-magico" },
+    { name: "Reforço Escolar", href: "#programas?p=reforco-escolar" },
+    { name: "Neurolê", href: "#programas?p=neurole" },
+    { name: "Psicopedagogia", href: "#programas?p=psicopedagogia" },
   ],
 }
 
-export function Footer() {
+interface FooterProps {
+  className?: string
+}
+
+export function Footer({ className }: FooterProps) {
   const currentYear = new Date().getFullYear()
 
   const scrollTo = useCallback((e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault()
-    const el = document.querySelector(href)
+    // Find the base ID if query params are present (e.g. #programas?p=...)
+    const baseId = href.split('?')[0]
+    const el = document.querySelector(baseId)
     if (el) {
       el.scrollIntoView({ behavior: "smooth" })
       window.history.replaceState(null, "", href)
+      
+      // Dispatch custom event for hash changes within the same page
+      if (href.includes('?')) {
+        window.dispatchEvent(new HashChangeEvent('hashchange'))
+      }
     }
   }, [])
 
   return (
-    <footer className="bg-dark-section py-12 border-t border-primary/5" role="contentinfo">
+    <footer className={cn("bg-dark-section py-12 border-t border-primary/5", className)} role="contentinfo">
       <div className="mx-auto max-w-7xl px-6 flex flex-col items-center text-center space-y-8">
         {/* Brand */}
         <Link href="/" className="inline-block transition-transform hover:scale-105 duration-300">
@@ -103,6 +115,20 @@ export function Footer() {
           >
             <Mail className="w-5 h-5" />
           </a>
+        </div>
+
+        {/* SEO Programs List */}
+        <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 border-t border-white/5 pt-8 w-full">
+          {navigation.programs.map((item) => (
+            <a
+              key={item.name}
+              href={item.href}
+              onClick={(e) => scrollTo(e, item.href)}
+              className="text-[9px] font-bold uppercase tracking-[0.2em] text-dark-section-foreground/25 hover:text-primary transition-colors"
+            >
+              {item.name}
+            </a>
+          ))}
         </div>
 
         {/* Minimal Bottom */}

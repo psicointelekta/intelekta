@@ -53,10 +53,11 @@ export function Contact() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    const form = e.currentTarget // Capture here
     setIsSubmitting(true)
     setStatus("idle")
 
-    const formData = new FormData(e.currentTarget)
+    const formData = new FormData(form)
     if (formData.get("website")) {
       setIsSubmitting(false)
       return
@@ -92,10 +93,7 @@ export function Contact() {
       setStatus("success")
       track("lead_submit_success", { program })
 
-      const text = `Olá! Meu nome é ${fullName}. Gostaria de agendar uma aula experimental gratuita e saber mais sobre o programa ${program}. Meu contato é ${phoneValue}. ${message ? `Observação: ${message}` : ""}`
-      const whatsappUrl = `https://wa.me/5527988773890?text=${encodeURIComponent(text)}`
-      window.open(whatsappUrl, "_blank", "noopener,noreferrer")
-      e.currentTarget.reset()
+      form.reset() // Use captured ref
       setPhone("")
     } catch (error) {
       console.error(error)
@@ -334,7 +332,7 @@ export function Contact() {
                     aria-live="polite"
                     role="status"
                   >
-                    {status === "success" && "Lead registrado com sucesso. Abrindo WhatsApp..."}
+                    {status === "success" && "Mensagem enviada com sucesso! Entraremos em contato em breve."}
                     {status === "error" && "Não conseguimos registrar. Tente novamente ou fale direto no WhatsApp."}
                     {status === "idle" && ""}
                   </p>
