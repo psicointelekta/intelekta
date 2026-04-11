@@ -7,7 +7,7 @@ Organization: Intelekta
 Category: Centro de desenvolvimento cognitivo e socioemocional
 Location: Vila Velha, ES, Brasil
 Primary Contact: +55 27 98877-3890
-Email: contato@intelektamente.com
+Email: contato.psicointelekta@gmail.com
 Instagram: https://www.instagram.com/psicointelekta/
 Sitemap: https://intelektamente.com/sitemap.xml
 Robots: https://intelektamente.com/robots.txt

@@ -45,7 +45,7 @@ export function Footer({ className }: FooterProps) {
     if (el) {
       el.scrollIntoView({ behavior: "smooth" })
       window.history.replaceState(null, "", href)
-      
+
       // Dispatch custom event for hash changes within the same page
       if (href.includes('?')) {
         window.dispatchEvent(new HashChangeEvent('hashchange'))
@@ -70,7 +70,7 @@ export function Footer({ className }: FooterProps) {
 
         {/* Short About */}
         <p className="text-dark-section-foreground/50 text-xs sm:text-sm max-w-md leading-relaxed">
-          Desenvolvimento cognitivo e socioemocional fundamentado na neurociência. 
+          Desenvolvimento cognitivo e socioemocional fundamentado na neurociência.
           Vila Velha - ES.
         </p>
 
@@ -109,7 +109,7 @@ export function Footer({ className }: FooterProps) {
             <Phone className="w-5 h-5" />
           </a>
           <a
-            href="mailto:contato@intelektamente.com"
+            href="mailto:contato.psicointelekta@gmail.com"
             className="text-dark-section-foreground/40 hover:text-primary transition-colors"
             aria-label="Email"
           >

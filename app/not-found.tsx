@@ -142,10 +142,10 @@ export default function NotFound() {
               (27) 98877-3890
             </a>
             <a
-              href="mailto:contato@intelektamente.com"
+              href="mailto:contato.psicointelekta@gmail.com"
               className="text-xs text-muted-foreground transition-colors hover:text-primary"
             >
-              contato@intelektamente.com
+              contato.psicointelekta@gmail.com
             </a>
             <a
               href="https://instagram.com/psicointelekta"

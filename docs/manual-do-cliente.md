@@ -103,25 +103,25 @@ https://intelektamente.com/?utm_source=instagram&utm_medium=social&utm_campaign=
 **Instagram (bio ou stories):**
 
 ```
-https://intelekta.com.br/?utm_source=instagram&utm_medium=social&utm_campaign=bio-link
+https://psicointelekta.com.br/?utm_source=instagram&utm_medium=social&utm_campaign=bio-link
 ```
 
 **Anúncio pago no Facebook:**
 
 ```
-https://intelekta.com.br/?utm_source=facebook&utm_medium=cpc&utm_campaign=campanha-neuroeducacao
+https://psicointelekta.com.br/?utm_source=facebook&utm_medium=cpc&utm_campaign=campanha-neuroeducacao
 ```
 
 **WhatsApp (mensagem para grupos):**
 
 ```
-https://intelekta.com.br/?utm_source=whatsapp&utm_medium=social&utm_campaign=indicacao
+https://psicointelekta.com.br/?utm_source=whatsapp&utm_medium=social&utm_campaign=indicacao
 ```
 
 **E-mail marketing:**
 
 ```
-https://intelekta.com.br/?utm_source=email&utm_medium=email&utm_campaign=newsletter-marco
+https://psicointelekta.com.br/?utm_source=email&utm_medium=email&utm_campaign=newsletter-marco
 ```
 
 > **Ferramenta útil:** Use o [Campaign URL Builder do Google](https://ga-dev-tools.google/campaign-url-builder/) para gerar links com UTMs facilmente.
@@ -352,7 +352,7 @@ Agora o site possui um **Portal Administrativo** exclusivo onde você pode geren
 
 ### Como acessar
 
-1. Acesse o endereço: `https://intelekta.com.br/admin` (ou o domínio oficial do site).
+1. Acesse o endereço: `https://psicointelekta.com.br/admin` (ou o domínio oficial do site).
 2. Digite a **Senha Administrativa** fornecida pelo desenvolvedor.
 
 ### Como gerenciar

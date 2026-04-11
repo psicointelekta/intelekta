@@ -379,8 +379,8 @@ export function Contact() {
                 </div>
                 <div>
                   <h3 className="font-semibold text-foreground text-sm">Email</h3>
-                  <a href="mailto:contato@intelektamente.com" className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                    contato@intelektamente.com
+                  <a href="mailto:contato.psicointelekta@gmail.com" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                    contato.psicointelekta@gmail.com
                   </a>
                 </div>
               </div>

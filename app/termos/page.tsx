@@ -126,7 +126,7 @@ export default function TermosPage() {
             <ul className="list-none space-y-1 text-sm mt-3">
               <li><strong>Intelekta</strong></li>
               <li>Rua Afonso Pena, 403 — Praia da Costa, Vila Velha – ES</li>
-              <li>E-mail: <a href="mailto:contato@intelektamente.com" className="text-primary hover:underline">contato@intelektamente.com</a></li>
+              <li>E-mail: <a href="mailto:contato.psicointelekta@gmail.com" className="text-primary hover:underline">contato.psicointelekta@gmail.com</a></li>
               <li>WhatsApp: <a href="https://wa.me/5527988773890" className="text-primary hover:underline" target="_blank" rel="noopener noreferrer">(27) 98877-3890</a></li>
             </ul>
           </section>
