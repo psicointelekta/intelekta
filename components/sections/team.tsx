@@ -17,6 +17,7 @@ const founders = [
     bio: "Especializada no atendimento de crianças a partir de 6 anos e adolescentes, com expertise em avaliação neuropsicológica e terapia psicológica.",
     expertise: ["Avaliação Neuropsicológica", "Terapia Psicológica", "Transtornos de Aprendizagem"],
     image: "/images/suzidarle_pereira_retrato.webp",
+    instagram: "suzi.psi",
   },
   {
     name: "Fabiana Lima",
@@ -24,6 +25,7 @@ const founders = [
     bio: "Palestrante e professora há 12 anos dedicada ao desenvolvimento integral de crianças e adolescentes, unindo aprendizagem, ludicidade e acolhimento.",
     expertise: ["Psicopedagogia", "Ludopedagogia", "Ludoterapia"],
     image: "/images/fabiana_lima_retrato.webp",
+    instagram: "fabianalima_psico",
   },
   {
     name: "Flávia Luz Vaz",
@@ -31,6 +33,7 @@ const founders = [
     bio: "Psicóloga clínica há 24 anos, Mestre em Desenvolvimento Humano, palestrante em saúde mental e coordenadora do Projeto Guardiões da Infância.",
     expertise: ["Psicologia Clínica", "Desenvolvimento Humano", "Consultoria"],
     image: "/images/flavia_luz_retrato.webp",
+    instagram: "flavialuzvazoficial",
   },
 ]
 
@@ -121,14 +124,14 @@ export function Team() {
 
                   {/* Instagram link */}
                   <a
-                    href="https://www.instagram.com/psicointelekta/"
+                    href={`https://www.instagram.com/${founder.instagram}/`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 text-dark-section-foreground/40 hover:text-primary transition-colors text-xs"
-                    aria-label={`Instagram da Intelekta`}
+                    aria-label={`Instagram de ${founder.name}`}
                   >
                     <Instagram className="w-3.5 h-3.5" />
-                    @psicointelekta
+                    @{founder.instagram}
                   </a>
                 </div>
               </div>
