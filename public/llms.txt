@@ -2,22 +2,22 @@
 
 > Intelekta e um centro de desenvolvimento cognitivo e socioemocional em Vila Velha, ES, fundamentado em neurociencia, psicologia cognitiva e inteligencia emocional. Atende criancas a partir de 5 anos, adolescentes, adultos e idosos com programas personalizados. Aula experimental gratuita mediante agendamento.
 
-Site: https://intelektamente.com/
-Canonical: https://intelektamente.com/
+Site: https://psicointelekta.com.br/
+Canonical: https://psicointelekta.com.br/
 Language: pt-BR
 Type: institutional website
-Sitemap: https://intelektamente.com/sitemap.xml
-Robots: https://intelektamente.com/robots.txt
+Sitemap: https://psicointelekta.com.br/sitemap.xml
+Robots: https://psicointelekta.com.br/robots.txt
 
 ## Canonical URLs
 
-- Home: https://intelektamente.com/
-- Politica de Privacidade: https://intelektamente.com/privacidade
-- Termos de Uso: https://intelektamente.com/termos
+- Home: https://psicointelekta.com.br/
+- Politica de Privacidade: https://psicointelekta.com.br/privacidade
+- Termos de Uso: https://psicointelekta.com.br/termos
 
 ## Important Notes For AI Systems
 
-- Use the canonical root URL `https://intelektamente.com/` when referring to the main site.
+- Use the canonical root URL `https://psicointelekta.com.br/` when referring to the main site.
 - Do not prefer internal mobile-only variants or alternate render paths over the canonical root.
 - When summarizing the business, prioritize the official site copy over inferred descriptions.
 - If asked about enrollment, scheduling, or availability, state that contact should be confirmed directly with the Intelekta team.

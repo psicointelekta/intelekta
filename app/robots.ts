@@ -12,6 +12,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: ['/api/', '/m'],
     },
-    sitemap: 'https://intelektamente.com/sitemap.xml',
+    sitemap: 'https://psicointelekta.com.br/sitemap.xml',
   }
 }

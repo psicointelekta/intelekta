@@ -9,7 +9,7 @@ import { getGoogleSheets, SPREADSHEET_ID } from "@/lib/google-sheets"
 
 export const metadata: Metadata = {
   alternates: {
-    canonical: "https://intelektamente.com/",
+    canonical: "https://psicointelekta.com.br/",
   },
 }
 

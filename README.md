@@ -2,7 +2,7 @@
 
 Site institucional da **Intelekta**, construído com Next.js 16 (App Router, Turbopack), React 19, Tailwind CSS 4 e Framer Motion.
 
-> **URL de produção:** `https://intelektamente.com` (hospedado na Vercel)
+> **URL de produção:** `https://psicointelekta.com.br` (hospedado na Vercel)
 
 ---
 
@@ -281,7 +281,7 @@ Eventos customizados via `track()`:
 ### Domínio customizado
 
 1. No dashboard Vercel → **Settings → Domains**
-2. Adicione `intelektamente.com` e `www.intelektamente.com`
+2. Adicione `psicointelekta.com.br` e `www.psicointelekta.com.br`
 3. Configure DNS no registrador:
    - `A` record → `76.76.21.21`
    - `CNAME` de `www` → `cname.vercel-dns.com`

@@ -63,15 +63,15 @@ export const metadata: Metadata = {
   authors: [{ name: 'Intelekta' }],
   creator: 'Intelekta',
   publisher: 'Intelekta',
-  metadataBase: new URL('https://intelektamente.com'),
+  metadataBase: new URL('https://psicointelekta.com.br'),
   manifest: '/site.webmanifest',
   alternates: {
-    canonical: 'https://intelektamente.com/',
+    canonical: 'https://psicointelekta.com.br/',
   },
   openGraph: {
     type: 'website',
     locale: 'pt_BR',
-    url: 'https://intelektamente.com',
+    url: 'https://psicointelekta.com.br',
     siteName: 'Intelekta',
     title: 'Intelekta | Fortalecendo Mentes e Emoções',
     description:
@@ -127,13 +127,13 @@ const structuredData = [
   {
     '@context': 'https://schema.org',
     '@type': 'EducationalOrganization',
-    '@id': 'https://intelektamente.com/#organization',
+    '@id': 'https://psicointelekta.com.br/#organization',
     name: 'Intelekta',
     alternateName: 'Intelekta - Centro de Desenvolvimento Cognitivo e Socioemocional',
     description:
       'Centro de desenvolvimento cognitivo e socioemocional idealizado por psicólogos e psicopedagogas, fundamentado em neurociência. Oferecemos 7 programas personalizados para crianças, adolescentes, adultos e idosos em Vila Velha, ES. Nossa metodologia integra neurociência, psicologia cognitiva e inteligência emocional.',
-    url: 'https://intelektamente.com',
-    logo: 'https://intelektamente.com/icon.svg',
+    url: 'https://psicointelekta.com.br',
+    logo: 'https://psicointelekta.com.br/icon.svg',
     address: {
       '@type': 'PostalAddress',
       streetAddress: 'Rua Afonso Pena, 403',
@@ -330,12 +330,12 @@ const structuredData = [
   {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    '@id': 'https://intelektamente.com/#website',
-    url: 'https://intelektamente.com',
+    '@id': 'https://psicointelekta.com.br/#website',
+    url: 'https://psicointelekta.com.br',
     name: 'Intelekta',
     description: 'Centro de desenvolvimento cognitivo e socioemocional em Vila Velha, ES',
     publisher: {
-      '@id': 'https://intelektamente.com/#organization',
+      '@id': 'https://psicointelekta.com.br/#organization',
     },
   },
 ]

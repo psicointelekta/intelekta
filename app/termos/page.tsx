@@ -36,7 +36,7 @@ export default function TermosPage() {
           <section>
             <h2 className="font-serif text-xl font-semibold text-foreground mb-3">1. Aceitação dos Termos</h2>
             <p className="text-sm">
-              Ao acessar e utilizar o website da <strong>Intelekta</strong> (intelektamente.com), você
+              Ao acessar e utilizar o website da <strong>Intelekta</strong> (psicointelekta.com.br), você
               concorda com estes Termos de Uso. Caso não concorde, solicitamos que não utilize o site.
             </p>
           </section>

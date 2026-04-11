@@ -89,7 +89,7 @@ UTMs são parâmetros adicionados ao link do site para rastrear de onde vêm os 
 Adicione os parâmetros ao final da URL do site. Exemplo:
 
 ```
-https://intelektamente.com/?utm_source=instagram&utm_medium=social&utm_campaign=lancamento-marco
+https://psicointelekta.com.br/?utm_source=instagram&utm_medium=social&utm_campaign=lancamento-marco
 ```
 
 | Parâmetro       | Para que serve       | Exemplos                                                     |

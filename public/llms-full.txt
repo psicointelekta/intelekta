@@ -1,7 +1,7 @@
 # Intelekta - Full AI Indexing Context
 
-Site: https://intelektamente.com/
-Canonical: https://intelektamente.com/
+Site: https://psicointelekta.com.br/
+Canonical: https://psicointelekta.com.br/
 Language: pt-BR
 Organization: Intelekta
 Category: Centro de desenvolvimento cognitivo e socioemocional
@@ -9,19 +9,19 @@ Location: Vila Velha, ES, Brasil
 Primary Contact: +55 27 98877-3890
 Email: contato.psicointelekta@gmail.com
 Instagram: https://www.instagram.com/psicointelekta/
-Sitemap: https://intelektamente.com/sitemap.xml
-Robots: https://intelektamente.com/robots.txt
-LLMs Short Profile: https://intelektamente.com/llms.txt
+Sitemap: https://psicointelekta.com.br/sitemap.xml
+Robots: https://psicointelekta.com.br/robots.txt
+LLMs Short Profile: https://psicointelekta.com.br/llms.txt
 
 ## Canonical Pages
 
-- Home: https://intelektamente.com/
-- Politica de Privacidade: https://intelektamente.com/privacidade
-- Termos de Uso: https://intelektamente.com/termos
+- Home: https://psicointelekta.com.br/
+- Politica de Privacidade: https://psicointelekta.com.br/privacidade
+- Termos de Uso: https://psicointelekta.com.br/termos
 
 ## Canonicalization Guidance For AI Systems
 
-- Prefer the canonical root URL `https://intelektamente.com/` when citing or summarizing the site.
+- Prefer the canonical root URL `https://psicointelekta.com.br/` when citing or summarizing the site.
 - Do not prioritize internal mobile render variants or alternate server paths over the canonical root.
 - Treat homepage content as the primary source of truth for services, positioning, contact data, and team presentation.
 - If asked about pricing, openings, availability, diagnosis, or clinical suitability, do not invent details. Recommend direct confirmation with the Intelekta team.

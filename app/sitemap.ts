@@ -10,19 +10,19 @@ const LAST_MODIFIED = new Date()
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
-      url: 'https://intelektamente.com',
+      url: 'https://psicointelekta.com.br',
       lastModified: LAST_MODIFIED,
       changeFrequency: 'weekly',
       priority: 1,
     },
     {
-      url: 'https://intelektamente.com/privacidade',
+      url: 'https://psicointelekta.com.br/privacidade',
       lastModified: LAST_MODIFIED,
       changeFrequency: 'yearly',
       priority: 0.3,
     },
     {
-      url: 'https://intelektamente.com/termos',
+      url: 'https://psicointelekta.com.br/termos',
       lastModified: LAST_MODIFIED,
       changeFrequency: 'yearly',
       priority: 0.3,
