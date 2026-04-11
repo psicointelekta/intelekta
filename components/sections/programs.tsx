@@ -312,51 +312,38 @@ export function Programs() {
                       <div
                         key={program.id}
                         style={{ width: slideWidth }}
-                        className="relative h-[540px] shrink-0 overflow-hidden rounded-xl bg-muted sm:h-[500px] lg:h-auto lg:aspect-[16/10]"
+                        className="flex shrink-0 flex-col gap-3"
                       >
-                        <Image
-                          src={program.image}
-                          alt={program.title}
-                          fill
-                          className="pointer-events-none object-cover"
-                          sizes="(max-width: 1024px) calc(100vw - 64px), 65vw"
-                          loading="lazy"
-                          draggable={false}
-                        />
+                        {/* Intent — eyebrow fora do card principal, melhorando ainda mais a legibilidade e hierarquia */}
+                        <div className="flex items-center gap-2 px-1">
+                          <div className="h-px w-5 shrink-0 bg-primary sm:w-6" />
+                          <p className="text-[10.5px] font-semibold uppercase tracking-[0.16em] text-muted-foreground sm:text-[11.5px]">
+                            {program.intent}
+                          </p>
+                        </div>
 
-                        {/*
-                         * Ghost number — reposicionado para o canto superior esquerdo
-                         * e aumentado. Fica fora do overlay de fundo, mais atmosférico.
-                         */}
-                        <span
-                          aria-hidden
-                          className="pointer-events-none absolute -left-1 top-0 select-none font-serif font-bold leading-none text-white/[0.06] sm:-left-2"
-                          style={{ fontSize: "clamp(80px, 14vw, 160px)" }}
-                        >
-                          {program.number}
-                        </span>
+                        <div className="relative h-[540px] w-full overflow-hidden rounded-xl bg-muted sm:h-[500px] lg:h-auto lg:aspect-[16/10]">
+                          <Image
+                            src={program.image}
+                            alt={program.title}
+                            fill
+                            className="pointer-events-none object-cover"
+                            sizes="(max-width: 1024px) calc(100vw - 64px), 65vw"
+                            loading="lazy"
+                            draggable={false}
+                          />
 
-                        {/*
-                         * OVERLAY REDESENHADO — hierarquia tipográfica:
-                         *   intent eyebrow  (white/55, caps, linha decorativa)
-                         *   ↓ título        (white, serif, grande)
-                         *   ↓ subtitle      (white/40, caps pequeno)
-                         *   ↓ description   (white/75, corpo)
-                         *   ↓ tags
-                         *   ↓ CTA
-                         *
-                         * O intent sumiu do lugar estranho acima do título e agora
-                         * é um eyebrow integrado à hierarquia, com contraste correto.
-                         */}
-                        <div className="absolute inset-x-0 bottom-0 flex flex-col justify-end bg-gradient-to-t from-black/95 via-black/75 to-transparent px-14 pb-6 pt-20 sm:p-8 sm:pt-32 lg:p-10 lg:pt-36">
+                          {/* Ghost number */}
+                          <span
+                            aria-hidden
+                            className="pointer-events-none absolute -left-1 top-0 select-none font-serif font-bold leading-none text-white/[0.06] sm:-left-2"
+                            style={{ fontSize: "clamp(80px, 14vw, 160px)" }}
+                          >
+                            {program.number}
+                          </span>
 
-                          {/* Intent — eyebrow com linha decorativa e contraste correto */}
-                          <div className="mb-2 flex items-center gap-2 sm:mb-2.5">
-                            <div className="h-px w-5 shrink-0 bg-primary sm:w-6" />
-                            <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-white/90 sm:text-[11px] drop-shadow-sm">
-                              {program.intent}
-                            </p>
-                          </div>
+                          {/* OVERLAY REDESENHADO */}
+                          <div className="absolute inset-x-0 bottom-0 flex flex-col justify-end bg-gradient-to-t from-black/95 via-black/75 to-transparent px-14 pb-6 pt-20 sm:p-8 sm:pt-28 lg:p-10 lg:pt-32">
 
                           {/* Título — principal, precisa ser o maior elemento */}
                           <h3 className="font-serif text-2xl font-bold leading-tight tracking-[-0.02em] text-white sm:text-4xl lg:text-[2.6rem] drop-shadow-md">
@@ -402,8 +389,9 @@ export function Programs() {
                           </div>
                         </div>
                       </div>
-                    ))}
-                  </motion.div>
+                    </div>
+                  ))}
+                </motion.div>
 
                   {/* Prev button */}
                   <button
