@@ -128,7 +128,7 @@ export function Header() {
                   key={item.name}
                   href={item.href}
                   onClick={(e) => scrollTo(e, item.href)}
-                  className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200 relative py-1"
+                  className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200 relative py-1 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:bg-foreground after:scale-x-0 after:transition-transform after:duration-300 after:origin-left hover:after:scale-x-100"
                 >
                   {item.name}
                 </a>

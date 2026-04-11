@@ -345,27 +345,27 @@ export function Programs() {
 
                           {/* Intent — eyebrow com linha decorativa e contraste correto */}
                           <div className="mb-2 flex items-center gap-2 sm:mb-2.5">
-                            <div className="h-px w-5 shrink-0 bg-primary/80 sm:w-6" />
-                            <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-white/60 sm:text-[11px]">
+                            <div className="h-px w-5 shrink-0 bg-primary sm:w-6" />
+                            <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-white/90 sm:text-[11px] drop-shadow-sm">
                               {program.intent}
                             </p>
                           </div>
 
                           {/* Título — principal, precisa ser o maior elemento */}
-                          <h3 className="font-serif text-2xl font-bold leading-tight tracking-[-0.02em] text-white sm:text-4xl lg:text-[2.6rem]">
+                          <h3 className="font-serif text-2xl font-bold leading-tight tracking-[-0.02em] text-white sm:text-4xl lg:text-[2.6rem] drop-shadow-md">
                             {program.title}
                           </h3>
 
                           {/* Subtitle — secundário, bem menor, afastado do título */}
-                          <p className="mt-1 text-[9px] font-bold uppercase tracking-[0.22em] text-white/35 sm:mt-1.5 sm:text-[10px]">
+                          <p className="mt-1 text-[10px] font-bold uppercase tracking-[0.22em] text-white/80 sm:mt-1.5 sm:text-[11px] drop-shadow-sm">
                             {program.subtitle}
                           </p>
 
                           {/* Divisor sutil */}
-                          <div className="my-2.5 h-px w-full bg-white/10 sm:my-3.5" />
+                          <div className="my-2.5 h-px w-full bg-white/20 sm:my-3.5" />
 
                           {/* Description — corpo legível, sem cortes no mobile */}
-                          <p className="max-w-2xl text-[13px] leading-relaxed text-white/80 sm:text-[15px]">
+                          <p className="max-w-2xl text-[13px] leading-relaxed text-white/95 sm:text-[15px] font-medium drop-shadow-sm">
                             {program.description}
                           </p>
 
