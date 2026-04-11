@@ -96,7 +96,14 @@ export function Programs() {
     const strip = tabStripRef.current
     if (!strip) return
     const btn = strip.children[activeIndex] as HTMLElement | undefined
-    btn?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" })
+    if (!btn) return
+
+    // Scroll horizontal seguro que evita rolar a página verticalmente
+    const stripRect = strip.getBoundingClientRect()
+    const btnRect = btn.getBoundingClientRect()
+    const centerOffset = (btnRect.left - stripRect.left) - (stripRect.width / 2) + (btnRect.width / 2)
+    
+    strip.scrollTo({ left: strip.scrollLeft + centerOffset, behavior: "smooth" })
   }, [activeIndex])
 
   const handleSidebarKeyDown = useCallback(
