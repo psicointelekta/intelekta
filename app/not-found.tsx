@@ -64,7 +64,7 @@ export default function NotFound() {
               <div className="absolute inset-x-6 bottom-6 -z-10 h-16 rounded-full bg-primary/15 blur-3xl" />
               <Image
                 src="/images/polvo-intelekta.webp"
-                alt="Polvo Intelekta, mascote da Intelekta"
+                alt="Intelektopus, mascote da Intelekta"
                 width={340}
                 height={430}
                 priority

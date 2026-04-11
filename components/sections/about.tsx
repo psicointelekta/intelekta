@@ -198,7 +198,7 @@ export function About() {
                 <div className="relative h-52 w-52 sm:h-60 sm:w-60 lg:h-72 lg:w-72">
                   <Image
                     src="/images/polvo-intelekta.webp"
-                    alt="Polvo Intelekta — Mascote que representa a inteligência adaptável e o equilíbrio entre razão e emoção"
+                    alt="Intelektopus — Mascote que representa a inteligência adaptável e o equilíbrio entre razão e emoção"
                     fill
                     className="object-contain drop-shadow-2xl"
                     sizes="(max-width: 640px) 208px, (max-width: 1024px) 240px, 288px"

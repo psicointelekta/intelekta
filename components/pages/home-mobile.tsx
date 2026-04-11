@@ -628,7 +628,7 @@ export function HomeMobile({ announcements = [] }: { announcements?: Announcemen
                 <div className="relative mx-auto h-52 w-52 rounded-full bg-primary/[0.03] shadow-inner">
                   <Image
                     src="/images/polvo-intelekta.webp"
-                    alt="Polvo Intelekta, mascote da Intelekta"
+                    alt="Intelektopus, mascote da Intelekta"
                     fill
                     className="object-contain sm:drop-shadow-2xl"
                     sizes="208px"
@@ -636,7 +636,7 @@ export function HomeMobile({ announcements = [] }: { announcements?: Announcemen
                   />
                 </div>
                 <div>
-                  <h3 className="font-serif text-3xl font-bold tracking-[-0.02em] text-foreground">Conheça o Polvo Intelekta</h3>
+                  <h3 className="font-serif text-3xl font-bold tracking-[-0.02em] text-foreground">Conheça o Intelektopus</h3>
                   <p className="mt-3 text-sm leading-7 text-muted-foreground">
                     Nosso mascote representa a flexibilidade, a inteligência multifacetada e as múltiplas formas de aprender e se conectar com o mundo — qualidades que cultivamos em cada pessoa que passa pela Intelekta.
                   </p>

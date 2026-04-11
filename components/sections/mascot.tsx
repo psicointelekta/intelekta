@@ -52,7 +52,7 @@ export function Mascot() {
               <div className="relative">
                 <Image
                   src="/images/polvo-intelekta.webp"
-                  alt="Polvo Intelekta - Mascote que representa a inteligência adaptável e multifacetada"
+                  alt="Intelektopus - Mascote que representa a inteligência adaptável e multifacetada"
                   width={500}
                   height={600}
                   className="relative z-10 w-full h-auto drop-shadow-2xl"
@@ -103,7 +103,7 @@ export function Mascot() {
               Nosso mascote, nossa filosofia
             </h2>
             <p className="text-base sm:text-lg text-muted-foreground leading-relaxed mb-8">
-              O Polvo Intelekta representa nossa essência: a inteligência
+              O Intelektopus representa nossa essência: a inteligência
               multifacetada e a capacidade de adaptação constante. Ele nos
               lembra que o desenvolvimento humano é uma jornada rica e conectada,
               onde cada descoberta abre novos caminhos para o potencial de cada um.
