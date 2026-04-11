@@ -97,7 +97,7 @@ export function Mascot() {
             className="order-1 lg:order-2"
           >
             <span className="inline-block text-sm font-medium text-primary uppercase tracking-wider mb-4">
-              Conheça o nosso mascote
+              Conheça o Intelektopus
             </span>
             <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-black text-foreground leading-[1.04] tracking-[-0.03em] mb-6 text-balance">
               Nosso mascote, nossa filosofia

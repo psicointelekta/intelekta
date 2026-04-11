@@ -213,7 +213,7 @@ export function About() {
               {/* Quote + context */}
               <div className="px-6 pb-10 lg:col-span-3 lg:px-12 lg:py-16 lg:pl-4">
                 <h3 className="mb-4 font-serif text-xl font-bold tracking-[-0.02em] text-foreground sm:text-2xl lg:text-3xl">
-                  Conheça o nosso mascote
+                  Conheça o Intelektopus
                 </h3>
                 <p className="mb-8 text-sm leading-relaxed text-muted-foreground sm:text-base">
                   Nosso mascote representa a flexibilidade, a inteligência
