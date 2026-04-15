@@ -56,15 +56,19 @@ export function proxy(request: NextRequest) {
 
   // --- 📱 ROUTING: MOBILE vs DESKTOP ---
   
+  const seoRoutes = ['/sobre', '/programas', '/metodologia', '/equipe', '/depoimentos', '/faq', '/contato']
+  const isRoot = pathname === "/"
+  const isSeoRoute = seoRoutes.includes(pathname)
+
   // Prevent direct /m access
-  if (pathname === "/m") {
+  if (pathname === "/m" || pathname.startsWith("/m/")) {
     const url = request.nextUrl.clone()
-    url.pathname = "/"
+    url.pathname = pathname.replace(/^\/m/, "") || "/"
     return injectSecurityAndVary(NextResponse.redirect(url))
   }
 
-  // Only handle root for mobile rewrite
-  if (pathname !== "/") {
+  // Only handle root and SEO routes for mobile rewrite
+  if (!isRoot && !isSeoRoute) {
     return injectSecurityAndVary(NextResponse.next())
   }
 
@@ -78,7 +82,7 @@ export function proxy(request: NextRequest) {
 
   // Rewrite for mobile users
   const url = request.nextUrl.clone()
-  url.pathname = "/m"
+  url.pathname = isRoot ? "/m" : `/m${pathname}`
 
   return injectSecurityAndVary(NextResponse.rewrite(url))
 }

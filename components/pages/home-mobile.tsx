@@ -36,6 +36,8 @@ import { MobileNewsCarousel } from "@/components/pages/mobile-news-carousel"
 import { MobileHomeHeader } from "@/components/pages/mobile-home-header"
 import { ProgramAwareWhatsappLink } from "@/components/program-aware-whatsapp-link"
 import { Programs } from "@/components/sections/programs"
+import { SEOLinks } from "@/components/sections/seo-links"
+import { SectionJump } from "@/components/section-jump"
 import { Footer } from "@/components/footer"
 import { programs } from "@/lib/program-catalog"
 
@@ -316,9 +318,16 @@ function SectionHeader({
   )
 }
 
-export function HomeMobile({ announcements = [] }: { announcements?: Announcement[] }) {
+export function HomeMobile({ 
+  announcements = [],
+  targetId
+}: { 
+  announcements?: Announcement[],
+  targetId?: string
+}) {
   return (
     <div className="min-h-screen bg-background">
+      <SectionJump targetId={targetId} />
       <style>{`
         @keyframes marquee-mobile-about {
           from { transform: translateX(0); }
@@ -884,6 +893,7 @@ export function HomeMobile({ announcements = [] }: { announcements?: Announcemen
           </div>
         </section>
 
+        <SEOLinks />
         <Footer className="pb-[calc(7rem+env(safe-area-inset-bottom))] pt-16" />
       </main>
 

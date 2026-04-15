@@ -28,11 +28,24 @@ const Faq = dynamic(() => import("@/components/sections/faq").then((mod) => mod.
 const Contact = dynamic(() =>
   import("@/components/sections/contact").then((mod) => mod.Contact),
 )
+const SEOLinks = dynamic(() =>
+  import("@/components/sections/seo-links").then((mod) => mod.SEOLinks),
+)
+const SectionJump = dynamic(() =>
+  import("@/components/section-jump").then((mod) => mod.SectionJump),
+)
 const Footer = dynamic(() => import("@/components/footer").then((mod) => mod.Footer))
 
-export function HomeDesktop({ announcements = [] }: { announcements?: any[] }) {
+export function HomeDesktop({ 
+  announcements = [], 
+  targetId 
+}: { 
+  announcements?: any[],
+  targetId?: string
+}) {
   return (
     <>
+      <SectionJump targetId={targetId} />
       <Header />
       <main id="conteudo-principal">
         <Hero initialAnnouncements={announcements} />
@@ -47,6 +60,7 @@ export function HomeDesktop({ announcements = [] }: { announcements?: any[] }) {
         <Faq />
         <div className="section-divider" />
         <Contact />
+        <SEOLinks />
       </main>
       <Footer />
     </>

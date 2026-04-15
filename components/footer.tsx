@@ -11,22 +11,22 @@ import { cn } from "@/lib/utils"
 
 const navigation = {
   main: [
-    { name: "Programas", href: "#programas" },
-    { name: "Depoimentos", href: "#depoimentos" },
-    { name: "Metodologia", href: "#metodologia" },
-    { name: "Sobre", href: "#sobre" },
-    { name: "Equipe", href: "#equipe" },
-    { name: "FAQ", href: "#faq" },
-    { name: "Contato", href: "#contato" },
+    { name: "Sobre", href: "/sobre" },
+    { name: "Programas", href: "/programas" },
+    { name: "Metodologia", href: "/metodologia" },
+    { name: "Equipe", href: "/equipe" },
+    { name: "Depoimentos", href: "/depoimentos" },
+    { name: "FAQ", href: "/faq" },
+    { name: "Contato", href: "/contato" },
   ],
   programs: [
-    { name: "Neuroeducação", href: "#programas?p=neuroeducacao" },
-    { name: "Xadrez Pedagógico", href: "#programas?p=xadrez" },
-    { name: "Musicoterapia", href: "#programas?p=musicoterapia" },
-    { name: "Cubo Mágico", href: "#programas?p=cubo-magico" },
-    { name: "Reforço Escolar", href: "#programas?p=reforco-escolar" },
-    { name: "Neurolê", href: "#programas?p=neurole" },
-    { name: "Psicopedagogia", href: "#programas?p=psicopedagogia" },
+    { name: "Neuroeducação", href: "/programas?p=neuroeducacao" },
+    { name: "Xadrez Pedagógico", href: "/programas?p=xadrez" },
+    { name: "Musicoterapia", href: "/programas?p=musicoterapia" },
+    { name: "Cubo Mágico", href: "/programas?p=cubo-magico" },
+    { name: "Reforço Escolar", href: "/programas?p=reforco-escolar" },
+    { name: "Neurolê", href: "/programas?p=neurole" },
+    { name: "Psicopedagogia", href: "/programas?p=psicopedagogia" },
   ],
 }
 
@@ -74,17 +74,15 @@ export function Footer({ className }: FooterProps) {
           Vila Velha - ES.
         </p>
 
-        {/* Simplified Nav */}
         <div className="flex flex-wrap justify-center gap-x-8 gap-y-4">
           {navigation.main.map((item) => (
-            <a
+            <Link
               key={item.name}
               href={item.href}
-              onClick={(e) => scrollTo(e, item.href)}
               className="text-xs font-bold uppercase tracking-widest text-dark-section-foreground/60 hover:text-primary transition-colors"
             >
               {item.name}
-            </a>
+            </Link>
           ))}
         </div>
 
