@@ -27,7 +27,10 @@ const nunito = Nunito({
 })
 
 export const metadata: Metadata = {
-  title: 'Intelekta | Centro de Desenvolvimento Cognitivo e Socioemocional em Vila Velha, ES',
+  title: {
+    default: 'Intelekta | Centro de Desenvolvimento Cognitivo e Socioemocional em Vila Velha, ES',
+    template: '%s | Intelekta'
+  },
   description:
     'Centro de desenvolvimento cognitivo e socioemocional fundamentado em neurociência em Vila Velha, ES. Programas personalizados para crianças a partir de 5 anos, adolescentes, adultos e idosos. Aula experimental gratuita mediante agendamento.',
   keywords: [
@@ -61,6 +64,7 @@ export const metadata: Metadata = {
     'programas personalizados desenvolvimento',
     'aula experimental gratuita Vila Velha',
   ],
+  applicationName: 'Intelekta',
   authors: [{ name: 'Intelekta' }],
   creator: 'Intelekta',
   publisher: 'Intelekta',
@@ -127,7 +131,7 @@ const structuredData = [
   // Organization
   {
     '@context': 'https://schema.org',
-    '@type': 'EducationalOrganization',
+    '@type': ['Organization', 'EducationalOrganization', 'MedicalOrganization'],
     '@id': 'https://psicointelekta.com.br/#organization',
     name: 'Intelekta',
     alternateName: 'Intelekta - Centro de Desenvolvimento Cognitivo e Socioemocional',
@@ -135,6 +139,10 @@ const structuredData = [
       'Centro de desenvolvimento cognitivo e socioemocional idealizado por psicólogos e psicopedagogas, fundamentado em neurociência. Oferecemos 7 programas personalizados para crianças, adolescentes, adultos e idosos em Vila Velha, ES. Nossa metodologia integra neurociência, psicologia cognitiva e inteligência emocional.',
     url: 'https://psicointelekta.com.br',
     logo: 'https://psicointelekta.com.br/icon.svg',
+    brand: {
+      '@type': 'Brand',
+      name: 'Intelekta'
+    },
     address: {
       '@type': 'PostalAddress',
       streetAddress: 'Rua Afonso Pena, 403',
@@ -338,6 +346,12 @@ const structuredData = [
     publisher: {
       '@id': 'https://psicointelekta.com.br/#organization',
     },
+    inLanguage: 'pt-BR',
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: 'https://psicointelekta.com.br/?s={search_term_string}',
+      'query-input': 'required name=search_term_string'
+    }
   },
 ]
 
