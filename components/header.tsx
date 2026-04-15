@@ -136,7 +136,7 @@ export function Header() {
             </div>
 
             <div className="hidden lg:flex lg:items-center lg:gap-3">
-              <Button variant="ghost" size="sm" className="hover:bg-foreground hover:text-white transition-all duration-300 shadow-sm hover:shadow-md" asChild>
+              <Button variant="ghost" size="sm" className="font-medium text-muted-foreground hover:text-foreground hover:bg-primary/5 transition-colors" asChild>
                 <a
                   href="#contato"
                   onClick={(e) => {

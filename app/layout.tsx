@@ -31,6 +31,7 @@ export const metadata: Metadata = {
   description:
     'Centro de desenvolvimento cognitivo e socioemocional fundamentado em neurociência em Vila Velha, ES. Programas personalizados para crianças a partir de 5 anos, adolescentes, adultos e idosos. Aula experimental gratuita mediante agendamento.',
   keywords: [
+    'intelekta',
     'desenvolvimento cognitivo Vila Velha',
     'inteligência emocional crianças',
     'neurociência educação',
@@ -73,7 +74,7 @@ export const metadata: Metadata = {
     locale: 'pt_BR',
     url: 'https://psicointelekta.com.br',
     siteName: 'Intelekta',
-    title: 'Intelekta | Fortalecendo Mentes e Emoções',
+    title: 'Intelekta | Centro de Desenvolvimento Cognitivo e Socioemocional',
     description:
       'Centro de desenvolvimento cognitivo e socioemocional fundamentado em neurociência. Programas personalizados para todas as idades. Aula experimental gratuita em Vila Velha, ES.',
     images: [
@@ -87,7 +88,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Intelekta | Fortalecendo Mentes e Emoções',
+    title: 'Intelekta | Centro de Desenvolvimento Cognitivo e Socioemocional',
     description:
       'Centro de desenvolvimento cognitivo e socioemocional fundamentado em neurociência. Aula experimental gratuita.',
     images: ['/og-image.png'],

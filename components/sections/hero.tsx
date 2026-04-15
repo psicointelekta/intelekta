@@ -29,10 +29,10 @@ import { useEffect, useState, useCallback } from "react"
 import { track } from "@vercel/analytics/react"
 
 const DEFAULT_HERO_IMAGES = [
-  { 
-    src: "/images/hero-1.webp", 
-    alt: "Sessão de psicopedagogia com criança", 
-    title: "Fortalecendo mentes", 
+  {
+    src: "/images/hero-1.webp",
+    alt: "Sessão de psicopedagogia com criança",
+    title: "Fortalecendo mentes",
     category: "BEM-VINDO",
     description: "Programas especializados fundamentados em neurociência para todas as idades.",
     date: "",
@@ -40,10 +40,10 @@ const DEFAULT_HERO_IMAGES = [
     imagePosition: "50% 50%",
     imageZoom: "1"
   },
-  { 
-    src: "/images/hero-2.webp", 
-    alt: "Atendimento psicológico acolhedor", 
-    title: "Transformando emoções", 
+  {
+    src: "/images/hero-2.webp",
+    alt: "Atendimento psicológico acolhedor",
+    title: "Transformando emoções",
     category: "ESPECIALIDADE",
     description: "Equipe multidisciplinar dedicada ao desenvolvimento integral de mentes e emoções.",
     date: "",
@@ -51,10 +51,10 @@ const DEFAULT_HERO_IMAGES = [
     imagePosition: "50% 50%",
     imageZoom: "1"
   },
-  { 
-    src: "/images/hero-3.webp", 
-    alt: "Ambiente terapêutico tranquilo", 
-    title: "Moldando futuros", 
+  {
+    src: "/images/hero-3.webp",
+    alt: "Ambiente terapêutico tranquilo",
+    title: "Moldando futuros",
     category: "INFRAESTRUTURA",
     description: "Ambiente planejado para proporcionar acolhimento, segurança e resultados reais.",
     date: "",
@@ -136,18 +136,18 @@ export function Hero({ initialAnnouncements = [] }: { initialAnnouncements?: Ann
     return `https://${url}`
   }
 
-  const displayImages = announcements.length > 0 
-    ? announcements.map(a => ({ 
-        src: a.imageUrl || "/images/hero-1.webp", 
-        alt: a.title,
-        title: a.title,
-        category: a.category,
-        description: a.description,
-        date: a.date,
-        link: ensureAbsoluteUrl(a.linkUrl || ""),
-        imagePosition: a.imagePosition || '50% 50%',
-        imageZoom: a.imageZoom || '1'
-      }))
+  const displayImages = announcements.length > 0
+    ? announcements.map(a => ({
+      src: a.imageUrl || "/images/hero-1.webp",
+      alt: a.title,
+      title: a.title,
+      category: a.category,
+      description: a.description,
+      date: a.date,
+      link: ensureAbsoluteUrl(a.linkUrl || ""),
+      imagePosition: a.imagePosition || '50% 50%',
+      imageZoom: a.imageZoom || '1'
+    }))
     : isInitialLoad ? [] : DEFAULT_HERO_IMAGES
 
   const hasImages = displayImages.length > 0
@@ -343,12 +343,12 @@ export function Hero({ initialAnnouncements = [] }: { initialAnnouncements?: Ann
                 >
                   {isInitialLoad && !announcements?.length ? (
                     <div className="relative aspect-[4/3] w-full rounded-2xl overflow-hidden bg-muted shadow-lg ring-1 ring-white/10 flex items-center justify-center bg-neutral-900/50 backdrop-blur-sm">
-                        <div className="flex flex-col items-center gap-3">
-                          <Loader2 className="w-6 h-6 text-primary animate-spin" />
-                          <span className="text-[10px] uppercase tracking-widest text-muted-foreground animate-pulse">
-                            Buscando novidades...
-                          </span>
-                        </div>
+                      <div className="flex flex-col items-center gap-3">
+                        <Loader2 className="w-6 h-6 text-primary animate-spin" />
+                        <span className="text-[10px] uppercase tracking-widest text-muted-foreground animate-pulse">
+                          Buscando novidades...
+                        </span>
+                      </div>
                     </div>
                   ) : (
                     <MobileNewsCarousel items={displayImages} />
@@ -391,7 +391,7 @@ export function Hero({ initialAnnouncements = [] }: { initialAnnouncements?: Ann
                       Fique por dentro das novidades na Intelekta!
                     </h4>
                   </div>
-                  
+
                   <div className="relative aspect-[4/3] rounded-3xl overflow-hidden bg-neutral-900 shadow-[0_32px_64px_-16px_rgba(0,0,0,0.4)] border border-white/10">
                     {isInitialLoad && !announcements?.length && (
                       <div className="absolute inset-0 flex flex-col items-center justify-center space-y-4">
@@ -414,8 +414,8 @@ export function Hero({ initialAnnouncements = [] }: { initialAnnouncements?: Ann
                           initial={{ opacity: 0, scale: 1.02 }}
                           animate={{ opacity: 1, scale: 1 }}
                           exit={{ opacity: 0, scale: 0.98 }}
-                          transition={{ 
-                            duration: 1.2, 
+                          transition={{
+                            duration: 1.2,
                             ease: [0.22, 1, 0.36, 1],
                             opacity: { duration: 0.8 }
                           }}
@@ -427,14 +427,14 @@ export function Hero({ initialAnnouncements = [] }: { initialAnnouncements?: Ann
                             alt={img.alt}
                             fill
                             className="object-cover"
-                            style={{ 
+                            style={{
                               objectPosition: img.imagePosition || '50% 50%',
                               transform: `scale(${img.imageZoom || 1})`
                             }}
                             sizes="460px"
                             priority
                           />
-                          
+
                           <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent flex flex-col justify-end px-8 pt-8 pb-14 xl:px-10 xl:pt-10 xl:pb-16">
                             {img.date && (
                               <div className="absolute top-4 right-4 z-20 px-3 py-1.5 bg-black/40 backdrop-blur-md rounded-lg border border-white/10 text-[10px] text-white/90 font-medium whitespace-nowrap">
@@ -480,25 +480,24 @@ export function Hero({ initialAnnouncements = [] }: { initialAnnouncements?: Ann
                           <button
                             key={idx}
                             onClick={() => { setCurrentImage(idx); setImageResetKey(k => k + 1) }}
-                            className={`h-1.5 rounded-full transition-all duration-500 ${
-                              idx === currentImage ? "w-8 bg-primary" : "w-1.5 bg-white/30 hover:bg-white/50"
-                            }`}
+                            className={`h-1.5 rounded-full transition-all duration-500 ${idx === currentImage ? "w-8 bg-primary" : "w-1.5 bg-white/30 hover:bg-white/50"
+                              }`}
                           />
                         ))}
                       </div>
-                      
+
                       <div className="flex gap-2 z-30">
-                        <Button 
-                          variant="ghost" 
-                          size="icon" 
+                        <Button
+                          variant="ghost"
+                          size="icon"
                           className="w-10 h-10 rounded-full border border-white/40 text-white bg-black/20 hover:bg-white/20 backdrop-blur-sm transition-all shadow-lg"
                           onClick={(e) => { e.stopPropagation(); setCurrentImage(i => (i - 1 + displayImages.length) % displayImages.length); setImageResetKey(k => k + 1) }}
                         >
                           <ChevronLeft className="w-5 h-5" />
                         </Button>
-                        <Button 
-                          variant="ghost" 
-                          size="icon" 
+                        <Button
+                          variant="ghost"
+                          size="icon"
                           className="w-10 h-10 rounded-full border border-white/40 text-white bg-black/20 hover:bg-white/20 backdrop-blur-sm transition-all shadow-lg"
                           onClick={(e) => { e.stopPropagation(); setCurrentImage(i => (i + 1) % displayImages.length); setImageResetKey(k => k + 1) }}
                         >
