@@ -893,7 +893,6 @@ export function HomeMobile({
           </div>
         </section>
 
-        <SEOLinks />
         <Footer className="pb-[calc(7rem+env(safe-area-inset-bottom))] pt-16" />
       </main>
 

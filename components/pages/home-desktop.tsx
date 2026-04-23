@@ -60,7 +60,6 @@ export function HomeDesktop({
         <Faq />
         <div className="section-divider" />
         <Contact />
-        <SEOLinks />
       </main>
       <Footer />
     </>

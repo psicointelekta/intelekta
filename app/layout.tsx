@@ -71,7 +71,7 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://psicointelekta.com.br'),
   manifest: '/site.webmanifest',
   alternates: {
-    canonical: 'https://psicointelekta.com.br/',
+    canonical: 'https://psicointelekta.com.br',
   },
   openGraph: {
     type: 'website',
