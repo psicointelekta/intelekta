@@ -235,12 +235,10 @@ export function Hero({ initialAnnouncements = [] }: { initialAnnouncements?: Ann
                     aria-atomic="true"
                   >
                     <span
-                      className="col-start-1 row-start-1 text-primary"
-                      aria-hidden
-                      style={{ visibility: "hidden", pointerEvents: "none" }}
-                    >
-                      {LONGEST}
-                    </span>
+                      className="scraper-hidden col-start-1 row-start-1 text-primary pointer-events-none select-none"
+                      aria-hidden="true"
+                      data-text={LONGEST}
+                    />
                     <AnimatePresence mode="wait">
                       <m.span
                         key={wordIndex}

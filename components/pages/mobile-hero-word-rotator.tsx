@@ -18,22 +18,19 @@ export function MobileHeroWordRotator() {
 
   return (
     <span
-      className="relative inline-grid align-top"
+      className="relative inline-grid align-top text-primary"
       aria-live="polite"
       aria-atomic="true"
     >
       <span
-        className="col-start-1 row-start-1 text-primary"
-        aria-hidden
-        style={{ visibility: "hidden", pointerEvents: "none" }}
-      >
-        {LONGEST}
-      </span>
+        className="scraper-hidden col-start-1 row-start-1"
+        aria-hidden="true"
+        data-text={LONGEST}
+      />
 
       <span
         key={wordIndex}
-        className="mobile-hero-word col-start-1 row-start-1 text-primary"
-        aria-label={WORDS[wordIndex]}
+        className="mobile-hero-word col-start-1 row-start-1"
       >
         {WORDS[wordIndex]}
       </span>

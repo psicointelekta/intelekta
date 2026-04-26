@@ -29,3 +29,6 @@ next-env.d.ts
 
 lighthouse_summarys_json
 
+# local dev
+.agent/
+

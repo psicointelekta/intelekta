@@ -466,6 +466,19 @@ body {
   filter: saturate(0.9) contrast(0.95) brightness(1.02);
 }
 
+/* Hide text from simple scrapers (like Google snippets) while preserving space and visual display */
+.scraper-hidden {
+  display: inline-grid;
+  vertical-align: top;
+  visibility: hidden;
+}
+
+.scraper-hidden::before {
+  content: attr(data-text);
+  grid-area: 1 / 1;
+  visibility: visible;
+}
+
 /* ===== SECTION DIVIDERS ===== */
 /* Subtle gradient line between sections — light variant */
 .section-divider {

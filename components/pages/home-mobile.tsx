@@ -267,21 +267,25 @@ function MobileHeroWordRotator() {
   return (
     <span className="mobile-hero-word-rotator relative inline-grid align-top text-primary" role="text" aria-label="mentes, emoções e futuros">
       <span
-        className="col-start-1 row-start-1"
-        aria-hidden
-        style={{ visibility: "hidden", pointerEvents: "none" }}
-      >
-        emoções
-      </span>
-      <span className="mobile-hero-word-cycle col-start-1 row-start-1" style={{ animationDelay: "0s" }} aria-hidden>
+        className="scraper-hidden col-start-1 row-start-1"
+        aria-hidden="true"
+        data-text="emoções"
+      />
+      <span className="mobile-hero-word-cycle col-start-1 row-start-1" style={{ animationDelay: "0s" }}>
         mentes
       </span>
-      <span className="mobile-hero-word-cycle col-start-1 row-start-1" style={{ animationDelay: "-5.6s" }} aria-hidden>
-        emoções
-      </span>
-      <span className="mobile-hero-word-cycle col-start-1 row-start-1" style={{ animationDelay: "-2.8s" }} aria-hidden>
-        futuros
-      </span>
+      <span
+        className="mobile-hero-word-cycle scraper-hidden col-start-1 row-start-1"
+        style={{ animationDelay: "-5.6s" }}
+        aria-hidden="true"
+        data-text="emoções"
+      />
+      <span
+        className="mobile-hero-word-cycle scraper-hidden col-start-1 row-start-1"
+        style={{ animationDelay: "-2.8s" }}
+        aria-hidden="true"
+        data-text="futuros"
+      />
       <span className="absolute -bottom-1.5 left-0 h-[3px] w-full origin-left rounded-full bg-primary/30" />
     </span>
   )
