@@ -467,16 +467,29 @@ body {
 }
 
 /* Hide text from simple scrapers (like Google snippets) while preserving space and visual display */
-.scraper-hidden {
+.scraper-hidden-text {
   display: inline-grid;
   vertical-align: top;
   visibility: hidden;
 }
 
-.scraper-hidden::before {
+.scraper-hidden-text::before {
   content: attr(data-text);
   grid-area: 1 / 1;
   visibility: visible;
+}
+
+/* For reserving space without showing any text to users or scrapers */
+.scraper-hidden-reserver {
+  display: inline-grid;
+  vertical-align: top;
+  visibility: hidden;
+}
+
+.scraper-hidden-reserver::before {
+  content: attr(data-text);
+  grid-area: 1 / 1;
+  /* visibility: hidden by inheritance, but reserves space */
 }
 
 /* ===== SECTION DIVIDERS ===== */

@@ -23,7 +23,7 @@ export function MobileHeroWordRotator() {
       aria-atomic="true"
     >
       <span
-        className="scraper-hidden col-start-1 row-start-1"
+        className="scraper-hidden-reserver col-start-1 row-start-1"
         aria-hidden="true"
         data-text={LONGEST}
       />

@@ -267,7 +267,7 @@ function MobileHeroWordRotator() {
   return (
     <span className="mobile-hero-word-rotator relative inline-grid align-top text-primary" role="text" aria-label="mentes, emoções e futuros">
       <span
-        className="scraper-hidden col-start-1 row-start-1"
+        className="scraper-hidden-reserver col-start-1 row-start-1"
         aria-hidden="true"
         data-text="emoções"
       />
@@ -275,13 +275,13 @@ function MobileHeroWordRotator() {
         mentes
       </span>
       <span
-        className="mobile-hero-word-cycle scraper-hidden col-start-1 row-start-1"
+        className="mobile-hero-word-cycle scraper-hidden-text col-start-1 row-start-1"
         style={{ animationDelay: "-5.6s" }}
         aria-hidden="true"
         data-text="emoções"
       />
       <span
-        className="mobile-hero-word-cycle scraper-hidden col-start-1 row-start-1"
+        className="mobile-hero-word-cycle scraper-hidden-text col-start-1 row-start-1"
         style={{ animationDelay: "-2.8s" }}
         aria-hidden="true"
         data-text="futuros"

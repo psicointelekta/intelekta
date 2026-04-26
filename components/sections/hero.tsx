@@ -235,7 +235,7 @@ export function Hero({ initialAnnouncements = [] }: { initialAnnouncements?: Ann
                     aria-atomic="true"
                   >
                     <span
-                      className="scraper-hidden col-start-1 row-start-1 text-primary pointer-events-none select-none"
+                      className="scraper-hidden-reserver col-start-1 row-start-1 text-primary pointer-events-none select-none"
                       aria-hidden="true"
                       data-text={LONGEST}
                     />
