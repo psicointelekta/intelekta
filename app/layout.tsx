@@ -10,6 +10,8 @@ import type { Metadata, Viewport } from 'next'
 import { Lato, Nunito } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { SpeedInsights } from '@vercel/speed-insights/next'
+import { Suspense } from 'react'
+import { AccessTracker } from '@/components/access-tracker'
 import './globals.css'
 
 const lato = Lato({
@@ -385,6 +387,9 @@ export default function RootLayout({
         {children}
         <Analytics />
         <SpeedInsights />
+        <Suspense fallback={null}>
+          <AccessTracker />
+        </Suspense>
       </body>
     </html>
   )
