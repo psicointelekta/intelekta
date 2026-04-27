@@ -271,13 +271,10 @@ export function Hero({ initialAnnouncements = [] }: { initialAnnouncements?: Ann
                   transition={{ duration: 0.52, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
                   className="mt-6 lg:mt-8 text-base lg:text-lg text-muted-foreground leading-relaxed max-w-lg"
                 >
-                  Programas personalizados fundamentados em{" "}
-                  <span className="text-foreground font-medium">neurociência</span>{" "}
-                  para crianças, adolescentes, adultos e idosos.
-                  Porque todo potencial merece ser descoberto —
-                  aqui em{" "}
-                  <span className="text-foreground font-medium">Vila Velha</span>{" "}
-                  e além.
+                  Centro especializado em <span className="text-foreground font-medium">psicologia infantil</span>,{" "}
+                  <span className="text-foreground font-medium">neuropsicologia</span> e desenvolvimento cognitivo em{" "}
+                  <span className="text-foreground font-medium">Vila Velha</span>. 
+                  Acolhimento humanizado para TDAH, autismo, ansiedade e dificuldades de aprendizagem.
                 </m.p>
 
                 {/* CTAs */}

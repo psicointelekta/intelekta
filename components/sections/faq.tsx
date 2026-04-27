@@ -19,31 +19,31 @@ import {
 const faqs = [
   {
     question: "Para qual faixa etária a Intelekta atende?",
-    answer: "Atendemos pessoas a partir dos 5 anos de idade, com programas específicos para crianças (5-12 anos), adolescentes (13-17 anos), adultos (18-63 anos) e idosos (64+ anos). Cada programa é adaptado às necessidades e características de cada fase da vida.",
+    answer: "Atendemos pessoas a partir dos 5 anos de idade em Vila Velha, com programas específicos para crianças (5-12 anos), adolescentes (13-17 anos), adultos (18-63 anos) e idosos (64+ anos). Cada programa é adaptado para desenvolvimento infantil, acadêmico ou estimulação cognitiva sênior.",
+  },
+  {
+    question: "A Intelekta atende autismo ou TDAH em Vila Velha?",
+    answer: "Sim! Somos especialistas em programas de desenvolvimento para crianças atípicas. Oferecemos suporte especializado para TDAH, autismo (TEA), déficit de atenção e outras demandas do neurodesenvolvimento com foco em autonomia e funções executivas.",
+  },
+  {
+    question: "Como funciona a avaliação neuropsicológica infantil?",
+    answer: "Nossa avaliação neuropsicológica em Vila Velha mapeia minuciosamente o perfil cognitivo, atencional e emocional. É fundamental para identificar causas de dificuldades escolares, suspeitas de TDAH ou atrasos no desenvolvimento, gerando um plano de intervenção preciso.",
+  },
+  {
+    question: "Vocês ajudam com dificuldades de aprendizagem e rendimento escolar?",
+    answer: "Com certeza. Nossos programas de Psicopedagogia e Reforço Escolar são desenhados para crianças com baixo desempenho acadêmico, falta de concentração ou desmotivação, unindo estratégias pedagógicas com psicologia cognitiva.",
   },
   {
     question: "Como funciona a metodologia da Intelekta?",
-    answer: "Nossa metodologia é fundamentada em três pilares: neurociência, psicologia cognitiva e inteligência emocional. Utilizamos atividades práticas e personalizadas que estimulam o desenvolvimento de novas habilidades cognitivas e emocionais, baseadas em evidências científicas sobre neuroplasticidade.",
+    answer: "Nossa metodologia é fundamentada em neurociência, psicologia cognitiva e inteligência emocional. Utilizamos atividades práticas baseadas em neuroplasticidade para fortalecer memória, atenção e regulação emocional em todas as idades.",
   },
   {
-    question: "Qual a diferença entre a Intelekta e uma escola ou terapia?",
-    answer: "A Intelekta é um centro de educação complementar. Não substituímos a escola, que foca em conteúdo acadêmico, nem a terapia, que trata questões clínicas. Nosso foco é o desenvolvimento de habilidades cognitivas e socioemocionais que potencializam o desempenho em todas as áreas da vida.",
+    question: "Qual a diferença entre a Intelekta e uma clínica de psicologia comum?",
+    answer: "Diferente de uma clínica de terapia tradicional, a Intelekta é um centro de educação complementar e treinamento cognitivo. Focamos no desenvolvimento prático de habilidades, sendo o complemento ideal para o acompanhamento escolar e clínico.",
   },
   {
-    question: "Quanto tempo dura cada sessão?",
-    answer: "As sessões têm duração de 1 hora e 30 minutos, com um encontro semanal. A frequência pode ser ajustada de acordo com os objetivos individuais de cada pessoa.",
-  },
-  {
-    question: "Como é feita a avaliação inicial?",
-    answer: "Realizamos uma avaliação inicial completa que mapeia habilidades cognitivas, perfil emocional e objetivos pessoais. A partir dessa análise, elaboramos um plano de desenvolvimento personalizado que orienta todo o trabalho ao longo do programa.",
-  },
-  {
-    question: "Posso fazer uma aula experimental?",
-    answer: "Sim! Oferecemos uma aula experimental gratuita para que você ou seu filho conheça nosso espaço, metodologia e equipe. É uma oportunidade de vivenciar nossa abordagem antes de tomar qualquer decisão. Entre em contato para agendar.",
-  },
-  {
-    question: "Onde fica a Intelekta?",
-    answer: "Estamos localizados na Rua Afonso Pena, 403, no bairro Praia da Costa, em Vila Velha, ES. Nosso espaço foi cuidadosamente planejado para proporcionar um ambiente calmo, acolhedor e propício ao desenvolvimento.",
+    question: "Como agendar uma aula experimental gratuita?",
+    answer: "Você pode agendar pelo nosso WhatsApp. Oferecemos esse primeiro contato gratuito para que você conheça nosso espaço na Praia da Costa e como nossa metodologia pode ajudar no desenvolvimento do seu filho ou na sua própria produtividade.",
   },
 ]
 

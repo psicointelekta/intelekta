@@ -35,34 +35,30 @@ export const metadata: Metadata = {
     'Centro de desenvolvimento cognitivo e socioemocional fundamentado em neurociência em Vila Velha, ES. Programas personalizados para crianças a partir de 5 anos, adolescentes, adultos e idosos. Aula experimental gratuita mediante agendamento.',
   keywords: [
     'intelekta',
-    'desenvolvimento cognitivo Vila Velha',
+    'psicólogo em vila velha',
+    'psicóloga em vila velha',
+    'clínica de psicologia vila velha',
+    'psicólogo infantil vila velha',
+    'neuropsicólogo vila velha',
+    'avaliação neuropsicológica vila velha',
+    'psicopedagogia vila velha',
+    'terapia para ansiedade vila velha',
+    'avaliação tdah vila velha',
+    'diagnóstico autismo infantil',
+    'atraso no desenvolvimento infantil',
+    'dificuldade de aprendizagem criança',
+    'psicólogo na praia da costa',
+    'psicólogo em itaparica vila velha',
+    'orientação parental vila velha',
+    'desenvolvimento cognitivo infantil',
     'inteligência emocional crianças',
     'neurociência educação',
-    'psicopedagogia Vila Velha',
     'estimulação cognitiva sênior',
-    'xadrez educativo',
-    'autonomia nos estudos',
-    'desenvolvimento socioemocional',
-    'centro educação complementar ES',
-    'avaliação neuropsicológica Vila Velha',
-    'aula experimental cognitiva',
-    'programa infantil desenvolvimento',
-    'psicologia cognitiva adolescentes',
-    'psicólogo em Vila Velha',
-    'psicopedagogo Vila Velha',
-    'desenvolvimento adulto Vila Velha',
-    'desenvolvimento idoso Vila Velha',
-    'neuroeducação Vila Velha',
-    'musicoterapia Vila Velha',
-    'reforço escolar Vila Velha',
-    'cubo mágico Vila Velha',
-    'neurolê Vila Velha',
-    'psicopedagogia Vila Velha',
-    'desenvolvimento cognitivo e socioemocional',
+    'reforço escolar vila velha',
     'centro de desenvolvimento cognitivo',
-    'centro de desenvolvimento socioemocional',
-    'programas personalizados desenvolvimento',
-    'aula experimental gratuita Vila Velha',
+    'curso de xadrez e cubo mágico vila velha',
+    'atendimento psicológico particular',
+    'psicologia infantil vila velha',
   ],
   applicationName: 'Intelekta',
   authors: [{ name: 'Intelekta' }],
@@ -80,21 +76,21 @@ export const metadata: Metadata = {
     siteName: 'Intelekta',
     title: 'Intelekta | Centro de Desenvolvimento Cognitivo e Socioemocional',
     description:
-      'Centro de desenvolvimento cognitivo e socioemocional fundamentado em neurociência. Programas personalizados para todas as idades. Aula experimental gratuita em Vila Velha, ES.',
+      'Centro de desenvolvimento cognitivo, neuropsicologia e psicologia infantil em Vila Velha, ES. Especialistas em TDAH, autismo, ansiedade e dificuldades de aprendizagem. Aula experimental gratuita.',
     images: [
       {
         url: '/og-image.png',
         width: 1920,
         height: 1080,
-        alt: 'Intelekta - Centro de Desenvolvimento Cognitivo e Socioemocional em Vila Velha, ES',
+        alt: 'Intelekta - Psicólogo, Neuropsicólogo e Psicopedagogia em Vila Velha, ES',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Intelekta | Centro de Desenvolvimento Cognitivo e Socioemocional',
+    title: 'Intelekta | Psicólogo e Neuropsicólogo em Vila Velha',
     description:
-      'Centro de desenvolvimento cognitivo e socioemocional fundamentado em neurociência. Aula experimental gratuita.',
+      'Desenvolvimento cognitivo e socioemocional sob medida. Especialistas em psicologia infantil, TDAH e avaliação neuropsicológica em Vila Velha.',
     images: ['/og-image.png'],
   },
   robots: {
@@ -136,7 +132,7 @@ const structuredData = [
     name: 'Intelekta',
     alternateName: 'Intelekta - Centro de Desenvolvimento Cognitivo e Socioemocional',
     description:
-      'Centro de desenvolvimento cognitivo e socioemocional idealizado por psicólogos e psicopedagogas, fundamentado em neurociência. Oferecemos 7 programas personalizados para crianças, adolescentes, adultos e idosos em Vila Velha, ES. Nossa metodologia integra neurociência, psicologia cognitiva e inteligência emocional.',
+      'Centro de desenvolvimento cognitivo, neuropsicologia e psicologia infantil em Vila Velha, ES. Idealizado por psicólogos e psicopedagogas, oferecemos avaliação de TDAH, autismo, terapia para ansiedade e programas personalizados para todas as idades fundamentados em neurociência.',
     url: 'https://psicointelekta.com.br',
     logo: 'https://psicointelekta.com.br/icon.svg',
     brand: {
@@ -335,24 +331,39 @@ const structuredData = [
       },
     ],
   },
-  // Website
+  // LocalBusiness for SEO Local
   {
     '@context': 'https://schema.org',
-    '@type': 'WebSite',
-    '@id': 'https://psicointelekta.com.br/#website',
+    '@type': 'LocalBusiness',
+    '@id': 'https://psicointelekta.com.br/#localbusiness',
+    name: 'Intelekta - Psicologia e Desenvolvimento',
+    description: 'Psicólogo em Vila Velha, neuropsicologia infantil e psicopedagogia na Praia da Costa. Avaliação de TDAH e Autismo.',
     url: 'https://psicointelekta.com.br',
-    name: 'Intelekta',
-    description: 'Centro de desenvolvimento cognitivo e socioemocional em Vila Velha, ES',
-    publisher: {
-      '@id': 'https://psicointelekta.com.br/#organization',
+    telephone: '+55-27-98877-3890',
+    priceRange: '$$',
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: 'Rua Afonso Pena, 403',
+      addressLocality: 'Vila Velha',
+      addressRegion: 'ES',
+      postalCode: '29101-010',
+      addressCountry: 'BR',
     },
-    inLanguage: 'pt-BR',
-    potentialAction: {
-      '@type': 'SearchAction',
-      target: 'https://psicointelekta.com.br/?s={search_term_string}',
-      'query-input': 'required name=search_term_string'
-    }
-  },
+    geo: {
+      '@type': 'GeoCoordinates',
+      latitude: -20.3467,
+      longitude: -40.2925,
+    },
+    openingHoursSpecification: [
+      {
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+        opens: '09:00',
+        closes: '18:00',
+      }
+    ],
+    image: 'https://psicointelekta.com.br/og-image.png',
+  }
 ]
 
 export default function RootLayout({
