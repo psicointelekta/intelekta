@@ -35,11 +35,9 @@ export function AccessTracker() {
 
         if (res.ok) {
           sessionStorage.setItem(sessionKey, 'true')
-          console.log('[Tracking] Access registered successfully')
         }
       } catch (error) {
         // Silent fail — don't affect user experience
-        console.error('[Tracking] Failed to register access:', error)
       }
     }
 
