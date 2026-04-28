@@ -118,19 +118,25 @@ export function MobileNewsCarousel({ items }: { items: readonly NewsItem[] }) {
               style={{ width: slideWidth || "75%", aspectRatio: "4/3", marginRight: GAP }}
             >
               <div className="block w-full h-full relative">
-                <Image
-                  src={item.src}
-                  alt={item.alt}
-                  fill
-                  className="object-cover pointer-events-none select-none"
+                <div 
+                  className="absolute"
                   style={{
-                    objectPosition: item.imagePosition || "50% 50%",
-                    transform: `scale(${item.imageZoom || 1})`,
+                    width: `${(parseFloat(item.imageZoom || "1") * 100)}%`,
+                    height: `${(parseFloat(item.imageZoom || "1") * 100)}%`,
+                    left: `${-((parseFloat((item.imagePosition || "50% 50%").split(" ")[0]) / 100) * (parseFloat(item.imageZoom || "1") - 1) * 100)}%`,
+                    top: `${-((parseFloat((item.imagePosition || "50% 50%").split(" ")[1]) / 100) * (parseFloat(item.imageZoom || "1") - 1) * 100)}%`,
                   }}
-                  sizes="75vw"
-                  priority={idx < 3}
-                  draggable={false}
-                />
+                >
+                  <Image
+                    src={item.src}
+                    alt={item.alt}
+                    fill
+                    className="object-cover pointer-events-none select-none"
+                    sizes="75vw"
+                    priority={idx < 3}
+                    draggable={false}
+                  />
+                </div>
 
                 {/* Link moved to the "Saiba mais" button below */}
 

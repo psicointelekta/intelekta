@@ -417,18 +417,24 @@ export function Hero({ initialAnnouncements = [] }: { initialAnnouncements?: Ann
                           className="absolute inset-0"
                           style={{ willChange: "opacity, transform" }}
                         >
-                          <Image
-                            src={img.src}
-                            alt={img.alt}
-                            fill
-                            className="object-cover"
+                          <div 
+                            className="absolute"
                             style={{
-                              objectPosition: img.imagePosition || '50% 50%',
-                              transform: `scale(${img.imageZoom || 1})`
+                              width: `${(parseFloat(img.imageZoom || '1') * 100)}%`,
+                              height: `${(parseFloat(img.imageZoom || '1') * 100)}%`,
+                              left: `${-((parseFloat((img.imagePosition || '50% 50%').split(' ')[0]) / 100) * (parseFloat(img.imageZoom || '1') - 1) * 100)}%`,
+                              top: `${-((parseFloat((img.imagePosition || '50% 50%').split(' ')[1]) / 100) * (parseFloat(img.imageZoom || '1') - 1) * 100)}%`,
                             }}
-                            sizes="460px"
-                            priority
-                          />
+                          >
+                            <Image
+                              src={img.src}
+                              alt={img.alt}
+                              fill
+                              className="object-cover"
+                              sizes="460px"
+                              priority
+                            />
+                          </div>
 
                           <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent flex flex-col justify-end px-8 pt-8 pb-14 xl:px-10 xl:pt-10 xl:pb-16">
                             {img.date && (

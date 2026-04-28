@@ -5,10 +5,13 @@ import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Trash2, Plus, Loader2, Lock, Edit2, X, ChevronUp, ChevronDown, Eye, EyeOff, Server, Github, Mail, Globe, Cloud, BarChart3, Database, MessageCircle, ExternalLink, Upload, Image as ImageIcon, CheckCircle2 } from "lucide-react"
+import { Trash2, Plus, Loader2, Lock, Edit2, X, ChevronUp, ChevronDown, Eye, EyeOff, Server, Github, Mail, Globe, Cloud, BarChart3, Database, MessageCircle, ExternalLink, Upload, Image as ImageIcon, CheckCircle2, Move } from "lucide-react"
 import { Footer } from "@/components/footer"
 import { Modal } from "@/components/ui/modal"
 import { m, LazyMotion, domAnimation } from "framer-motion"
+import { useRef } from "react"
+
+
 
 interface Announcement {
   date: string
@@ -33,8 +36,10 @@ export default function AdminPage() {
   const [showPassword, setShowPassword] = useState(false)
   const [loginError, setLoginError] = useState(false)
   const [isDragging, setIsDragging] = useState(false)
+  const [isAdjusting, setIsAdjusting] = useState(false)
+  const [dragStart, setDragStart] = useState({ x: 0, y: 0, pos: { x: 50, y: 50 } })
+  const previewRef = useRef<HTMLDivElement>(null)
 
-  
   const [newData, setNewData] = useState<Announcement>({
     date: "15 de Abril",
     category: "WORKSHOP",
@@ -47,6 +52,75 @@ export default function AdminPage() {
   })
 
   const [previewUrl, setPreviewUrl] = useState<string | null>(null)
+
+  // Calcula o estilo de zoom+pan para renderizar a imagem corretamente.
+  // Usa um div wrapper maior que o container + background-size: cover
+  // para garantir que o pan funcione em AMBOS os eixos.
+  function getZoomPanStyle(position: string, zoom: string) {
+    const z = parseFloat(zoom || '1')
+    const [posXStr, posYStr] = (position || '50% 50%').split(' ')
+    const posX = parseFloat(posXStr) / 100
+    const posY = parseFloat(posYStr) / 100
+    return {
+      width: `${z * 100}%`,
+      height: `${z * 100}%`,
+      left: `${-(posX * (z - 1) * 100)}%`,
+      top: `${-(posY * (z - 1) * 100)}%`,
+    }
+  }
+
+  // Handlers globais para arraste (permite arrastar mesmo fora da imagem)
+  useEffect(() => {
+    const handleGlobalMove = (e: MouseEvent | TouchEvent) => {
+      if (!isAdjusting || !previewRef.current) return
+      
+      const clientX = 'touches' in e ? e.touches[0].clientX : (e as MouseEvent).clientX
+      const clientY = 'touches' in e ? e.touches[0].clientY : (e as MouseEvent).clientY
+      
+      const deltaX = clientX - dragStart.x
+      const deltaY = clientY - dragStart.y
+      
+      const rect = previewRef.current.getBoundingClientRect()
+      const zoom = parseFloat(newData.imageZoom || '1')
+      
+      // O range total de pan em pixels é (zoom - 1) * containerWidth
+      // Se zoom=1, não há pan. Se zoom=2, o pan range = 1 * containerWidth.
+      const panRangeX = (zoom - 1) * rect.width
+      const panRangeY = (zoom - 1) * rect.height
+      
+      // Converte o delta do mouse em delta de porcentagem (0-100)
+      const deltaPctX = panRangeX > 0 ? (deltaX / panRangeX) * 100 : 0
+      const deltaPctY = panRangeY > 0 ? (deltaY / panRangeY) * 100 : 0
+      
+      // Arrastar para a direita = ver o lado esquerdo da imagem = diminuir posX
+      const nX = Math.max(0, Math.min(100, dragStart.pos.x - deltaPctX))
+      const nY = Math.max(0, Math.min(100, dragStart.pos.y - deltaPctY))
+      
+      setNewData(prev => ({
+        ...prev,
+        imagePosition: `${nX.toFixed(1)}% ${nY.toFixed(1)}%`
+      }))
+    }
+
+    const handleGlobalUp = () => {
+      setIsAdjusting(false)
+    }
+
+    if (isAdjusting) {
+      window.addEventListener('mousemove', handleGlobalMove)
+      window.addEventListener('mouseup', handleGlobalUp)
+      window.addEventListener('touchmove', handleGlobalMove)
+      window.addEventListener('touchend', handleGlobalUp)
+    }
+
+    return () => {
+      window.removeEventListener('mousemove', handleGlobalMove)
+      window.removeEventListener('mouseup', handleGlobalUp)
+      window.removeEventListener('touchmove', handleGlobalMove)
+      window.removeEventListener('touchend', handleGlobalUp)
+    }
+  }, [isAdjusting, dragStart, newData.imageZoom])
+
 
   // Modal states
   const [modalState, setModalState] = useState<{
@@ -232,6 +306,31 @@ export default function AdminPage() {
     } else if (file) {
       showModal("error", "Arquivo Inválido", "Por favor, arraste apenas arquivos de imagem.")
     }
+  }
+
+  const handleAdjustStart = (e: React.MouseEvent | React.TouchEvent) => {
+    if (!newData.imageUrl && !previewUrl) return
+    e.preventDefault() // Evita scroll/seleção durante arraste
+    setIsAdjusting(true)
+    
+    const clientX = 'touches' in e ? e.touches[0].clientX : (e as React.MouseEvent).clientX
+    const clientY = 'touches' in e ? e.touches[0].clientY : (e as React.MouseEvent).clientY
+    
+    const currentPos = newData.imagePosition || '50% 50%'
+    const [currX, currY] = currentPos.split(' ').map(v => {
+      const val = parseFloat(v.replace('%', ''))
+      return isNaN(val) ? 50 : val
+    })
+    
+    setDragStart({ 
+      x: clientX, 
+      y: clientY, 
+      pos: { x: currX, y: currY } 
+    })
+  }
+
+  const handleAdjustEnd = () => {
+    setIsAdjusting(false)
   }
 
   async function handleMove(index: number, direction: 'up' | 'down') {
@@ -531,52 +630,82 @@ export default function AdminPage() {
                       </div>
                     </div>
 
-                    <div className="md:col-span-2 p-4 bg-primary/5 rounded-lg border border-primary/10 space-y-4">
-                      <div className="grid grid-cols-2 gap-4 text-[10px] font-bold uppercase tracking-wider text-primary">
-                        <span>Foco Horizontal (X)</span>
-                        <span>Foco Vertical (Y)</span>
+                    <div className="md:col-span-2 p-6 bg-primary/5 rounded-2xl border border-primary/10 space-y-6">
+                      <div className="flex items-center justify-between">
+                        <div className="space-y-1">
+                          <h3 className="text-xs font-bold uppercase tracking-widest text-primary">Ajuste de Enquadramento</h3>
+                          <p className="text-[10px] text-muted-foreground italic">Clique e "puxe" a imagem abaixo para ajustar o centro.</p>
+                        </div>
+                        <Button 
+                          type="button" 
+                          variant="outline" 
+                          size="sm" 
+                          className="h-8 text-[9px] uppercase font-bold"
+                          onClick={() => setNewData({...newData, imagePosition: "50% 50%", imageZoom: "1"})}
+                        >
+                          Resetar
+                        </Button>
                       </div>
-                      <div className="grid grid-cols-2 gap-4">
-                        <input 
-                          type="range"
-                          min="0"
-                          max="100"
-                          value={parseInt((newData.imagePosition?.split(/\s+/)[0] || '50%').replace('%', ''))}
-                          onChange={e => {
-                            const x = e.target.value + '%';
-                            const y = (newData.imagePosition?.split(/\s+/)[1]) || '50%';
-                            setNewData({...newData, imagePosition: `${x} ${y}`})
-                          }}
-                          className="w-full accent-primary h-1 bg-primary/20 rounded-lg appearance-none cursor-pointer"
-                        />
-                        <input 
-                          type="range"
-                          min="0"
-                          max="100"
-                          value={parseInt((newData.imagePosition?.split(/\s+/)[1] || '50%').replace('%', ''))}
-                          onChange={e => {
-                            const x = (newData.imagePosition?.split(/\s+/)[0]) || '50%';
-                            const y = e.target.value + '%';
-                            setNewData({...newData, imagePosition: `${x} ${y}`})
-                          }}
-                          className="w-full accent-primary h-1 bg-primary/20 rounded-lg appearance-none cursor-pointer"
-                        />
+
+                      {/* AREA DE AJUSTE INTERATIVA */}
+                      <div className="relative group/adjust">
+                        <div 
+                          ref={previewRef}
+                          className={`relative w-full aspect-video rounded-xl overflow-hidden bg-background border border-border shadow-inner transition-shadow ${isAdjusting ? 'ring-2 ring-primary cursor-grabbing' : 'cursor-grab'}`}
+                          onMouseDown={handleAdjustStart}
+                          onTouchStart={handleAdjustStart}
+                        >
+                          {previewUrl || newData.imageUrl ? (
+                            <>
+                              <div 
+                                className="absolute select-none pointer-events-none transition-all duration-150" 
+                                style={{ 
+                                  backgroundImage: `url(${previewUrl || newData.imageUrl})`,
+                                  backgroundSize: 'cover',
+                                  backgroundPosition: 'center',
+                                  ...getZoomPanStyle(newData.imagePosition || '50% 50%', newData.imageZoom || '1'),
+                                }}
+                              />
+                              {/* Overlay de ajuda */}
+                              {!isAdjusting && (
+                                <div className="absolute inset-0 bg-black/10 flex items-center justify-center opacity-0 group-hover/adjust:opacity-100 transition-opacity pointer-events-none">
+                                  <div className="bg-white/20 backdrop-blur-md p-2 rounded-full border border-white/30 text-white">
+                                    <Move className="w-4 h-4" />
+                                  </div>
+                                </div>
+                              )}
+                              {/* Grid de enquadramento */}
+                              <div className="absolute inset-0 pointer-events-none">
+                                <div className="absolute inset-x-0 top-1/3 h-px bg-white/20" />
+                                <div className="absolute inset-x-0 top-2/3 h-px bg-white/20" />
+                                <div className="absolute inset-y-0 left-1/3 w-px bg-white/20" />
+                                <div className="absolute inset-y-0 left-2/3 w-px bg-white/20" />
+                              </div>
+                            </>
+                          ) : (
+                            <div className="w-full h-full flex items-center justify-center text-muted-foreground text-[10px] uppercase tracking-widest font-medium bg-muted/50">
+                              Selecione uma imagem primeiro
+                            </div>
+                          )}
+                        </div>
                       </div>
-                      
-                      <div className="space-y-2 pt-2 border-t border-primary/10">
-                        <label className="text-[10px] font-bold uppercase tracking-wider text-primary flex justify-between">
-                          Zoom da Imagem
-                          <span className="text-primary/60">{newData.imageZoom || '1'}x</span>
-                        </label>
-                        <input 
-                          type="range"
-                          min="1"
-                          max="3"
-                          step="0.05"
-                          value={parseFloat(newData.imageZoom || '1')}
-                          onChange={e => setNewData({...newData, imageZoom: e.target.value})}
-                          className="w-full accent-primary h-1 bg-primary/20 rounded-lg appearance-none cursor-pointer"
-                        />
+
+                      <div className="space-y-4">
+                        <div className="space-y-2">
+                          <label className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground flex justify-between">
+                            Zoom / Aproximação
+                            <span className="text-primary font-mono font-bold">{newData.imageZoom || '1'}x</span>
+                          </label>
+                          <input 
+                            type="range"
+                            min="1"
+                            max="3"
+                            step="0.01"
+                            value={parseFloat(newData.imageZoom || '1')}
+                            onChange={e => setNewData({...newData, imageZoom: e.target.value})}
+                            className="w-full accent-primary h-1.5 bg-primary/20 rounded-lg appearance-none cursor-pointer"
+                          />
+                        </div>
                       </div>
                     </div>
 
@@ -617,19 +746,18 @@ export default function AdminPage() {
               <div className="relative w-full aspect-video lg:aspect-[4/3] rounded-2xl overflow-hidden bg-muted shadow-2xl ring-1 ring-border">
                 {/* Mock do Hero Background */}
                 {previewUrl || newData.imageUrl ? (
-                  <img 
-                    src={previewUrl || newData.imageUrl} 
-                    alt="Preview" 
-                    className="w-full h-full object-cover transition-all duration-300" 
+                  <div 
+                    className="absolute transition-all duration-300" 
                     style={{ 
-                      objectPosition: newData.imagePosition || '50% 50%',
-                      transform: `scale(${newData.imageZoom || 1})`
+                      backgroundImage: `url(${previewUrl || newData.imageUrl})`,
+                      backgroundSize: 'cover',
+                      backgroundPosition: 'center',
+                      ...getZoomPanStyle(newData.imagePosition || '50% 50%', newData.imageZoom || '1'),
                     }}
-                    onError={() => console.error("Erro ao carregar prévia da imagem")}
                   />
                 ) : (
                   <div className="w-full h-full bg-slate-900 flex items-center justify-center p-12 text-center text-slate-500">
-                    <p className="text-sm">Selecione uma imagem para ver como ficará o fundo</p>
+                    <p className="text-sm">Pré-visualização do Hero</p>
                   </div>
                 )}
                 
