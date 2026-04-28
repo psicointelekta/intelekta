@@ -62,7 +62,7 @@ export async function POST(req: NextRequest) {
     }
 
     const row = [
-      new Date().toLocaleString('pt-BR'),
+      new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }),
       access_type,
       utm_source,
       utm_medium,

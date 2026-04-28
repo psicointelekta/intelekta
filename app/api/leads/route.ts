@@ -117,7 +117,7 @@ export async function POST(req: NextRequest) {
 
     const now = new Date()
     const leadValues = [
-      now.toISOString(),
+      now.toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }),
       fullName,
       phone,
       program || 'Não informado',
@@ -155,7 +155,7 @@ export async function POST(req: NextRequest) {
         ``,
         `🌐 *Origem:* ${platform}`,
         `📍 *Página:* \`${escapeMarkdown(body.page_path || '/')}\``,
-        `⏱ *Data/Hora:* \`${escapeMarkdown(now.toLocaleString('pt-BR'))}\``,
+        `⏱ *Data/Hora:* \`${escapeMarkdown(now.toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }))}\``,
       ].join('\n')
 
       after(
