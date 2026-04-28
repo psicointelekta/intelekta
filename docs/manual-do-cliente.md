@@ -18,7 +18,8 @@ Guia completo para a equipe da Intelekta sobre como acompanhar leads, acessar da
 - [10. Dashboard da Vercel (Hospedagem)](#10-dashboard-da-vercel-hospedagem)
 - [11. Perguntas Frequentes](#11-perguntas-frequentes)
 - [12. Como Atualizar as Novidades e Avisos (Portal Admin)](#12-como-atualizar-as-novidades-e-avisos-portal-admin)
-- [13. Contato para Suporte Técnico](#13-contato-para-suporte-técnico)
+- [13. Ecossistema de Ferramentas (Infraestrutura)](#13-ecossistema-de-ferramentas-infraestrutura)
+- [14. Contato com o Desenvolvedor](#14-contato-com-o-desenvolvedor)
 
 ---
 
@@ -361,7 +362,7 @@ Agora o site possui um **Portal Administrativo** exclusivo onde você pode geren
   - Preencha o Título, Categoria e Data.
   - **Upload de Imagem:** Clique no campo "Imagem de Fundo" e selecione um arquivo do seu computador.
   - **Preview:** À direita do formulário, você verá uma simulação em tempo real de como o destaque ficará no site. Use isso para ajustar o texto e a imagem antes de publicar.
-  - Clique em **"Publicar Agora no Hero"**.
+  - Clique em **"Publicar Agora no Painel"**.
 
 - **Para Excluir:** 
   - Role a página até "Publicações Ativas".
@@ -372,7 +373,30 @@ Agora o site possui um **Portal Administrativo** exclusivo onde você pode geren
 
 ---
 
-## 13. Contato para Suporte Técnico
+## 13. Ecossistema de Ferramentas (Infraestrutura)
+
+Abaixo estão as ferramentas de terceiros que sustentam o funcionamento do seu site de forma rápida, segura e automatizada. Para facilitar a sua vida, todas as plataformas foram integradas no seu **Portal Administrativo (psicointelekta.com.br/admin)** através de botões de Acesso Rápido.
+
+> [!IMPORTANT]
+> **🔐 Documento de Credenciais:** Todas as senhas e logins de acesso às ferramentas listadas abaixo estão reunidas no **Documento Confidencial de Credenciais** que foi entregue em anexo pelo desenvolvedor.
+
+| Ferramenta | Função no Projeto |
+| :--- | :--- |
+| **Vercel** | Onde o site fica "hospedado". Mantém o site online e extremamente rápido. É lá que visualizamos os dados de tráfego do Vercel Analytics e onde as imagens de novidades ficam salvas (Vercel Blob). |
+| **GitHub** | Onde o "código-fonte" (os bastidores da programação) está salvo com as versões mais recentes. |
+| **Gmail** | A conta oficial administrativa (`contato.psicointelekta@gmail.com`) dona de todos os cadastros nas outras plataformas. |
+| **Registro.br** | Órgão oficial nacional que gerencia a renovação e posse do nome (psicointelekta.com.br). |
+| **Google Cloud Console** | Central técnica que emite as credenciais de segurança para o seu site ter autorização para preencher planilhas no Google automaticamente. |
+| **Google Search Console**| Painel de acompanhamento de SEO. Mostra quantas vezes o site apareceu nas pesquisas orgânicas do Google e gerencia o Mapa do Site (Sitemap). |
+| **Planilha (Google Sheets)**| Seu painel central para gerenciar dados corporativos com 3 abas ativas:<br>📌 **LEADS:** Para gestão comercial.<br>📌 **NOVIDADES:** Tabela lida pelo sistema para alimentar os avisos.<br>📌 **ACESSOS:** Histórico técnico de visitantes. |
+| **Telegram** | Automação de notificações. Cada vez que alguém preenche o formulário, um alerta é disparado instantaneamente no grupo da equipe. |
+
+> [!WARNING]
+> **Atenção sobre Senhas:** O desenvolvedor enviou um documento privado separado com todos os logins e senhas mestras. O documento é sigiloso, guarde em local seguro.
+
+---
+
+## 14. Contato com o Desenvolvedor
 
 Para qualquer questão técnica relacionada ao site:
 
@@ -384,7 +408,7 @@ Para qualquer questão técnica relacionada ao site:
 | **Leads não chegando**  | Desde quando parou + último lead registrado |
 | **Nova funcionalidade**  | Descrição do que deseja                    |
 
-### Canais de suporte
+### Canais de contato
 
 - **Email:** `[thales.penha@gmail.com]`
 - **WhatsApp:** `[5527988773890]`

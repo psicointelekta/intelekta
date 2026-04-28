@@ -87,7 +87,7 @@ export default function NotFound() {
               </h1>
 
               <p className="mx-auto mt-5 max-w-lg text-base leading-[1.65] text-muted-foreground md:mx-0 md:text-[1.05rem]">
-                Não se preocupe. O nosso mascote te ajuda a voltar para a página
+                Não se preocupe. O Intelektopus te ajuda a voltar para a página
                 certa. Tudo o que você precisa continua aqui na Intelekta.
               </p>
 

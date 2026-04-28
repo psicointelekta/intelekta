@@ -4,7 +4,7 @@ import { getGoogleSheets, SPREADSHEET_ID } from "@/lib/google-sheets"
 
 export const metadata: Metadata = {
   title: 'Nossa Equipe | Especialistas em Vila Velha, ES',
-  description: 'Conheça nossa equipe de psicólogos, neuropsicólogos e psicopedagogos dedicados ao seu desenvolvimento integral. Mais de 24 anos de experiência clínica.',
+  description: `Conheça nossa equipe de psicólogos, neuropsicólogos e psicopedagogos dedicados ao seu desenvolvimento integral. Mais de ${new Date().getFullYear() - 2002} anos de experiência clínica.`,
   alternates: {
     canonical: 'https://psicointelekta.com.br/equipe',
   },

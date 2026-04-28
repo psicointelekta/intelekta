@@ -271,14 +271,14 @@ const structuredData = [
         name: 'Fabiana Lima',
         jobTitle: 'Psicopedagoga',
         description:
-          'Professora há 12 anos dedicada ao desenvolvimento integral de crianças e adolescentes, unindo aprendizagem e ludicidade.',
+          `Professora há ${new Date().getFullYear() - 2014} anos dedicada ao desenvolvimento integral de crianças e adolescentes, unindo aprendizagem e ludicidade.`,
       },
       {
         '@type': 'Person',
         name: 'Flávia Luz Vaz',
         jobTitle: 'Consultora Técnica',
         description:
-          'Psicóloga clínica há 24 anos, Mestre em Desenvolvimento Humano e coordenadora do Projeto Guardiões da Infância.',
+          `Psicóloga clínica há ${new Date().getFullYear() - 2002} anos, Mestre em Desenvolvimento Humano e coordenadora do Projeto Guardiões da Infância.`,
       },
     ],
   },

@@ -22,7 +22,7 @@ const founders = [
   {
     name: "Fabiana Lima",
     role: "Psicopedagoga",
-    bio: "Palestrante e professora há 12 anos dedicada ao desenvolvimento integral de crianças e adolescentes, unindo aprendizagem, ludicidade e acolhimento.",
+    bio: `Palestrante e professora há ${new Date().getFullYear() - 2014} anos dedicada ao desenvolvimento integral de crianças e adolescentes, unindo aprendizagem, ludicidade e acolhimento.`,
     expertise: ["Psicopedagogia", "Ludopedagogia", "Ludoterapia"],
     image: "/images/fabiana_lima_retrato.webp",
     instagram: "fabianalima_psico",
@@ -30,7 +30,7 @@ const founders = [
   {
     name: "Flávia Luz Vaz",
     role: "Consultora Técnica",
-    bio: "Psicóloga clínica há 24 anos, Mestre em Desenvolvimento Humano, palestrante em saúde mental e coordenadora do Projeto Guardiões da Infância.",
+    bio: `Psicóloga clínica há ${new Date().getFullYear() - 2002} anos, Mestre em Desenvolvimento Humano, palestrante em saúde mental e coordenadora do Projeto Guardiões da Infância.`,
     expertise: ["Psicologia Clínica", "Desenvolvimento Humano", "Consultoria"],
     image: "/images/flavia_luz_retrato.webp",
     instagram: "flavialuzvazoficial",

@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual de Uso do Site — Intelekta</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0F8265; /* main green */
+            --primary-dark: #09503E;
+            --primary-light: #2DB18C;
+            --primary-bg: #E7F6F2;
+            --text-dark: #1F2937;
+            --text-muted: #4B5563;
+            --bg-color: #F9FAFB;
+            --card-bg: #FFFFFF;
+            --border-color: #E5E7EB;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding: 40px;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            color: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(15, 130, 101, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-logo {
+            width: 120px;
+            height: 120px;
+            background-color: white;
+            border-radius: 50%;
+            padding: 15px;
+            margin: 0 auto 20px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .header-logo img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        h1 {
+            margin: 0 0 10px 0;
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .toc {
+            background-color: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 40px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+        }
+
+        .toc h2 {
+            margin-top: 0;
+            color: var(--primary-dark);
+            font-size: 1.5rem;
+            border-bottom: 2px solid var(--primary-bg);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .toc ul {
+            list-style-type: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 10px;
+        }
+
+        .toc li a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+            display: flex;
+            align-items: center;
+        }
+
+        .toc li a:hover {
+            color: var(--primary-dark);
+            text-decoration: underline;
+        }
+
+        .toc li a::before {
+            content: "•";
+            color: var(--primary-light);
+            font-weight: bold;
+            margin-right: 8px;
+        }
+
+        section {
+            background-color: var(--card-bg);
+            padding: 40px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+        }
+
+        h2 {
+            color: var(--primary-dark);
+            font-size: 1.8rem;
+            margin-top: 0;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--primary-bg);
+            display: flex;
+            align-items: center;
+        }
+
+        h3 {
+            color: var(--primary);
+            font-size: 1.3rem;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        ul, ol {
+            margin-bottom: 20px;
+            padding-left: 25px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .screenshot {
+            width: 100%;
+            max-width: 800px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            margin: 20px 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            display: block;
+        }
+
+        .img-caption {
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-top: -10px;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background-color: var(--primary-bg);
+            color: var(--primary-dark);
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) {
+            background-color: #F9FAFB;
+        }
+
+        .callout {
+            background-color: var(--primary-bg);
+            border-left: 4px solid var(--primary);
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .callout-warning {
+            background-color: #FFFBEB;
+            border-left: 4px solid #F59E0B;
+        }
+
+        .callout-warning strong {
+            color: #B45309;
+        }
+
+        code {
+            background-color: #F3F4F6;
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.9em;
+            color: #EF4444;
+        }
+
+        pre {
+            background-color: #1F2937;
+            color: #F9FAFB;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: monospace;
+            font-size: 0.9em;
+            margin: 15px 0;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .badge {
+            display: inline-block;
+            background-color: var(--primary-bg);
+            color: var(--primary-dark);
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+
+        /* Print styles for PDF generation */
+        @media print {
+            body {
+                background-color: white;
+                font-size: 11pt;
+            }
+            .container {
+                max-width: 100%;
+                padding: 0;
+            }
+            section {
+                box-shadow: none;
+                border: none;
+                padding: 0;
+                margin-bottom: 30px;
+            }
+            header {
+                box-shadow: none;
+                border-radius: 0;
+                padding: 20px;
+                margin-bottom: 30px;
+                /* Attempt to keep background color in print */
+                -webkit-print-color-adjust: exact;
+                color-adjust: exact;
+            }
+            .toc {
+                box-shadow: none;
+                border: 1px solid #ddd;
+            }
+            .screenshot {
+                max-height: 400px;
+                width: auto;
+                object-fit: contain;
+                page-break-inside: avoid;
+            }
+            h2, h3, .callout {
+                page-break-after: avoid;
+            }
+            table {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <div class="header-logo">
+            <!-- Referência à imagem do logo (icone) -->
+            <img src="img/logo-icon.png" alt="Intelekta Logo">
+        </div>
+        <h1>Manual do Cliente — Intelekta</h1>
+        <p class="subtitle">Guia completo para a equipe da Intelekta sobre como acompanhar leads, acessar dados e solicitar alterações no site, voltado para usuários de todos os níveis.</p>
+    </header>
+
+    <div class="toc">
+        <h2>Índice</h2>
+        <ul>
+            <li><a href="#leads">1. Painel de Leads (Google Sheets)</a></li>
+            <li><a href="#dados">2. Entendendo os Dados</a></li>
+            <li><a href="#utms">3. Como Funcionam os UTMs (Links Rastreados)</a></li>
+            <li><a href="#admin">4. Portal Administrativo (Novidades)</a></li>
+            <li><a href="#alteracoes">5. Como Solicitar Alterações de Texto</a></li>
+            <li><a href="#imagens">6. Como Atualizar Imagens</a></li>
+            <li><a href="#whatsapp">7. Alterar Número do WhatsApp</a></li>
+            <li><a href="#contato">8. Como Funciona o Formulário de Contato</a></li>
+            <li><a href="#faq">9. Perguntas Frequentes (FAQ)</a></li>
+            <li><a href="#ferramentas">10. Ecossistema de Ferramentas</a></li>
+            <li><a href="#suporte">11. Contato com o Desenvolvedor</a></li>
+        </ul>
+    </div>
+
+    <section id="introducao">
+        <h2>Bem-vindo(a) ao seu novo site!</h2>
+        <p>Este manual foi criado para ajudar você e sua equipe a extrair o máximo de valor do novo site da Intelekta. Não é necessário ser um especialista em tecnologia para utilizar as ferramentas que preparamos.</p>
+        
+        <img src="img/screenshot-homepage.png" alt="Página Inicial do Site" class="screenshot">
+        <p class="img-caption">Visão geral da nova Página Inicial (Desktop)</p>
+
+        <p>O site atual (<strong>psicointelekta.com.br</strong>) é mais do que uma vitrine virtual; ele é uma <strong>ferramenta de captação de clientes (leads)</strong> otimizada, segura e alinhada às leis de privacidade (LGPD).</p>
+    </section>
+
+    <section id="leads">
+        <h2>1. Painel de Leads (Google Sheets)</h2>
+        <p>Toda vez que alguém preenche o formulário "Vamos conversar" no seu site, os dados vão instantaneamente para dois lugares: uma <strong>Planilha do Google Sheets</strong> e uma mensagem no <strong>Telegram</strong>.</p>
+        
+        <h3>Como acessar a Planilha</h3>
+        <ol>
+            <li>Abra o Google Sheets: <a href="https://sheets.google.com" target="_blank">sheets.google.com</a></li>
+            <li>Faça login com a sua conta Google.</li>
+            <li>Procure a planilha chamada <strong>"Intelekta — Leads"</strong>.</li>
+            <li>Clique na aba (na parte inferior da tela) chamada <strong>"Leads"</strong>.</li>
+        </ol>
+
+        <div class="callout">
+            <strong>Dica de Ouro:</strong> Salve o link dessa planilha nos seus "Favoritos" do navegador. Recomendamos que a equipe de atendimento verifique a planilha diariamente. O ideal é responder a um novo contato em até 2 horas.
+        </div>
+
+        <h3>Organizando sua planilha</h3>
+        <p>Você pode usar a planilha como um "mini sistema" de atendimento. Fique à vontade para:</p>
+        <ul>
+            <li><strong>Adicionar novas colunas:</strong> A partir da coluna "L", você pode criar colunas como "Status do Atendimento" (ex: Entrou em contato, Agendou, Não respondeu), "Data de Retorno" ou "Observações".</li>
+            <li><strong>Colorir as linhas:</strong> Pinte de verde quem fechou contrato e de vermelho quem não teve interesse.</li>
+        </ul>
+
+        <div class="callout callout-warning">
+            <strong>⚠️ Atenção:</strong> Nunca altere os nomes das colunas de <strong>A até K</strong> na primeira linha. O site procura exatamente esses nomes para salvar novos contatos. Se o nome mudar, o site pode parar de salvar.
+        </div>
+    </section>
+
+    <section id="dados">
+        <h2>2. Entendendo os Dados dos Clientes</h2>
+        <p>Cada vez que um visitante preenche o formulário, o site captura informações importantes para ajudar o seu time comercial. Veja o que cada coluna significa:</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Coluna</th>
+                    <th>O que significa</th>
+                    <th>Exemplo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Data/Hora</strong></td>
+                    <td>Quando o cliente enviou a mensagem (Horário de Brasília)</td>
+                    <td>28/04/2026, 14:30:00</td>
+                </tr>
+                <tr>
+                    <td><strong>Nome Completo</strong></td>
+                    <td>Como o cliente quer ser chamado</td>
+                    <td>Maria da Silva</td>
+                </tr>
+                <tr>
+                    <td><strong>Telefone</strong></td>
+                    <td>Número de WhatsApp para contato</td>
+                    <td>(27) 99999-9999</td>
+                </tr>
+                <tr>
+                    <td><strong>Programa</strong></td>
+                    <td>Qual programa ele escolheu no formulário (se escolheu algum)</td>
+                    <td>Neuroeducação</td>
+                </tr>
+                <tr>
+                    <td><strong>Mensagem</strong></td>
+                    <td>Texto opcional que o cliente pode ter escrito</td>
+                    <td>Gostaria de saber horários.</td>
+                </tr>
+                <tr>
+                    <td><strong>Origem (UTMs)</strong></td>
+                    <td>Mostra se o cliente veio do Instagram, Google, Facebook... (Veja a seção 3 abaixo)</td>
+                    <td>instagram / social</td>
+                </tr>
+                <tr>
+                    <td><strong>Página</strong></td>
+                    <td>Em qual página do site a pessoa estava quando preencheu</td>
+                    <td>/programas</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section id="utms">
+        <h2>3. Como Funcionam os UTMs (Rastreamento)</h2>
+        <p>Você já se perguntou: <em>"Será que esse cliente que me chamou no site veio do Instagram ou veio de uma pesquisa no Google?"</em>. Os <strong>UTMs</strong> são a resposta.</p>
+        
+        <p>UTMs são "pedacinhos de texto" que você cola no final do endereço do seu site. O site lê isso e anota na planilha de onde a pessoa veio.</p>
+
+        <h3>Exemplos práticos que você pode usar agora:</h3>
+        
+        <p><strong>Para o link na Bio do Instagram:</strong><br>
+        Copie este link e coloque na Bio do Instagram da Intelekta:</p>
+        <code>https://psicointelekta.com.br/?utm_source=instagram&utm_medium=social&utm_campaign=bio-link</code>
+
+        <p><strong>Para enviar no grupo de WhatsApp de Pais:</strong></p>
+        <code>https://psicointelekta.com.br/?utm_source=whatsapp&utm_medium=social&utm_campaign=grupo-pais</code>
+
+        <p><strong>Para um Anúncio Pago no Facebook:</strong></p>
+        <code>https://psicointelekta.com.br/?utm_source=facebook&utm_medium=anuncio&utm_campaign=campanha-tdah</code>
+
+        <div class="callout">
+            Quando alguém clica nesses links e preenche o formulário, as colunas "UTM Source", "Medium" e "Campaign" na sua planilha vão mostrar exatamente essas palavras. Assim você sabe <strong>qual esforço de marketing está dando mais resultado!</strong>
+        </div>
+    </section>
+
+    <section id="admin">
+        <h2>4. Portal Administrativo (Novidades no Início) <span class="badge">Novo</span></h2>
+        <p>Criamos uma área exclusiva para que você ou sua equipe possam atualizar facilmente aquele bloco de "Novidades" que aparece logo no topo da página inicial (Hero).</p>
+        
+        <img src="img/screenshot-admin.png" alt="Portal Administrativo" class="screenshot">
+        <p class="img-caption">Tela do Portal Administrativo da Intelekta</p>
+
+        <h3>Como acessar</h3>
+        <ol>
+            <li>Acesse o endereço: <strong>psicointelekta.com.br/admin</strong></li>
+            <li>Digite a <strong>Senha Administrativa</strong> (solicite ao desenvolvedor, se ainda não tiver).</li>
+        </ol>
+
+        <h3>Como adicionar um destaque</h3>
+        <ul>
+            <li><strong>Preencha os textos:</strong> Digite a Data, a Categoria (ex: WORKSHOP, AVISO), o Título e uma breve descrição.</li>
+            <li><strong>Imagem:</strong> Clique em "Escolher arquivo" e mande uma foto do seu computador. O site salva a imagem automaticamente de forma segura na nuvem.</li>
+            <li><strong>Ajustes finos:</strong> Use as barras deslizantes (Zoom e Foco) para ajustar como a imagem vai aparecer no bloco. O sistema mostra uma "Pré-visualização" em tempo real de como ficará no site.</li>
+            <li><strong>Link (Opcional):</strong> Se quiser que o botão "Saiba mais" leve para algum lugar (como o Instagram ou um PDF), coloque o link ali.</li>
+            <li>Clique em <strong>Publicar Agora no Painel</strong>.</li>
+        </ul>
+
+        <h3>Como remover um destaque</h3>
+        <p>Basta rolar a página do admin para baixo, localizar a lista de publicações ativas e clicar no ícone de lixeira vermelha ao lado do item que deseja excluir.</p>
+    </section>
+
+    <section id="alteracoes">
+        <h2>5. Como Solicitar Alterações de Texto</h2>
+        <p>Como o site é super rápido e otimizado (não usa plataformas lentas como WordPress), as alterações de estrutura e texto base são feitas diretamente no código pelo desenvolvedor.</p>
+        
+        <img src="img/screenshot-programas.png" alt="Seção de Programas" class="screenshot">
+        <p class="img-caption">Exemplo: Seção de Programas. Textos aqui são fixos e alterados via desenvolvedor.</p>
+
+        <p>Para agilizar o processo, quando quiser mudar um texto (ex: alterar a descrição de um programa ou a biografia de alguém da equipe), envie uma mensagem para o desenvolvedor neste formato:</p>
+
+        <div class="callout">
+            <p><strong>Exemplo de Mensagem:</strong></p>
+            <p>"Olá! Gostaria de mudar um texto na página Equipe, na biografia da Fabiana."</p>
+            <p><strong>Texto atual:</strong> Palestrante há 12 anos dedicada ao desenvolvimento...<br>
+            <strong>Novo texto:</strong> Palestrante há 14 anos dedicada ao desenvolvimento e coordenadora de neurociência...</p>
+        </div>
+    </section>
+
+    <section id="imagens">
+        <h2>6. Como Atualizar Imagens do Site</h2>
+        <p>Para manter o site carregando rápido (o que ajuda muito a aparecer no Google), as imagens seguem regras específicas.</p>
+
+        <h3>Fotos da Equipe</h3>
+        <ul>
+            <li><strong>Formato:</strong> Devem ter fundo transparente (PNG ou WebP).</li>
+            <li><strong>Posição:</strong> Foto em formato retrato (vertical), de preferência mostrando do peito para cima, olhando para a frente.</li>
+        </ul>
+
+        <h3>Imagens de Capa (OG Image)</h3>
+        <img src="img/og-image.png" alt="Imagem OG de Compartilhamento" class="screenshot" style="max-width: 400px; display: block; margin: 20px auto;">
+        <p class="img-caption">Essa é a imagem que aparece quando você manda o link do site no WhatsApp.</p>
+        <p>Se um dia desejar trocar essa imagem, envie uma nova arte no tamanho <strong>1200 x 630 pixels</strong>.</p>
+    </section>
+
+    <section id="whatsapp">
+        <h2>7. Como Alterar o Número do WhatsApp</h2>
+        <p>Se a clínica trocar de número de telefone, avise o desenvolvedor imediatamente. O número está espalhado em várias áreas "invisíveis" do site.</p>
+        
+        <p>Você deverá enviar o número completo, com DDD. Exemplo: <strong>(27) 98877-3890</strong>. O desenvolvedor fará a alteração em todos os botões e links de redirecionamento de uma só vez.</p>
+    </section>
+
+    <section id="contato">
+        <h2>8. Como Funciona o Formulário de Contato</h2>
+        
+        <img src="img/screenshot-contato.png" alt="Seção de Contato" class="screenshot">
+        <p class="img-caption">Área de Contato e Localização</p>
+
+        <p>O formulário "Ou envie uma mensagem rápida" é a principal ferramenta de captação. O fluxo que o cliente passa é o seguinte:</p>
+        <ol>
+            <li>O cliente preenche os dados e clica em Enviar.</li>
+            <li>O sistema salva os dados na <strong>Planilha (Google Sheets)</strong>.</li>
+            <li>O sistema envia um aviso silencioso para o <strong>Telegram</strong> da equipe.</li>
+            <li><strong>Para o Cliente:</strong> A tela mostra uma mensagem de sucesso ("Mensagem enviada!").</li>
+        </ol>
+
+        <h3>Segurança Antispam</h3>
+        <p>Você não receberá mensagens de "robôs" vendendo coisas da Rússia. O formulário possui uma "armadilha" invisível (honeypot) que bloqueia preenchimentos automáticos sem incomodar o cliente real com aqueles testes chatos de "clique nos semáforos".</p>
+    </section>
+
+    <section id="faq">
+        <h2>9. Perguntas Frequentes (FAQ do Cliente)</h2>
+
+        <h3>O site precisa daquele aviso chato de "Aceitar Cookies"?</h3>
+        <p><strong>Não.</strong> O site foi construído para ser 100% amigável à LGPD. Ele não coleta cookies invasivos no computador do usuário. O sistema de contagem de visitas que usamos (Vercel Analytics) não rastreia as pessoas individualmente, o que dispensa o banner.</p>
+
+        <h3>O que é a página "Erro 404"?</h3>
+        <img src="img/screenshot-404.png" alt="Página de Erro 404" class="screenshot">
+        <p>Se um cliente digitar o endereço do site errado (exemplo: <em>psicointelekta.com.br/abobrinha</em>), ele não verá uma página feia de erro do navegador. Ele cairá na nossa <strong>Página 404 Personalizada</strong> com o mascote "Intelektopus" ajudando a voltar para a página inicial ou acionando o desenvolvedor.</p>
+
+        <h3>O que acontece se o Google Sheets cair ou apagar?</h3>
+        <p>É muito raro o Google sair do ar. Se isso acontecer, o cliente ainda consegue usar os botões de WhatsApp normais. Se a planilha for apagada sem querer, o desenvolvedor consegue criar uma nova em minutos e reconectar o site.</p>
+        
+        <h3>O site funciona no celular?</h3>
+        <p>Sim! Mais de 80% dos visitantes acessam pelo celular. O site tem uma arquitetura especial que se adapta completamente à tela pequena, com botões maiores e leitura facilitada.</p>
+    </section>
+
+    <section id="ferramentas">
+        <h2>10. Ecossistema de Ferramentas (Infraestrutura)</h2>
+        <p>Abaixo estão as ferramentas de terceiros que sustentam o funcionamento do seu site de forma rápida, segura e automatizada. Para facilitar a sua vida, todas as plataformas foram integradas no seu <strong>Portal Administrativo (psicointelekta.com.br/admin)</strong> através de botões de Acesso Rápido.</p>
+        
+        <div class="callout callout-warning">
+            <strong>🔐 Documento de Credenciais:</strong> Todas as senhas e logins de acesso às ferramentas listadas abaixo estão reunidas no <strong>Documento Confidencial de Credenciais</strong> que foi entregue em anexo pelo desenvolvedor.
+        </div>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Ferramenta</th>
+                    <th>Função no Projeto</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>1. Vercel</strong></td>
+                    <td>Onde o site fica "hospedado". Mantém o site online e extremamente rápido. É lá que visualizamos os dados de tráfego do Vercel Analytics e onde as imagens de novidades ficam salvas (Vercel Blob).</td>
+                </tr>
+                <tr>
+                    <td><strong>2. GitHub</strong></td>
+                    <td>Onde o "código-fonte" (os bastidores da programação) está salvo com as versões mais recentes.</td>
+                </tr>
+                <tr>
+                    <td><strong>3. Gmail</strong></td>
+                    <td>A conta oficial administrativa (<code>contato.psicointelekta@gmail.com</code>) dona de todos os cadastros nas outras plataformas.</td>
+                </tr>
+                <tr>
+                    <td><strong>4. Registro.br</strong></td>
+                    <td>Órgão oficial nacional que gerencia a renovação e posse do nome (psicointelekta.com.br).</td>
+                </tr>
+                <tr>
+                    <td><strong>5. Google Cloud</strong></td>
+                    <td>Central técnica que emite as credenciais de segurança para o seu site ter autorização para preencher planilhas no Google automaticamente.</td>
+                </tr>
+                <tr>
+                    <td><strong>6. Search Console</strong></td>
+                    <td>Painel de acompanhamento de SEO. Mostra quantas vezes o site apareceu nas pesquisas orgânicas do Google e gerencia o Mapa do Site (Sitemap).</td>
+                </tr>
+                <tr>
+                    <td><strong>7. Planilha Google</strong></td>
+                    <td>Seu painel central para gerenciar dados corporativos com 3 abas ativas:<br>
+                    📌 <strong>LEADS:</strong> Para gestão comercial.<br>
+                    📌 <strong>NOVIDADES:</strong> Tabela lida pelo sistema para alimentar os avisos.<br>
+                    📌 <strong>ACESSOS:</strong> Histórico técnico de visitantes.</td>
+                </tr>
+                <tr>
+                    <td><strong>8. Telegram</strong></td>
+                    <td>Automação de notificações. Cada vez que alguém preenche o formulário, um alerta é disparado instantaneamente no grupo da equipe.</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div class="callout callout-warning">
+            <strong>⚠️ Atenção sobre Senhas:</strong> O desenvolvedor enviou um documento privado separado com todos os logins e senhas mestras. O documento é sigiloso, guarde em local seguro. 
+        </div>
+    </section>
+
+    <section id="suporte">
+        <h2>11. Contato com o Desenvolvedor</h2>
+        <p>Para qualquer necessidade técnica (mudar textos, trocar fotos, reportar erros), entre em contato:</p>
+
+        <div class="callout">
+            <p><strong>Desenvolvedor:</strong></p>
+            <p>📧 E-mail: <strong>thales.penha@gmail.com</strong></p>
+            <p>📱 WhatsApp: <strong>+55 (27) 98877-3890</strong></p>
+            <p>🕒 Horário: <strong>Segunda a Sexta, 9h às 18h</strong></p>
+        </div>
+
+        <p><strong>Para agilizar o atendimento de erros:</strong> Se algo não estiver funcionando, tire um "print" (foto) da tela do seu celular ou computador e envie junto com a mensagem, indicando qual navegador você estava usando (Chrome, Safari, etc).</p>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Intelekta — Manual de Operação e Sistema</p>
+    </footer>
+</div>
+
+</body>
+</html>

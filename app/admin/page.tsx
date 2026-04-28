@@ -5,7 +5,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Trash2, Plus, Loader2, Lock, Edit2, X, ChevronUp, ChevronDown, Eye, EyeOff } from "lucide-react"
+import { Trash2, Plus, Loader2, Lock, Edit2, X, ChevronUp, ChevronDown, Eye, EyeOff, Server, Github, Mail, Globe, Cloud, BarChart3, Database, MessageCircle, ExternalLink, Upload, Image as ImageIcon, CheckCircle2 } from "lucide-react"
 import { Footer } from "@/components/footer"
 import { Modal } from "@/components/ui/modal"
 import { m, LazyMotion, domAnimation } from "framer-motion"
@@ -32,6 +32,8 @@ export default function AdminPage() {
   const [botField, setBotField] = useState("") // Honey Pot
   const [showPassword, setShowPassword] = useState(false)
   const [loginError, setLoginError] = useState(false)
+  const [isDragging, setIsDragging] = useState(false)
+
   
   const [newData, setNewData] = useState<Announcement>({
     date: "15 de Abril",
@@ -177,8 +179,7 @@ export default function AdminPage() {
     setEditingIndex(null)
   }
 
-  async function handleFileUpload(e: React.ChangeEvent<HTMLInputElement>) {
-    const file = e.target.files?.[0]
+  async function processUpload(file: File) {
     if (!file) return
 
     // Preview local
@@ -200,8 +201,36 @@ export default function AdminPage() {
       } else {
         showModal("error", "Erro de Upload", "Houve um problema ao carregar sua imagem. Tente uma imagem menor.")
       }
+    } catch (err) {
+      showModal("error", "Erro de Conexão", "Não foi possível enviar a imagem.")
     } finally {
       setIsUploading(false)
+    }
+  }
+
+  async function handleFileUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0]
+    if (file) processUpload(file)
+  }
+
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault()
+    setIsDragging(true)
+  }
+
+  const handleDragLeave = (e: React.DragEvent) => {
+    e.preventDefault()
+    setIsDragging(false)
+  }
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault()
+    setIsDragging(false)
+    const file = e.dataTransfer.files?.[0]
+    if (file && file.type.startsWith('image/')) {
+      processUpload(file)
+    } else if (file) {
+      showModal("error", "Arquivo Inválido", "Por favor, arraste apenas arquivos de imagem.")
     }
   }
 
@@ -357,6 +386,51 @@ export default function AdminPage() {
         </header>
 
         <main className="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-16 space-y-12 sm:space-y-20">
+          
+          {/* CENTRAL DE FERRAMENTAS */}
+          <section className="space-y-6">
+            <div className="flex items-center justify-between border-b border-border pb-4">
+              <h2 className="text-lg font-bold flex items-center gap-2">
+                <Database className="w-5 h-5 text-primary" />
+                Acesso Rápido às Ferramentas
+              </h2>
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+              {[
+                { name: "Planilha", desc: "Leads e Acessos", icon: Database, url: "https://sheets.google.com/", color: "bg-green-500" },
+                { name: "Telegram", desc: "Notificações", icon: MessageCircle, url: "https://web.telegram.org/", color: "bg-blue-500" },
+                { name: "Vercel", desc: "Hospedagem", icon: Server, url: "https://vercel.com/", color: "bg-neutral-800" },
+                { name: "GitHub", desc: "Código-Fonte", icon: Github, url: "https://github.com/", color: "bg-slate-700" },
+                { name: "Gmail", desc: "E-mail Principal", icon: Mail, url: "https://mail.google.com/", color: "bg-red-500" },
+                { name: "Registro.br", desc: "Domínio", icon: Globe, url: "https://registro.br/", color: "bg-yellow-600" },
+                { name: "Google Cloud", desc: "Console de APIs", icon: Cloud, url: "https://console.cloud.google.com/", color: "bg-blue-600" },
+                { name: "Search Console", desc: "Desempenho Google", icon: BarChart3, url: "https://search.google.com/search-console", color: "bg-indigo-500" },
+              ].map((tool, i) => (
+                <a 
+                  key={i} 
+                  href={tool.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group relative flex flex-col p-4 rounded-2xl border border-border bg-card/40 hover:bg-card/80 transition-all hover:-translate-y-1 hover:shadow-lg hover:border-primary/30"
+                >
+                  <div className={`w-10 h-10 rounded-xl ${tool.color} flex items-center justify-center text-white mb-3 shadow-inner`}>
+                    <tool.icon className="w-5 h-5" />
+                  </div>
+                  <h3 className="font-bold text-sm text-foreground">{tool.name}</h3>
+                  <p className="text-xs text-muted-foreground mt-1">{tool.desc}</p>
+                  <ExternalLink className="absolute top-4 right-4 w-4 h-4 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
+                </a>
+              ))}
+            </div>
+            
+            <div className="p-4 bg-primary/5 rounded-xl border border-primary/10 flex items-start gap-3">
+              <Lock className="w-4 h-4 text-primary mt-0.5" />
+              <p className="text-[11px] text-muted-foreground leading-relaxed">
+                <strong className="text-primary uppercase tracking-wider">Aviso de Segurança:</strong> As credenciais de acesso para todas as ferramentas acima (Vercel, Google, Registro.br, etc) estão listadas no <strong>documento confidencial de credenciais</strong> entregue pelo desenvolvedor. Mantenha esses dados em local seguro.
+              </p>
+            </div>
+          </section>
+
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_380px] xl:grid-cols-[1fr_420px] gap-8 lg:gap-12 items-start">
             {/* FORM ADD */}
             <section className="space-y-6 sm:space-y-8 order-2 lg:order-1">
@@ -408,17 +482,52 @@ export default function AdminPage() {
                     </div>
                     
                     <div className="md:col-span-2 space-y-3">
-                      <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Imagem de Fundo</label>
-                      <div className="flex items-center gap-4">
-                        <div className="flex-1">
-                          <Input 
+                      <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground flex justify-between items-center">
+                        Imagem de Fundo
+                        {newData.imageUrl && (
+                          <span className="flex items-center gap-1 text-[10px] text-emerald-500 font-bold">
+                            <CheckCircle2 className="w-3 h-3" />
+                            IMAGEM CARREGADA
+                          </span>
+                        )}
+                      </label>
+                      <div 
+                        className="relative group"
+                        onDragOver={handleDragOver}
+                        onDragLeave={handleDragLeave}
+                        onDrop={handleDrop}
+                      >
+                        <label className={`
+                          flex flex-col items-center justify-center w-full h-32 
+                          border-2 border-dashed rounded-xl cursor-pointer
+                          transition-all duration-300
+                          ${isUploading ? 'border-primary/50 bg-primary/5 cursor-wait' : 'border-border bg-background/50 hover:bg-background/80 hover:border-primary/40'}
+                          ${newData.imageUrl ? 'border-emerald-500/30 bg-emerald-500/5' : ''}
+                          ${isDragging ? 'border-primary ring-4 ring-primary/10 scale-[1.02] bg-primary/5' : ''}
+                        `}>
+                          <div className="flex flex-col items-center justify-center pt-5 pb-6 text-center px-4">
+                            {isUploading ? (
+                              <Loader2 className="w-8 h-8 animate-spin text-primary mb-2" />
+                            ) : newData.imageUrl ? (
+                              <ImageIcon className="w-8 h-8 text-emerald-500 mb-2" />
+                            ) : (
+                              <Upload className="w-8 h-8 text-muted-foreground group-hover:text-primary transition-colors mb-2" />
+                            )}
+                            <p className="text-xs text-muted-foreground font-medium">
+                              {isUploading ? "Fazendo upload para o servidor..." : newData.imageUrl ? "Clique aqui para trocar a imagem" : "Clique ou arraste a imagem aqui"}
+                            </p>
+                            <p className="text-[10px] text-muted-foreground/60 mt-1 uppercase tracking-widest">
+                              PNG, JPG ou WebP (Máx. 4MB)
+                            </p>
+                          </div>
+                          <input 
                             type="file" 
                             accept="image/*"
                             onChange={handleFileUpload}
-                            className="h-12 pt-2.5 cursor-pointer bg-background/50 hover:bg-background/80 transition-colors"
+                            className="hidden"
+                            disabled={isUploading}
                           />
-                        </div>
-                        {isUploading && <Loader2 className="w-5 h-5 animate-spin text-primary" />}
+                        </label>
                       </div>
                     </div>
 
@@ -484,7 +593,7 @@ export default function AdminPage() {
                     <div className="md:col-span-2 pt-4 border-t border-border mt-4 flex gap-4">
                       <Button type="submit" size="lg" className="flex-1 md:flex-none h-14 px-10" disabled={isActionLoading || isUploading}>
                         {isActionLoading && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
-                        {editingIndex !== null ? "Salvar Alterações" : "Publicar Agora no Hero"}
+                        {editingIndex !== null ? "Salvar Alterações" : "Publicar Agora no Painel"}
                       </Button>
                       {editingIndex !== null && (
                         <Button type="button" variant="outline" size="lg" className="h-14 px-6" onClick={cancelEdit}>
