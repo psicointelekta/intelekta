@@ -386,11 +386,9 @@ Para qualquer questão técnica relacionada ao site:
 
 ### Canais de suporte
 
-> **⚠️ Preencha abaixo com os dados reais de contato do desenvolvedor:**
-
-- **Email:** `[email do desenvolvedor]`
-- **WhatsApp:** `[número do desenvolvedor]`
-- **Horário de atendimento:** `[ex: Seg-Sex, 9h-18h]`
+- **Email:** `[thales.penha@gmail.com]`
+- **WhatsApp:** `[5527988773890]`
+- **Horário de atendimento:** `[Seg-Sex, 9h-18h]`
 
 ### Prazos típicos
 
