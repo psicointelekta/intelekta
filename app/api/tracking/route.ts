@@ -69,7 +69,7 @@ export async function POST(req: NextRequest) {
       utm_campaign,
       referrer,
       page_path,
-      ip,
+      '-', // LGPD: IP não registrado preservando a coluna
       userAgent
     ]
 

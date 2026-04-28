@@ -127,7 +127,7 @@ export async function POST(req: NextRequest) {
       body.utm_campaign || '',
       body.page_path || '',
       req.headers.get('user-agent') || '',
-      ip,
+      '-', // LGPD: IP não registrado preservando a coluna
     ]
 
     // ── Critical path: only Sheets is awaited ────────────────────────────────
