@@ -186,6 +186,23 @@ export function Testimonials() {
               />
             ))}
           </div>
+
+          <motion.div 
+            initial={{ opacity: 0, y: 15 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="mt-12 flex justify-center"
+          >
+            <Button 
+              asChild
+              size="lg"
+              className="rounded-full bg-secondary hover:bg-secondary/90 text-secondary-foreground px-8 font-semibold h-12 sm:h-14 sm:text-lg"
+            >
+              <a href="#contato">
+                Quero transformar minha história
+              </a>
+            </Button>
+          </motion.div>
         </motion.div>
       </div>
     </section>

@@ -11,6 +11,8 @@
 import { motion, useInView } from "framer-motion"
 import { useRef } from "react"
 import Image from "next/image"
+import { Button } from "@/components/ui/button"
+import { ArrowRight } from "lucide-react"
 
 const values = [
   {
@@ -235,11 +237,23 @@ export function About() {
                     que pode desenvolver novas habilidades, superar desafios e
                     construir uma vida mais equilibrada e significativa.
                   </blockquote>
-                  <div className="mt-4 flex items-center gap-3">
-                    <div className="decorative-line" />
-                    <span className="text-xs font-medium text-muted-foreground sm:text-sm">
-                      Fundadoras da Intelekta
-                    </span>
+                  <div className="mt-4 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+                    <div className="flex items-center gap-3">
+                      <div className="decorative-line" />
+                      <span className="text-xs font-medium text-muted-foreground sm:text-sm">
+                        Fundadoras da Intelekta
+                      </span>
+                    </div>
+                    
+                    <Button 
+                      asChild
+                      className="rounded-full bg-primary hover:bg-primary/90 text-primary-foreground group"
+                    >
+                      <a href="#contato">
+                        Agendar uma consulta
+                        <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                      </a>
+                    </Button>
                   </div>
                 </div>
               </div>
