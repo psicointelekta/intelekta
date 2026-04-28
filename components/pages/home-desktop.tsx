@@ -28,9 +28,6 @@ const Faq = dynamic(() => import("@/components/sections/faq").then((mod) => mod.
 const Contact = dynamic(() =>
   import("@/components/sections/contact").then((mod) => mod.Contact),
 )
-const SEOLinks = dynamic(() =>
-  import("@/components/sections/seo-links").then((mod) => mod.SEOLinks),
-)
 const SectionJump = dynamic(() =>
   import("@/components/section-jump").then((mod) => mod.SectionJump),
 )

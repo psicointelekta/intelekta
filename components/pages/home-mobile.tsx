@@ -14,8 +14,6 @@ import type { ReactNode } from "react"
 import {
   ArrowRight,
   Brain,
-  CheckCircle2,
-  ChevronRight,
   Clock3,
   HeartHandshake,
   Instagram,
@@ -36,10 +34,8 @@ import { MobileNewsCarousel } from "@/components/pages/mobile-news-carousel"
 import { MobileHomeHeader } from "@/components/pages/mobile-home-header"
 import { ProgramAwareWhatsappLink } from "@/components/program-aware-whatsapp-link"
 import { Programs } from "@/components/sections/programs"
-import { SEOLinks } from "@/components/sections/seo-links"
 import { SectionJump } from "@/components/section-jump"
 import { Footer } from "@/components/footer"
-import { programs } from "@/lib/program-catalog"
 
 export interface Announcement {
   date: string

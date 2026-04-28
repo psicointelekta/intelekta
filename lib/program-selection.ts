@@ -1,3 +1,12 @@
+/**
+ * Program selection — pub/sub mechanism for syncing the user's chosen
+ * program across components (e.g. Programs CTA → Contact form → WhatsApp link).
+ *
+ * Selection is persisted in sessionStorage so it survives soft navigations
+ * but resets on a new browser session. A CustomEvent is dispatched on every
+ * save so subscribers can react in real time without polling.
+ */
+
 export const PROGRAM_SELECTION_STORAGE_KEY = "intelekta:selected-program"
 export const PROGRAM_SELECTION_EVENT = "intelekta:selected-program"
 

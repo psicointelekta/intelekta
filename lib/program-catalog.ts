@@ -1,3 +1,14 @@
+/**
+ * Program catalog — single source of truth for all program data used
+ * across the site (Programs section, contact form, footer, etc.).
+ *
+ * Exports:
+ *  - PROGRAM_OPTIONS  — dropdown values for lead forms
+ *  - ProgramOption    — TypeScript union of valid program names
+ *  - ageStages        — age brackets shown next to the Programs header
+ *  - programs         — full program details (title, subtitle, image, SEO intent, etc.)
+ */
+
 export const PROGRAM_OPTIONS = [
   "Neuroeducação",
   "Xadrez Pedagógico",
@@ -11,83 +22,20 @@ export const PROGRAM_OPTIONS = [
 
 export type ProgramOption = (typeof PROGRAM_OPTIONS)[number]
 
-export const PROGRAM_DISCOVERY_PATHS = [
-  {
-    id: "aprendizagem",
-    eyebrow: "Aprendizagem",
-    title: "Quero apoio para aprendizagem e rotina escolar",
-    description:
-      "Para crianças e adolescentes que precisam de apoio acadêmico, organização, autonomia nos estudos e acompanhamento mais próximo.",
-    recommendedProgram: "Reforço Escolar",
-    badges: ["Infantil ao Médio", "Acadêmico", "Socioemocional"],
-    image: "/images/activity-teens-study.webp",
-  },
-  {
-    id: "foco-estrategia",
-    eyebrow: "Foco e estratégia",
-    title: "Quero desenvolver foco, raciocínio e planejamento",
-    description:
-      "Ideal para quem precisa fortalecer atenção, estratégia, tomada de decisão, persistência e funções executivas.",
-    recommendedProgram: "Xadrez Pedagógico",
-    badges: ["Atenção", "Estratégia", "Autonomia"],
-    image: "/images/activity-children-chess.webp",
-  },
-  {
-    id: "cognicao-ludica",
-    eyebrow: "Cognição lúdica",
-    title: "Quero estimular memória, atenção e desenvolvimento global",
-    description:
-      "Uma porta de entrada ampla para desenvolvimento cognitivo e socioemocional em diferentes fases da vida, com abordagem lúdica.",
-    recommendedProgram: "Neuroeducação",
-    badges: ["Todas as idades", "Lúdico", "Neuroplasticidade"],
-    image: "/images/program-infantil.webp",
-  },
-  {
-    id: "alfabetizacao",
-    eyebrow: "Inclusão",
-    title: "Quero apoio para alfabetização inclusiva",
-    description:
-      "Pensado para crianças atípicas que precisam de uma abordagem acolhedora, sensorial e personalizada para leitura e escrita.",
-    recommendedProgram: "Neurolê",
-    badges: ["Sensorial", "Inclusivo", "Crianças atípicas"],
-    image: "/images/program-infantil.webp",
-  },
-  {
-    id: "emocao-expressao",
-    eyebrow: "Expressão e bem-estar",
-    title: "Quero desenvolver expressão, vínculo e regulação emocional",
-    description:
-      "Uma alternativa potente para trabalhar cognição, vínculo, ritmo, expressão e bem-estar emocional com a música como ferramenta.",
-    recommendedProgram: "Musicoterapia",
-    badges: ["Bem-estar", "Expressão", "Mães e bebês"],
-    image: "/images/program-adolescente.webp",
-  },
-  {
-    id: "orientacao",
-    eyebrow: "Orientação da equipe",
-    title: "Ainda não sei qual programa faz mais sentido",
-    description:
-      "Se a dúvida ainda está aberta, nossa equipe ajuda a entender o perfil, o objetivo e o melhor caminho antes da decisão.",
-    recommendedProgram: "Outro / Não sei",
-    badges: ["Orientação", "Sem compromisso", "Escolha assistida"],
-    image: "/images/activity-adults.webp",
-  },
-] as const
-
 export const ageStages = [
   {
     phase: "Crianças",
-    age: "5–12 anos",
+    age: "5-12 anos",
     description: "Estimulamos atenção, memória, e o desenvolvimento infantil de forma lúdica em Vila Velha.",
   },
   {
     phase: "Adolescentes",
-    age: "13–17 anos",
+    age: "13-17 anos",
     description: "Foco em funções executivas, controle emocional e autonomia escolar.",
   },
   {
     phase: "Adultos",
-    age: "18–63 anos",
+    age: "18-63 anos",
     description: "Produtividade, ansiedade, estresse e tomada de decisão estratégica.",
   },
   {
@@ -107,7 +55,7 @@ export const programs = [
       "Estimulação cognitiva global que desenvolve a mente através de jogos e oficinas criativas. Ideal para crianças com atraso no desenvolvimento ou que buscam neuroplasticidade.",
     tags: ["Desenvolvimento Infantil", "Neuroplasticidade", "Estimulação Cognitiva"],
     intent: "Quero suporte para desenvolvimento infantil Vila Velha",
-    image: "/images/program-infantil.webp",
+    image: "/images/neuroeducacao.webp",
   },
   {
     id: "xadrez",
@@ -129,7 +77,7 @@ export const programs = [
       "Terapia musical para desenvolvimento cognitivo e socioemocional. Oferecemos suporte para regulação de emoções e vínculo para mães, bebês e crianças atípicas.",
     tags: ["Regulação Emocional", "Terapia Vila Velha", "Mães e Bebês"],
     intent: "Terapia emocional e psicólogo para crianças Vila Velha",
-    image: "/images/program-adolescente.webp",
+    image: "/images/musicoterapia.webp",
   },
   {
     id: "cubo-magico",
@@ -151,7 +99,7 @@ export const programs = [
       "Suporte pedagógico da Educação Infantil ao Ensino Médio. Ideal para crianças com baixo rendimento escolar ou dificuldade de concentração nos estudos.",
     tags: ["Reforço em Vila Velha", "Dificuldade de Aprendizagem", "Estudo"],
     intent: "Apoio escolar e psicólogo para dificuldade escolar",
-    image: "/images/activity-teens-study.webp",
+    image: "/images/reforco_escolar.webp",
   },
   {
     id: "neurole",
@@ -162,7 +110,7 @@ export const programs = [
       "Abordagem sensorial e lúdica para o aprendizado da leitura e escrita. Programa especializado para crianças atípicas e diagnóstico de autismo infantil.",
     tags: ["Autismo Vila Velha", "Alfabetização", "Neurodivergência"],
     intent: "Diagnóstico autismo e psicólogo autismo Vila Velha",
-    image: "/images/program-infantil.webp",
+    image: "/images/neurole.webp",
   },
   {
     id: "psicopedagogia",
@@ -173,6 +121,6 @@ export const programs = [
       "Acompanhamento focado em identificar barreiras no aprendizado. Avaliação cognitiva e psicopedagogia para crianças com dificuldades escolares em Vila Velha.",
     tags: ["Psicopedagoga Vila Velha", "Avaliação Cognitiva", "Barreiras Escolares"],
     intent: "Avaliação neuropsicológica e psicopedagogia Vila Velha",
-    image: "/images/activity-adults.webp",
+    image: "/images/psicopedagogia.webp",
   },
 ] as const

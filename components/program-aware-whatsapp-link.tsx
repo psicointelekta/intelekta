@@ -1,3 +1,10 @@
+/**
+ * ProgramAwareWhatsappLink — WhatsApp CTA that builds a pre-filled
+ * message referencing the user's selected program (if any).
+ *
+ * Subscribes to the PROGRAM_SELECTION_EVENT so the link updates in
+ * real time when the user picks a program from the carousel or contact form.
+ */
 "use client"
 
 import type { ReactNode } from "react"

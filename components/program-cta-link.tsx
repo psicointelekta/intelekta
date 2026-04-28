@@ -1,3 +1,8 @@
+/**
+ * ProgramCtaLink — anchor that saves the selected program to session
+ * and fires a Vercel Analytics event before scrolling to #contato.
+ * Used inside each program card in the Programs carousel.
+ */
 "use client"
 
 import type { ReactNode } from "react"
