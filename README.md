@@ -4,6 +4,9 @@ Site institucional da **Intelekta**, construído com Next.js 16 (App Router, Tur
 
 > **URL de produção:** `https://psicointelekta.com.br` (hospedado na Vercel)
 
+**Desenvolvido por:** [Thales Melo da Penha](https://github.com/Thales-Melo)
+**Licença:** Todos os direitos reservados © 2026 Thales Melo da Penha
+
 ---
 
 ## Índice

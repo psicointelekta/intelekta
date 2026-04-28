@@ -1,0 +1,86 @@
+LICENÇA DE USO — CÓDIGO PROPRIETÁRIO COM CESSÃO AO CLIENTE
+
+Copyright (c) 2026 Thales Melo da Penha. Todos os direitos reservados.
+
+Este software, incluindo todo o código-fonte, documentação, arquivos de
+configuração e componentes técnicos contidos neste repositório (coletivamente,
+a "Obra"), foi desenvolvido por Thales Melo da Penha (o "Autor") sob
+contratação para a empresa Intelekta (o "Cliente").
+
+──────────────────────────────────────────────────────────────────────────────
+
+1. DIREITOS DO CLIENTE
+
+   O Cliente recebe uma licença perpétua, irrevogável e ampla para:
+
+   a) Utilizar, hospedar e operar o software sem restrições de domínio,
+      servidor ou plataforma;
+   b) Modificar, adaptar e evoluir o código-fonte, por conta própria ou
+      por meio de terceiros (outros desenvolvedores), sem necessidade de
+      autorização prévia do Autor;
+   c) Criar obras derivadas a partir do código para uso exclusivo do
+      próprio Cliente;
+   d) Realizar backups, migrações e transferências de hospedagem
+      livremente.
+
+2. CRÉDITO AO AUTOR
+
+   a) O Autor deve ser creditado como desenvolvedor original do projeto
+      em ao menos um dos seguintes locais: arquivo README, código-fonte
+      ou documentação interna do projeto.
+   b) A remoção intencional de todos os créditos de autoria constitui
+      violação desta licença.
+   c) O Autor reserva o direito de utilizar o projeto em seu portfólio
+      profissional, incluindo capturas de tela, descrições técnicas e
+      menções ao trabalho realizado.
+
+3. RESTRIÇÕES A TERCEIROS
+
+   Esta licença é concedida EXCLUSIVAMENTE ao Cliente. É proibido a
+   qualquer pessoa ou entidade que não seja o Cliente:
+
+   a) Copiar, reproduzir, distribuir ou divulgar a Obra, no todo ou em
+      parte, por qualquer meio ou formato;
+   b) Utilizar a Obra como base, template ou referência para construção
+      de outros projetos comerciais ou pessoais;
+   c) Fazer engenharia reversa com o intuito de replicar o sistema para
+      uso próprio ou de outrem;
+   d) Sublicenciar, vender ou transferir o código a terceiros.
+
+   Em resumo: o código pertence ao Cliente e ao Autor. Ninguém mais pode
+   utilizá-lo.
+
+4. PROPRIEDADE INTELECTUAL
+
+   a) A autoria intelectual da arquitetura, design de código e soluções
+      técnicas implementadas permanece com o Autor, nos termos da
+      Lei nº 9.610/1998 (Direitos Autorais) e Lei nº 9.609/1998
+      (Proteção de Software).
+   b) O conteúdo textual, logotipos, imagens e a marca "Intelekta" são
+      de propriedade exclusiva do Cliente.
+   c) O Cliente detém plenos direitos de uso e modificação do código
+      entregue, podendo contratar livremente outros profissionais para
+      dar continuidade ao desenvolvimento.
+
+5. ISENÇÃO DE GARANTIAS
+
+   A OBRA É FORNECIDA "COMO ESTÁ" (AS IS), SEM GARANTIAS DE QUALQUER
+   NATUREZA, EXPRESSAS OU IMPLÍCITAS. APÓS A ENTREGA FINAL DO PROJETO,
+   O AUTOR NÃO SE RESPONSABILIZA POR MODIFICAÇÕES REALIZADAS POR
+   TERCEIROS OU PELO PRÓPRIO CLIENTE.
+
+6. LEGISLAÇÃO APLICÁVEL
+
+   Esta licença é regida pelas leis da República Federativa do Brasil.
+   Qualquer litígio será submetido ao foro da comarca de Vila Velha/ES.
+
+7. CONTATO DO AUTOR
+
+   Thales Melo da Penha
+   GitHub: https://github.com/Thales-Melo
+   E-mail: thales.penha@gmail.com
+
+──────────────────────────────────────────────────────────────────────────────
+
+Ao acessar, clonar ou utilizar este repositório, você declara estar ciente
+e concordar com os termos acima.
