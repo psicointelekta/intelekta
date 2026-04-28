@@ -60,7 +60,7 @@ Cada lead preenche automaticamente as seguintes colunas:
 
 | Coluna                       | O que significa                             | Exemplo                         |
 | ---------------------------- | ------------------------------------------- | ------------------------------- |
-| **A — Data/Hora**     | Quando o formulário foi enviado            | `2026-03-22T14:30:00.000Z`    |
+| **A — Data/Hora**     | Quando o formulário foi enviado            | `28/04/2026, 14:30:00`        |
 | **B — Nome Completo** | Nome informado pelo visitante               | `Maria Silva`                 |
 | **C — Telefone**      | Número de telefone                         | `(27) 98877-3890`             |
 | **D — Programa**      | Programa de interesse selecionado           | `Neuroeducação`             |
@@ -70,11 +70,11 @@ Cada lead preenche automaticamente as seguintes colunas:
 | **H — UTM Campaign**  | Nome da campanha                            | `lancamento-julho`            |
 | **I — Página**       | Qual página do site ele estava             | `/`                           |
 | **J — User-Agent**    | Navegador e dispositivo utilizado           | `Mozilla/5.0 (iPhone...)`     |
-| **K — IP**            | Endereço IP do visitante                   | `189.40.xxx.xxx`              |
+| **K — IP**            | Preenchido com hífen (-) pela LGPD         | `-`                           |
 
 ### Dicas de leitura
 
-- **Data/Hora** está no formato UTC (horário de Greenwich). Para converter para Brasília, subtraia 3 horas.
+- **Data/Hora** agora está no formato oficial de Brasília (DD/MM/AAAA HH:MM:SS), facilitando a leitura direta.
 - Se **Programa** mostra "Não informado", o visitante não selecionou nenhum programa.
 - Se **UTM Source/Medium/Campaign** estão vazios, o visitante acessou o site diretamente (digitou a URL ou veio do Google orgânico).
 
@@ -403,4 +403,4 @@ Para qualquer questão técnica relacionada ao site:
 
 ---
 
-*Documento atualizado em março de 2026.*
+*Documento atualizado em abril de 2026.*

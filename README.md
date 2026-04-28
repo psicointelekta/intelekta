@@ -183,7 +183,7 @@ pnpm dev
 | UTM Campaign  | Parâmetro `utm_campaign` da URL       |
 | Página       | Path da página de origem                |
 | User-Agent    | Navegador do usuário                    |
-| IP            | IP do visitante                          |
+| IP            | Desativado (preenchido com `-`) para conformidade com a LGPD |
 
 6. Após envio, o formulário redireciona para o WhatsApp com mensagem pré-preenchida
 
