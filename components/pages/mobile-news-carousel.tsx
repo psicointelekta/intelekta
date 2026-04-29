@@ -23,15 +23,14 @@ const VELOCITY_THRESHOLD = 500  // px/s = snap
 const GAP                = 20
 
 export function MobileNewsCarousel({ items }: { items: readonly NewsItem[] }) {
-  // Infinite loop: clone last before first, first after last
-  // Layout: [clone-last] [0] [1] ... [N-1] [clone-first]
+  // Mega-Buffer: 21x repetition. Virtually impossible to hit the end in a single interaction.
   const loopedItems = useMemo(() => {
     if (items.length === 0) return []
-    return [items[items.length - 1], ...items, items[0]]
+    return Array(21).fill(items).flat()
   }, [items])
 
-  // visualIndex 1 = real item 0, visualIndex N = real item N-1
-  const [visualIndex, setVisualIndex] = useState(1)
+  // Start in the dead center (11th set)
+  const [visualIndex, setVisualIndex] = useState(items.length * 10)
   const [isAnimating, setIsAnimating] = useState(false)
   
   const [slideWidth, setSlideWidth] = useState(0)
@@ -39,7 +38,6 @@ export function MobileNewsCarousel({ items }: { items: readonly NewsItem[] }) {
 
   useEffect(() => {
     const update = () => {
-      // Use a consistent size: 75% of viewport but capped for desktop-sized mobile windows
       setSlideWidth(Math.min(window.innerWidth * 0.75, 450))
       setWindowWidth(window.innerWidth)
     }
@@ -50,7 +48,6 @@ export function MobileNewsCarousel({ items }: { items: readonly NewsItem[] }) {
 
   const getTranslateX = useCallback((index: number) => {
     if (slideWidth === 0 || windowWidth === 0) return 0
-    // Center the active slide
     const paddingLeft = (windowWidth - slideWidth) / 2
     return -(index * (slideWidth + GAP)) + paddingLeft
   }, [slideWidth, windowWidth])
@@ -60,13 +57,15 @@ export function MobileNewsCarousel({ items }: { items: readonly NewsItem[] }) {
     setIsAnimating(true)
   }, [])
 
-  // Infinite jump logic: after the transition to a clone completes, jump to the real one
+  // Silently re-center when we drift too far from the middle 5 sets
   const handleAnimationComplete = useCallback(() => {
     setIsAnimating(false)
-    if (visualIndex === 0) {
-      setVisualIndex(items.length)
-    } else if (visualIndex === items.length + 1) {
-      setVisualIndex(1)
+    
+    // Safety buffer: If we drift outside the middle 5 sets (sets 8-12), jump back to middle (set 11)
+    const currentSet = Math.floor(visualIndex / items.length)
+    if (currentSet < 8 || currentSet > 13) {
+      const offsetInSet = visualIndex % items.length
+      setVisualIndex(items.length * 10 + offsetInSet)
     }
   }, [visualIndex, items.length])
 
@@ -77,18 +76,14 @@ export function MobileNewsCarousel({ items }: { items: readonly NewsItem[] }) {
 
     if (isQuickSwipe || isHardSwipe) {
       const direction = (velocity.x || offset.x) > 0 ? -1 : 1
-      // Safety clamp: don't let it go beyond the current clones array
-      const nextIndex = Math.max(0, Math.min(items.length + 1, visualIndex + direction))
-      goTo(nextIndex)
+      goTo(visualIndex + direction)
     } else {
       goTo(visualIndex) // snap back
     }
-  }, [visualIndex, slideWidth, goTo, items.length])
+  }, [visualIndex, slideWidth, goTo])
 
   const activeDotIndex = useMemo(() => {
-    if (visualIndex === 0) return items.length - 1
-    if (visualIndex === items.length + 1) return 0
-    return Math.max(0, Math.min(items.length - 1, visualIndex - 1))
+    return visualIndex % items.length
   }, [visualIndex, items.length])
 
   if (items.length === 0 || slideWidth === 0) return null
@@ -101,23 +96,15 @@ export function MobileNewsCarousel({ items }: { items: readonly NewsItem[] }) {
         <m.div
           className="flex py-2 cursor-grab active:cursor-grabbing touch-pan-y"
           animate={{ x: tx }}
-          transition={isAnimating ? { type: "spring", stiffness: 350, damping: 35, mass: 0.8 } : { duration: 0 }}
+          transition={isAnimating ? { type: "spring", stiffness: 400, damping: 40, mass: 1 } : { duration: 0 }}
           drag="x"
+          // Massive constraints to ensure they never hit the actual end of the 21 sets
           dragConstraints={{
-            left:  getTranslateX(items.length + 1) - 100, // allow some elastic pull
-            right: getTranslateX(0) + 100,
+            left:  getTranslateX(loopedItems.length - 2),
+            right: getTranslateX(1),
           }}
-          dragElastic={0.15}
-          onDragStart={() => {
-            setIsAnimating(false)
-            // Critical fix for rapid swiping: if we are currently on a clone,
-            // jump to the real item instantly so the next drag starts from a safe position.
-            if (visualIndex === 0) {
-              setVisualIndex(items.length)
-            } else if (visualIndex === items.length + 1) {
-              setVisualIndex(1)
-            }
-          }}
+          dragElastic={0.05}
+          onDragStart={() => setIsAnimating(false)}
           onDragEnd={handleDragEnd}
           onAnimationComplete={handleAnimationComplete}
           style={{ width: "fit-content" }}
