@@ -77,11 +77,13 @@ export function MobileNewsCarousel({ items }: { items: readonly NewsItem[] }) {
 
     if (isQuickSwipe || isHardSwipe) {
       const direction = (velocity.x || offset.x) > 0 ? -1 : 1
-      goTo(visualIndex + direction)
+      // Safety clamp: don't let it go beyond the current clones array
+      const nextIndex = Math.max(0, Math.min(items.length + 1, visualIndex + direction))
+      goTo(nextIndex)
     } else {
       goTo(visualIndex) // snap back
     }
-  }, [visualIndex, slideWidth, goTo])
+  }, [visualIndex, slideWidth, goTo, items.length])
 
   const activeDotIndex = useMemo(() => {
     if (visualIndex === 0) return items.length - 1
@@ -106,7 +108,16 @@ export function MobileNewsCarousel({ items }: { items: readonly NewsItem[] }) {
             right: getTranslateX(0) + 100,
           }}
           dragElastic={0.15}
-          onDragStart={() => setIsAnimating(false)}
+          onDragStart={() => {
+            setIsAnimating(false)
+            // Critical fix for rapid swiping: if we are currently on a clone,
+            // jump to the real item instantly so the next drag starts from a safe position.
+            if (visualIndex === 0) {
+              setVisualIndex(items.length)
+            } else if (visualIndex === items.length + 1) {
+              setVisualIndex(1)
+            }
+          }}
           onDragEnd={handleDragEnd}
           onAnimationComplete={handleAnimationComplete}
           style={{ width: "fit-content" }}

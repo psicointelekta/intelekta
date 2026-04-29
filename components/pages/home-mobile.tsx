@@ -48,9 +48,24 @@ export interface Announcement {
   imageZoom?: string
 }
 const heroCards = [
-  { src: "/images/hero-mobile-1.webp", alt: "Criança em atividade lúdica de neuroeducação" },
-  { src: "/images/hero-mobile-2.webp", alt: "Adolescente em sessão de desenvolvimento cognitivo" },
-  { src: "/images/hero-mobile-3.webp", alt: "Idosa sorrindo durante atividade terapêutica" },
+  { 
+    src: "/images/hero-mobile-1.webp", 
+    alt: "Criança em atividade lúdica de neuroeducação",
+    title: "Fortalecendo mentes",
+    description: "Programas especializados fundamentados em neurociência para todas as idades."
+  },
+  { 
+    src: "/images/hero-mobile-2.webp", 
+    alt: "Adolescente em sessão de desenvolvimento cognitivo",
+    title: "Transformando emoções",
+    description: "Equipe multidisciplinar dedicada ao desenvolvimento integral de mentes e emoções."
+  },
+  { 
+    src: "/images/hero-mobile-3.webp", 
+    alt: "Idosa sorrindo durante atividade terapêutica",
+    title: "Moldando futuros",
+    description: "Ambiente planejado para proporcionar acolhimento, segurança e resultados reais."
+  },
 ] as const
 
 const values = [
@@ -440,10 +455,11 @@ export function HomeMobile({
                       imageZoom: a.imageZoom || '1'
                     }))
                     : heroCards.map(c => ({
-                      ...c,
-                      title: c.alt,
-                      category: "BEM-VINDO",
-                      description: "Programas especializados da Intelekta.",
+                      src: c.src,
+                      alt: c.alt,
+                      title: c.title,
+                      category: "Destaque",
+                      description: c.description,
                       date: "",
                       link: undefined
                     }))
