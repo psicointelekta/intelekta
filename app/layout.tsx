@@ -126,6 +126,25 @@ export const viewport: Viewport = {
 
 // Comprehensive structured data for SEO and LLM optimization
 const structuredData = [
+  // WebPage - Explicitly define the primary image
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    '@id': 'https://psicointelekta.com.br/#webpage',
+    url: 'https://psicointelekta.com.br',
+    name: 'Intelekta | Centro de Desenvolvimento Cognitivo e Socioemocional',
+    description: 'Centro de desenvolvimento cognitivo, neuropsicologia e psicologia infantil em Vila Velha, ES.',
+    primaryImageOfPage: {
+      '@type': 'ImageObject',
+      '@id': 'https://psicointelekta.com.br/#primaryimage',
+      url: 'https://psicointelekta.com.br/og-image.png',
+      width: 1920,
+      height: 1080
+    },
+    image: {
+      '@id': 'https://psicointelekta.com.br/#primaryimage'
+    }
+  },
   // Organization
   {
     '@context': 'https://schema.org',
@@ -137,6 +156,7 @@ const structuredData = [
       'Centro de desenvolvimento cognitivo, neuropsicologia e psicologia infantil em Vila Velha, ES. Idealizado por psicólogos e psicopedagogas, oferecemos avaliação de TDAH, autismo, terapia para ansiedade e programas personalizados para todas as idades fundamentados em neurociência.',
     url: 'https://psicointelekta.com.br',
     logo: 'https://psicointelekta.com.br/icon.svg',
+    image: 'https://psicointelekta.com.br/og-image.png',
     brand: {
       '@type': 'Brand',
       name: 'Intelekta'
@@ -365,6 +385,7 @@ const structuredData = [
       }
     ],
     image: 'https://psicointelekta.com.br/og-image.png',
+    thumbnailUrl: 'https://psicointelekta.com.br/og-image.png',
   }
 ]
 
@@ -376,6 +397,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" className={`${lato.variable} ${nunito.variable}`}>
       <head>
+        <link rel="image_src" href="https://psicointelekta.com.br/og-image.png" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
