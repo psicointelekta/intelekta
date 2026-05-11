@@ -47,6 +47,7 @@ export const metadata: Metadata = {
     'terapia para ansiedade vila velha',
     'avaliação tdah vila velha',
     'diagnóstico autismo infantil',
+    'diagnóstico TEA infantil',
     'atraso no desenvolvimento infantil',
     'dificuldade de aprendizagem criança',
     'psicólogo na praia da costa',
@@ -78,7 +79,7 @@ export const metadata: Metadata = {
     siteName: 'Intelekta',
     title: 'Intelekta | Centro de Desenvolvimento Cognitivo e Socioemocional',
     description:
-      'Centro de desenvolvimento cognitivo, neuropsicologia e psicologia infantil em Vila Velha, ES. Especialistas em TDAH, autismo, ansiedade e dificuldades de aprendizagem. Aula experimental gratuita.',
+      'Centro de desenvolvimento cognitivo, neuropsicologia e psicologia infantil em Vila Velha, ES. Especialistas em TDAH, autismo (TEA), ansiedade e dificuldades de aprendizagem. Aula experimental gratuita.',
     images: [
       {
         url: '/og-image.png',
@@ -92,7 +93,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Intelekta | Psicólogo e Neuropsicólogo em Vila Velha',
     description:
-      'Desenvolvimento cognitivo e socioemocional sob medida. Especialistas em psicologia infantil, TDAH e avaliação neuropsicológica em Vila Velha.',
+      'Desenvolvimento cognitivo e socioemocional sob medida. Especialistas em psicologia infantil, TDAH, autismo (TEA), ansiedade e avaliação neuropsicológica em Vila Velha.',
     images: ['/og-image.png'],
   },
   robots: {
@@ -153,7 +154,7 @@ const structuredData = [
     name: 'Intelekta',
     alternateName: 'Intelekta - Centro de Desenvolvimento Cognitivo e Socioemocional',
     description:
-      'Centro de desenvolvimento cognitivo, neuropsicologia e psicologia infantil em Vila Velha, ES. Idealizado por psicólogos e psicopedagogas, oferecemos avaliação de TDAH, autismo, terapia para ansiedade e programas personalizados para todas as idades fundamentados em neurociência.',
+      'Centro de desenvolvimento cognitivo, neuropsicologia e psicologia infantil em Vila Velha, ES. Idealizado por psicólogos e psicopedagogas, oferecemos avaliação de TDAH, autismo (TEA), terapia para ansiedade e programas personalizados para todas as idades fundamentados em neurociência.',
     url: 'https://psicointelekta.com.br',
     logo: 'https://psicointelekta.com.br/icon.svg',
     image: 'https://psicointelekta.com.br/og-image.png',
@@ -359,7 +360,7 @@ const structuredData = [
     '@type': 'LocalBusiness',
     '@id': 'https://psicointelekta.com.br/#localbusiness',
     name: 'Intelekta - Psicologia e Desenvolvimento',
-    description: 'Psicólogo em Vila Velha, neuropsicologia infantil e psicopedagogia na Praia da Costa. Avaliação de TDAH e Autismo.',
+    description: 'Psicólogo em Vila Velha, neuropsicologia infantil e psicopedagogia na Praia da Costa. Avaliação de TDAH e Autismo (TEA).',
     url: 'https://psicointelekta.com.br',
     telephone: '+55-27-98877-3890',
     priceRange: '$$',

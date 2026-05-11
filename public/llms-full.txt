@@ -284,7 +284,7 @@ estimulação cognitiva infantil (cognitive stimulation children)
 avaliação neuropsicológica vila velha (neuropsychological assessment)  
 neuropsicólogo vila velha (neuropsychologist)  
 teste de TDAH vila velha (ADHD assessment)  
-avaliação de autismo vila velha (autism evaluation)  
+avaliação de autismo (TEA) vila velha (autism evaluation)  
 reabilitação cognitiva vila velha (cognitive rehabilitation)  
 treinamento de funções executivas (executive function training)  
 estimulação cognitiva para idosos (senior cognitive stimulation)
@@ -344,7 +344,7 @@ R: Sim, o programa de Reforço Escolar integra estratégias pedagógicas e socio
 P: Para qual faixa etária a Intelekta atende?  
 R: A Intelekta atende pessoas a partir dos 5 anos de idade em Vila Velha, com programas específicos para crianças (5–12 anos), adolescentes (13–17 anos), adultos (18–63 anos) e idosos (64+ anos). Cada programa é adaptado ao desenvolvimento infantil, acadêmico ou à estimulação cognitiva sênior.
 
-P: A Intelekta atende autismo ou TDAH em Vila Velha?  
+P: A Intelekta atende autismo (TEA) ou TDAH em Vila Velha?  
 R: Sim. A Intelekta oferece programas de desenvolvimento voltados para crianças com perfis atípicos, incluindo suporte para TDAH, autismo (TEA), dificuldades atencionais e demandas do neurodesenvolvimento, com foco em autonomia e fortalecimento das funções executivas.
 
 P: Como funciona a avaliação neuropsicológica infantil?  

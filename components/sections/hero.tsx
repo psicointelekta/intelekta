@@ -274,7 +274,7 @@ export function Hero({ initialAnnouncements = [] }: { initialAnnouncements?: Ann
                   Centro especializado em <span className="text-foreground font-medium">psicologia infantil</span>,{" "}
                   <span className="text-foreground font-medium">neuropsicologia</span> e desenvolvimento cognitivo em{" "}
                   <span className="text-foreground font-medium">Vila Velha</span>. 
-                  Acolhimento humanizado para TDAH, autismo, ansiedade e dificuldades de aprendizagem.
+                  Acolhimento humanizado para TDAH, autismo (TEA), ansiedade e dificuldades de aprendizagem.
                 </m.p>
 
                 {/* CTAs */}

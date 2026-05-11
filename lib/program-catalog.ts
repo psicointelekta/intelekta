@@ -105,9 +105,9 @@ export const programs = [
     id: "neurole",
     number: "06",
     title: "Neurolê",
-    subtitle: "Alfabetização inclusiva para autismo e TEA",
+    subtitle: "Alfabetização inclusiva para autismo (TEA)",
     description:
-      "Abordagem sensorial e lúdica para o aprendizado da leitura e escrita. Programa especializado para crianças atípicas e diagnóstico de autismo infantil.",
+      "Abordagem sensorial e lúdica para o aprendizado da leitura e escrita. Programa especializado para crianças atípicas e diagnóstico de autismo (TEA) infantil.",
     tags: ["Autismo Vila Velha", "Alfabetização", "Neurodivergência"],
     intent: "Diagnóstico autismo e psicólogo autismo Vila Velha",
     image: "/images/neurole.webp",

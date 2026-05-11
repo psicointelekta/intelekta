@@ -22,7 +22,7 @@ const faqs = [
     answer: "Atendemos pessoas a partir dos 5 anos de idade em Vila Velha, com programas específicos para crianças (5-12 anos), adolescentes (13-17 anos), adultos (18-63 anos) e idosos (64+ anos). Cada programa é adaptado para desenvolvimento infantil, acadêmico ou estimulação cognitiva sênior.",
   },
   {
-    question: "A Intelekta atende autismo ou TDAH em Vila Velha?",
+    question: "A Intelekta atende autismo (TEA) ou TDAH em Vila Velha?",
     answer: "Sim! Somos especialistas em programas de desenvolvimento para crianças atípicas. Oferecemos suporte especializado para TDAH, autismo (TEA), déficit de atenção e outras demandas do neurodesenvolvimento com foco em autonomia e funções executivas.",
   },
   {
