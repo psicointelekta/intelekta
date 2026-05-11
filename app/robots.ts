@@ -10,6 +10,7 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: '*',
       allow: '/',
+      disallow: ['/m/', '/api/', '/admin/'],
     },
     sitemap: 'https://psicointelekta.com.br/sitemap.xml',
   }
