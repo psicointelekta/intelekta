@@ -669,7 +669,7 @@ export function HomeMobile({
                       &ldquo;
                     </span>
                     <blockquote className="font-serif text-xl font-bold leading-8 tracking-[-0.02em] italic text-foreground">
-                      Nosso propósito é despertar em cada pessoa a confiança de que pode desenvolver novas habilidades, superar desafios e construir uma vida mais equilibrada e significativa.
+                      Nosso propósito é despertar em cada pessoa a confiança de que ela pode desenvolver novas habilidades, superar desafios e construir uma vida mais equilibrada e significativa.
                     </blockquote>
                     <div className="mt-4 flex items-center gap-3">
                       <div className="decorative-line" />

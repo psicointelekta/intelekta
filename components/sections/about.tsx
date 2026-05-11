@@ -234,7 +234,7 @@ export function About() {
                   </span>
                   <blockquote className="font-serif text-editorial-quote text-pretty font-bold italic text-foreground">
                     Nosso propósito é despertar em cada pessoa a confiança de
-                    que pode desenvolver novas habilidades, superar desafios e
+                    que ela pode desenvolver novas habilidades, superar desafios e
                     construir uma vida mais equilibrada e significativa.
                   </blockquote>
                   <div className="mt-4 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
