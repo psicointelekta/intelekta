@@ -31,17 +31,6 @@ const nextConfig = {
   },
   // Fix workspace root warning by pinning the root to the current directory
   outputFileTracingRoot: process.cwd(),
-  async redirects() {
-    return [
-      {
-        source: '/:path*',
-        has: [{ type: 'host', value: 'www.psicointelekta.com.br' }],
-        destination: 'https://psicointelekta.com.br/:path*',
-        permanent: true,
-      },
-    ]
-  },
-
   async headers() {
     return [
       // Per-device Vary headers — critical for CDN cache splitting (desktop vs mobile)
