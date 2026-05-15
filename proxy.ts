@@ -18,12 +18,12 @@ function injectSecurityAndVary(response: NextResponse) {
   // 2. BIG TECH SECURITY HEADERS
   const cspHeader = `
     default-src 'self';
-    script-src 'self' 'unsafe-eval' 'unsafe-inline' https://va.vercel-scripts.com https://www.googletagmanager.com;
+    script-src 'self' 'unsafe-eval' 'unsafe-inline' https://va.vercel-scripts.com https://www.googletagmanager.com https://*.googleadservices.com https://*.doubleclick.net https://www.google.com https://www.google.com.br https://*.googlesyndication.com;
     style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
-    img-src 'self' blob: data: https://*.public.blob.vercel-storage.com https://images.unsplash.com https://*.google.com https://*.google.com.br https://www.googletagmanager.com;
+    img-src 'self' blob: data: https://*.public.blob.vercel-storage.com https://images.unsplash.com https://*.google.com https://*.google.com.br https://www.googletagmanager.com https://*.doubleclick.net https://*.googleadservices.com https://*.googlesyndication.com;
     font-src 'self' https://fonts.gstatic.com;
-    connect-src 'self' https://va.vercel-scripts.com https://www.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com;
-    frame-src 'self' https://www.google.com https://maps.google.com https://*.google.com https://*.google.com.br;
+    connect-src 'self' https://va.vercel-scripts.com https://www.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://www.google.com https://www.google.com.br https://*.doubleclick.net https://*.googleadservices.com https://*.google.com https://*.g.doubleclick.net https://*.googlesyndication.com;
+    frame-src 'self' https://www.google.com https://maps.google.com https://*.google.com https://*.google.com.br https://*.doubleclick.net https://*.googleadservices.com;
     object-src 'none';
     base-uri 'self';
     form-action 'self';
