@@ -152,7 +152,7 @@ export function Faq() {
                 </p>
                 <Button
                   variant="outline"
-                  className="w-full"
+                  className="w-full hover:bg-primary hover:text-white hover:border-primary"
                   asChild
                 >
                   <Link href="https://wa.me/5527988773890" target="_blank" rel="noopener noreferrer">
