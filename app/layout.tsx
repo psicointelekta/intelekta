@@ -123,6 +123,9 @@ export const metadata: Metadata = {
     ],
     apple: [{ url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' }],
   },
+  other: {
+    'thumbnail': 'https://psicointelekta.com.br/og-image.png',
+  },
 }
 
 export const viewport: Viewport = {
@@ -134,6 +137,20 @@ export const viewport: Viewport = {
 
 // Comprehensive structured data for SEO and LLM optimization
 const structuredData = [
+  // WebSite — Tells Google the site name (shown in search results instead of domain)
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': 'https://psicointelekta.com.br/#website',
+    url: 'https://psicointelekta.com.br',
+    name: 'Intelekta',
+    alternateName: ['Psico Intelekta', 'Intelekta Centro de Desenvolvimento'],
+    description: 'Centro de desenvolvimento cognitivo e socioemocional em Vila Velha, ES.',
+    publisher: {
+      '@id': 'https://psicointelekta.com.br/#organization'
+    },
+    inLanguage: 'pt-BR',
+  },
   // WebPage - Explicitly define the primary image
   {
     '@context': 'https://schema.org',
@@ -142,6 +159,9 @@ const structuredData = [
     url: 'https://psicointelekta.com.br',
     name: 'Intelekta | Centro de Desenvolvimento Cognitivo e Socioemocional',
     description: 'Centro de desenvolvimento cognitivo, neuropsicologia e psicologia infantil em Vila Velha, ES.',
+    isPartOf: {
+      '@id': 'https://psicointelekta.com.br/#website'
+    },
     primaryImageOfPage: {
       '@type': 'ImageObject',
       '@id': 'https://psicointelekta.com.br/#primaryimage',
