@@ -14,12 +14,12 @@ import {
   motion,
   useInView,
 } from "framer-motion"
-import { useRef, useState, useEffect, useCallback } from "react"
+import { useRef, useState, useEffect, useCallback, Fragment } from "react"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
-import { programs, ageStages } from "@/lib/program-catalog"
+import { programs, ageStages, type ProgramCategory } from "@/lib/program-catalog"
 import { ProgramCtaLink } from "@/components/program-cta-link"
 
 // ─── Constants ───────────────────────────────────────────────────────────────
@@ -169,17 +169,26 @@ export function Programs() {
               </p>
             </div>
 
-            {/* Age stages compact strip — Now scrollable on mobile */}
+            {/* Age stages compact strip — clickable to jump to category */}
             <div className="flex gap-2 overflow-x-auto pb-1 sm:flex-wrap sm:justify-end sm:overflow-visible [&::-webkit-scrollbar]:hidden" style={{ scrollbarWidth: 'none', WebkitOverflowScrolling: 'touch' } as React.CSSProperties}>
-              {ageStages.map((s) => (
-                <div
-                  key={s.phase}
-                  className="shrink-0 rounded-full border border-primary/10 bg-primary/[0.04] px-3 py-1.5 sm:px-3 sm:py-1.5"
-                >
-                  <span className="text-[10px] font-bold text-foreground sm:text-[11px]">{s.phase}</span>
-                  <span className="ml-1.5 text-[10px] text-primary/60 sm:ml-1.5 sm:text-[11px]">{s.age}</span>
-                </div>
-              ))}
+              {ageStages.map((s) => {
+                const firstIdx = programs.findIndex(p => p.category === s.category)
+                const isActiveCategory = firstIdx !== -1 && programs[activeIndex]?.category === s.category
+                return (
+                  <button
+                    key={s.phase}
+                    onClick={() => firstIdx !== -1 && goTo(firstIdx)}
+                    className={`shrink-0 rounded-full border px-3 py-1.5 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary ${
+                      isActiveCategory
+                        ? "border-primary/30 bg-primary/10"
+                        : "border-primary/10 bg-primary/[0.04] hover:border-primary/20 hover:bg-primary/[0.07]"
+                    }`}
+                  >
+                    <span className={`text-[10px] font-bold sm:text-[11px] ${isActiveCategory ? "text-primary" : "text-foreground"}`}>{s.phase}</span>
+                    <span className="ml-1.5 text-[10px] text-primary/60 sm:ml-1.5 sm:text-[11px]">{s.age}</span>
+                  </button>
+                )
+              })}
             </div>
           </div>
         </motion.div>
@@ -199,46 +208,78 @@ export function Programs() {
             onKeyDown={handleSidebarKeyDown}
           >
             <nav role="tablist" className="relative">
+              {/* Active indicator — offset accounts for category label heights */}
               <motion.div
                 aria-hidden
                 className="absolute left-0 w-[2px] rounded-full bg-primary"
-                animate={mounted ? { y: activeIndex * ITEM_H, height: ITEM_H } : {}}
+                animate={mounted ? {
+                  // Each category label adds 28px; count how many labels appear before activeIndex
+                  y: activeIndex * ITEM_H + (activeIndex >= 2 ? 28 * 2 : 28),
+                  height: ITEM_H,
+                } : {}}
                 transition={{ type: "spring", stiffness: 420, damping: 38 }}
               />
 
               <div className="border-l-2 border-border/30">
-                {programs.map((program, idx) => (
-                  <button
-                    key={program.id}
-                    role="tab"
-                    id={`tab-${program.id}`}
-                    tabIndex={idx === activeIndex ? 0 : -1}
-                    aria-selected={idx === activeIndex}
-                    aria-controls={`panel-${program.id}`}
-                    onClick={() => goTo(idx)}
-                    style={{ height: ITEM_H }}
-                    className={`group flex w-full items-center gap-3 pl-5 pr-2 text-left transition-colors duration-150 focus-visible:outline-none focus-visible:ring-inset focus-visible:ring-1 focus-visible:ring-primary ${
-                      idx === activeIndex ? "bg-primary/[0.05]" : "hover:bg-muted/40"
-                    }`}
-                  >
-                    <span
-                      className={`shrink-0 font-mono text-[10px] font-bold tabular-nums transition-colors duration-150 ${
-                        idx === activeIndex ? "text-primary" : "text-muted-foreground/35"
+                {/* ── Intelekta Sênior ── */}
+                <div className="py-1.5 pl-5 pr-2">
+                  <span className="text-[9px] font-bold uppercase tracking-[0.18em] text-primary/50">Intelekta Sênior</span>
+                </div>
+                {programs.filter(p => p.category === "senior").map((program) => {
+                  const idx = programs.indexOf(program)
+                  return (
+                    <button
+                      key={program.id}
+                      role="tab"
+                      id={`tab-${program.id}`}
+                      tabIndex={idx === activeIndex ? 0 : -1}
+                      aria-selected={idx === activeIndex}
+                      aria-controls={`panel-${program.id}`}
+                      onClick={() => goTo(idx)}
+                      style={{ height: ITEM_H }}
+                      className={`group flex w-full items-center gap-3 pl-5 pr-2 text-left transition-colors duration-150 focus-visible:outline-none focus-visible:ring-inset focus-visible:ring-1 focus-visible:ring-primary ${
+                        idx === activeIndex ? "bg-primary/[0.05]" : "hover:bg-muted/40"
                       }`}
                     >
-                      {program.number}
-                    </span>
-                    <span
-                      className={`truncate text-sm font-medium transition-colors duration-150 ${
-                        idx === activeIndex
-                          ? "text-foreground"
-                          : "text-muted-foreground group-hover:text-foreground/75"
+                      <span className={`shrink-0 font-mono text-[10px] font-bold tabular-nums transition-colors duration-150 ${idx === activeIndex ? "text-primary" : "text-muted-foreground/35"}`}>
+                        {program.number}
+                      </span>
+                      <span className={`truncate text-sm font-medium transition-colors duration-150 ${idx === activeIndex ? "text-foreground" : "text-muted-foreground group-hover:text-foreground/75"}`}>
+                        {program.title}
+                      </span>
+                    </button>
+                  )
+                })}
+
+                {/* ── Intelekta (Crianças, Adolescentes e Adultos) ── */}
+                <div className="py-1.5 pl-5 pr-2 mt-1">
+                  <span className="text-[9px] font-bold uppercase tracking-[0.18em] text-primary/50">Intelekta</span>
+                </div>
+                {programs.filter(p => p.category === "infantojuvenil").map((program) => {
+                  const idx = programs.indexOf(program)
+                  return (
+                    <button
+                      key={program.id}
+                      role="tab"
+                      id={`tab-${program.id}`}
+                      tabIndex={idx === activeIndex ? 0 : -1}
+                      aria-selected={idx === activeIndex}
+                      aria-controls={`panel-${program.id}`}
+                      onClick={() => goTo(idx)}
+                      style={{ height: ITEM_H }}
+                      className={`group flex w-full items-center gap-3 pl-5 pr-2 text-left transition-colors duration-150 focus-visible:outline-none focus-visible:ring-inset focus-visible:ring-1 focus-visible:ring-primary ${
+                        idx === activeIndex ? "bg-primary/[0.05]" : "hover:bg-muted/40"
                       }`}
                     >
-                      {program.title}
-                    </span>
-                  </button>
-                ))}
+                      <span className={`shrink-0 font-mono text-[10px] font-bold tabular-nums transition-colors duration-150 ${idx === activeIndex ? "text-primary" : "text-muted-foreground/35"}`}>
+                        {program.number}
+                      </span>
+                      <span className={`truncate text-sm font-medium transition-colors duration-150 ${idx === activeIndex ? "text-foreground" : "text-muted-foreground group-hover:text-foreground/75"}`}>
+                        {program.title}
+                      </span>
+                    </button>
+                  )
+                })}
               </div>
             </nav>
           </aside>
@@ -246,35 +287,44 @@ export function Programs() {
           {/* ── Right column: carousel + details ─────────────────────────── */}
           <div className="min-w-0">
 
-            {/* Mobile / tablet pill strip */}
+            {/* Mobile / tablet pill strip with category separators */}
             <div className="relative mb-3 lg:hidden">
               <div
                 ref={tabStripRef}
                 className="flex gap-1.5 overflow-x-auto pb-1 [&::-webkit-scrollbar]:hidden"
                 style={{ scrollbarWidth: "none", WebkitOverflowScrolling: "touch" } as React.CSSProperties}
               >
-                {programs.map((program, idx) => (
-                  <button
-                    key={program.id}
-                    onClick={() => goTo(idx)}
-                    className={`flex shrink-0 items-center gap-1.5 rounded-full px-3 py-1.5 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary ${
-                      idx === activeIndex
-                        ? "bg-primary text-primary-foreground"
-                        : "bg-muted text-muted-foreground/70"
-                    }`}
-                  >
-                    <span
-                      className={`font-mono text-[10px] font-bold tabular-nums ${
-                        idx === activeIndex ? "opacity-75" : "opacity-45"
-                      }`}
-                    >
-                      {program.number}
-                    </span>
-                    <span className="text-[10px] font-semibold uppercase tracking-wide">
-                      {program.title}
-                    </span>
-                  </button>
-                ))}
+                {programs.map((program, idx) => {
+                  const showDivider = idx > 0 && program.category !== programs[idx - 1].category
+                  return (
+                    <Fragment key={program.id}>
+                      {showDivider && (
+                        <div className="flex shrink-0 items-center px-1" aria-hidden>
+                          <div className="h-4 w-px bg-border" />
+                        </div>
+                      )}
+                      <button
+                        onClick={() => goTo(idx)}
+                        className={`flex shrink-0 items-center gap-1.5 rounded-full px-3 py-1.5 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary ${
+                          idx === activeIndex
+                            ? "bg-primary text-primary-foreground"
+                            : "bg-muted text-muted-foreground/70"
+                        }`}
+                      >
+                        <span
+                          className={`font-mono text-[10px] font-bold tabular-nums ${
+                            idx === activeIndex ? "opacity-75" : "opacity-45"
+                          }`}
+                        >
+                          {program.number}
+                        </span>
+                        <span className="text-[10px] font-semibold uppercase tracking-wide">
+                          {program.title}
+                        </span>
+                      </button>
+                    </Fragment>
+                  )
+                })}
                 <div className="w-8 shrink-0" aria-hidden />
               </div>
               <div

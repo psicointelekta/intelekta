@@ -10,8 +10,8 @@
  */
 
 export const PROGRAM_OPTIONS = [
-  "Sênior + Fisioterapia Funcional",
-  "Sênior + Neuroreabilitação",
+  "Fisioterapia Funcional",
+  "Neuroreabilitação",
   "Neuroeducação",
   "Xadrez Pedagógico",
   "Musicoterapia",
@@ -24,26 +24,33 @@ export const PROGRAM_OPTIONS = [
 
 export type ProgramOption = (typeof PROGRAM_OPTIONS)[number]
 
+/** Categories used for visual grouping in the carousel sidebar */
+export type ProgramCategory = "senior" | "infantojuvenil"
+
 export const ageStages = [
   {
     phase: "Crianças",
     age: "5-12 anos",
     description: "Estimulamos atenção, memória, e o desenvolvimento infantil de forma lúdica em Vila Velha.",
+    category: "infantojuvenil" as ProgramCategory,
   },
   {
     phase: "Adolescentes",
     age: "13-17 anos",
     description: "Foco em funções executivas, controle emocional e autonomia escolar.",
+    category: "infantojuvenil" as ProgramCategory,
   },
   {
     phase: "Adultos",
     age: "18-63 anos",
     description: "Produtividade, ansiedade, estresse e tomada de decisão estratégica.",
+    category: "infantojuvenil" as ProgramCategory,
   },
   {
     phase: "Idosos",
     age: "64+ anos",
     description: "Prevenção do declínio cognitivo com foco em memória (estimulação cognitiva sênior).",
+    category: "senior" as ProgramCategory,
   },
 ] as const
 
@@ -51,24 +58,26 @@ export const programs = [
   {
     id: "fisioterapia-funcional",
     number: "01",
-    title: "Sênior + Fisioterapia",
-    subtitle: "Cuidado integrado para movimento e autonomia",
+    title: "Fisioterapia Funcional",
+    subtitle: "Programa Intelekta Sênior — movimento e autonomia",
     description:
       "Oficinas e atendimentos em grupo para idosos, com foco em movimento, funcionalidade e qualidade de vida. Fortalece mobilidade, equilíbrio e coordenação com prevenção de quedas.",
     tags: ["Fisioterapia Funcional", "Prevenção de Quedas", "Longevidade"],
     intent: "Fisioterapia funcional para idosos em grupo Vila Velha",
     image: "/images/senior-fisioterapia.webp",
+    category: "senior" as ProgramCategory,
   },
   {
     id: "neuroreabilitacao",
     number: "02",
-    title: "Sênior + Neuroreabilitação",
-    subtitle: "Cuidado especializado em cognição e autonomia",
+    title: "Neuroreabilitação",
+    subtitle: "Programa Intelekta Sênior — cognição e autonomia",
     description:
       "Sessões em grupo de neuroreabilitação para idosos, com foco em cognição, funcionalidade e qualidade de vida. Estimula memória, atenção e raciocínio com socialização.",
     tags: ["Neuroreabilitação", "Estimulação Cognitiva", "Memória"],
     intent: "Neuroreabilitação e estimulação cognitiva sênior Vila Velha",
     image: "/images/senior-neuroreabilitacao.webp",
+    category: "senior" as ProgramCategory,
   },
   {
     id: "neuroeducacao",
@@ -80,6 +89,7 @@ export const programs = [
     tags: ["Desenvolvimento Infantil", "Neuroplasticidade", "Estimulação Cognitiva"],
     intent: "Quero suporte para desenvolvimento infantil Vila Velha",
     image: "/images/neuroeducacao.webp",
+    category: "infantojuvenil" as ProgramCategory,
   },
   {
     id: "xadrez",
@@ -91,6 +101,7 @@ export const programs = [
     tags: ["TDAH Infantil", "Foco", "Raciocínio Lógico"],
     intent: "Psicólogo TDAH infantil Vila Velha e região",
     image: "/images/activity-children-chess.webp",
+    category: "infantojuvenil" as ProgramCategory,
   },
   {
     id: "musicoterapia",
@@ -102,6 +113,7 @@ export const programs = [
     tags: ["Regulação Emocional", "Terapia Vila Velha", "Mães e Bebês"],
     intent: "Terapia emocional e psicólogo para crianças Vila Velha",
     image: "/images/musicoterapia.webp",
+    category: "infantojuvenil" as ProgramCategory,
   },
   {
     id: "cubo-magico",
@@ -113,6 +125,7 @@ export const programs = [
     tags: ["Funções Executivas", "Persistência", "Memória"],
     intent: "Treinamento cognitivo e ajuda psicológica Vila Velha",
     image: "/images/activity-children-rubiks.webp",
+    category: "infantojuvenil" as ProgramCategory,
   },
   {
     id: "reforco-escolar",
@@ -124,6 +137,7 @@ export const programs = [
     tags: ["Reforço em Vila Velha", "Dificuldade de Aprendizagem", "Estudo"],
     intent: "Apoio escolar e psicólogo para dificuldade escolar",
     image: "/images/reforco_escolar.webp",
+    category: "infantojuvenil" as ProgramCategory,
   },
   {
     id: "neurole",
@@ -135,6 +149,7 @@ export const programs = [
     tags: ["Autismo Vila Velha", "Alfabetização", "Neurodivergência"],
     intent: "Diagnóstico autismo e psicólogo autismo Vila Velha",
     image: "/images/neurole.webp",
+    category: "infantojuvenil" as ProgramCategory,
   },
   {
     id: "psicopedagogia",
@@ -146,5 +161,6 @@ export const programs = [
     tags: ["Psicopedagoga Vila Velha", "Avaliação Cognitiva", "Barreiras Escolares"],
     intent: "Avaliação neuropsicológica e psicopedagogia Vila Velha",
     image: "/images/psicopedagogia.webp",
+    category: "infantojuvenil" as ProgramCategory,
   },
 ] as const

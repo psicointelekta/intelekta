@@ -225,7 +225,7 @@ const structuredData = [
           '@type': 'Offer',
           itemOffered: {
             '@type': 'Service',
-            name: 'Intelekta Sênior + Fisioterapia Funcional',
+            name: 'Fisioterapia Funcional',
             description:
               'Programa de fisioterapia funcional em grupo para idosos, focado em mobilidade, equilíbrio, prevenção de quedas e autonomia. Sessões em grupo que promovem socialização e envelhecimento ativo.',
           },
@@ -234,7 +234,7 @@ const structuredData = [
           '@type': 'Offer',
           itemOffered: {
             '@type': 'Service',
-            name: 'Intelekta Sênior + Neuroreabilitação',
+            name: 'Neuroreabilitação',
             description:
               'Programa de neuroreabilitação em grupo para idosos, conduzido por neuropsicóloga, focado em estimulação cognitiva, memória, atenção e raciocínio. Combate isolamento social e promove autonomia.',
           },
