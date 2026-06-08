@@ -3,7 +3,7 @@
  *
  * Fonts: Lato (body) + Nunito (headings) via next/font/google with display:swap.
  * Analytics: Vercel Analytics + SpeedInsights (cookieless, LGPD-compliant).
- * Structured Data: EducationalOrganization (7 services, 3 employees),
+ * Structured Data: EducationalOrganization (9 services, 3 employees),
  *   FAQPage (5 Q&As), and WebSite schema for rich search results.
  */
 import type { Metadata, Viewport } from 'next'
@@ -62,6 +62,13 @@ export const metadata: Metadata = {
     'curso de xadrez e cubo mágico vila velha',
     'atendimento psicológico particular',
     'psicologia infantil vila velha',
+    'fisioterapia funcional idosos vila velha',
+    'neuroreabilitação vila velha',
+    'prevenção de quedas idosos',
+    'fisioterapia em grupo para idosos',
+    'estimulação cognitiva grupo idosos',
+    'neuropsicóloga idosos vila velha',
+    'envelhecimento ativo vila velha',
   ],
   applicationName: 'Intelekta',
   authors: [{ name: 'Intelekta' }],
@@ -214,6 +221,24 @@ const structuredData = [
       '@type': 'OfferCatalog',
       name: 'Programas de Desenvolvimento',
       itemListElement: [
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'Intelekta Sênior + Fisioterapia Funcional',
+            description:
+              'Programa de fisioterapia funcional em grupo para idosos, focado em mobilidade, equilíbrio, prevenção de quedas e autonomia. Sessões em grupo que promovem socialização e envelhecimento ativo.',
+          },
+        },
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'Intelekta Sênior + Neuroreabilitação',
+            description:
+              'Programa de neuroreabilitação em grupo para idosos, conduzido por neuropsicóloga, focado em estimulação cognitiva, memória, atenção e raciocínio. Combate isolamento social e promove autonomia.',
+          },
+        },
         {
           '@type': 'Offer',
           itemOffered: {

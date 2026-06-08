@@ -164,7 +164,7 @@ export function Programs() {
                 <span className="text-primary">cuidado especial.</span>
               </h2>
               <p className="mt-2 max-w-lg text-[14px] leading-relaxed text-muted-foreground sm:mt-3 sm:text-base">
-                7 programas especializados que promovem o aprendizado de forma lúdica,
+                9 programas especializados que promovem o aprendizado de forma lúdica,
                 envolvente e significativa — para todas as fases da vida.
               </p>
             </div>

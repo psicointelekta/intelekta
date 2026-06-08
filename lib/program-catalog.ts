@@ -10,6 +10,8 @@
  */
 
 export const PROGRAM_OPTIONS = [
+  "Sênior + Fisioterapia Funcional",
+  "Sênior + Neuroreabilitação",
   "Neuroeducação",
   "Xadrez Pedagógico",
   "Musicoterapia",
@@ -47,8 +49,30 @@ export const ageStages = [
 
 export const programs = [
   {
-    id: "neuroeducacao",
+    id: "fisioterapia-funcional",
     number: "01",
+    title: "Sênior + Fisioterapia",
+    subtitle: "Cuidado integrado para movimento e autonomia",
+    description:
+      "Oficinas e atendimentos em grupo para idosos, com foco em movimento, funcionalidade e qualidade de vida. Fortalece mobilidade, equilíbrio e coordenação com prevenção de quedas.",
+    tags: ["Fisioterapia Funcional", "Prevenção de Quedas", "Longevidade"],
+    intent: "Fisioterapia funcional para idosos em grupo Vila Velha",
+    image: "/images/senior-fisioterapia.webp",
+  },
+  {
+    id: "neuroreabilitacao",
+    number: "02",
+    title: "Sênior + Neuroreabilitação",
+    subtitle: "Cuidado especializado em cognição e autonomia",
+    description:
+      "Sessões em grupo de neuroreabilitação para idosos, com foco em cognição, funcionalidade e qualidade de vida. Estimula memória, atenção e raciocínio com socialização.",
+    tags: ["Neuroreabilitação", "Estimulação Cognitiva", "Memória"],
+    intent: "Neuroreabilitação e estimulação cognitiva sênior Vila Velha",
+    image: "/images/senior-neuroreabilitacao.webp",
+  },
+  {
+    id: "neuroeducacao",
+    number: "03",
     title: "Neuroeducação",
     subtitle: "Programa multidisciplinar 100% lúdico em Vila Velha",
     description:
@@ -59,7 +83,7 @@ export const programs = [
   },
   {
     id: "xadrez",
-    number: "02",
+    number: "04",
     title: "Xadrez Pedagógico",
     subtitle: "Raciocínio lógico e foco estratégico",
     description:
@@ -70,7 +94,7 @@ export const programs = [
   },
   {
     id: "musicoterapia",
-    number: "03",
+    number: "05",
     title: "Musicoterapia",
     subtitle: "Regulação emocional através da música",
     description:
@@ -81,7 +105,7 @@ export const programs = [
   },
   {
     id: "cubo-magico",
-    number: "04",
+    number: "06",
     title: "Cubo Mágico",
     subtitle: "Planejamento e funções executivas",
     description:
@@ -92,7 +116,7 @@ export const programs = [
   },
   {
     id: "reforco-escolar",
-    number: "05",
+    number: "07",
     title: "Reforço Escolar",
     subtitle: "Apoio escolar personalizado",
     description:
@@ -103,7 +127,7 @@ export const programs = [
   },
   {
     id: "neurole",
-    number: "06",
+    number: "08",
     title: "Neurolê",
     subtitle: "Alfabetização inclusiva para autismo (TEA)",
     description:
@@ -114,7 +138,7 @@ export const programs = [
   },
   {
     id: "psicopedagogia",
-    number: "07",
+    number: "09",
     title: "Psicopedagogia",
     subtitle: "Atendimento especializado em aprendizagem",
     description:

@@ -4,7 +4,7 @@ import { getGoogleSheets, SPREADSHEET_ID } from "@/lib/google-sheets"
 
 export const metadata: Metadata = {
   title: 'Programas de Desenvolvimento Cognitivo e Socioemocional',
-  description: 'Conheça nossos 7 programas personalizados, incluindo Neuroeducação, Musicoterapia, Xadrez e mais. Potencialize mentes com base na neurociência.',
+  description: 'Conheça nossos 9 programas personalizados: Intelekta Sênior (Fisioterapia Funcional e Neuroreabilitação para idosos), Neuroeducação, Musicoterapia, Xadrez e mais. Potencialize mentes com base na neurociência.',
   alternates: {
     canonical: 'https://psicointelekta.com.br/programas',
   },
