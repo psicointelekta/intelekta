@@ -3,7 +3,6 @@
  * Smooth-scroll navigation mirrors the header behavior.
  */
 "use client"
-import { useCallback } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { Instagram, Mail, Phone, MapPin } from "lucide-react"
@@ -39,21 +38,6 @@ interface FooterProps {
 export function Footer({ className }: FooterProps) {
   const currentYear = new Date().getFullYear()
 
-  const scrollTo = useCallback((e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault()
-    // Find the base ID if query params are present (e.g. #programas?p=...)
-    const baseId = href.split('?')[0]
-    const el = document.querySelector(baseId)
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth" })
-      window.history.replaceState(null, "", href)
-
-      // Dispatch custom event for hash changes within the same page
-      if (href.includes('?')) {
-        window.dispatchEvent(new HashChangeEvent('hashchange'))
-      }
-    }
-  }, [])
 
   return (
     <footer className={cn("bg-dark-section py-12 border-t border-primary/5", className)} role="contentinfo">
@@ -120,21 +104,20 @@ export function Footer({ className }: FooterProps) {
         {/* SEO Programs List */}
         <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 border-t border-white/5 pt-8 w-full">
           {navigation.programs.map((item) => (
-            <a
+            <Link
               key={item.name}
               href={item.href}
-              onClick={(e) => scrollTo(e, item.href)}
               className="text-[9px] font-bold uppercase tracking-[0.2em] text-dark-section-foreground/25 hover:text-primary transition-colors"
             >
               {item.name}
-            </a>
+            </Link>
           ))}
         </div>
 
         {/* Minimal Bottom */}
         <div className="pt-8 border-t border-white/5 w-full flex flex-col sm:flex-row justify-between items-center gap-4">
           <p className="text-[10px] text-dark-section-foreground/30 uppercase tracking-widest">
-            &copy; {currentYear} Intelekta &bull; Todos os direitos reservados
+            &copy; {currentYear}{" "}Intelekta &bull; Todos os direitos reservados
           </p>
           <div className="flex gap-6">
             <Link href="/privacidade" className="text-[10px] text-dark-section-foreground/30 hover:text-primary transition-colors font-bold uppercase tracking-widest">

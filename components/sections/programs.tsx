@@ -62,21 +62,32 @@ export function Programs() {
   useEffect(() => {
     setMounted(true)
 
-    const handleHashSync = () => {
+    const syncProgramFromUrl = () => {
+      // 1. Tenta ler o programa da query string (?p=slug) — usado pelos links do footer
+      const urlParams = new URLSearchParams(window.location.search)
+      const fromQuery = urlParams.get("p")
+      if (fromQuery) {
+        const index = programs.findIndex(p => p.id === fromQuery)
+        if (index !== -1) {
+          setTimeout(() => goTo(index), 100)
+          return
+        }
+      }
+
+      // 2. Fallback: tenta ler do hash (#programas?p=slug) — usado pelo header
       const hash = window.location.hash
       if (hash.includes("?p=")) {
         const programId = hash.split("?p=")[1]
         const index = programs.findIndex(p => p.id === programId)
         if (index !== -1) {
-          // Pequeno delay para garantir que o carrossel mediu a largura (slideWidth)
           setTimeout(() => goTo(index), 100)
         }
       }
     }
 
-    handleHashSync()
-    window.addEventListener("hashchange", handleHashSync)
-    return () => window.removeEventListener("hashchange", handleHashSync)
+    syncProgramFromUrl()
+    window.addEventListener("hashchange", syncProgramFromUrl)
+    return () => window.removeEventListener("hashchange", syncProgramFromUrl)
   }, [goTo])
 
   // ── Mede o container do carrossel ──────────────────────────────────────────
