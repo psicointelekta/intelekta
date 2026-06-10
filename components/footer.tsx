@@ -20,6 +20,8 @@ const navigation = {
     { name: "Contato", href: "/contato" },
   ],
   programs: [
+    { name: "Fisioterapia Funcional", href: "/programas?p=fisioterapia-funcional" },
+    { name: "Neuroreabilitação", href: "/programas?p=neuroreabilitacao" },
     { name: "Neuroeducação", href: "/programas?p=neuroeducacao" },
     { name: "Xadrez Pedagógico", href: "/programas?p=xadrez" },
     { name: "Musicoterapia", href: "/programas?p=musicoterapia" },
